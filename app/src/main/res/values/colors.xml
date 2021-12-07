@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+
+
+    <!--公共颜色-->
+    <color name="black">#000000</color>
+    <color name="gray">#999999</color>
+    <color name="white" >#ffffff</color>
+    <color name="white_1a">#1affffff</color>
+    <color name="white_dd">#99ffffff</color>
+    <color name="white_f2">#f2ffffff</color>
+    <color name="white_33">#33ffffff</color>
+    <color name="silver_grey">#edf0f2</color>
+    <color name="nocolor">#00000000</color>
+    <color name="black_999999">#999999</color>
+    <color name="black_333333">#333333</color>
+    <color name="gray_eeeeeee">#eeeeee</color>
+    <color name="gray_aaaaaa">#aaaaaa</color>
+    <color name="color_theme_green_light">#708c73</color>
+    <color name="mask_view_color">#40000000</color>
+    <color name="gray_f7">#f7f8f9</color>
+
+
+
+    <!--主色-->
+    <color name="color_app_main">#D5080A</color>
+    <color name="color_app_main_pressed">#99080A</color>
+    <!--分割线颜色-->
+    <color name="color_item_divider_66">#666666</color>
+    <color name="color_item_divider_99">#999999</color>
+
+    <!--文字颜色-->
+    <color name="color_text_00">#000000</color>
+    <color name="color_text_33">#333333</color>
+    <color name="color_text_66">#666666</color>
+    <color name="color_text_99">#999999</color>
+    <color name="color_theme_green">#4B814B</color>
+
+</resources>
