@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">SXD_CAMERA</string>
+
+    <string name="m2_parse_error_msg">Failed to parse data</string>
+    <string name="m3_bad_network_msg">Internet problem</string>
+    <string name="m4_connect_error_msg">Connection error</string>
+    <string name="m5_connect_timeout_msg">Connection timed out</string>
+    <string name="m6_other_msg">Unknown mistake</string>
+
 </resources>

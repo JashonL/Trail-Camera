@@ -1,8 +1,9 @@
 package com.shuoxd.camera.base;
 
 
-import com.growatt.grohome.R;
-import com.growatt.grohome.app.App;
+
+import com.shuoxd.camera.R;
+import com.shuoxd.camera.app.App;
 
 import java.io.IOException;
 
