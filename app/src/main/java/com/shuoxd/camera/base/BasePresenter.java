@@ -10,9 +10,10 @@ import android.os.Message;
 
 import androidx.annotation.NonNull;
 
-import com.growatt.grohome.handler.NoleakHandler;
-import com.growatt.grohome.http.API;
-import com.growatt.grohome.http.RetrofitService;
+
+import com.shuoxd.camera.http.API;
+import com.shuoxd.camera.http.RetrofitService;
+import com.shuoxd.camera.noleakHandler.NoLeakHandler;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,7 +32,7 @@ public class BasePresenter<V extends BaseView> implements Handler.Callback {
 
     private CompositeDisposable compositeDisposable;
     public V baseView;
-    public NoleakHandler handler;
+    public NoLeakHandler handler;
     public Context context;
 
     /**
@@ -48,7 +49,7 @@ public class BasePresenter<V extends BaseView> implements Handler.Callback {
     }
 
     public void initHandler(Context context){
-        handler=new NoleakHandler(context,this);
+        handler=new NoLeakHandler(context,this);
     }
 
     /**

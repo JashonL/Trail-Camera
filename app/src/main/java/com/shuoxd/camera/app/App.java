@@ -7,9 +7,6 @@ import android.content.Context;
 import com.hjq.toast.ToastUtils;
 import com.mylhyl.circledialog.res.values.CircleColor;
 import com.shuoxd.camera.utils.LogUtil;
-import com.tuya.smart.android.user.bean.User;
-import com.tuya.smart.home.sdk.TuyaHomeSdk;
-import com.tuya.smart.sdk.api.INeedLoginListener;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -40,9 +37,7 @@ public class App extends Application {
         /*吐司提示*/
         ToastUtils.init(this);
 
-        //初始化涂鸦
-        TuyaHomeSdk.init(this);
-        TuyaHomeSdk.setDebugMode(false);
+
         //全局初始化弹框
         initCirclerDialog();
 
@@ -82,7 +77,6 @@ public class App extends Application {
             e.printStackTrace();
         } finally {
             //注销涂鸦
-            TuyaHomeSdk.onDestroy();
             System.exit(0);
         }
     }
@@ -97,9 +91,9 @@ public class App extends Application {
     }
 
 
-    /**
+ /*   *//**
      * 保存全局用户
-     */
+     *//*
     public static User userBean;
 
     public static User getUserBean() {
@@ -108,7 +102,7 @@ public class App extends Application {
 
     public static void setUserBean(User userBean) {
         App.userBean = userBean;
-    }
+    }*/
 
 
  /*   private void initSampleAssets() {

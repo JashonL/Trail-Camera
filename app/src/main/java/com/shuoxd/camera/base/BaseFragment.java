@@ -12,10 +12,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.growatt.grohome.R;
-import com.growatt.grohome.utils.MyToastUtils;
-import com.growatt.grohome.utils.Mydialog;
 import com.gyf.immersionbar.ImmersionBar;
+import com.shuoxd.camera.R;
+import com.shuoxd.camera.utils.MyToastUtils;
+import com.shuoxd.camera.utils.Mydialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -174,7 +174,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
      */
     @Override
     public void showLoading() {
-        Mydialog.show(mContext,"");
+        Mydialog.show(mContext);
     }
 
     /**
