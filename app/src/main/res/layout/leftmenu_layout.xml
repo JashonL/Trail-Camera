@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/tv_filter"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_50"
+                android:background="@color/color_app_main"
+                android:gravity="center"
+                android:text="@string/m13_filter"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_title_sp_16"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tv_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="@string/m14_photo"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_filter" />
+
+            <RadioGroup
+                android:id="@+id/rg_photo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@+id/tv_photo">
+
+                <RadioButton
+                    android:id="@+id/rb_all"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:background="@drawable/selector_rb"
+                    android:button="@null"
+                    android:checked="true"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_3"
+                    android:text="@string/m15_all"
+                    android:textColor="@color/rb_text_selector" />
+
+                <RadioButton
+                    android:id="@+id/rb_hd"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:background="@drawable/selector_rb"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:padding="@dimen/dp_3"
+                    android:text="@string/m16_hd"
+                    android:textColor="@color/rb_text_selector" />
+
+            </RadioGroup>
+
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="@string/m17_date"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rg_photo" />
+
+
+            <CheckBox
+                android:id="@+id/cb_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:button="@drawable/selector_cb"
+                android:checked="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+            <ImageView
+                android:id="@+id/iv_year_left"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_year"
+                app:layout_constraintLeft_toRightOf="@+id/cb_year"
+                app:layout_constraintTop_toTopOf="@+id/cb_year" />
+
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:gravity="center_vertical"
+                android:text="2021"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_year"
+                app:layout_constraintLeft_toRightOf="@+id/iv_year_left"
+                app:layout_constraintTop_toTopOf="@+id/cb_year" />
+
+
+            <ImageView
+                android:id="@+id/iv_year_right"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_year"
+                app:layout_constraintLeft_toRightOf="@+id/tv_year"
+                app:layout_constraintTop_toTopOf="@+id/cb_year" />
+
+
+            <CheckBox
+                android:id="@+id/cb_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:button="@drawable/selector_cb"
+                android:checked="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_year" />
+
+            <ImageView
+                android:id="@+id/iv_month_left"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_month"
+                app:layout_constraintLeft_toRightOf="@+id/cb_month"
+                app:layout_constraintTop_toTopOf="@+id/cb_month" />
+
+            <TextView
+                android:id="@+id/tv_month"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:gravity="center_vertical"
+                android:text="arith"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_month"
+                app:layout_constraintLeft_toRightOf="@+id/iv_month_left"
+                app:layout_constraintTop_toTopOf="@+id/cb_month" />
+
+
+            <ImageView
+                android:id="@+id/iv_month_right"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_month"
+                app:layout_constraintLeft_toRightOf="@+id/tv_month"
+                app:layout_constraintTop_toTopOf="@+id/cb_month" />
+
+
+            <CheckBox
+                android:id="@+id/cb_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:button="@drawable/selector_cb"
+                android:checked="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_month" />
+
+            <ImageView
+                android:id="@+id/iv_day_left"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_day"
+                app:layout_constraintLeft_toRightOf="@+id/cb_day"
+                app:layout_constraintTop_toTopOf="@+id/cb_day" />
+
+            <TextView
+                android:id="@+id/tv_day"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:gravity="center_vertical"
+                android:text="21"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_day"
+                app:layout_constraintLeft_toRightOf="@+id/iv_day_left"
+                app:layout_constraintTop_toTopOf="@+id/cb_day" />
+
+
+            <ImageView
+                android:id="@+id/iv_day_right"
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:layout_marginStart="@dimen/dp_20"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_day"
+                app:layout_constraintLeft_toRightOf="@+id/tv_day"
+                app:layout_constraintTop_toTopOf="@+id/cb_day" />
+
+
+            <CheckBox
+                android:id="@+id/cb_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_20"
+                android:button="@drawable/selector_cb"
+                android:checked="true"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cb_day" />
+
+
+            <TextView
+                android:id="@+id/tv_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:gravity="center_vertical"
+                android:text="start:"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_time"
+                app:layout_constraintLeft_toRightOf="@+id/cb_time"
+                app:layout_constraintTop_toTopOf="@+id/cb_time" />
+
+
+            <TextView
+                android:id="@+id/iv_reduce"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@drawable/shape_circle_gray"
+                android:gravity="center"
+                android:text="-"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_time"
+                app:layout_constraintLeft_toRightOf="@+id/tv_start"
+                app:layout_constraintTop_toTopOf="@+id/cb_time" />
+
+
+            <TextView
+                android:id="@+id/tv_time_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:text="21:00"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_time"
+                app:layout_constraintLeft_toRightOf="@+id/iv_reduce"
+                app:layout_constraintTop_toTopOf="@+id/cb_time" />
+
+
+            <TextView
+                android:id="@+id/iv_add"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:layout_marginStart="@dimen/dp_10"
+                android:background="@drawable/shape_circle_gray"
+                android:gravity="center"
+                android:text="+"
+                app:layout_constraintBottom_toBottomOf="@+id/cb_time"
+                app:layout_constraintLeft_toRightOf="@+id/tv_time_start"
+                app:layout_constraintTop_toTopOf="@+id/cb_time" />
+
+
+            <TextView
+                android:id="@+id/tv_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_20"
+                android:gravity="center_vertical"
+                android:text="end:"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_start"
+                app:layout_constraintTop_toBottomOf="@+id/tv_start" />
+
+
+            <TextView
+                android:id="@+id/iv_end_reduce"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:background="@drawable/shape_circle_gray"
+                android:gravity="center"
+                android:text="-"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_end"
+                app:layout_constraintLeft_toLeftOf="@+id/iv_reduce"
+                app:layout_constraintRight_toRightOf="@+id/iv_reduce"
+                app:layout_constraintTop_toTopOf="@+id/tv_end" />
+
+
+            <TextView
+                android:id="@+id/tv_time_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="21:00"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_end"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_time_start"
+                app:layout_constraintRight_toRightOf="@+id/tv_time_start"
+                app:layout_constraintTop_toTopOf="@+id/tv_end" />
+
+
+            <TextView
+                android:id="@+id/iv_end_add"
+                android:layout_width="@dimen/dp_16"
+                android:layout_height="@dimen/dp_16"
+                android:background="@drawable/shape_circle_gray"
+                android:gravity="center"
+                android:text="+"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_end"
+                app:layout_constraintLeft_toLeftOf="@+id/iv_add"
+                app:layout_constraintRight_toRightOf="@+id/iv_add"
+                app:layout_constraintTop_toTopOf="@+id/tv_end" />
+
+
+            <TextView
+                android:id="@+id/tv_temp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="@string/m18_temp"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_end" />
+
+
+            <TextView
+                android:id="@+id/tv_temp_start"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_20"
+                android:background="@drawable/shape_white_stroke"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="45"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_temp" />
+
+
+            <TextView
+                android:id="@+id/tv_temp_center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="~"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_temp_start"
+                app:layout_constraintLeft_toRightOf="@+id/tv_temp_start"
+                app:layout_constraintTop_toTopOf="@+id/tv_temp_start" />
+
+
+            <TextView
+                android:id="@+id/tv_temp_end"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="45"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_temp_start"
+                app:layout_constraintLeft_toRightOf="@+id/tv_temp_center"
+                app:layout_constraintTop_toTopOf="@+id/tv_temp_start" />
+
+
+            <TextView
+                android:id="@+id/tv_temp_unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="℃"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_temp_start"
+                app:layout_constraintLeft_toRightOf="@+id/tv_temp_end"
+                app:layout_constraintTop_toTopOf="@+id/tv_temp_start" />
+
+
+            <TextView
+                android:id="@+id/tv_lunar_phase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                android:text="@string/m19_temp"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_temp_start" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/tv_lunar_phase" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

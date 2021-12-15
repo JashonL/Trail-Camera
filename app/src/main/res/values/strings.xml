@@ -21,5 +21,12 @@
     <string name="m10_complete">COMPLETE</string>
     <string name="m11_find_bar">Can’t Find Barcode? Enter yourself</string>
     <string name="m12_skip">Skip</string>
+    <string name="m13_filter">FILTER</string>
+    <string name="m14_photo">Photo</string>
+    <string name="m15_all">All</string>
+    <string name="m16_hd">HD</string>
+    <string name="m17_date">Date</string>
+    <string name="m18_temp">Temperature</string>
+    <string name="m19_temp">Lunar phase</string>
 
 </resources>

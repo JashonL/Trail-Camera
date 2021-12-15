@@ -28,6 +28,8 @@
     <color name="gray_f6">#fff6f7f8</color>
     <color name="gray_ff00">#ff000000</color>
     <color name="red">#FA5151</color>
+    <color name="orangle">#F28800</color>
+
 
     <!--主色-->
     <color name="color_app_main">#2CDB7B</color>
