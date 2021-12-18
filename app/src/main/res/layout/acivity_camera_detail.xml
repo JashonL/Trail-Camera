@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toobar_title" />
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_42"
+        android:background="@color/white"
+        android:gravity="center"
+        android:text="1/108"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_42"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:text="@string/m20_sliding"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_240"
+        android:background="@drawable/deer" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_menu"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_65"
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_30"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_collec"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:drawableTop="@drawable/collection"
+            android:gravity="center"
+            android:text="@string/m21_collection"
+            android:textColor="@color/color_text_66"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_delete" />
+
+
+        <TextView
+            android:id="@+id/tv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:drawableTop="@drawable/delete"
+            android:gravity="center"
+            android:text="@string/m22_delete"
+            android:textColor="@color/color_text_66"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_collec"
+            app:layout_constraintRight_toLeftOf="@+id/tv_share" />
+
+
+        <TextView
+            android:id="@+id/tv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:drawableTop="@drawable/share"
+            android:gravity="center"
+            android:text="@string/m23_share"
+            android:textColor="@color/color_text_66"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/tv_delete"
+            app:layout_constraintRight_toRightOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="@dimen/dp_207"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@drawable/selector_button_corner"
+        android:drawableStart="@drawable/download"
+        android:minWidth="@dimen/dp_250"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m24_download"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_menu"
+        app:layout_constraintVertical_bias="0.2" />
+</LinearLayout>

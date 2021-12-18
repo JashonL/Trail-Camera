@@ -28,5 +28,23 @@
     <string name="m17_date">Date</string>
     <string name="m18_temp">Temperature</string>
     <string name="m19_temp">Lunar phase</string>
+    <string name="m20_sliding">Left and right sliding</string>
+    <string name="m21_collection">collection</string>
+    <string name="m22_delete">delete</string>
+    <string name="m23_share">share</string>
+    <string name="m24_download">High Resolution Download</string>
+    <string name="m25_day">Day</string>
+    <string name="m26_week">Week</string>
+    <string name="m27_month">Month</string>
+    <string name="m28_year">Year</string>
+    <string name="m29_nearest_weather">Nearest Weather Station:Lake Bridgeport, Texas</string>
+    <string name="m30_reset_tracking_history">Reset Tracking History</string>
+    <string name="m31_matthew">MATTHEW</string>
+    <string name="m32_certified">Certified</string>
+    <string name="m33_bank_card">Bank Card</string>
+    <string name="m34_integration">Integration</string>
+    <string name="m35_coupon">Coupon</string>
+    <string name="m36_service">Service</string>
+
 
 </resources>
