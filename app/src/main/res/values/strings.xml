@@ -45,6 +45,11 @@
     <string name="m34_integration">Integration</string>
     <string name="m35_coupon">Coupon</string>
     <string name="m36_service">Service</string>
+    <string name="m37_select_camera">Select a Camera to manage</string>
+    <string name="m38_change">Change</string>
+    <string name="m39_suspend">Suspend</string>
+    <string name="m40_remove">Remove</string>
+    <string name="m41_back">Back</string>
 
 
 </resources>
