@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toobar_title" />
+
+    <TextView
+        android:id="@+id/tv_custom_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/dp_10"
+        android:text="@string/m54_change_password"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
+
+
+    <EditText
+        android:id="@+id/et_alfah"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="@dimen/dp_45"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_30"
+        android:background="@drawable/shape_green_stroke"
+        android:gravity="center_vertical"
+        android:hint="@string/m46_hlfha"
+        android:paddingStart="@dimen/dp_10"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_custom_service" />
+
+
+    <EditText
+        android:id="@+id/et_testing"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="@dimen/dp_45"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/shape_green_stroke"
+        android:gravity="center_vertical"
+        android:hint="@string/m46_hlfha"
+        android:paddingStart="@dimen/dp_10"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_alfah" />
+
+    <EditText
+        android:id="@+id/et_somewere_onearth"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="@dimen/dp_45"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/shape_green_stroke"
+        android:gravity="center_vertical"
+        android:hint="@string/m46_hlfha"
+        android:paddingStart="@dimen/dp_10"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_testing" />
+
+
+    <EditText
+        android:id="@+id/et_address"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="@dimen/dp_45"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/shape_green_stroke"
+        android:gravity="center_vertical"
+        android:hint="@string/m50_address2"
+        android:paddingStart="@dimen/dp_10"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_somewere_onearth" />
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_45"
+        android:layout_gravity="end"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_10"
+        android:text="@string/m47_state"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintRight_toRightOf="@+id/et_address"
+        app:layout_constraintTop_toBottomOf="@+id/et_address" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_hoolywood"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="@dimen/dp_45"
+        android:background="@drawable/shape_green_stroke"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_state">
+
+        <TextView
+            android:id="@+id/tv_hooly"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_45"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_10"
+            android:text="@string/m51_Hoolywood"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintRight_toRightOf="@+id/et_address"
+            app:layout_constraintTop_toBottomOf="@+id/et_address" />
+
+
+        <View
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="match_parent"
+            android:background="@color/color_text_99" />
+
+        <TextView
+            android:id="@+id/tv_cali"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_45"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:paddingStart="@dimen/dp_10"
+            android:text="@string/m52_cali"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintRight_toRightOf="@+id/et_address"
+            app:layout_constraintTop_toBottomOf="@+id/et_address" />
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginTop="@dimen/dp_50"
+        android:layout_marginBottom="@dimen/dp_64"
+        android:background="@drawable/selector_button_corner"
+        android:minWidth="@dimen/dp_250"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m53_next"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_title_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_hoolywood"
+        app:layout_constraintVertical_bias="0.2" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -50,6 +50,20 @@
     <string name="m39_suspend">Suspend</string>
     <string name="m40_remove">Remove</string>
     <string name="m41_back">Back</string>
+    <string name="m42_nomessage">No messgee fo you!</string>
+    <string name="m43_custom_service">CUSTOMER SERVICEC</string>
+    <string name="m44_ask_questions">FREQUENTLY ASKED QUESTIONS</string>
+    <string name="m45_maling_information">MALING INFORMATION</string>
+    <string name="m46_hlfha">Alfha</string>
+    <string name="m47_state">*State</string>
+    <string name="m48_Testing">Testing</string>
+    <string name="m49_somewhere_on_earth">Somewhere on earth</string>
+    <string name="m50_address2">Address2</string>
+    <string name="m51_Hoolywood">Hoolywood</string>
+    <string name="m52_cali">CA-Cali...</string>
+    <string name="m53_next">NEXT</string>
+    <string name="m54_change_password">CHANGE PASSWORD</string>
+    <string name="m55_determine">Determine</string>
 
 
 </resources>
