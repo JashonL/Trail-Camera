@@ -65,5 +65,9 @@
     <string name="m54_change_password">CHANGE PASSWORD</string>
     <string name="m55_determine">Determine</string>
 
+    <string name="m56_home">Determine</string>
+    <string name="m57_nearby">Nearby</string>
+    <string name="m58_user">User</string>
+
 
 </resources>
