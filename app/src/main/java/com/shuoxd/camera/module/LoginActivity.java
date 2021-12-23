@@ -3,11 +3,13 @@ package com.shuoxd.camera.module;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.view.View;
 
 import androidx.annotation.NonNull;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.module.presenter.LoginPresenter;
@@ -40,6 +42,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void initViews() {
 
+
     }
 
     @Override
@@ -63,10 +66,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     public void onViewClicked(View view) {
         switch (view.getId()){
             case R.id.btn_login:
-                Intent intent = new Intent(this,LoginActivity.class);
+                Intent intent = new Intent(this, MainActivity.class);
 //                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(activity, logo,
 //                        getString(R.string.transition_logo_splash));
-//                startActivity(intent, options.toBundle());
+                startActivity(intent,
+                        ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+
                 break;
         }
     }

@@ -6,10 +6,12 @@
 
 
     <ImageView
+        android:id="@+id/iv_logo"
         android:layout_width="@dimen/dp_150"
         android:layout_height="@dimen/dp_100"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_170"
+        android:transitionName="share"
         android:src="@drawable/login_logo" />
 
 

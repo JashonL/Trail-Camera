@@ -1,19 +1,29 @@
 package com.shuoxd.camera.module.init;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.module.LoginActivity;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class SplashActivity extends BaseActivity<SplashPresenter> implements ISplashView {
+
+
+    @BindView(R.id.iv_logo)
+    ImageView ivLogo;
 
     protected ImmersionBar mImmersionBar;
 
@@ -22,8 +32,11 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements ISp
     private Runnable runnableToLogin = new Runnable() {
         @Override
         public void run() {
-            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SplashActivity.this, ivLogo,"share");
+            startActivity(intent, options.toBundle());
             finish();
+
         }
     };
 
@@ -81,4 +94,5 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements ISp
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 
     }
+
 }

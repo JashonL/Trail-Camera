@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
@@ -19,6 +21,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.module.LoginActivity;
+import com.shuoxd.camera.module.home.HomeFragment;
 
 import java.util.List;
 
@@ -35,6 +38,13 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
     FrameLayout flContent;
 
 
+    /**
+     * 包括四个fragment
+     */
+    private HomeFragment homeFragment;
+
+    private FragmentTransaction mTransaction;
+
     private FragmentManager mManager;
 
 
@@ -45,8 +55,9 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
 
     @Override
     protected void initViews() {
-
 //        mHomeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+//        getWindow().setExitTransition(new Explode().setDuration(500));
+//        getWindow().setEnterTransition(new Explode().setDuration(500));
 
         mManager = getSupportFragmentManager();
 
@@ -135,7 +146,36 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
     @Override
     public void onTabSelected(int position) {
 
+        //开启事务
+        mTransaction = mManager.beginTransaction();
+        hideFragment(mTransaction);
+        switch (position) {
+            case 0:
+                if (homeFragment == null) {
+                    homeFragment = new HomeFragment();
+                    mTransaction.add(R.id.fl_content, homeFragment);
+                }else {
+                    mTransaction.show(homeFragment);
+                }
+                break;
+
+        }
+        mTransaction.commit();
     }
+
+
+
+
+    /**
+     * 隐藏fragment
+     */
+    private void hideFragment(FragmentTransaction transaction) {
+        if (homeFragment != null) {
+            transaction.hide(homeFragment);
+        }
+    }
+
+
 
     @Override
     public void onTabUnselected(int position) {

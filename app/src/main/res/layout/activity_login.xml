@@ -44,6 +44,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/v_background"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                android:transitionName="share"
                 app:layout_constraintTop_toTopOf="@+id/v_background" />
 
 
