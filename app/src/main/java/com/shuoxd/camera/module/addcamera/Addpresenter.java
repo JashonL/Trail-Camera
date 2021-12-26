@@ -1,0 +1,137 @@
+package com.shuoxd.camera.module.addcamera;
+
+import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
+import android.content.Intent;
+import android.text.TextUtils;
+
+import com.google.gson.Gson;
+import com.hjq.toast.ToastUtils;
+import com.shuoxd.camera.MainActivity;
+import com.shuoxd.camera.app.App;
+import com.shuoxd.camera.base.BaseObserver;
+import com.shuoxd.camera.base.BasePresenter;
+import com.shuoxd.camera.constants.GlobalConstant;
+import com.shuoxd.camera.constants.SharePreferenConstants;
+import com.shuoxd.camera.module.login.User;
+import com.shuoxd.camera.utils.SharedPreferencesUnit;
+
+import org.json.JSONObject;
+
+public class Addpresenter extends BasePresenter<AddCanmeraView> {
+
+    String imei;
+
+
+    public Addpresenter(Context context, AddCanmeraView baseView) {
+        super(context, baseView);
+    }
+
+    public void initData(){
+        imei = ((Activity) context).getIntent().getStringExtra(GlobalConstant.SCAN_RESULT);
+        if (!TextUtils.isEmpty(imei)){
+            baseView.showImei(imei);
+        }
+    }
+
+
+    public void addCamera(String imei){
+        addDisposable(apiServer.addCamera(imei),  new BaseObserver<String>(baseView,
+                true) {
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)){//请求成功
+                        String accountName = App.getUserBean().getAccountName();
+                        String password = App.getUserBean().getPassword();
+                        if (App.IS_LOGIN){
+                            ((Activity) context).finish();
+                        }else {
+                            userLogin(accountName,password);
+                        }
+                    }else {
+                        String msg = jsonObject.getString("msg");
+                        ToastUtils.show(msg);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
+    }
+
+
+
+    /**
+     * 登录
+     */
+    public void userLogin(String username, String password) {
+        //正式登录
+        addDisposable(apiServer.login(username, password), new BaseObserver<String>(baseView,true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)){//请求成功
+                        JSONObject obj = jsonObject.optJSONObject("obj");
+                        if (obj==null)return;
+                        JSONObject user1 = obj.optJSONObject("user");
+                        if (user1==null)return;
+                        //用户解析
+                        User userInfo = new Gson().fromJson(user1.toString(), User.class);
+                        userInfo.setAccountName(username);
+                        userInfo.setPassword(password);
+                        App.IS_LOGIN=true;
+                        savaUserInfo(username, password, userInfo);
+                    }else {
+                        String msg = jsonObject.optString("msg");
+                        baseView.showLoginError(msg);
+                    }
+                    loginSuccess();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showLoginError(msg);
+            }
+        });
+
+    }
+
+
+
+    /**
+     * 登录/注册 成功，保存用户信息
+     */
+    public void savaUserInfo(String username, String password, User user) {
+        SharedPreferencesUnit.getInstance(context).put(SharePreferenConstants.SP_USER_NAME, username);
+        SharedPreferencesUnit.getInstance(context).put(SharePreferenConstants.SP_USER_PASSWORD, password);
+        App.setUserBean(user);
+    }
+
+
+
+
+
+    private void loginSuccess(){
+        Intent intent = new Intent(context, MainActivity.class);
+        context. startActivity(intent,
+                ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
+        ((Activity) context).finish();
+    }
+
+}

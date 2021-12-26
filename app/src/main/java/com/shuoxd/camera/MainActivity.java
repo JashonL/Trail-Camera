@@ -4,14 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
-import android.transition.Explode;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -20,14 +16,15 @@ import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.base.BaseBean;
-import com.shuoxd.camera.module.LoginActivity;
+import com.shuoxd.camera.module.camera.CameraFragment;
+import com.shuoxd.camera.module.gallery.PhotoFragment;
 import com.shuoxd.camera.module.home.HomeFragment;
+import com.shuoxd.camera.module.map.MapFragment;
+import com.shuoxd.camera.module.me.MeFragment;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity<HomePresenter> implements IMainActivityView, BaseQuickAdapter.OnItemChildClickListener,
         BottomNavigationBar.OnTabSelectedListener {
@@ -39,12 +36,18 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
 
 
     /**
-     * 包括四个fragment
+     * 包括五个fragment
      */
     private HomeFragment homeFragment;
+    private PhotoFragment mPhotoFragment;
+    private MapFragment mMapFragment;
+    private MeFragment mMeFragment;
+
+
+    private CameraFragment mCameraFragment;
+
 
     private FragmentTransaction mTransaction;
-
     private FragmentManager mManager;
 
 
@@ -159,6 +162,33 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
                 }
                 break;
 
+            case 1:
+                if (mPhotoFragment == null) {
+                    mPhotoFragment = new PhotoFragment();
+                    mTransaction.add(R.id.fl_content, mPhotoFragment);
+                }else {
+                    mTransaction.show(mPhotoFragment);
+                }
+                break;
+
+            case 2:
+                if (mMapFragment == null) {
+                    mMapFragment = new MapFragment();
+                    mTransaction.add(R.id.fl_content, mMapFragment);
+                }else {
+                    mTransaction.show(mMapFragment);
+                }
+                break;
+
+            case 3:
+                if (mMeFragment == null) {
+                    mMeFragment = new MeFragment();
+                    mTransaction.add(R.id.fl_content, mMeFragment);
+                }else {
+                    mTransaction.show(mMeFragment);
+                }
+                break;
+
         }
         mTransaction.commit();
     }
@@ -222,10 +252,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
 
     }
 
-    @Override
-    public void showTuyaLoginError() {
-
-    }
 
     @Override
     protected HomePresenter createPresenter() {

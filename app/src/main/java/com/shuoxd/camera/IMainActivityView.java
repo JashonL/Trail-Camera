@@ -48,7 +48,6 @@ public interface IMainActivityView extends BaseView {
 
 
 
-    void  showTuyaLoginError();
 
 
 }

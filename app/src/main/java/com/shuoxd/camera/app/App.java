@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.hjq.toast.ToastUtils;
 import com.mylhyl.circledialog.res.values.CircleColor;
+import com.shuoxd.camera.module.login.User;
 import com.shuoxd.camera.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -91,9 +92,8 @@ public class App extends Application {
     }
 
 
- /*   *//**
-     * 保存全局用户
-     *//*
+
+
     public static User userBean;
 
     public static User getUserBean() {
@@ -102,13 +102,13 @@ public class App extends Application {
 
     public static void setUserBean(User userBean) {
         App.userBean = userBean;
-    }*/
+    }
 
 
- /*   private void initSampleAssets() {
-        CopyAsset copyAsset = new CopyAssetThreadImpl(this, new Handler());
-        for (String asset : sampleAssets) {
-            copyAsset.copy(asset, new File(getCacheDir(), asset).getAbsolutePath());
-        }
-    }*/
+    //是否已登录
+    public static boolean IS_LOGIN=false;
+
+
+
+
 }

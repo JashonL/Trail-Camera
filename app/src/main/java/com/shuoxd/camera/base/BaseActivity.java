@@ -195,11 +195,17 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         Mydialog.dissmiss();
     }
 
-
-
-    public void requestError(String errorMsg){
-        MyToastUtils.toast(errorMsg);
+    @Override
+    public void showResultError(String msg) {
+        MyToastUtils.toast(msg);
     }
+
+
+    @Override
+    public void showServerError(String msg) {
+        MyToastUtils.toast(msg);
+    }
+
 
 
     @Override

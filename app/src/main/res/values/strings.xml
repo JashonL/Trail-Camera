@@ -64,10 +64,16 @@
     <string name="m53_next">NEXT</string>
     <string name="m54_change_password">CHANGE PASSWORD</string>
     <string name="m55_determine">Determine</string>
-
     <string name="m56_home">Determine</string>
     <string name="m57_nearby">Nearby</string>
     <string name="m58_user">User</string>
+    <string name="m59_username">Username</string>
+    <string name="m60_email_address">Email Address</string>
+    <string name="m61_password">Password</string>
+    <string name="m62_confirm_password">Enter the password again</string>
+    <string name="m63_username_cannot_empty">Username can not be empty</string>
+    <string name="m63_password_cannot_empty">Password can not be empty</string>
+    <string name="m64_imei_cannot_empty">IMEI can not be empty</string>
 
 
 </resources>

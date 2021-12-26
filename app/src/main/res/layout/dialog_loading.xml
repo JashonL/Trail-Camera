@@ -10,7 +10,7 @@
         android:layout_width="@dimen/dp_55"
         android:layout_height="@dimen/dp_55"
         android:gravity="center"
-        android:background="@drawable/shape_gray33_corner">
+        android:background="@drawable/shape_corner_button">
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/avi"
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:visibility="visible"
             app:indicatorColor="@color/white"
-            app:indicatorName="LineSpinFadeLoaderIndicator"
+            app:indicatorName="PacmanIndicator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

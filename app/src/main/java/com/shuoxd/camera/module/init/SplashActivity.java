@@ -2,22 +2,19 @@ package com.shuoxd.camera.module.init;
 
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
 
 import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
-import com.shuoxd.camera.module.LoginActivity;
+import com.shuoxd.camera.module.login.LoginActivity;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class SplashActivity extends BaseActivity<SplashPresenter> implements ISplashView {
 

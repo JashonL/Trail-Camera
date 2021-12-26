@@ -23,37 +23,13 @@ import retrofit2.http.Url;
 
 public class API {
 
-    static final String BASE_URL = "http://energy.growatt.com/";
+    static final String BASE_URL = "http://47.75.113.249:60011/";
 //    static final String BASE_URL = "https://www.wanandroid.com/";
 
     private static final String OSS_URL = "http://oss1.growatt.com/";
 
     public static final String USER_URL = "http://server-api.growatt.com/";
 
-    public static final String VERIFICATION_CODE = "/newTwoRegisterAPI.do?action=sendEmailVerification";
-
-    public static final String UPDATE_USER_PASSWORD = "/newUserAPI.do?op=updateUserPassword";
-
-    public static final String VERIDATE = "/newLoginAPI.do?op=validate";
-
-    public static final String UPDATE_VALIDATE = "/newLoginAPI.do?op=updateValidate";
-
-    public static final String UPDATEUSER = "/newUserAPI.do?op=updateUser";
-
-    public static final String TEST_URL = "http://192.168.3.214:8082/eic_web/";
-
-    public static final String GET_ADVERTISING_LIST = "/newPlantAPI.do?op=getAdvertisingList&language=";
-
-    public static final String GET_SERVICE_PHONENUM = "/newUserAPI.do?op=getServicePhoneNum&language=";
-
-    public static final String URL_HOST = "server-api.growatt.com";//注册时用
-    public static final String URL_CN_HOST = "server-cn-api.growatt.com";//注册时用
-    //根据用户名或者采集器序列号获取服务器
-    public static final String GET_SERVER_URLBY_PARAM = "/newForgetAPI.do?op=getServerUrlByParam";
-    public static final String SEND_RESET_EMAIL_BY_ACCOUNT = "/newForgetAPI.do?op=sendResetEmailByAccount";
-
-    public static final String CREATACCOUNT = "/newTwoRegisterAPI.do?op=register_GroHome";
-    public static final String NEWTWOLOGINAPI = "/newTwoLoginAPI.do";
 
 
     public interface WAZApi {
@@ -70,18 +46,22 @@ public class API {
 
         //登录
         @FormUrlEncoded
-        @POST(OSS_URL + "api/v2/login")
-        Observable<String> getUserType(@Field("userName") String username, @Field("password") String password, @Field("language") String language);
-
-        @FormUrlEncoded
-        @POST
-        Observable<String> login(@Url String url, @Field("userName") String username, @Field("password") String password, @Field("appType") String appType, @Field("phoneSn") String phoneSn, @Field("phoneModel") String phoneModel, @Field("language") String language);
+        @POST("v1/user/login")
+        Observable<String> login(@Field("userName") String username, @Field("password") String password);
 
 
         //注册
         @FormUrlEncoded
-        @POST("user/register")
-        Observable<String> register(@Field("username") String username, @Field("password") String password, @Field("repassword") String repassword);
+        @POST("/v1/user/register")
+        Observable<String> register(@Field("email") String email, @Field("password") String password);
+
+        //添加相机
+        @FormUrlEncoded
+        @POST("/v1/camera/addCamera")
+        Observable<String> addCamera(@Field("imei") String imei);
+
+
+
 
 
         //获取国家
@@ -151,6 +131,11 @@ public class API {
         @POST("room/")
         Observable<String> getAllDevice(@Body RequestBody body);
 
+
+        //获取设备数据
+        @FormUrlEncoded
+        @POST("/v1/camera/cameraList/1")
+        Observable<String> cameraList(@Field("email") String email);
 
         //---------------------------【   设备   】-----------------------------------
         @POST("tuya/addDevice")

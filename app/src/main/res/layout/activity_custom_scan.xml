@@ -7,19 +7,19 @@
     <SurfaceView
         android:id="@+id/surfaceView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
     <com.king.zxing.ViewfinderView
         android:id="@+id/viewfinderView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:cornerColor="@color/colorPrimary"
+        app:frameColor="@color/colorPrimary"
+        app:labelTextLocation="bottom"
         app:labelTextSize="@dimen/size_content_sp_14"
         app:laserColor="@color/colorAccent"
-        app:frameColor="@color/colorPrimary"
-        app:cornerColor="@color/colorPrimary"
-        app:resultPointColor="@color/colorAccent"
-        app:labelTextLocation="bottom"
-        app:laserStyle="line"/>
+        app:laserStyle="line"
+        app:resultPointColor="@color/colorAccent" />
 
     <ImageView
         android:id="@+id/ivFlash"
@@ -50,6 +50,28 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_find_serialnum"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dp_30"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:lines="2"
+                android:drawableStart="@drawable/input"
+                android:minHeight="@dimen/dp_30"
+                android:text="@string/m11_find_bar"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14"
+                app:autoSizeMaxTextSize="@dimen/size_content_sp_12"
+                app:autoSizeMinTextSize="10sp"
+                app:autoSizeTextType="uniform"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
             <TextView
                 android:id="@+id/tv_step_1"
                 android:layout_width="@dimen/dp_30"
@@ -62,7 +84,7 @@
                 android:textSize="@dimen/size_content_sp_14"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/tv_step_2"
-                app:layout_constraintTop_toBottomOf="@+id/card_login" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_find_serialnum" />
 
 
             <View
@@ -80,10 +102,10 @@
                 android:id="@+id/tv_step_2"
                 android:layout_width="@dimen/dp_30"
                 android:layout_height="@dimen/dp_30"
-                android:background="@drawable/shape_circle_gray"
+                android:background="@drawable/shape_circle_green"
                 android:gravity="center"
                 android:text="2"
-                android:textColor="@color/color_text_66"
+                android:textColor="@color/white"
                 android:textSize="@dimen/size_content_sp_14"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_step_1"
                 app:layout_constraintLeft_toRightOf="@+id/tv_step_1"
@@ -111,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/m7_add_camera"
-                android:textColor="@color/color_text_99"
+                android:textColor="@color/color_app_main"
                 android:textSize="@dimen/size_content_sp_14"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_step1_text"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_step_2"
@@ -123,28 +145,6 @@
 
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_find_serialnum"
-        android:layout_width="@dimen/dp_200"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/dp_30"
-        android:background="@drawable/shape_grayff00"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:lines="2"
-        android:minHeight="@dimen/dp_30"
-        android:text="@string/m11_find_bar"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_content_sp_14"
-        app:autoSizeMaxTextSize="@dimen/size_content_sp_14"
-        app:autoSizeMinTextSize="10sp"
-        app:autoSizeTextType="uniform"
-        app:layout_constraintBottom_toTopOf="@+id/bottomLayout"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_login_background"
-    tools:context=".module.LoginActivity">
+    tools:context=".module.login.LoginActivity">
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -41,10 +41,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/login_logo"
+                android:transitionName="share"
                 app:layout_constraintBottom_toBottomOf="@+id/v_background"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:transitionName="share"
                 app:layout_constraintTop_toTopOf="@+id/v_background" />
 
 
@@ -107,11 +107,11 @@
                             android:layout_marginEnd="@dimen/dp_20"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:hint="Username"
                             app:hintTextAppearance="@style/hintAppearence"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <EditText
+                                android:id="@+id/et_username"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/login_user"
@@ -130,12 +130,12 @@
                             android:layout_marginEnd="@dimen/dp_20"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:hint="Password"
                             app:hintTextAppearance="@style/hintAppearence"
                             app:layout_constraintTop_toBottomOf="@+id/til_user"
                             app:passwordToggleEnabled="true">
 
                             <EditText
+                                android:id="@+id/et_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/login_pwd"
@@ -206,11 +206,11 @@
                             android:layout_marginEnd="@dimen/dp_20"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
-                            android:hint="Username"
                             app:hintTextAppearance="@style/hintAppearence"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <EditText
+                                android:id="@+id/et_register_username"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="8dp"
@@ -234,6 +234,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/til_re_user">
 
                             <EditText
+                                android:id="@+id/et_register_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="8dp"
@@ -258,6 +259,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/til_re_password">
 
                             <EditText
+                                android:id="@+id/et_confirm_password"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="8dp"
@@ -313,11 +315,18 @@
                 android:text="@string/m4_demo"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size_title_sp_14"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/card_login"
                 app:layout_constraintVertical_bias="0.2" />
+
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/gp_register_step"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="tv_step_1,v_step_center,tv_step_2,tv_step1_text,tv_step1_text,tv_step2_text" />
 
 
             <TextView

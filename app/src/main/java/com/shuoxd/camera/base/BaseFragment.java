@@ -160,9 +160,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         }
     }
 
-    public void requestError(String msg){
-        MyToastUtils.toast(msg);
-    }
+
 
     @Override
     public void onErrorCode(BaseBean bean) {
@@ -185,6 +183,17 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         Mydialog.dissmiss();
     }
 
+
+    @Override
+    public void showResultError(String msg) {
+        MyToastUtils.toast(msg);
+    }
+
+
+    @Override
+    public void showServerError(String msg) {
+        MyToastUtils.toast(msg);
+    }
 
     /**
      * 初始化沉浸式

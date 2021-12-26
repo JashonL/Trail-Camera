@@ -36,6 +36,7 @@
 
 
     <EditText
+        android:id="@+id/et_imei"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_46"
         android:background="@drawable/shape_green_stroke"
