@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shuoxd.camera.HomePresenter;
+import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.HomeDeviceBigAdapter;
 import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
@@ -181,8 +182,30 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        CameraBean cameraBean;
+        if (mLayoutType==TYPE_SMALL){
+             cameraBean = mBigAdapter.getData().get(position);
+        }else {
+             cameraBean = mBigAdapter.getData().get(position);
+        }
+        String id = cameraBean.getCamera().getId();
+        showCameraInfo(id);
 
     }
+
+
+
+    /**
+     * 点击item跳转到Fragment1V2
+     *
+     */
+    private void showCameraInfo(String id) {
+        MainActivity main = (MainActivity) getActivity();
+        main.cameraId = id;
+        main.showCameraInfo();
+    }
+
+
 
     @Override
     public void setDeviceList(List<CameraBean> cameraBeanList) {
@@ -219,4 +242,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
         srlPull.setRefreshing(false);
     }
+
+    /**
+     * 总览跳转刷新
+     *
+     */
+    public void jumpRefresh() {
+
+    }
+
 }

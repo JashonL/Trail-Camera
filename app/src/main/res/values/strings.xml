@@ -74,6 +74,7 @@
     <string name="m63_username_cannot_empty">Username can not be empty</string>
     <string name="m63_password_cannot_empty">Password can not be empty</string>
     <string name="m64_imei_cannot_empty">IMEI can not be empty</string>
+    <string name="m65_camera_of_garden">CAMERA OF GARDEN</string>
 
 
 </resources>

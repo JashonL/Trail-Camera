@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
 import com.shuoxd.camera.base.BaseFragment;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 
-public class PhotoFragment extends BaseFragment<PhotoPresenter> implements PhotoView {
+public class PhotoFragment extends BaseFragment<PhotoPresenter> implements PhotoView , BaseQuickAdapter.OnItemClickListener {
     @BindView(R.id.status_bar_view)
     View statusBarView;
     @BindView(R.id.tv_title)
@@ -88,4 +89,8 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         mAdapter.addHeaderView(switchHeader);
     }
 
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+    }
 }
