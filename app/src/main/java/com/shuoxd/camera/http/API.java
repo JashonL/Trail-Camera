@@ -47,7 +47,7 @@ public class API {
         //登录
         @FormUrlEncoded
         @POST("v1/user/login")
-        Observable<String> login(@Field("userName") String username, @Field("password") String password);
+        Observable<String> login(@Field("email") String username, @Field("password") String password);
 
 
         //注册
@@ -60,7 +60,9 @@ public class API {
         @POST("/v1/camera/addCamera")
         Observable<String> addCamera(@Field("imei") String imei);
 
-
+        //相机详情
+        @POST("/v1/camera/cameraInfo/{imei}")
+        Observable<String> cameraInfo(@Path("imei") String imei,@Field("email")String email);
 
 
 

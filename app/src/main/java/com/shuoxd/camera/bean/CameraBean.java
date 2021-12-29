@@ -47,7 +47,7 @@ public class CameraBean {
     public static class CameraInfo {
 
         private String id;
-        private String user;
+        private String userId;
         private String imei;
         private String alias;
         private String iccid;
@@ -72,12 +72,12 @@ public class CameraBean {
             this.id = id;
         }
 
-        public String getUser() {
-            return user;
+        public String getUserId() {
+            return userId;
         }
 
-        public void setUser(String user) {
-            this.user = user;
+        public void setUserId(String user) {
+            this.userId = user;
         }
 
         public String getImei() {

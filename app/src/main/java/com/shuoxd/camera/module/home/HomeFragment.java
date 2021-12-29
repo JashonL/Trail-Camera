@@ -103,12 +103,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         mSmallAdapter = new HomeDeviceSmallAdapter(R.layout.item_camera, deviceList);
         rlvDevice.setAdapter(mSmallAdapter);
         rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, ContextCompat.getColor(getActivity(), R.color.nocolor), 32));
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, null);
         mSmallAdapter.setEmptyView(view);
+        mSmallAdapter.setHeaderAndEmpty(true);
         //添加两个头布局
-        View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, rlvDevice);
+        View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mSmallAdapter.addHeaderView(adHeader);
-        View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_header_menu, rlvDevice);
+        View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_header_menu, null);
         ImageView ivStyle = menuHeader.findViewById(R.id.iv_style);
         ivStyle.setImageResource(R.drawable.list_style_menu);
         ivStyle.setOnClickListener(view1 -> {
@@ -132,12 +133,12 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         mBigAdapter = new HomeDeviceBigAdapter(R.layout.item_camera_big, deviceList);
         rlvDevice.setAdapter(mBigAdapter);
         rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, ContextCompat.getColor(getActivity(), R.color.nocolor), 32));
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, null);
         mBigAdapter.setEmptyView(view);
         //添加两个头布局
-        View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, rlvDevice);
+        View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mBigAdapter.addHeaderView(adHeader);
-        View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_header_menu, rlvDevice);
+        View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_header_menu, null);
         ImageView ivStyle = menuHeader.findViewById(R.id.iv_style);
         ivStyle.setImageResource(R.drawable.list_style_menu2);
         ivStyle.setOnClickListener(view1 -> {

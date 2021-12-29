@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +18,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shuoxd.camera.HomePresenter;
 import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
+import com.shuoxd.camera.adapter.CameraInfoAdapter;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
 import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
+import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.customview.LinearDivider;
@@ -31,7 +34,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class CameraFragment extends BaseFragment<HomePresenter> implements HomeView,Toolbar.OnMenuItemClickListener,
+public class CameraFragment extends BaseFragment<CameraPresenter> implements CameraView, Toolbar.OnMenuItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener {
 
 
@@ -54,9 +57,12 @@ public class CameraFragment extends BaseFragment<HomePresenter> implements HomeV
     private CameraPicAdapter mAdapter;
 
 
+    private CameraInfoAdapter mCameraInfoAdapter;
+
+
     @Override
-    protected HomePresenter createPresenter() {
-        return new HomePresenter(getContext(), this);
+    protected CameraPresenter createPresenter() {
+        return new CameraPresenter(getContext(), this);
     }
 
     @Override
@@ -89,6 +95,11 @@ public class CameraFragment extends BaseFragment<HomePresenter> implements HomeV
         mAdapter.setEmptyView(view);
         //添加两个头布局
         View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.header_of_carden, rlvDevice);
+        RecyclerView rvMenu = adHeader.findViewById(R.id.rv_menu);
+        mCameraInfoAdapter=new CameraInfoAdapter(R.layout.item_camera_info,new ArrayList<>());
+        rvMenu.setLayoutManager(new GridLayoutManager(getContext(),3));
+        rvMenu.setAdapter(mCameraInfoAdapter);
+
         mAdapter.addHeaderView(adHeader);
         View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top2_listmenu, rlvDevice);
         ImageView ivStyle = menuHeader.findViewById(R.id.iv_style);
@@ -108,13 +119,10 @@ public class CameraFragment extends BaseFragment<HomePresenter> implements HomeV
 
     @Override
     protected void initData() {
-
+        String accountName = App.getUserBean().getAccountName();
+        presenter.cameraInfo(cameraId,accountName);
     }
 
-    @Override
-    public void setDeviceList(List<CameraBean> cameraBeanList) {
-
-    }
 
     public void refresh() {
 
@@ -136,7 +144,8 @@ public class CameraFragment extends BaseFragment<HomePresenter> implements HomeV
     }
 
 
+    @Override
+    public void showCameraInfo(CameraBean.CameraInfo cameraBean) {
 
-
-
+    }
 }
