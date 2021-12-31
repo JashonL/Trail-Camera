@@ -26,13 +26,6 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         super(layoutResId, data);
     }
 
-    public HomeDeviceSmallAdapter(@Nullable List<CameraBean> data) {
-        super(data);
-    }
-
-    public HomeDeviceSmallAdapter(int layoutResId) {
-        super(layoutResId);
-    }
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, CameraBean item) {

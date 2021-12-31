@@ -10,7 +10,7 @@
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/white"
+        android:background="@color/gray_f5"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/bootom_navigation_bar"
         app:layout_constraintEnd_toEndOf="parent"

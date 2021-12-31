@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeView,
         Toolbar.OnMenuItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
@@ -38,6 +39,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     RecyclerView rlvDevice;
     @BindView(R.id.srl_pull)
     MySwipeRefreshLayout srlPull;
+    @BindView(R.id.iv_style)
+    ImageView ivStyle;
+    @BindView(R.id.iv_add)
+    ImageView ivAdd;
 
 
     /*设备部分*/
@@ -106,7 +111,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, null);
         mSmallAdapter.setEmptyView(view);
         mSmallAdapter.setHeaderAndEmpty(true);
-        //添加两个头布局
+/*        //添加两个头布局
         View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mSmallAdapter.addHeaderView(adHeader);
         View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_header_menu, null);
@@ -121,7 +126,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
             Intent intent = new Intent(getContext(), CustomScanActivity.class);
             startActivity(intent);
         });
-        mSmallAdapter.addHeaderView(menuHeader);
+        mSmallAdapter.addHeaderView(menuHeader);*/
 
     }
 
@@ -135,7 +140,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, ContextCompat.getColor(getActivity(), R.color.nocolor), 32));
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, null);
         mBigAdapter.setEmptyView(view);
-        //添加两个头布局
+/*        //添加两个头布局
         View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mBigAdapter.addHeaderView(adHeader);
         View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_header_menu, null);
@@ -149,7 +154,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
             Intent intent = new Intent(getContext(), CustomScanActivity.class);
             startActivity(intent);
         });
-        mBigAdapter.addHeaderView(menuHeader);
+        mBigAdapter.addHeaderView(menuHeader);*/
 
     }
 
@@ -184,10 +189,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         CameraBean cameraBean;
-        if (mLayoutType==TYPE_SMALL){
-             cameraBean = mBigAdapter.getData().get(position);
-        }else {
-             cameraBean = mBigAdapter.getData().get(position);
+        if (mLayoutType == TYPE_SMALL) {
+            cameraBean = mBigAdapter.getData().get(position);
+        } else {
+            cameraBean = mBigAdapter.getData().get(position);
         }
         String id = cameraBean.getCamera().getId();
         showCameraInfo(id);
@@ -195,17 +200,14 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     }
 
 
-
     /**
      * 点击item跳转到Fragment1V2
-     *
      */
     private void showCameraInfo(String id) {
         MainActivity main = (MainActivity) getActivity();
         main.cameraId = id;
         main.showCameraInfo();
     }
-
 
 
     @Override
@@ -246,10 +248,21 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     /**
      * 总览跳转刷新
-     *
      */
     public void jumpRefresh() {
 
     }
 
+    @OnClick({R.id.iv_style, R.id.iv_add})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_style:
+                changeLayout();
+                break;
+            case R.id.iv_add:
+                Intent intent = new Intent(getContext(), CustomScanActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
 }

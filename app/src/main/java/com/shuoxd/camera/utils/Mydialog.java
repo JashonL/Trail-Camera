@@ -11,7 +11,7 @@ public class Mydialog {
 
     public static void show(Context context) {
         DialogUtils.getInstance().showLoadingDialog(context);
-
+        delayDismissDialog(DEFAULT_DELAY_MILLIS);
     }
 
     public static void dissmiss() {

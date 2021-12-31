@@ -5,6 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/home_top_bigfic"/>
+
+
+    <include layout="@layout/home_header_menu"/>
+
     <com.shuoxd.camera.customview.MySwipeRefreshLayout
         android:id="@+id/srl_pull"
         android:layout_width="match_parent"
@@ -13,6 +18,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rlv_device"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
