@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
@@ -15,18 +16,22 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.shuoxd.camera.HomePresenter;
+import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.CameraInfoAdapter;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
 import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
 import com.shuoxd.camera.app.App;
+import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
+import com.shuoxd.camera.bean.InfoHeadBean;
+import com.shuoxd.camera.bean.PictureBean;
+import com.shuoxd.camera.customview.CustomLoadMoreView;
+import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
-import com.shuoxd.camera.module.home.HomeView;
 import com.shuoxd.camera.zxing.CustomScanActivity;
 
 import java.util.ArrayList;
@@ -50,15 +55,27 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     RecyclerView rlvDevice;
     @BindView(R.id.srl_pull)
     MySwipeRefreshLayout srlPull;
-
+    @BindView(R.id.iv_camera)
+    ImageView ivCamera;
+    @BindView(R.id.rv_menu)
+    RecyclerView rvMenu;
+    @BindView(R.id.iv_style)
+    ImageView ivStyle;
+    @BindView(R.id.tv_pic_num)
+    TextView tvPicNum;
+    @BindView(R.id.iv_switch)
+    ImageView ivSwitch;
 
     public String cameraId;
 
     private CameraPicAdapter mAdapter;
 
-
     private CameraInfoAdapter mCameraInfoAdapter;
 
+    private List<PictureBean> picList = new ArrayList<>();
+
+
+    private int spanCount = 1;
 
     @Override
     protected CameraPresenter createPresenter() {
@@ -83,25 +100,58 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             main.showHome();
         });
 
-        //
+        picList.add(new PictureBean());
+        picList.add(new PictureBean());
+        picList.add(new PictureBean());
+        picList.add(new PictureBean());
+        picList.add(new PictureBean());
+        picList.add(new PictureBean());
+        picList.add(new PictureBean());
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rlvDevice.setLayoutManager(layoutManager);
-        mAdapter = new CameraPicAdapter(R.layout.item_camera_pic, new ArrayList<>());
-        rlvDevice.setAdapter(mAdapter);
-        rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, ContextCompat.getColor(getActivity(), R.color.nocolor), 32));
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice);
-        mAdapter.setEmptyView(view);
+
+        //设备图片列表
+        setAdapter(spanCount);
+
+        //设备相片列表
+
+        ivStyle.setImageResource(R.drawable.list_pic_row);
+        ivSwitch.setImageResource(R.drawable.list_style_menu);
+
+        rvMenu.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        mCameraInfoAdapter = new CameraInfoAdapter(R.layout.item_camera_info, new ArrayList<>());
+        rvMenu.setAdapter(mCameraInfoAdapter);
+
+        ivSwitch.setOnClickListener(view12 -> {
+            int itemDecorationCount = rlvDevice.getItemDecorationCount();
+            for (int i = 0; i < itemDecorationCount; i++) {
+                rlvDevice.removeItemDecorationAt(i);
+            }
+            if (spanCount == 1) {
+                spanCount = 2;
+                ivSwitch.setImageResource(R.drawable.camera_arrang);
+            } else if (spanCount == 2) {
+                spanCount = 3;
+                ivSwitch.setImageResource(R.drawable.spancount);
+            } else {
+                spanCount = 1;
+                ivSwitch.setImageResource(R.drawable.list_style_menu);
+            }
+            setAdapter(spanCount);
+        });
+
+
+        srlPull.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.color_theme_green));
+
+
         //添加两个头布局
-        View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.header_of_carden, rlvDevice);
+   /*     View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.header_of_carden, rlvDevice, false);
         RecyclerView rvMenu = adHeader.findViewById(R.id.rv_menu);
-        mCameraInfoAdapter=new CameraInfoAdapter(R.layout.item_camera_info,new ArrayList<>());
-        rvMenu.setLayoutManager(new GridLayoutManager(getContext(),3));
+        mCameraInfoAdapter = new CameraInfoAdapter(R.layout.item_camera_info, new ArrayList<>());
+        rvMenu.setLayoutManager(new GridLayoutManager(getContext(), 3));
         rvMenu.setAdapter(mCameraInfoAdapter);
 
         mAdapter.addHeaderView(adHeader);
-        View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top2_listmenu, rlvDevice);
+        View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top2_listmenu, rlvDevice, false);
         ImageView ivStyle = menuHeader.findViewById(R.id.iv_style);
         ivStyle.setImageResource(R.drawable.list_style_menu);
         ivStyle.setOnClickListener(view1 -> {
@@ -112,20 +162,64 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             Intent intent = new Intent(getContext(), CustomScanActivity.class);
             startActivity(intent);
         });
-        mAdapter.addHeaderView(menuHeader);
+        mAdapter.addHeaderView(menuHeader);*/
 
 
     }
 
+
+    //小图片布局
+    private void setAdapter(int span) {
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), span);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rlvDevice.setLayoutManager(layoutManager);
+        mAdapter = new CameraPicAdapter(R.layout.item_camera_pic, picList);
+        rlvDevice.setAdapter(mAdapter);
+        rlvDevice.addItemDecoration(new GridDivider(ContextCompat.getColor(getActivity(), R.color.nocolor), 10, 10));
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice, false);
+        mAdapter.setEmptyView(view);
+        mAdapter.setHeaderAndEmpty(true);
+        mAdapter.setLoadMoreView(new CustomLoadMoreView());
+        mAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
+        mAdapter.setOnLoadMoreListener(() -> {
+            try {
+                refresh();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, rlvDevice);
+    }
+
+
     @Override
     protected void initData() {
-        String accountName = App.getUserBean().getAccountName();
-        presenter.cameraInfo(cameraId,accountName);
+        cameraId = getArguments().getString("cameraId");
+        srlPull.setOnRefreshListener(() -> {
+            try {
+                presenter.setPageNow(0);
+                refresh();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        //获取列表设备列表
+        try {
+            presenter.setPageNow(0);
+            refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
     }
 
 
     public void refresh() {
-
+        String accountName = App.getUserBean().getAccountName();
+        presenter.cameraInfo(cameraId, accountName);
+        presenter.getCameraPic(cameraId, "-1", "-1", "-1", "-1", "-1",
+                "-1", "-1", "0", "0", "0");
     }
 
     @Override
@@ -146,6 +240,146 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     public void showCameraInfo(CameraBean.CameraInfo cameraBean) {
+
+        String[] title = {
+                getString(R.string.m70_Signal), getString(R.string.m75_steup), getString(R.string.m72_sd),
+                getString(R.string.m73_map), getString(R.string.m74_tracker), getString(R.string.m75_steup),
+        };
+
+        List<InfoHeadBean> beans = new ArrayList<>();
+        for (int i = 0; i < title.length; i++) {
+            InfoHeadBean bean = new InfoHeadBean();
+            bean.setTitle(title[i]);
+            switch (i) {
+                case 0:
+                    String signalStrength = cameraBean.getSignalStrength();
+                    int wifiStrength = Integer.parseInt(signalStrength);
+                    if (wifiStrength == 0) {
+                        bean.setIconRes(R.drawable.wifi0);
+                    } else if (wifiStrength <= 25) {
+                        bean.setIconRes(R.drawable.wifi1);
+                    } else if (wifiStrength <= 50) {
+                        bean.setIconRes(R.drawable.wifi3);
+                    } else if (wifiStrength <= 75) {
+                        bean.setIconRes(R.drawable.wifi4);
+                    } else {
+                        bean.setIconRes(R.drawable.wifi4);
+                    }
+                    break;
+                case 1:
+                    String batteryLevel = cameraBean.getBatteryLevel();
+                    int batteryL = Integer.parseInt(batteryLevel);
+                    if (batteryL == 0) {
+                        bean.setIconRes(R.drawable.battery1);
+                    } else if (batteryL <= 25) {
+                        bean.setIconRes(R.drawable.battery2);
+                    } else if (batteryL <= 50) {
+                        bean.setIconRes(R.drawable.battery2);
+                    } else if (batteryL <= 75) {
+                        bean.setIconRes(R.drawable.battery4);
+                    } else {
+                        bean.setIconRes(R.drawable.battery4);
+                    }
+                    bean.setTitle(batteryLevel + "%");
+                    break;
+                case 2:
+                    String cardSpace = cameraBean.getCardSpace();
+                    int sSpace = Integer.parseInt(cardSpace);
+                    if (sSpace == 0) {
+                        bean.setIconRes(R.drawable.sdcard1);
+                    } else if (sSpace <= 25) {
+                        bean.setIconRes(R.drawable.sdcard2);
+                    } else if (sSpace <= 50) {
+                        bean.setIconRes(R.drawable.sdcard3);
+                    } else if (sSpace <= 75) {
+                        bean.setIconRes(R.drawable.sdcard3);
+                    } else {
+                        bean.setIconRes(R.drawable.sdcard4);
+                    }
+                    bean.setTitle(cardSpace + "%");
+
+                    break;
+                case 3:
+                    bean.setIconRes(R.drawable.map);
+                    break;
+                case 4:
+                    bean.setIconRes(R.drawable.chart);
+                    break;
+                case 5:
+                    bean.setIconRes(R.drawable.setting);
+                    break;
+            }
+            beans.add(bean);
+        }
+        mCameraInfoAdapter.replaceData(beans);
+
+    }
+
+    @Override
+    public void showCameraPic(List<PictureBean> beans) {
+        srlPull.setRefreshing(false);
+        int pageNow = presenter.getPageNow();
+        if (pageNow==1){
+            picList.clear();
+        }
+        picList.addAll(beans);
+
+        if (pageNow==1) {
+            mAdapter.setNewData(picList);
+        }else {
+            mAdapter.addData(beans);
+            mAdapter.loadMoreComplete();
+        }
+
+
+    }
+
+
+    @Override
+    public void showResultError(String msg) {
+        super.showResultError(msg);
+        srlPull.setRefreshing(false);
+    }
+
+    @Override
+    public void showServerError(String msg) {
+        super.showServerError(msg);
+        srlPull.setRefreshing(false);
+    }
+
+    @Override
+    public void onErrorCode(BaseBean bean) {
+        super.onErrorCode(bean);
+
+        srlPull.setRefreshing(false);
+    }
+
+
+    @Override
+    public void showNoMoreData() {
+        //数据已加载完
+        mAdapter.loadMoreEnd();
+    }
+
+    @Override
+    public void showMoreFail() {
+        //数据加载完毕
+        mAdapter.loadMoreFail();
+    }
+
+    @Override
+    public void showTotalNum(int totalNum) {
+        String s = totalNum + getString(R.string.m76_photos);
+        tvPicNum.setText(s);
+    }
+
+    @Override
+    public void initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
+                .statusBarView(statusBarView)
+                .init();
 
     }
 }

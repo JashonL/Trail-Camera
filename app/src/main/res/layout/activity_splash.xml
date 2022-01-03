@@ -11,16 +11,25 @@
         android:layout_height="@dimen/dp_100"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_170"
-        android:transitionName="share"
-        android:src="@drawable/login_logo" />
+        android:src="@drawable/login_logo"
+        android:transitionName="share" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textStyle="bold"
         android:textColor="@color/white"
-        android:textSize="@dimen/size_title_sp_16" />
+        android:textSize="@dimen/size_title_sp_16"
+        android:textStyle="bold" />
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_206"
+        android:src="@drawable/fawn" />
+
 
 </LinearLayout>

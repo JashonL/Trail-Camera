@@ -247,6 +247,24 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
         if (homeFragment != null) {
             transaction.hide(homeFragment);
         }
+
+        if (mPhotoFragment != null) {
+            transaction.hide(mPhotoFragment);
+        }
+
+        if (mMapFragment != null) {
+            transaction.hide(mMapFragment);
+        }
+
+        if (mMeFragment != null) {
+            transaction.hide(mMeFragment);
+        }
+
+
+        if (mCameraFragment != null) {
+            transaction.hide(mCameraFragment);
+        }
+
     }
 
 

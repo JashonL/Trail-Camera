@@ -1,30 +1,44 @@
 package com.shuoxd.camera.module.gallery;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gyf.immersionbar.ImmersionBar;
+import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
+import com.shuoxd.camera.adapter.CameraInfoAdapter;
+import com.shuoxd.camera.adapter.CameraPicAdapter;
 import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
+import com.shuoxd.camera.app.App;
+import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
+import com.shuoxd.camera.bean.PictureBean;
+import com.shuoxd.camera.customview.CustomLoadMoreView;
+import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
-import com.shuoxd.camera.zxing.CustomScanActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 
-public class PhotoFragment extends BaseFragment<PhotoPresenter> implements PhotoView , BaseQuickAdapter.OnItemClickListener {
+public class PhotoFragment extends BaseFragment<PhotoPresenter> implements PhotoView,
+        BaseQuickAdapter.OnItemClickListener , Toolbar.OnMenuItemClickListener{
+
+
     @BindView(R.id.status_bar_view)
     View statusBarView;
     @BindView(R.id.tv_title)
@@ -33,16 +47,27 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     Toolbar toolbar;
     @BindView(R.id.app_toolbar)
     LinearLayout appToolbar;
+    @BindView(R.id.iv_style)
+    ImageView ivStyle;
+    @BindView(R.id.tv_pic_num)
+    TextView tvPicNum;
+    @BindView(R.id.iv_switch)
+    ImageView ivSwitch;
     @BindView(R.id.rlv_device)
     RecyclerView rlvDevice;
     @BindView(R.id.srl_pull)
     MySwipeRefreshLayout srlPull;
 
 
-
     /*设备部分*/
-    private HomeDeviceSmallAdapter mAdapter;
+    private CameraPicAdapter mAdapter;
 
+    public String cameraId;
+
+    private List<PictureBean> picList = new ArrayList<>();
+
+
+    private int spanCount = 1;
 
     @Override
     protected PhotoPresenter createPresenter() {
@@ -59,38 +84,146 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         srlPull.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.color_theme_green));
 
         //toolbar
-
         //头部toolBar
+        toolbar.inflateMenu(R.menu.menu_camera);
+        toolbar.setOnMenuItemClickListener(this);
+        tvTitle.setText(R.string.m77_all_camera);
 
-        //设备列表初始化
-        setAdapter();
+        ivStyle.setImageResource(R.drawable.list_pic_row);
+        ivSwitch.setImageResource(R.drawable.list_style_menu);
+
+        //设备图片列表
+        setAdapter(spanCount);
     }
 
     @Override
     protected void initData() {
+//        cameraId = getArguments().getString("cameraId");
+
+        srlPull.setOnRefreshListener(() -> {
+            try {
+                presenter.setPageNow(0);
+                refresh();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        //获取列表设备列表
+        try {
+            presenter.setPageNow(0);
+            refresh();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
-    //小图片布局
-    private void setAdapter() {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        rlvDevice.setLayoutManager(layoutManager);
-        mAdapter = new HomeDeviceSmallAdapter(R.layout.item_camera, new ArrayList<>());
-        rlvDevice.setAdapter(mAdapter);
-        rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, ContextCompat.getColor(getActivity(), R.color.nocolor), 32));
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice);
-        mAdapter.setEmptyView(view);
-        //添加两个头布局
-        View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.header_of_carden, rlvDevice);
-        mAdapter.addHeaderView(menuHeader);
 
-        View switchHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top2_listmenu, rlvDevice);
-        mAdapter.addHeaderView(switchHeader);
+
+    public void refresh() {
+        String accountName = App.getUserBean().getAccountName();
+        presenter.getCameraPic("-1", "-1", "-1", "-1", "-1", "-1",
+                "-1", "-1", "0", "0", "0");
+    }
+
+
+    //小图片布局
+    private void setAdapter(int span) {
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), span);
+        rlvDevice.setLayoutManager(layoutManager);
+        mAdapter = new CameraPicAdapter(R.layout.item_camera_pic, picList);
+        rlvDevice.setAdapter(mAdapter);
+        rlvDevice.addItemDecoration(new GridDivider(ContextCompat.getColor(getActivity(), R.color.nocolor), 10, 10));
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice, false);
+        mAdapter.setEmptyView(view);
+        mAdapter.setHeaderAndEmpty(true);
+
+        mAdapter.setLoadMoreView(new CustomLoadMoreView());
+        mAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
+        mAdapter.setOnLoadMoreListener(() -> {
+            try {
+                refresh();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, rlvDevice);
     }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
+    }
+
+    @Override
+    public void initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .statusBarView(statusBarView)
+                .init();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        return false;
+    }
+
+
+    @Override
+    public void showResultError(String msg) {
+        super.showResultError(msg);
+        srlPull.setRefreshing(false);
+    }
+
+
+
+    @Override
+    public void showCameraPic(List<PictureBean> beans) {
+        srlPull.setRefreshing(false);
+        int pageNow = presenter.getPageNow();
+        if (pageNow==1){
+            picList.clear();
+        }
+        picList.addAll(beans);
+
+        if (pageNow==1) {
+            mAdapter.setNewData(picList);
+        }else {
+            mAdapter.addData(beans);
+            mAdapter.loadMoreComplete();
+        }
+    }
+
+
+
+    @Override
+    public void showServerError(String msg) {
+        super.showServerError(msg);
+        srlPull.setRefreshing(false);
+    }
+
+    @Override
+    public void onErrorCode(BaseBean bean) {
+        super.onErrorCode(bean);
+
+        srlPull.setRefreshing(false);
+    }
+
+
+    @Override
+    public void showNoMoreData() {
+        //数据已加载完
+        mAdapter.loadMoreEnd();
+    }
+
+    @Override
+    public void showMoreFail() {
+        //数据加载完毕
+        mAdapter.loadMoreFail();
+    }
+
+    @Override
+    public void showTotalNum(int totalNum) {
+        String s = totalNum + getString(R.string.m76_photos);
+        tvPicNum.setText(s);
     }
 }

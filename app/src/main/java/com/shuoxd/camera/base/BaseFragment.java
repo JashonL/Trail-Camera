@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.gyf.immersionbar.components.ImmersionFragment;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.Mydialog;
@@ -28,7 +29,7 @@ import butterknife.Unbinder;
  */
 
 
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView {
+public abstract class BaseFragment<P extends BasePresenter> extends ImmersionFragment implements BaseView {
 
     private Unbinder unbinder;
     protected Context mContext;
@@ -47,6 +48,10 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     protected ImmersionBar mImmersionBar;
 
+
+
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -56,7 +61,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         mContext = getActivity();
         presenter = createPresenter();
         initView();
-        initImmersionBar();
         initData();
         return view;
     }
@@ -199,12 +203,9 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
      * 初始化沉浸式
      * Init immersion bar.
      */
-    protected void initImmersionBar() {
-        //设置共同沉浸式样式
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                .statusBarColor(R.color.white)//这里的颜色，你可以自定义。
-                .init();
+    public void ini() {
+
+
     }
 
     @Override

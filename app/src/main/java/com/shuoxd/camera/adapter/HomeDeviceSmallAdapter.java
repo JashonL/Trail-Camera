@@ -50,47 +50,62 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
 
         TextView tvWifi = helper.getView(R.id.tv_wifi);
         int wifiStrength = Integer.parseInt(signalStrength);
+        String sWiff="";
         if (wifiStrength == 0) {
+            sWiff=mContext.getString(R.string.m69_offline);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi0);
         } else if (wifiStrength <= 25) {
+            sWiff=mContext.getString(R.string.m68_weak);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi1);
         } else if (wifiStrength <= 50) {
+            sWiff=mContext.getString(R.string.m67_normal);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi1);
         } else if (wifiStrength <= 75) {
+            sWiff=mContext.getString(R.string.m67_normal);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi3);
         } else {
+            sWiff=mContext.getString(R.string.m66_good);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi4);
         }
+
+        tvWifi.setText(sWiff);
+
 
 
         TextView tvBattery = helper.getView(R.id.tv_battery);
         int batteryL = Integer.parseInt(batteryLevel);
         if (batteryL == 0) {
             setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery1);
-        } else if (wifiStrength <= 25) {
+        } else if (batteryL <= 25) {
             setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery2);
-        } else if (wifiStrength <= 50) {
+        } else if (batteryL <= 50) {
             setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery2);
-        } else if (wifiStrength <= 75) {
+        } else if (batteryL <= 75) {
             setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery4);
         } else {
             setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery_4);
         }
+
+        tvBattery.setText(batteryL+"%");
+
 
 
         TextView tvSdcard = helper.getView(R.id.tv_sdcard);
         int sSpace = Integer.parseInt(cardSpace);
         if (sSpace == 0) {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
-        } else if (wifiStrength <= 25) {
+        } else if (sSpace <= 25) {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
-        } else if (wifiStrength <= 50) {
+        } else if (sSpace <= 50) {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
-        } else if (wifiStrength <= 75) {
+        } else if (sSpace <= 75) {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
         } else {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
         }
+
+        tvSdcard.setText(sSpace+"%");
+
 
 
         String noReadPhotoNum = item.getNoReadPhotoNum();
@@ -108,7 +123,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
 
         //相机的最后一张图片
         CameraBean.LastPhoto lastPhoto = item.getLastPhoto();
-        String path = lastPhoto.getPath();
+        String path = lastPhoto.getFullPath();
         ImageView ivPic=helper.getView(R.id.iv_camera);
         if (!TextUtils.isEmpty(path)){
             GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);

@@ -23,7 +23,7 @@ import retrofit2.http.Url;
 
 public class API {
 
-    static final String BASE_URL = "http://47.75.113.249:60011/";
+    static final String BASE_URL = "http://161.117.81.87:50010/";
 //    static final String BASE_URL = "https://www.wanandroid.com/";
 
     private static final String OSS_URL = "http://oss1.growatt.com/";
@@ -55,15 +55,38 @@ public class API {
         @POST("/v1/user/register")
         Observable<String> register(@Field("email") String email, @Field("password") String password);
 
+        //----------------------------【获取相机相册】--------------------------------
+
         //添加相机
         @FormUrlEncoded
         @POST("/v1/camera/addCamera")
         Observable<String> addCamera(@Field("imei") String imei);
 
         //相机详情
-        @POST("/v1/camera/cameraInfo/{imei}")
+        @FormUrlEncoded
+        @POST("/v1/camera/cameraInfo/{imei}/")
         Observable<String> cameraInfo(@Path("imei") String imei,@Field("email")String email);
 
+
+
+        //相机图片
+        @FormUrlEncoded
+        @POST("/v1/camera/photoList/{toPageNum}")
+        Observable<String> photoList(@Path("toPageNum")int toPageNum,
+                @Field("imeis")String imeis,@Field("isAllCamera")String isAllCamera,
+                                     @Field("startDate")String startDate,@Field("endDate")String endDate,
+                                     @Field("amPm")String amPm,@Field("photoType")String photoType,
+                                     @Field("favorites")String favorites,@Field("moonPhase")String moonPhase,
+                                     @Field("startTemperature")String startTemperature,@Field("endTemperature")String endTemperature,
+                                     @Field("temperatureUnit")String temperatureUnit
+
+        );
+
+        //----------------------------【获取消息】--------------------------------
+
+        @FormUrlEncoded
+        @POST("/v1/message/messageList/{toPageNum}")
+        Observable<String> messageList(@Path("toPageNum")int toPageNum,@Field("email")String email);
 
 
         //获取国家
@@ -136,8 +159,8 @@ public class API {
 
         //获取设备数据
         @FormUrlEncoded
-        @POST("/v1/camera/cameraList/1")
-        Observable<String> cameraList(@Field("email") String email);
+        @POST("/v1/camera/cameraList/{toPageNum}/")
+        Observable<String> cameraList(@Path("toPageNum")int toPageNum,@Field("email") String email);
 
         //---------------------------【   设备   】-----------------------------------
         @POST("tuya/addDevice")

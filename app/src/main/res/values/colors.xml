@@ -48,8 +48,15 @@
 
 
 
+    <color name="splash_background">#2DB595</color>
+
     <!--登录-->
     <color name="color_login_background">#ECEFF1</color>
+
+
+    <!--消息-->
+    <color name="color_message_close">#F38700</color>
+    <color name="color_message_press">#FF6600</color>
 
 
 

@@ -9,5 +9,8 @@ public interface HomeView extends BaseView {
 
     void setDeviceList(List<CameraBean> cameraBeanList);
 
+    void showNoMoreData();
+
+    void showMoreFail();
 
 }

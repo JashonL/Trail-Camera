@@ -19,6 +19,7 @@
     <string name="m8_find_imei">To find your IMEl number for your camera, first switch the camera into TEST and wait for IMEl to display.</string>
     <string name="m9_imei_num">IMEI Number</string>
     <string name="m10_complete">COMPLETE</string>
+
     <string name="m11_find_bar">Can’t Find Barcode? Enter yourself</string>
     <string name="m12_skip">Skip</string>
     <string name="m13_filter">FILTER</string>
@@ -29,6 +30,7 @@
     <string name="m18_temp">Temperature</string>
     <string name="m19_temp">Lunar phase</string>
     <string name="m20_sliding">Left and right sliding</string>
+
     <string name="m21_collection">collection</string>
     <string name="m22_delete">delete</string>
     <string name="m23_share">share</string>
@@ -39,6 +41,7 @@
     <string name="m28_year">Year</string>
     <string name="m29_nearest_weather">Nearest Weather Station:Lake Bridgeport, Texas</string>
     <string name="m30_reset_tracking_history">Reset Tracking History</string>
+
     <string name="m31_matthew">MATTHEW</string>
     <string name="m32_certified">Certified</string>
     <string name="m33_bank_card">Bank Card</string>
@@ -49,6 +52,7 @@
     <string name="m38_change">Change</string>
     <string name="m39_suspend">Suspend</string>
     <string name="m40_remove">Remove</string>
+
     <string name="m41_back">Back</string>
     <string name="m42_nomessage">No messgee fo you!</string>
     <string name="m43_custom_service">CUSTOMER SERVICEC</string>
@@ -59,6 +63,7 @@
     <string name="m48_Testing">Testing</string>
     <string name="m49_somewhere_on_earth">Somewhere on earth</string>
     <string name="m50_address2">Address2</string>
+
     <string name="m51_Hoolywood">Hoolywood</string>
     <string name="m52_cali">CA-Cali...</string>
     <string name="m53_next">NEXT</string>
@@ -69,12 +74,37 @@
     <string name="m58_user">User</string>
     <string name="m59_username">Username</string>
     <string name="m60_email_address">Email Address</string>
+
     <string name="m61_password">Password</string>
     <string name="m62_confirm_password">Enter the password again</string>
     <string name="m63_username_cannot_empty">Username can not be empty</string>
     <string name="m63_password_cannot_empty">Password can not be empty</string>
     <string name="m64_imei_cannot_empty">IMEI can not be empty</string>
     <string name="m65_camera_of_garden">CAMERA OF GARDEN</string>
+    <string name="m66_good">Good</string>
+    <string name="m67_normal">Normal</string>
+    <string name="m68_weak">Weak</string>
+    <string name="m69_offline">Off-line</string>
+    <string name="m70_Signal">Signal</string>
+
+    <string name="m71_bat">battery</string>
+    <string name="m72_sd">sdcard</string>
+    <string name="m73_map">map</string>
+    <string name="m74_tracker">Tracker</string>
+    <string name="m75_steup">Steup</string>
+    <string name="m76_photos">Photos</string>
+    <string name="m77_all_camera">All CAMERA</string>
+    <string name="m78_my">My</string>
+    <string name="m79_plans">Plans</string>
+    <string name="m80_billing_history">Billing History</string>
+
+    <string name="m81_Message">Message</string>
+    <string name="m82_account">Account</string>
+    <string name="m83_Support">Support</string>
+    <string name="m84_sign_out">Sign Out</string>
+    <string name="m85_loading">Loading</string>
+    <string name="m86_fail">Fail</string>
+    <string name="m87_no_more_data">No more data</string>
 
 
 </resources>

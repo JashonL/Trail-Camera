@@ -216,6 +216,8 @@ public class CameraBean {
         private String uploadMonth;
         private String uploadDay;
         private String amPm;
+        private String fullPath;
+
 
         public String getId() {
             return id;
@@ -327,6 +329,15 @@ public class CameraBean {
 
         public void setAmPm(String amPm) {
             this.amPm = amPm;
+        }
+
+
+        public String getFullPath() {
+            return fullPath;
+        }
+
+        public void setFullPath(String fullPath) {
+            this.fullPath = fullPath;
         }
     }
 

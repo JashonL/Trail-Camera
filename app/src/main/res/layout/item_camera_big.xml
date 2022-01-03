@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     android:foreground="@drawable/card_foreground"
     android:orientation="vertical"
-    android:layout_margin="@dimen/dp_10"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="@dimen/dp_10"
     app:cardElevation="@dimen/dp_1">
@@ -55,15 +54,17 @@
         <ImageView
             android:id="@+id/iv_camera"
             android:layout_width="@dimen/dp_330"
-            android:layout_height="@dimen/dp_186"
+            android:layout_height="0dp"
             android:scaleType="fitXY"
             android:src="@drawable/kaola"
+            app:layout_constraintDimensionRatio="h,16:9"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
 
         <TextView
+            android:id="@+id/tv_hd"
             android:layout_width="@dimen/dp_17"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_5"
@@ -127,7 +128,7 @@
 
         <TextView
             android:id="@+id/tv_wifi"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_60"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_10"
@@ -145,13 +146,13 @@
 
         <TextView
             android:id="@+id/tv_battery"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_60"
             android:layout_height="wrap_content"
             android:drawablePadding="@dimen/dp_5"
             android:drawableStart="@drawable/battery_4"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
             android:text="99%"
+            android:padding="@dimen/dp_5"
+            android:gravity="center"
             android:layout_marginStart="@dimen/dp_10"
             android:textColor="@color/color_text_33"
             android:textSize="@dimen/size_content_sp_14"
@@ -162,13 +163,12 @@
 
         <TextView
             android:id="@+id/tv_sdcard"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_60"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:drawableStart="@drawable/sdcard1"
-            android:paddingTop="@dimen/dp_10"
-            android:paddingBottom="@dimen/dp_10"
             android:text="100%"
+            android:gravity="center"
             android:layout_marginStart="@dimen/dp_10"
             android:drawablePadding="@dimen/dp_5"
             android:textColor="@color/color_text_33"

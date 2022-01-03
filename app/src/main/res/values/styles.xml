@@ -22,7 +22,7 @@
 
     <style name="hintAppearence" parent="TextAppearance.AppCompat">
         <item name="android:textSize">@dimen/size_content_sp_14</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/color_app_main</item>
     </style>
 
 

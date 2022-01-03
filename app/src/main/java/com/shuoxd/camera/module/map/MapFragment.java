@@ -1,8 +1,11 @@
 package com.shuoxd.camera.module.map;
 
 import com.shuoxd.camera.base.BaseFragment;
+import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.module.gallery.PhotoPresenter;
 import com.shuoxd.camera.module.gallery.PhotoView;
+
+import java.util.List;
 
 public class MapFragment extends BaseFragment<PhotoPresenter> implements PhotoView {
     @Override
@@ -22,6 +25,16 @@ public class MapFragment extends BaseFragment<PhotoPresenter> implements PhotoVi
 
     @Override
     protected void initData() {
+
+    }
+
+    @Override
+    public void initImmersionBar() {
+
+    }
+
+    @Override
+    public void showCameraPic(List<PictureBean> beans) {
 
     }
 }

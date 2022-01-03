@@ -48,17 +48,27 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
 
         TextView tvWifi = helper.getView(R.id.tv_wifi);
         int wifiStrength = Integer.parseInt(signalStrength);
+        String sWiff="";
         if (wifiStrength == 0) {
+            sWiff=mContext.getString(R.string.m69_offline);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi0);
         } else if (wifiStrength <= 25) {
+            sWiff=mContext.getString(R.string.m68_weak);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi1);
         } else if (wifiStrength <= 50) {
+            sWiff=mContext.getString(R.string.m67_normal);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi1);
         } else if (wifiStrength <= 75) {
+            sWiff=mContext.getString(R.string.m67_normal);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi3);
         } else {
+
+            sWiff=mContext.getString(R.string.m66_good);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi4);
         }
+
+        tvWifi.setText(sWiff);
+
 
 
         TextView tvBattery = helper.getView(R.id.tv_battery);
@@ -75,6 +85,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
             setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery_4);
         }
 
+        tvBattery.setText(batteryL+"%");
 
         TextView tvSdcard = helper.getView(R.id.tv_sdcard);
         int sSpace = Integer.parseInt(cardSpace);
@@ -89,7 +100,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         } else {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
         }
-
+        tvSdcard.setText(sSpace+"%");
 
         String noReadPhotoNum = item.getNoReadPhotoNum();
         TextView navDot = helper.getView(R.id.nav_tv_dot);
@@ -106,7 +117,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
 
         //相机的最后一张图片
         CameraBean.LastPhoto lastPhoto = item.getLastPhoto();
-        String path = lastPhoto.getPath();
+        String path = lastPhoto.getFullPath();
         ImageView ivPic=helper.getView(R.id.iv_camera);
         if (!TextUtils.isEmpty(path)){
             GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);

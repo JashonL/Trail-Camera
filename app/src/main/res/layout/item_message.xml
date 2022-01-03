@@ -1,50 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/item_card"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_70"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/dp_20"
+    android:layout_marginEnd="@dimen/dp_20"
+    android:background="@drawable/view_ripple_corner"
+    android:minHeight="@dimen/dp_95"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_cost"
-        android:layout_width="0dp"
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_20"
-        android:gravity="center"
-        android:text="@string/m41_back"
-        android:textColor="@color/color_text_66"
-        android:textSize="@dimen/size_content_sp_14"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:padding="@dimen/dp_5"
+        android:src="@drawable/message_small"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_title_sp_14"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_right"
+        app:layout_constraintLeft_toRightOf="@+id/iv_right"
+        app:layout_constraintRight_toLeftOf="@+id/tv_time"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_title"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_title" />
 
 
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="@dimen/dp_20"
-        android:text="@string/m41_back"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="5"
         android:padding="@dimen/dp_5"
         android:textColor="@color/color_text_66"
         android:textSize="@dimen/size_content_sp_14"
-        app:layout_constraintBottom_toTopOf="@+id/tv_date"
-        app:layout_constraintLeft_toRightOf="@+id/tv_cost"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintLeft_toRightOf="@+id/iv_right"
+        app:layout_constraintRight_toRightOf="@+id/tv_time"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title"
+        app:layout_constraintVertical_chainStyle="packed" />
 
 
-    <TextView
-        android:id="@+id/tv_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_20"
-        android:gravity="center"
-        android:text="2021/12/19 22:00"
-        android:textColor="@color/color_text_99"
-        android:textSize="@dimen/size_content_sp_10"
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="@dimen/dp_30"
+        android:layout_height="@dimen/dp_30"
+        android:background="@drawable/selector_message_close"
+        android:padding="@dimen/dp_10"
+        android:src="@drawable/close"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

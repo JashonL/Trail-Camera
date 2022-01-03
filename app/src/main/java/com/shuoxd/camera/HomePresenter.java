@@ -40,56 +40,86 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 
-public class HomePresenter  extends BasePresenter<HomeView> {
+public class HomePresenter extends BasePresenter<HomeView> {
 
-    public HomePresenter(HomeView baseView) {
-        super(baseView);
-    }
 
+    private int pageNow = 0;
+
+    private int totalPage = 1;
 
     public HomePresenter(Context context, HomeView baseView) {
         super(context, baseView);
     }
 
 
-
-
     public void getAlldevice() throws Exception {
-        String accountName = App.getUserBean().getAccountName();
-        //获取设备
-        addDisposable(apiServer.cameraList(accountName), new BaseObserver<String>(baseView,true) {
+        if (pageNow>=totalPage){
+            //没有更多的数据
+            baseView.showNoMoreData();
+        }else {
+            pageNow++;
+            String accountName = App.getUserBean().getAccountName();
+            //获取设备
+            addDisposable(apiServer.cameraList(pageNow, accountName), new BaseObserver<String>(baseView, true) {
 
-            @Override
-            public void onSuccess(String bean) {
-                try {
-                    JSONObject jsonObject = new JSONObject(bean);
-                    String result = jsonObject.optString("result");
-                    if ("0".equals(result)){//请求成功
-                        JSONObject obj = jsonObject.optJSONObject("obj");
-                        if (obj==null)return;
-                        JSONArray dataList = obj.getJSONArray("dataList");
-                        //解析相机数据
-                        List<CameraBean>cameraList=new ArrayList<>();
-                        for (int i = 0; i < dataList.length(); i++) {
-                            JSONObject jsonObject1 = dataList.getJSONObject(i);
-                            CameraBean cameraBean = new Gson().fromJson(jsonObject1.toString(), CameraBean.class);
-                            cameraList.add(cameraBean);
+                @Override
+                public void onSuccess(String bean) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(bean);
+                        String result = jsonObject.optString("result");
+                        if ("0".equals(result)) {//请求成功
+                            JSONObject obj = jsonObject.optJSONObject("obj");
+                            if (obj == null) return;
+                            totalPage = obj.optInt("pageTotal");
+                            pageNow = obj.optInt("pageNow");
+                            JSONArray dataList = obj.getJSONArray("dataList");
+                            //解析相机数据
+                            List<CameraBean> cameraList = new ArrayList<>();
+                            for (int i = 0; i < dataList.length(); i++) {
+                                JSONObject jsonObject1 = dataList.getJSONObject(i);
+                                CameraBean cameraBean = new Gson().fromJson(jsonObject1.toString(), CameraBean.class);
+                                cameraList.add(cameraBean);
+                            }
+                            baseView.setDeviceList(cameraList);
+                        } else {
+                            String msg = jsonObject.optString("msg");
+                            baseView.showResultError(msg);
+                            refreshErrPage();
                         }
-                        baseView.setDeviceList(cameraList);
-                    }else {
-                        String msg = jsonObject.optString("msg");
-                        baseView.showResultError(msg);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        refreshErrPage();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onError(String msg) {
-                baseView.showServerError(msg);
-            }
-        });
+                @Override
+                public void onError(String msg) {
+                    refreshErrPage();
+                    baseView.showServerError(msg);
+                }
+            });
+        }
+
+
     }
 
+
+    private void refreshErrPage() {
+        baseView.showMoreFail();
+        if (pageNow > 1) {
+            pageNow--;
+        }
+    }
+
+    public void setPageNow(int pageNow) {
+        this.pageNow = pageNow;
+    }
+
+    public int getPageNow() {
+        return pageNow;
+    }
+
+    public int getTotalPage() {
+        return totalPage;
+    }
 }

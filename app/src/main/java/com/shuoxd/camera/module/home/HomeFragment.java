@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.HomePresenter;
 import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
@@ -20,6 +21,7 @@ import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
+import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
 import com.shuoxd.camera.zxing.CustomScanActivity;
@@ -43,6 +45,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     ImageView ivStyle;
     @BindView(R.id.iv_add)
     ImageView ivAdd;
+    @BindView(R.id.status_bar_view)
+    View statusBarView;
 
 
     /*设备部分*/
@@ -58,6 +62,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     public int TYPE_BIG = 2;
 
     private int mLayoutType = TYPE_SMALL;
+
 
 
     @Override
@@ -78,11 +83,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     }
 
 
-    @Override
-    protected void initImmersionBar() {
-    }
-
-
     private void changeLayout() {
         int itemDecorationCount = rlvDevice.getItemDecorationCount();
         for (int i = 0; i < itemDecorationCount; i++) {
@@ -90,11 +90,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         }
         //布局切换方法
         if (mLayoutType == TYPE_SMALL) {
-            setSmallAdapter();
+            setBigAdapter();
             mLayoutType = TYPE_BIG;
         } else {
             //列表模式
-            setBigAdapter();
+            setSmallAdapter();
             mLayoutType = TYPE_SMALL;
         }
 
@@ -106,11 +106,22 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvDevice.setLayoutManager(layoutManager);
         mSmallAdapter = new HomeDeviceSmallAdapter(R.layout.item_camera, deviceList);
+        mSmallAdapter.setLoadMoreView(new CustomLoadMoreView());
         rlvDevice.setAdapter(mSmallAdapter);
-        rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, ContextCompat.getColor(getActivity(), R.color.nocolor), 32));
+        rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, 32, ContextCompat.getColor(getActivity(), R.color.nocolor)));
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, null);
         mSmallAdapter.setEmptyView(view);
         mSmallAdapter.setHeaderAndEmpty(true);
+        ivStyle.setImageResource(R.drawable.list_style_menu);
+        mSmallAdapter.setOnItemClickListener(this);
+        mSmallAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
+        mSmallAdapter.setOnLoadMoreListener(() -> {
+            try {
+                presenter.getAlldevice();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, rlvDevice);
 /*        //添加两个头布局
         View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mSmallAdapter.addHeaderView(adHeader);
@@ -132,14 +143,27 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     //大图片布局
     private void setBigAdapter() {
+        ivStyle.setImageResource(R.drawable.list_style_menu2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvDevice.setLayoutManager(layoutManager);
         mBigAdapter = new HomeDeviceBigAdapter(R.layout.item_camera_big, deviceList);
+        mBigAdapter.setLoadMoreView(new CustomLoadMoreView());
         rlvDevice.setAdapter(mBigAdapter);
-        rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, ContextCompat.getColor(getActivity(), R.color.nocolor), 32));
+        rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, 32, ContextCompat.getColor(getActivity(), R.color.nocolor)));
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, null);
         mBigAdapter.setEmptyView(view);
+        mBigAdapter.setOnItemClickListener(this);
+        mBigAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
+
+        mBigAdapter.setOnLoadMoreListener(() -> {
+            try {
+                presenter.getAlldevice();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }, rlvDevice);
+
 /*        //添加两个头布局
         View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mBigAdapter.addHeaderView(adHeader);
@@ -163,6 +187,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     protected void initData() {
         srlPull.setOnRefreshListener(() -> {
             try {
+                presenter.setPageNow(0);
                 presenter.getAlldevice();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -170,6 +195,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         });
         //获取列表设备列表
         try {
+            presenter.setPageNow(0);
             presenter.getAlldevice();
         } catch (Exception e) {
             e.printStackTrace();
@@ -190,11 +216,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         CameraBean cameraBean;
         if (mLayoutType == TYPE_SMALL) {
-            cameraBean = mBigAdapter.getData().get(position);
+            cameraBean = mSmallAdapter.getData().get(position);
         } else {
             cameraBean = mBigAdapter.getData().get(position);
         }
-        String id = cameraBean.getCamera().getId();
+        String id = cameraBean.getCamera().getImei();
         showCameraInfo(id);
 
     }
@@ -213,16 +239,52 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     @Override
     public void setDeviceList(List<CameraBean> cameraBeanList) {
         srlPull.setRefreshing(false);
-        deviceList.clear();
+        int pageNow = presenter.getPageNow();
+        if (pageNow==1){
+            deviceList.clear();
+        }
         deviceList.addAll(cameraBeanList);
-        //布局切换方法
+
         if (mLayoutType == TYPE_BIG) {
-            mBigAdapter.replaceData(deviceList);
-            mLayoutType = TYPE_BIG;
+            if (pageNow==1) {
+                mBigAdapter.setNewData(deviceList);
+            }else {
+                mBigAdapter.addData(cameraBeanList);
+                mBigAdapter.loadMoreComplete();
+            }
+
         } else {
             //列表模式
-            mSmallAdapter.replaceData(deviceList);
-            mLayoutType = TYPE_SMALL;
+            if (pageNow==1) {
+                mSmallAdapter.setNewData(deviceList);
+            }else {
+                mSmallAdapter.addData(cameraBeanList);
+                mSmallAdapter.loadMoreComplete();
+
+            }
+        }
+
+    }
+
+    @Override
+    public void showNoMoreData() {
+        if (mLayoutType == TYPE_BIG) {
+            //数据加载完毕
+            mBigAdapter.loadMoreEnd();
+        } else {
+            //数据已加载完
+            mSmallAdapter.loadMoreEnd();
+        }
+    }
+
+    @Override
+    public void showMoreFail() {
+        if (mLayoutType == TYPE_BIG) {
+            //数据加载完毕
+            mBigAdapter.loadMoreFail();
+        } else {
+            //数据已加载完
+            mSmallAdapter.loadMoreFail();
         }
 
     }
@@ -264,5 +326,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
                 startActivity(intent);
                 break;
         }
+    }
+
+
+    @Override
+    public void initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .statusBarColor(R.color.white)//这里的颜色，你可以自定义。
+                .statusBarView(statusBarView)
+                .init();
     }
 }
