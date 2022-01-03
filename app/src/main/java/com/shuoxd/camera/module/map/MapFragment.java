@@ -7,9 +7,9 @@ import com.shuoxd.camera.module.gallery.PhotoView;
 
 import java.util.List;
 
-public class MapFragment extends BaseFragment<PhotoPresenter> implements PhotoView {
+public class MapFragment extends BaseFragment<MapPresenter> implements MapView {
     @Override
-    protected PhotoPresenter createPresenter() {
+    protected MapPresenter createPresenter() {
         return null;
     }
 
@@ -33,8 +33,4 @@ public class MapFragment extends BaseFragment<PhotoPresenter> implements PhotoVi
 
     }
 
-    @Override
-    public void showCameraPic(List<PictureBean> beans) {
-
-    }
 }

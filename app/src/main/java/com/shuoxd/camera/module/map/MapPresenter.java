@@ -5,12 +5,12 @@ import android.content.Context;
 import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.module.home.HomeView;
 
-public class MapPresenter extends BasePresenter<HomeView> {
-    public MapPresenter(HomeView baseView) {
+public class MapPresenter extends BasePresenter<MapView> {
+    public MapPresenter(MapView baseView) {
         super(baseView);
     }
 
-    public MapPresenter(Context context, HomeView baseView) {
+    public MapPresenter(Context context, MapView baseView) {
         super(context, baseView);
     }
 }
