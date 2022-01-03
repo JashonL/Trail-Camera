@@ -10,25 +10,23 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.immersionbar.ImmersionBar;
-import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
-import com.shuoxd.camera.adapter.CameraInfoAdapter;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
-import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
-import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +55,8 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     RecyclerView rlvDevice;
     @BindView(R.id.srl_pull)
     MySwipeRefreshLayout srlPull;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
 
 
     /*设备部分*/
@@ -94,6 +94,34 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
         //设备图片列表
         setAdapter(spanCount);
+
+
+        ivSwitch.setOnClickListener(view12 -> {
+            int itemDecorationCount = rlvDevice.getItemDecorationCount();
+            for (int i = 0; i < itemDecorationCount; i++) {
+                rlvDevice.removeItemDecorationAt(i);
+            }
+            if (spanCount == 1) {
+                spanCount = 2;
+                ivSwitch.setImageResource(R.drawable.camera_arrang);
+            } else if (spanCount == 2) {
+                spanCount = 3;
+                ivSwitch.setImageResource(R.drawable.spancount);
+            } else {
+                spanCount = 1;
+                ivSwitch.setImageResource(R.drawable.list_style_menu);
+            }
+            setAdapter(spanCount);
+        });
+
+
+
+        ivStyle.setOnClickListener(v -> {
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
+
+        /*---------------------------自定义侧边栏布局-----------------------------*/
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.navigationview, new HomeNavigationViewFragment()).commit();
     }
 
     @Override
@@ -158,6 +186,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     public void initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
                 .statusBarView(statusBarView)
                 .init();
     }

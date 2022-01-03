@@ -29,7 +29,7 @@ import butterknife.Unbinder;
  */
 
 
-public abstract class BaseFragment<P extends BasePresenter> extends ImmersionFragment implements BaseView {
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView {
 
     private Unbinder unbinder;
     protected Context mContext;
@@ -61,8 +61,22 @@ public abstract class BaseFragment<P extends BasePresenter> extends ImmersionFra
         mContext = getActivity();
         presenter = createPresenter();
         initView();
+        initImmersionBar();
         initData();
         return view;
+    }
+
+
+    /**
+     * 初始化沉浸式
+     * Init immersion bar.
+     */
+    protected void initImmersionBar() {
+        //设置共同沉浸式样式
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .statusBarColor(R.color.white)//这里的颜色，你可以自定义。
+                .init();
     }
 
     @Override
@@ -199,20 +213,14 @@ public abstract class BaseFragment<P extends BasePresenter> extends ImmersionFra
         MyToastUtils.toast(msg);
     }
 
-    /**
-     * 初始化沉浸式
-     * Init immersion bar.
-     */
-    public void ini() {
 
-
-    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden && mImmersionBar != null)
             mImmersionBar.init();
+
     }
 
 }

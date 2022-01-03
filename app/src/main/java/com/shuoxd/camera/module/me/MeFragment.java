@@ -167,12 +167,11 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
 
 
 
-
     @Override
-    public void initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                .statusBarColor(R.color.nocolor)//这里的颜色，你可以自定义。
+    protected void initImmersionBar() {
+        super.initImmersionBar();
+        mImmersionBar.reset().statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
                 .statusBarView(statusBarView)
                 .init();
     }

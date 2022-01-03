@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.MapView;
+import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseFragment;
 
@@ -17,6 +18,8 @@ import butterknife.BindView;
 public class MapFragment extends BaseFragment<MapPresenter> implements IMapView {
     @BindView(R.id.map)
     MapView mapView;
+    @BindView(R.id.status_bar_view)
+    View statusBarView;
 
 
     private AMap aMap;
@@ -51,11 +54,6 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView 
 
     @Override
     protected void initData() {
-
-    }
-
-    @Override
-    public void initImmersionBar() {
 
     }
 
@@ -97,7 +95,19 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+        if (mapView != null) {
+            mapView.onDestroy();
+        }
+    }
+
+
+    @Override
+    public void initImmersionBar() {
+        mImmersionBar = ImmersionBar.with(this);
+        mImmersionBar.statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .statusBarColor(R.color.white)//这里的颜色，你可以自定义。
+                .statusBarView(statusBarView)
+                .init();
     }
 
 }

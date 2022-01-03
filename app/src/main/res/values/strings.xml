@@ -105,6 +105,19 @@
     <string name="m85_loading">Loading</string>
     <string name="m86_fail">Fail</string>
     <string name="m87_no_more_data">No more data</string>
+    <string name="m88_video">VIDEO</string>
+    <string name="m89_start">START</string>
+    <string name="m90_end">END</string>
+
+
+    <string name="m91_time">Time</string>
+    <string name="m92_am">AM</string>
+    <string name="m93_pm">PM</string>
+    <string name="m94_favorites">Favorites</string>
+    <string name="m95_f">(℉)</string>
+    <string name="m96_c">(℃)</string>
+    <string name="m97_to">to</string>
+
 
 
 </resources>
