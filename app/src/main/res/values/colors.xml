@@ -58,6 +58,12 @@
     <color name="color_message_close">#F38700</color>
     <color name="color_message_press">#FF6600</color>
 
+    <!--条件筛选-->
+    <color name="color_fiter_reset">#F0A33B</color>
+    <color name="color_fiter_reset_press">#FFA33B</color>
+    <color name="color_fiter_apply">#F25E2A</color>
+    <color name="color_fiter_apply_press">#F2662A</color>
+
 
 
 </resources>

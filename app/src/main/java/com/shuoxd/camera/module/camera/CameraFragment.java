@@ -1,6 +1,5 @@
 package com.shuoxd.camera.module.camera;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,17 +10,19 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.android.material.navigation.NavigationView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.CameraInfoAdapter;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
-import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
@@ -30,9 +31,8 @@ import com.shuoxd.camera.bean.InfoHeadBean;
 import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
-import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
-import com.shuoxd.camera.zxing.CustomScanActivity;
+import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class CameraFragment extends BaseFragment<CameraPresenter> implements CameraView, Toolbar.OnMenuItemClickListener,
-        BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener {
+        BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener, HomeNavigationViewFragment.IMenuListeners {
 
 
     @BindView(R.id.status_bar_view)
@@ -67,6 +67,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     ImageView ivSwitch;
 
     public String cameraId;
+    @BindView(R.id.navigationview)
+    NavigationView navigationview;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
 
     private CameraPicAdapter mAdapter;
 
@@ -76,6 +80,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
     private int spanCount = 1;
+
 
     @Override
     protected CameraPresenter createPresenter() {
@@ -99,14 +104,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             MainActivity main = (MainActivity) getActivity();
             main.showHome();
         });
-
-        picList.add(new PictureBean());
-        picList.add(new PictureBean());
-        picList.add(new PictureBean());
-        picList.add(new PictureBean());
-        picList.add(new PictureBean());
-        picList.add(new PictureBean());
-        picList.add(new PictureBean());
 
 
         //设备图片列表
@@ -140,6 +137,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         });
 
 
+
+
         srlPull.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.color_theme_green));
 
 
@@ -163,9 +162,15 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             startActivity(intent);
         });
         mAdapter.addHeaderView(menuHeader);*/
-
+        /*---------------------------自定义侧边栏布局-----------------------------*/
+        ivStyle.setOnClickListener(v -> {
+            drawerLayout.openDrawer(GravityCompat.START);
+        });
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.navigationview, new HomeNavigationViewFragment(this)).commit();
 
     }
+
+
 
 
     //小图片布局
@@ -211,15 +216,15 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         }
 
 
-
     }
 
 
     public void refresh() {
         String accountName = App.getUserBean().getAccountName();
         presenter.cameraInfo(cameraId, accountName);
-        presenter.getCameraPic(cameraId, "-1", "-1", "-1", "-1", "-1",
-                "-1", "-1", "0", "0", "0");
+        presenter.setImeis(cameraId);
+        presenter.setIsAllCamera("-1");
+        presenter.getCameraPic();
     }
 
     @Override
@@ -319,14 +324,14 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public void showCameraPic(List<PictureBean> beans) {
         srlPull.setRefreshing(false);
         int pageNow = presenter.getPageNow();
-        if (pageNow==1){
+        if (pageNow == 1) {
             picList.clear();
         }
         picList.addAll(beans);
 
-        if (pageNow==1) {
+        if (pageNow == 1) {
             mAdapter.setNewData(picList);
-        }else {
+        } else {
             mAdapter.addData(beans);
             mAdapter.loadMoreComplete();
         }
@@ -380,6 +385,35 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
                 .statusBarView(statusBarView)
                 .init();
+
+    }
+
+    @Override
+    public void reset() {
+        presenter.setPageNow(0);
+        presenter.defautParams();
+        presenter.getCameraPic();
+        drawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void apply(String startDate, String endDate, String amPm,
+                      String photoType, String favorites, String moonPhase,
+                      String startTemperature, String endTemperature, String temperatureUnit) {
+
+        presenter.setStartDate(startDate);
+        presenter.setEndDate(endDate);
+        presenter.setAmPm(amPm);
+        presenter.setPhotoType(photoType);
+        presenter.setFavorites(favorites);
+        presenter.setMoonPhase(moonPhase);
+        presenter.setStartTemperature(startTemperature);
+        presenter.setEndTemperature(endTemperature);
+        presenter.setTemperatureUnit(temperatureUnit);
+
+        presenter.setPageNow(0);
+        presenter.getCameraPic();
+        drawerLayout.closeDrawers();
 
     }
 }

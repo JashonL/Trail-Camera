@@ -1,27 +1,45 @@
 package com.shuoxd.camera.module.leftmenu;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.contrarywind.view.WheelView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.gyf.immersionbar.components.ImmersionFragment;
 import com.shuoxd.camera.R;
+import com.shuoxd.camera.adapter.PhaseAdapter;
+import com.shuoxd.camera.bean.PhaseBean;
+import com.shuoxd.camera.customview.GridDivider;
+import com.shuoxd.camera.utils.CommentUtils;
+import com.shuoxd.camera.utils.DateUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
-public class HomeNavigationViewFragment extends ImmersionFragment {
+public class HomeNavigationViewFragment extends ImmersionFragment implements
+        BaseQuickAdapter.OnItemClickListener, CompoundButton.OnCheckedChangeListener {
 
 
     protected ImmersionBar mImmersionBar;
@@ -31,30 +49,32 @@ public class HomeNavigationViewFragment extends ImmersionFragment {
     TextView tvFilter;
     @BindView(R.id.tv_photo)
     TextView tvPhoto;
-    @BindView(R.id.rb_all)
-    RadioButton rbAll;
-    @BindView(R.id.rb_hd)
-    RadioButton rbHd;
-    @BindView(R.id.rg_photo)
-    RadioGroup rgPhoto;
+    @BindView(R.id.cb_hd)
+    CheckBox cbHd;
+    @BindView(R.id.cb_video)
+    CheckBox cbVideo;
+    @BindView(R.id.ll_photo)
+    LinearLayout llPhoto;
     @BindView(R.id.tv_date)
     TextView tvDate;
     @BindView(R.id.v_date_background)
     View vDateBackground;
     @BindView(R.id.tv_date_start)
-    EditText tvDateStart;
+    TextView tvDateStart;
     @BindView(R.id.tv_date_center)
     TextView tvDateCenter;
     @BindView(R.id.tv_date_end)
-    EditText tvDateEnd;
+    TextView tvDateEnd;
+    @BindView(R.id.iv_delete)
+    ImageView ivDelete;
     @BindView(R.id.tv_time)
     TextView tvTime;
-    @BindView(R.id.rb_am)
-    RadioButton rbAm;
-    @BindView(R.id.rb_pm)
-    RadioButton rbPm;
-    @BindView(R.id.rg_time)
-    RadioGroup rgTime;
+    @BindView(R.id.cb_am)
+    CheckBox cbAm;
+    @BindView(R.id.cb_pm)
+    CheckBox cbPm;
+    @BindView(R.id.ll_time)
+    LinearLayout llTime;
     @BindView(R.id.tv_favorites)
     TextView tvFavorites;
     @BindView(R.id.cb_favorites)
@@ -75,12 +95,97 @@ public class HomeNavigationViewFragment extends ImmersionFragment {
     WheelView wheelEnd;
     @BindView(R.id.tv_lunar_phase)
     TextView tvLunarPhase;
+    @BindView(R.id.rv_phase)
+    RecyclerView rvPhase;
+    @BindView(R.id.tv_reset)
+    TextView tvReset;
+    @BindView(R.id.ll_reset)
+    LinearLayout llReset;
+    @BindView(R.id.tv_apply)
+    TextView tvApply;
+    @BindView(R.id.ll_apply)
+    LinearLayout llApply;
+
+
+    /*设备部分*/
+    private PhaseAdapter mAdapter;
+
+
+    private IMenuListeners listeners;
+
+
+    private String startDate = "-1";
+    private String endDate = "-1";
+    private String amPm = "-1";
+    private String photoType = "-1";
+    private String favorites = "-1";
+    private String moonPhase = "-1";
+    private String startTemperature = "0";
+    private String endTemperature = "0";
+    private String temperatureUnit = "0";
+
+
+    public HomeNavigationViewFragment(IMenuListeners listeners) {
+        this.listeners = listeners;
+    }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.leftmenu_layout, null);
         ButterKnife.bind(this, view);
+
+        List<String> tempF = CommentUtils.tempF();
+        List<String> tempC = CommentUtils.tempC();
+        //初始化时间选择器
+        wheelStart.setCyclic(true);
+        wheelStart.isCenterLabel(true);
+        wheelStart.setAdapter(new ArrayWheelAdapter<>(tempF));
+        wheelStart.setCurrentItem(50);
+        wheelStart.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
+        wheelStart.setItemsVisibleCount(3);
+
+        wheelEnd.setCyclic(true);
+        wheelEnd.isCenterLabel(true);
+        wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempC));
+        wheelEnd.setCurrentItem(50);
+        wheelEnd.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
+        wheelEnd.setItemsVisibleCount(3);
+
+
+        //初始化月相
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 4);
+        rvPhase.setLayoutManager(layoutManager);
+        mAdapter = new PhaseAdapter(R.layout.item_phase, new ArrayList<>());
+        rvPhase.setAdapter(mAdapter);
+        rvPhase.addItemDecoration(new GridDivider(ContextCompat.getColor(getActivity(), R.color.nocolor), 10, 10));
+
+        mAdapter.setOnItemClickListener(this);
+
+        int[] res = {R.drawable.phase1, R.drawable.phase2, R.drawable.phase3, R.drawable.phase4,
+                R.drawable.phase5, R.drawable.phase6, R.drawable.phase7, R.drawable.phase8,};
+
+        int[] res_selected = {R.drawable.phase1_selected, R.drawable.phase2_selected, R.drawable.phase3_selected, R.drawable.phase4_selected,
+                R.drawable.phase5_selected, R.drawable.phase6_selected, R.drawable.phase7_selected, R.drawable.phase8_selected};
+        List<PhaseBean> phaseBeans = new ArrayList<>();
+        for (int i = 0; i < res.length; i++) {
+            PhaseBean bean = new PhaseBean();
+            bean.setIndex(i);
+            bean.setSelected(false);
+            bean.setResNormal(res[i]);
+            bean.setResSelected(res_selected[i]);
+            phaseBeans.add(bean);
+        }
+        mAdapter.replaceData(phaseBeans);
+
+
+        cbHd.setOnCheckedChangeListener(this);
+        cbVideo.setOnCheckedChangeListener(this);
+        cbAm.setOnCheckedChangeListener(this);
+        cbPm.setOnCheckedChangeListener(this);
+        cbFavorites.setOnCheckedChangeListener(this);
+
 
         return view;
     }
@@ -94,4 +199,138 @@ public class HomeNavigationViewFragment extends ImmersionFragment {
                 .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
                 .init();
     }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        mAdapter.setNowSelectPosition(position);
+    }
+
+    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.ll_reset, R.id.ll_apply, R.id.iv_delete})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_date_start:
+                try {
+                    DateUtils.showTimepickViews(getContext(), null, new DateUtils.ImplSelectTimeListener() {
+                        @Override
+                        public void seletedListener(String date) {
+                            tvDateStart.setText(date);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                break;
+            case R.id.tv_date_end:
+                try {
+                    DateUtils.showTimepickViews(getContext(), null, new DateUtils.ImplSelectTimeListener() {
+                        @Override
+                        public void seletedListener(String date) {
+                            tvDateEnd.setText(date);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+
+            case R.id.iv_delete:
+                tvDateStart.setText("");
+                tvDateEnd.setText("");
+                break;
+
+            case R.id.ll_reset:
+                listeners.reset();
+                break;
+
+            case R.id.ll_apply:
+
+                if (cbVideo.isChecked()){
+                    photoType = "2";
+                }else if (cbHd.isChecked()){
+                    photoType = "1";
+                }else {
+                    photoType = "-1";
+                }
+
+
+                String s = tvDateStart.getText().toString();
+                String s1 = tvDateEnd.getText().toString();
+                if (TextUtils.isEmpty(s) || TextUtils.isEmpty(s1)) {
+                    startDate = "-1";
+                    endDate = "-1";
+                } else {
+                    startDate = s;
+                    endDate = s1;
+                }
+
+
+
+                if (cbAm.isChecked()){
+                    amPm = "0";
+                }else if (cbPm.isChecked()){
+                    amPm = "1";
+                }else {
+                    amPm = "-1";
+                }
+
+                favorites = cbFavorites.isChecked() ? "1" : "-1";
+
+
+                if (rbC.isChecked()){
+                    temperatureUnit="0";
+                }
+
+                if (rbF.isChecked()){
+                    temperatureUnit="1";
+                }
+
+
+                int temp_start = wheelStart.getCurrentItem();
+                int temp_end = wheelEnd.getCurrentItem();
+
+                startTemperature=""+temp_start;
+                endTemperature=""+temp_end;
+
+
+                int nowSelectPosition = mAdapter.getNowSelectPosition();
+                moonPhase=String.valueOf(nowSelectPosition+1);
+
+                listeners.apply(
+                        startDate, endDate,
+                        amPm, photoType, favorites,
+                        moonPhase, startTemperature,
+                        endTemperature, temperatureUnit);
+                break;
+        }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (compoundButton == cbHd) {
+            if (b) cbVideo.setChecked(false);
+        } else if (compoundButton == cbVideo) {
+            if (b) cbHd.setChecked(false);
+        } else if (compoundButton == cbAm) {
+            if (b) cbPm.setChecked(false);
+        } else if (compoundButton == cbPm) {
+            if (b) cbAm.setChecked(false);
+        }
+    }
+
+
+    public interface IMenuListeners {
+
+        void reset();
+
+        void apply(
+                String startDate, String endDate,
+                String amPm, String photoType,
+                String favorites, String moonPhase,
+                String startTemperature, String endTemperature,
+                String temperatureUnit);
+
+    }
+
+
 }

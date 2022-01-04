@@ -34,7 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class PhotoFragment extends BaseFragment<PhotoPresenter> implements PhotoView,
-        BaseQuickAdapter.OnItemClickListener , Toolbar.OnMenuItemClickListener{
+        BaseQuickAdapter.OnItemClickListener , Toolbar.OnMenuItemClickListener,HomeNavigationViewFragment.IMenuListeners{
 
 
     @BindView(R.id.status_bar_view)
@@ -68,6 +68,9 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
 
     private int spanCount = 1;
+
+
+
 
     @Override
     protected PhotoPresenter createPresenter() {
@@ -121,8 +124,11 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         });
 
         /*---------------------------自定义侧边栏布局-----------------------------*/
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.navigationview, new HomeNavigationViewFragment()).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.navigationview, new HomeNavigationViewFragment(this)).commit();
     }
+
+
+
 
     @Override
     protected void initData() {
@@ -150,8 +156,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     public void refresh() {
         String accountName = App.getUserBean().getAccountName();
-        presenter.getCameraPic("-1", "-1", "-1", "-1", "-1", "-1",
-                "-1", "-1", "0", "0", "0");
+        presenter.getCameraPic();
     }
 
 
@@ -255,4 +260,35 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         String s = totalNum + getString(R.string.m76_photos);
         tvPicNum.setText(s);
     }
+
+    @Override
+    public void reset() {
+        presenter.setPageNow(0);
+        presenter.defautParams();
+        presenter.getCameraPic();
+        drawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void apply(String startDate, String endDate, String amPm,
+                      String photoType, String favorites, String moonPhase,
+                      String startTemperature, String endTemperature, String temperatureUnit) {
+
+            presenter.setStartDate(startDate);
+            presenter.setEndDate(endDate);
+            presenter.setAmPm(amPm);
+            presenter.setPhotoType(photoType);
+            presenter.setFavorites(favorites);
+            presenter.setMoonPhase(moonPhase);
+            presenter.setStartTemperature(startTemperature);
+            presenter.setEndTemperature(endTemperature);
+            presenter.setTemperatureUnit(temperatureUnit);
+
+        presenter.setPageNow(0);
+        presenter.getCameraPic();
+        drawerLayout.closeDrawers();
+
+    }
+
+
 }

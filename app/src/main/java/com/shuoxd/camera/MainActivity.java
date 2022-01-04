@@ -48,7 +48,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
     private CameraFragment mCameraFragment;
 
 
-
     public String cameraId;
 
 
@@ -88,9 +87,9 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
                         setActiveColorResource(R.color.color_app_main).setInactiveIconResource(R.drawable.tab_home).
                         setInActiveColorResource(R.color.gray))
                 .addItem(new BottomNavigationItem(R.drawable.tab_photo_selected, getString(R.string.m14_photo)).setActiveColorResource(R.color.color_app_main)
-                        .setInactiveIconResource(R.drawable.tab_photo ).setInActiveColorResource(R.color.gray))
+                        .setInactiveIconResource(R.drawable.tab_photo).setInActiveColorResource(R.color.gray))
                 .addItem(new BottomNavigationItem(R.drawable.tab_map_selected, getString(R.string.m57_nearby)).setActiveColorResource(R.color.color_app_main)
-                        .setInactiveIconResource(R.drawable.tab_map ).setInActiveColorResource(R.color.gray))
+                        .setInactiveIconResource(R.drawable.tab_map).setInActiveColorResource(R.color.gray))
                 .addItem(new BottomNavigationItem(R.drawable.tab_user_selected, getString(R.string.m58_user)).setActiveColorResource(R.color.color_app_main)
                         .setInactiveIconResource(R.drawable.tab_user).setInActiveColorResource(R.color.gray))
                 .initialise();
@@ -99,7 +98,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
 
         registerMessageReceiver();  // used for receive msg
     }
-
 
 
     //for receive customer msg from jpush server
@@ -119,8 +117,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
     }
 
 
-
-
     public class MessageReceiver extends BroadcastReceiver {
 
         @Override
@@ -134,12 +130,12 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
 
                     setCostomMsg(showMsg.toString());
                 }
-            } catch (Exception e){
+            } catch (Exception e) {
             }
         }
     }
 
-    private void setCostomMsg(String msg){
+    private void setCostomMsg(String msg) {
 
     }
 
@@ -148,7 +144,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
     protected void initData() {
 
     }
-
 
 
     @Override
@@ -162,7 +157,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
                 if (homeFragment == null) {
                     homeFragment = new HomeFragment();
                     mTransaction.add(R.id.fl_content, homeFragment);
-                }else {
+                } else {
                     mTransaction.show(homeFragment);
                 }
                 break;
@@ -171,7 +166,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
                 if (mPhotoFragment == null) {
                     mPhotoFragment = new PhotoFragment();
                     mTransaction.add(R.id.fl_content, mPhotoFragment);
-                }else {
+                } else {
                     mTransaction.show(mPhotoFragment);
                 }
                 break;
@@ -180,7 +175,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
                 if (mMapFragment == null) {
                     mMapFragment = new MapFragment();
                     mTransaction.add(R.id.fl_content, mMapFragment);
-                }else {
+                } else {
                     mTransaction.show(mMapFragment);
                 }
                 break;
@@ -189,7 +184,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
                 if (mMeFragment == null) {
                     mMeFragment = new MeFragment();
                     mTransaction.add(R.id.fl_content, mMeFragment);
-                }else {
+                } else {
                     mTransaction.show(mMeFragment);
                 }
                 break;
@@ -197,8 +192,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
         }
         mTransaction.commit();
     }
-
-
 
 
     public void showCameraInfo() {
@@ -238,8 +231,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
     }
 
 
-
-
     /**
      * 隐藏fragment
      */
@@ -266,7 +257,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
         }
 
     }
-
 
 
     @Override
@@ -319,7 +309,6 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
     protected HomePresenter createPresenter() {
         return null;
     }
-
 
 
     @Override
