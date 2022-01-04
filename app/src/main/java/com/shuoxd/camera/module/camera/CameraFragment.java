@@ -1,10 +1,14 @@
 package com.shuoxd.camera.module.camera;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
@@ -21,6 +25,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
+import com.shuoxd.camera.adapter.CameraFiterAdapter;
 import com.shuoxd.camera.adapter.CameraInfoAdapter;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
 import com.shuoxd.camera.app.App;
@@ -72,6 +77,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     NavigationView navigationview;
     @BindView(R.id.drawer_layout1)
     DrawerLayout drawerLayout;
+    @BindView(R.id.v_pop)
+    View vPop;
 
     private CameraPicAdapter mAdapter;
 
@@ -189,7 +196,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         mAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
         mAdapter.setOnLoadMoreListener(() -> {
             try {
-                refresh();
+                presenter.getCameraPic();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -203,7 +210,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         srlPull.setOnRefreshListener(() -> {
             try {
                 presenter.setPageNow(0);
-                refresh();
+                String accountName = App.getUserBean().getAccountName();
+                presenter.cameraInfo(cameraId, accountName);
+                presenter.getCameraPic();
+                presenter.getAlldevice();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -220,12 +230,14 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     }
 
 
+    //从其他页面跳转进来
     public void refresh() {
         String accountName = App.getUserBean().getAccountName();
         presenter.cameraInfo(cameraId, accountName);
         presenter.setImeis(cameraId);
         presenter.setIsAllCamera("-1");
         presenter.getCameraPic();
+        presenter.getAlldevice();
     }
 
     @Override
@@ -234,8 +246,48 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             // 一锟斤拷锟皆讹拷锟斤拷牟锟斤拷郑锟斤拷锟轿拷锟绞撅拷锟斤拷锟斤拷锟�
             View contentView = LayoutInflater.from(getActivity()).inflate(
                     R.layout.pop_layout, null);
-            RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
 
+            List<CameraBean> cameraList = presenter.getCameraList();
+            RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
+            rvCamera.setLayoutManager(new LinearLayoutManager(getContext()));
+            CameraFiterAdapter camerAdapter=new CameraFiterAdapter(R.layout.item_camera_menu,cameraList);
+            rvCamera.setAdapter(camerAdapter);
+            camerAdapter.setOnItemClickListener((adapter, view, position) -> {
+                camerAdapter.setNowSelectPosition(position);
+                CameraBean cameraBean = cameraList.get(position);
+                cameraId = cameraBean.getCamera().getImei();
+                presenter.setImeis(cameraId);
+                presenter.setPageNow(0);
+                String accountName = App.getUserBean().getAccountName();
+                presenter.cameraInfo(cameraId, accountName);
+                presenter.getCameraPic();
+                presenter.getAlldevice();
+            });
+
+
+            int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
+            int weight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+
+            final PopupWindow popupWindow = new PopupWindow(contentView, width,weight, true);
+            popupWindow.setTouchable(true);
+
+
+
+
+            popupWindow.setTouchInterceptor((v, event) -> false);
+            WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+            lp.alpha = 0.4f; //设置透明度
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            getActivity().getWindow().setAttributes(lp);
+            popupWindow.setOnDismissListener(() -> {
+                WindowManager.LayoutParams lp1 = getActivity().getWindow().getAttributes();
+                lp1.alpha = 1f;
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getActivity().getWindow().setAttributes(lp1);
+            });
+            popupWindow.setBackgroundDrawable(new ColorDrawable(0));
+            popupWindow.setAnimationStyle(R.style.Popup_Anim);
+            popupWindow.showAsDropDown(vPop);
         }
         return true;
     }

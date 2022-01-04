@@ -17,4 +17,5 @@ public interface CameraView extends BaseView {
     void showMoreFail();
 
     void showTotalNum(int totalNum);
+
 }

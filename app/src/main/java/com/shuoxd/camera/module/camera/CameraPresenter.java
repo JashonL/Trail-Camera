@@ -3,6 +3,7 @@ package com.shuoxd.camera.module.camera;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
@@ -39,6 +40,9 @@ public class CameraPresenter extends BasePresenter<CameraView> {
     private String startTemperature;
     private String endTemperature;
     private String temperatureUnit;
+
+
+    private List<CameraBean> cameraList = new ArrayList<>();
 
 
     public void setTotalPage(int totalPage) {
@@ -174,41 +178,38 @@ public class CameraPresenter extends BasePresenter<CameraView> {
     }
 
 
-
-
     public void defautParams() {
         pageNow = 0;
         totalPage = 1;
    /*     imeis="-1";
         isAllCamera="1";*/
-        startDate="-1";
-        endDate="-1";
-        amPm="-1";
-        photoType="-1";
-        favorites="-1";
-        moonPhase="-1";
-        startTemperature="0";
-        endTemperature="0";
-        temperatureUnit="0";
+        startDate = "-1";
+        endDate = "-1";
+        amPm = "-1";
+        photoType = "-1";
+        favorites = "-1";
+        moonPhase = "-1";
+        startTemperature = "0";
+        endTemperature = "0";
+        temperatureUnit = "0";
     }
-
 
 
     /**
      * 获取相机相片
      */
     public void getCameraPic() {
-        if (pageNow>=totalPage){
+        if (pageNow >= totalPage) {
             //没有更多的数据
             baseView.showNoMoreData();
-        }else {
+        } else {
             pageNow++;
             //正式登录
-            addDisposable(apiServer.photoList(pageNow,imeis, isAllCamera,
+            addDisposable(apiServer.photoList(pageNow, imeis, isAllCamera,
                     startDate, endDate,
                     amPm, photoType,
                     favorites, moonPhase,
-                    startTemperature, endTemperature,temperatureUnit),
+                    startTemperature, endTemperature, temperatureUnit),
                     new BaseObserver<String>(baseView, true) {
 
                         @Override
@@ -224,7 +225,7 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                                     int totalNum = obj.optInt("totalNum");
                                     baseView.showTotalNum(totalNum);
                                     JSONArray jsonArray = obj.optJSONArray("dataList");
-                                    List<PictureBean>beans=new ArrayList<>();
+                                    List<PictureBean> beans = new ArrayList<>();
                                     assert jsonArray != null;
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject jsonObject1 = jsonArray.optJSONObject(i);
@@ -256,6 +257,7 @@ public class CameraPresenter extends BasePresenter<CameraView> {
     }
 
 
+
     private void refreshErrPage() {
         baseView.showResultError("");
         baseView.showMoreFail();
@@ -276,4 +278,59 @@ public class CameraPresenter extends BasePresenter<CameraView> {
         return totalPage;
     }
 
+
+    public void getAlldevice() {
+        String accountName = App.getUserBean().getAccountName();
+        //获取设备
+        addDisposable(apiServer.allCameraList(accountName), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        JSONArray obj = jsonObject.getJSONArray("obj");
+                        //解析相机数据
+                        int totalNum=0;
+                        cameraList.clear();
+                        for (int i = 0; i < obj.length(); i++) {
+                            JSONObject jsonObject1 = obj.getJSONObject(i);
+                            CameraBean cameraBean = new Gson().fromJson(jsonObject1.toString(), CameraBean.class);
+                            String imei = cameraBean.getCamera().getImei();
+                            cameraBean.setSelected(imeis.equals(imei));
+                            String totalPhotoNum = cameraBean.getTotalPhotoNum();
+                             totalNum += Integer.parseInt(totalPhotoNum);
+                            cameraList.add(cameraBean);
+                        }
+
+                   /*     CameraBean cameraBean =new CameraBean();
+                        cameraBean.setTotalPhotoNum(String.valueOf(totalNum));
+                        CameraBean.CameraInfo info=new CameraBean.CameraInfo();
+                        info.setAlias(context.getString(R.string.m77_all_camera));
+                        cameraBean.setCamera(info);
+                        cameraBean.setSelected(true);
+                        cameraList.add(0,cameraBean);*/
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    refreshErrPage();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                refreshErrPage();
+                baseView.showServerError(msg);
+            }
+        });
+
+
+    }
+
+
+    public List<CameraBean> getCameraList() {
+        return cameraList;
+    }
 }

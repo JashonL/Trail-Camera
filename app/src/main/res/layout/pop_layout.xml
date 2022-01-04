@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="@dimen/dp_225"
+    android:background="@drawable/shape_white_rect"
     android:layout_height="@dimen/dp_248">
 
     <androidx.recyclerview.widget.RecyclerView

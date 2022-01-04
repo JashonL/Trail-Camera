@@ -82,6 +82,15 @@ public class API {
 
         );
 
+
+
+
+        //获取设备数据
+        @FormUrlEncoded
+        @POST("/v1/camera/allCameraList")
+        Observable<String> allCameraList(@Field("email") String email);
+
+
         //----------------------------【获取消息】--------------------------------
 
         @FormUrlEncoded
