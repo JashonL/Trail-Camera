@@ -32,6 +32,7 @@ import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
 
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class CameraFragment extends BaseFragment<CameraPresenter> implements CameraView, Toolbar.OnMenuItemClickListener,
-        BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener, HomeNavigationViewFragment.IMenuListeners {
+        BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener, CameraNavigationViewFragment.IMenuListeners {
 
 
     @BindView(R.id.status_bar_view)
@@ -67,9 +68,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     ImageView ivSwitch;
 
     public String cameraId;
-    @BindView(R.id.navigationview)
+    @BindView(R.id.navigationview1)
     NavigationView navigationview;
-    @BindView(R.id.drawer_layout)
+    @BindView(R.id.drawer_layout1)
     DrawerLayout drawerLayout;
 
     private CameraPicAdapter mAdapter;
@@ -166,7 +167,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         ivStyle.setOnClickListener(v -> {
             drawerLayout.openDrawer(GravityCompat.START);
         });
-        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.navigationview, new HomeNavigationViewFragment(this)).commit();
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.navigationview1, new CameraNavigationViewFragment(this)).commit();
 
     }
 
@@ -229,7 +230,14 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        return false;
+        if (item.getItemId()==R.id.right_action){
+            // 一锟斤拷锟皆讹拷锟斤拷牟锟斤拷郑锟斤拷锟轿拷锟绞撅拷锟斤拷锟斤拷锟�
+            View contentView = LayoutInflater.from(getActivity()).inflate(
+                    R.layout.pop_layout, null);
+            RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
+
+        }
+        return true;
     }
 
     @Override
