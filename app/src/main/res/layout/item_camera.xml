@@ -14,18 +14,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <ImageView
             android:id="@+id/iv_camera"
             android:layout_width="@dimen/dp_140"
             android:layout_height="@dimen/dp_105"
-            android:layout_marginStart="@dimen/dp_10"
-            android:src="@drawable/kaola"
+            android:layout_marginLeft="8dp"
             android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="h,16:9"
+            android:src="@drawable/kaola"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="h,16:9"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.363" />
 
         <TextView
             android:id="@+id/tv_hd"
@@ -46,6 +47,7 @@
             android:id="@+id/v_mask"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp_17"
+            android:visibility="gone"
             android:background="@drawable/shape_trans"
             app:layout_constraintBottom_toBottomOf="@+id/iv_camera"
             app:layout_constraintLeft_toLeftOf="@+id/iv_camera"
@@ -60,6 +62,7 @@
             android:text="04:00:36AM"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_8"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/v_mask"
             app:layout_constraintLeft_toLeftOf="@+id/v_mask"
             app:layout_constraintTop_toTopOf="@+id/v_mask" />
@@ -73,6 +76,7 @@
             android:text="07/24/2021"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_8"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/v_mask"
             app:layout_constraintLeft_toRightOf="@+id/tv_time"
             app:layout_constraintTop_toTopOf="@+id/v_mask" />
@@ -83,6 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:text="85℃"
+            android:visibility="gone"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_8"
             app:layout_constraintBottom_toBottomOf="@+id/v_mask"

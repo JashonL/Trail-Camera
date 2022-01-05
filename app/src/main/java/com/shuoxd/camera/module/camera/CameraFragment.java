@@ -209,6 +209,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         cameraId = getArguments().getString("cameraId");
         srlPull.setOnRefreshListener(() -> {
             try {
+                presenter.setTotalPage(1);
                 presenter.setPageNow(0);
                 String accountName = App.getUserBean().getAccountName();
                 presenter.cameraInfo(cameraId, accountName);
@@ -220,6 +221,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         });
         //获取列表设备列表
         try {
+            presenter.setTotalPage(1);
             presenter.setPageNow(0);
             refresh();
         } catch (Exception e) {
@@ -257,11 +259,11 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 CameraBean cameraBean = cameraList.get(position);
                 cameraId = cameraBean.getCamera().getImei();
                 presenter.setImeis(cameraId);
+                presenter.setTotalPage(1);
                 presenter.setPageNow(0);
                 String accountName = App.getUserBean().getAccountName();
                 presenter.cameraInfo(cameraId, accountName);
                 presenter.getCameraPic();
-                presenter.getAlldevice();
             });
 
 
@@ -450,6 +452,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     public void reset() {
+        presenter.setTotalPage(1);
         presenter.setPageNow(0);
         presenter.defautParams();
         presenter.getCameraPic();
@@ -470,7 +473,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         presenter.setStartTemperature(startTemperature);
         presenter.setEndTemperature(endTemperature);
         presenter.setTemperatureUnit(temperatureUnit);
-
+        presenter.setTotalPage(1);
         presenter.setPageNow(0);
         presenter.getCameraPic();
         drawerLayout.closeDrawers();

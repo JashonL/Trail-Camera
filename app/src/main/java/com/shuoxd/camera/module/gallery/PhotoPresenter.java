@@ -3,8 +3,11 @@ package com.shuoxd.camera.module.gallery;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.shuoxd.camera.R;
+import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
+import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.module.home.HomeView;
 
@@ -12,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PhotoPresenter extends BasePresenter<PhotoView> {
@@ -35,6 +39,10 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
     private String temperatureUnit;
 
 
+
+    private List<CameraBean> cameraList = new ArrayList<>();
+
+
     public PhotoPresenter(Context context, PhotoView baseView) {
         super(context, baseView);
         defautParams();
@@ -44,8 +52,8 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
     public void defautParams() {
         pageNow = 0;
         totalPage = 1;
-        imeis="-1";
-        isAllCamera="1";
+//        imeis="-1";
+//        isAllCamera="1";
         startDate="-1";
         endDate="-1";
         amPm="-1";
@@ -229,6 +237,66 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
 
     public int getTotalPage() {
         return totalPage;
+    }
+
+
+
+    public void getAlldevice() {
+        String accountName = App.getUserBean().getAccountName();
+        //获取设备
+        addDisposable(apiServer.allCameraList(accountName), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        JSONArray obj = jsonObject.getJSONArray("obj");
+                        //解析相机数据
+                        int totalNum=0;
+                        cameraList.clear();
+                        List<String> ids = Arrays.asList(imeis.split("_"));
+                        for (int i = 0; i < obj.length(); i++) {
+                            JSONObject jsonObject1 = obj.getJSONObject(i);
+                            CameraBean cameraBean = new Gson().fromJson(jsonObject1.toString(), CameraBean.class);
+                            String imei = cameraBean.getCamera().getImei();
+                            cameraBean.setSelected(ids.contains(imei));
+                            String totalPhotoNum = cameraBean.getTotalPhotoNum();
+                            totalNum += Integer.parseInt(totalPhotoNum);
+                            cameraList.add(cameraBean);
+                        }
+
+                        CameraBean cameraBean =new CameraBean();
+                        cameraBean.setTotalPhotoNum(String.valueOf(totalNum));
+                        CameraBean.CameraInfo info=new CameraBean.CameraInfo();
+                        info.setAlias(context.getString(R.string.m77_all_camera));
+                        cameraBean.setCamera(info);
+                        //如果当前是选中全部
+                        cameraBean.setSelected("-1".equals(imeis));
+                        cameraList.add(0,cameraBean);
+
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    refreshErrPage();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                refreshErrPage();
+                baseView.showServerError(msg);
+            }
+        });
+
+
+    }
+
+
+
+    public List<CameraBean> getCameraList() {
+        return cameraList;
     }
 
 }

@@ -1,10 +1,13 @@
 package com.shuoxd.camera.module.gallery;
 
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
@@ -13,15 +16,19 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
+import com.shuoxd.camera.adapter.CameraFiterAdapter;
+import com.shuoxd.camera.adapter.CameraMulFiterAdapter;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
+import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
@@ -57,12 +64,13 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     MySwipeRefreshLayout srlPull;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
+    @BindView(R.id.v_pop)
+    View vPop;
 
 
     /*设备部分*/
     private CameraPicAdapter mAdapter;
 
-    public String cameraId;
 
     private List<PictureBean> picList = new ArrayList<>();
 
@@ -134,8 +142,14 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     protected void initData() {
 //        cameraId = getArguments().getString("cameraId");
 
+
+        //默认请求全部
+        presenter.setImeis("-1");
+        presenter.setIsAllCamera("1");
+
         srlPull.setOnRefreshListener(() -> {
             try {
+                presenter.setTotalPage(1);
                 presenter.setPageNow(0);
                 refresh();
             } catch (Exception e) {
@@ -144,6 +158,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         });
         //获取列表设备列表
         try {
+            presenter.setTotalPage(1);
             presenter.setPageNow(0);
             refresh();
         } catch (Exception e) {
@@ -155,7 +170,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
 
     public void refresh() {
-        String accountName = App.getUserBean().getAccountName();
+        presenter.getAlldevice();
         presenter.getCameraPic();
     }
 
@@ -198,7 +213,73 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        return false;
+        if (item.getItemId()==R.id.right_action){
+            // 一锟斤拷锟皆讹拷锟斤拷牟锟斤拷郑锟斤拷锟轿拷锟绞撅拷锟斤拷锟斤拷锟�
+            View contentView = LayoutInflater.from(getActivity()).inflate(
+                    R.layout.pop_layout, null);
+
+            List<CameraBean> cameraList = presenter.getCameraList();
+            RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
+            rvCamera.setLayoutManager(new LinearLayoutManager(getContext()));
+            CameraMulFiterAdapter camerAdapter=new CameraMulFiterAdapter(R.layout.item_camera_menu,cameraList);
+            rvCamera.setAdapter(camerAdapter);
+            camerAdapter.setOnItemClickListener((adapter, view, position) -> {
+                camerAdapter.setNowSelectPosition(position);
+                StringBuilder imeis= new StringBuilder();
+                List<CameraBean> data = camerAdapter.getData();
+                for (int i = 0; i < data.size(); i++) {
+                    CameraBean cameraBean = data.get(i);
+                    boolean selected = cameraBean.isSelected();
+                    if (selected){
+                        if (i==0){
+                            imeis = new StringBuilder("-1");
+                            break;
+                        }else {
+                            String imei = cameraBean.getCamera().getImei();
+                            imeis.append(imei).append("_");
+                        }
+                    }
+                }
+                if (imeis.toString().endsWith("_")){
+                    imeis = new StringBuilder(imeis.substring(0, imeis.length() - 1));
+                    presenter.setImeis(imeis.toString());
+                    presenter.setIsAllCamera("-1");
+                }else {
+                    presenter.setImeis("-1");
+                    presenter.setIsAllCamera("1");
+                }
+                presenter.setTotalPage(1);
+                presenter.setPageNow(0);
+                presenter.getCameraPic();
+            });
+
+
+            int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
+            int weight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+
+            final PopupWindow popupWindow = new PopupWindow(contentView, width,weight, true);
+            popupWindow.setTouchable(true);
+
+
+
+
+            popupWindow.setTouchInterceptor((v, event) -> false);
+            WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+            lp.alpha = 0.4f; //设置透明度
+            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+            getActivity().getWindow().setAttributes(lp);
+            popupWindow.setOnDismissListener(() -> {
+                WindowManager.LayoutParams lp1 = getActivity().getWindow().getAttributes();
+                lp1.alpha = 1f;
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getActivity().getWindow().setAttributes(lp1);
+            });
+            popupWindow.setBackgroundDrawable(new ColorDrawable(0));
+            popupWindow.setAnimationStyle(R.style.Popup_Anim);
+            popupWindow.showAsDropDown(vPop);
+        }
+
+        return true;
     }
 
 
@@ -263,6 +344,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     @Override
     public void reset() {
+        presenter.setTotalPage(1);
         presenter.setPageNow(0);
         presenter.defautParams();
         presenter.getCameraPic();
@@ -284,6 +366,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
             presenter.setEndTemperature(endTemperature);
             presenter.setTemperatureUnit(temperatureUnit);
 
+        presenter.setTotalPage(1);
         presenter.setPageNow(0);
         presenter.getCameraPic();
         drawerLayout.closeDrawers();

@@ -278,11 +278,11 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
 
 
                 if (rbC.isChecked()){
-                    temperatureUnit="0";
+                    temperatureUnit="1";
                 }
 
                 if (rbF.isChecked()){
-                    temperatureUnit="1";
+                    temperatureUnit="0";
                 }
 
 
