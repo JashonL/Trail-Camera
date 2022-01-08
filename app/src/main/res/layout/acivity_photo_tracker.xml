@@ -10,12 +10,13 @@
 
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_subtitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_42"
         android:background="@color/white"
+        android:drawableRight="@drawable/selector_chart_rb"
         android:gravity="center"
-        android:text="1/108"
+        android:text="September 2021"
         android:textColor="@color/color_text_66"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
@@ -24,64 +25,70 @@
     <RadioGroup
         android:id="@+id/rg_date"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_5"
+        android:layout_height="@dimen/dp_40"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="@dimen/dp_10"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+        app:layout_constraintTop_toBottomOf="@+id/tv_subtitle">
 
 
         <RadioButton
             android:id="@+id/rb_day"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            android:background="@drawable/selector_rb2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_chart_rb"
             android:button="@null"
             android:checked="true"
             android:gravity="center"
-            android:padding="@dimen/dp_3"
             android:text="@string/m25_day"
             android:textColor="@color/rb_text_selector" />
 
         <RadioButton
             android:id="@+id/rb_week"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            android:background="@drawable/selector_rb2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_chart_rb"
             android:button="@null"
             android:gravity="center"
-            android:padding="@dimen/dp_3"
             android:text="@string/m26_week"
             android:textColor="@color/rb_text_selector" />
 
         <RadioButton
             android:id="@+id/rb_month"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            android:background="@drawable/selector_rb2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_chart_rb"
             android:button="@null"
             android:checked="true"
             android:gravity="center"
-            android:padding="@dimen/dp_3"
             android:text="@string/m27_month"
             android:textColor="@color/rb_text_selector" />
 
         <RadioButton
             android:id="@+id/rb_year"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dp_10"
-            android:background="@drawable/selector_rb2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_chart_rb"
             android:button="@null"
             android:gravity="center"
-            android:padding="@dimen/dp_3"
             android:text="@string/m28_year"
+            android:textColor="@color/rb_text_selector" />
+
+
+        <RadioButton
+            android:id="@+id/rb_total"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/selector_chart_rb"
+            android:button="@null"
+            android:gravity="center"
+            android:text="@string/m100_total"
             android:textColor="@color/rb_text_selector" />
 
 
@@ -92,7 +99,6 @@
         android:id="@+id/cl_chart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
         android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/rg_date">
 
@@ -131,11 +137,21 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_date" />
 
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/chart"
+
+        <LinearLayout
+            android:id="@+id/ll_chart"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_300"
-            app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/tv_date">
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_300"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+        </LinearLayout>
 
 
         <TextView
@@ -148,7 +164,7 @@
             android:textSize="@dimen/size_content_sp_14"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chart" />
+            app:layout_constraintTop_toBottomOf="@+id/ll_chart" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

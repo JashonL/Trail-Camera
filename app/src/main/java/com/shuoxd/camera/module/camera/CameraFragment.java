@@ -1,5 +1,6 @@
 package com.shuoxd.camera.module.camera;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -201,6 +202,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 e.printStackTrace();
             }
         }, rlvDevice);
+
+        mAdapter.setOnItemClickListener(this);
     }
 
 
@@ -221,8 +224,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         });
         //获取列表设备列表
         try {
-            presenter.setTotalPage(1);
-            presenter.setPageNow(0);
             refresh();
         } catch (Exception e) {
             e.printStackTrace();
@@ -235,6 +236,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     //从其他页面跳转进来
     public void refresh() {
         String accountName = App.getUserBean().getAccountName();
+        presenter.setTotalPage(1);
+        presenter.setPageNow(0);
         presenter.cameraInfo(cameraId, accountName);
         presenter.setImeis(cameraId);
         presenter.setIsAllCamera("-1");
@@ -301,7 +304,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        CameraShowListManerge.getInstance().setPicList(picList);
+        Intent intent =new Intent(getContext(),CameraDetailActivity.class);
+        intent.putExtra("position",position);
+        startActivity(intent);
     }
 
 

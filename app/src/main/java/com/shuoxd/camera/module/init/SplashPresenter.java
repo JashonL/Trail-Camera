@@ -26,9 +26,7 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
     private String userUrl;//用户所属服务器
     public boolean isRemmenberPassword = false;
 
-    public SplashPresenter(ISplashView baseView) {
-        super(baseView);
-    }
+
 
     public SplashPresenter(Context context, ISplashView baseView) {
         super(context, baseView);

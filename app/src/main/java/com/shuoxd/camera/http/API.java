@@ -23,7 +23,7 @@ import retrofit2.http.Url;
 
 public class API {
 
-    static final String BASE_URL = "http://161.117.81.87:50010/";
+    static final String BASE_URL = "http://camera.shuoxd.com:50010/";
 //    static final String BASE_URL = "https://www.wanandroid.com/";
 
     private static final String OSS_URL = "http://oss1.growatt.com/";
@@ -89,6 +89,13 @@ public class API {
         @FormUrlEncoded
         @POST("/v1/camera/allCameraList")
         Observable<String> allCameraList(@Field("email") String email);
+
+
+
+        //获取设备数据
+        @FormUrlEncoded
+        @POST("/v1/camera/photo/operation/{photoId}")
+        Observable<String> operation(@Path("photoId") String photoId,@Field("operationType")String operationType,@Field("operationValue")String operationValue);
 
 
         //----------------------------【获取消息】--------------------------------

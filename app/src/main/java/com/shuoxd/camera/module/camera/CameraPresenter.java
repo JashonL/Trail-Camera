@@ -43,6 +43,7 @@ public class CameraPresenter extends BasePresenter<CameraView> {
 
 
     private List<CameraBean> cameraList = new ArrayList<>();
+    private List<PictureBean> pictureBeans = new ArrayList<>();
 
 
     public void setTotalPage(int totalPage) {
@@ -233,7 +234,6 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                                         beans.add(pictureBean);
                                     }
                                     baseView.showCameraPic(beans);
-
                                 } else {
                                     String msg = jsonObject.optString("msg");
                                     baseView.showResultError(msg);

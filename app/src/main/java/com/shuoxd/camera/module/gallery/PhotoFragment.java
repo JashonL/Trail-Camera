@@ -1,5 +1,6 @@
 package com.shuoxd.camera.module.gallery;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -33,6 +34,8 @@ import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.module.camera.CameraDetailActivity;
+import com.shuoxd.camera.module.camera.CameraShowListManerge;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
 
 import java.util.ArrayList;
@@ -195,11 +198,16 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
                 e.printStackTrace();
             }
         }, rlvDevice);
+        mAdapter.setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        CameraShowListManerge.getInstance().setPicList(picList);
+        Intent intent =new Intent(getContext(), CameraDetailActivity.class);
+        //当前选择的是哪一张
+        intent.putExtra("position",position);
+        startActivity(intent);
     }
 
     @Override

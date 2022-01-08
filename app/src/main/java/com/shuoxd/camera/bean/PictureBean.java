@@ -8,7 +8,7 @@ public class PictureBean {
     private String fileName;
     private String type;
     private String isRead;
-    private String collection;
+    private String favorites;
     private String path;
     private String fullPath;
     private String uploadTime;
@@ -68,11 +68,11 @@ public class PictureBean {
     }
 
     public String getCollection() {
-        return collection;
+        return favorites;
     }
 
     public void setCollection(String collection) {
-        this.collection = collection;
+        this.favorites = collection;
     }
 
     public String getPath() {

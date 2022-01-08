@@ -23,9 +23,7 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
 
     private int totalPage = 1;
 
-    public MessagePresenter(MessageView baseView) {
-        super(baseView);
-    }
+
 
     public MessagePresenter(Context context, MessageView baseView) {
         super(context, baseView);
