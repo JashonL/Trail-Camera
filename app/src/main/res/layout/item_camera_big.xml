@@ -55,7 +55,7 @@
             android:id="@+id/iv_camera"
             android:layout_width="@dimen/dp_330"
             android:layout_height="0dp"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:src="@drawable/kaola"
             app:layout_constraintDimensionRatio="h,16:9"
             app:layout_constraintLeft_toLeftOf="parent"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,32 +10,67 @@
 
 
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_num"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_42"
         android:background="@color/white"
         android:gravity="center"
         android:text="1/108"
         android:textColor="@color/color_text_66"
-        android:textSize="@dimen/size_content_sp_14" />
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
 
 
     <TextView
         android:id="@+id/tv_subtitle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_42"
-        android:layout_marginTop="@dimen/dp_20"
         android:gravity="center"
         android:text="@string/m20_sliding"
         android:textColor="@color/color_text_66"
-        android:textSize="@dimen/size_content_sp_14" />
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintTop_toBottomOf="@+id/tv_num" />
 
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_240"
-        android:background="@drawable/deer" />
+        android:layout_height="0dp"
+        app:layout_constraintDimensionRatio="h,16:9"
+        android:background="@drawable/deer"
+        app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/vp">
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_10"
+            android:text="02:24:48 09/25/2021"
+            android:textColor="@color/color_text_66"
+            android:textSize="@dimen/size_content_sp_12" />
+
+        <TextView
+            android:id="@+id/tv_temp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:gravity="center_vertical|end"
+            android:padding="@dimen/dp_10"
+            android:text="31℃"
+            android:textColor="@color/color_text_66"
+            android:textSize="@dimen/size_content_sp_12" />
+    </LinearLayout>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,7 +80,8 @@
         android:layout_marginStart="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_30"
         android:layout_marginEnd="@dimen/dp_10"
-        android:background="@color/white">
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/ll_date">
 
         <TextView
             android:id="@+id/tv_collec"
@@ -107,7 +143,8 @@
         android:text="@string/m24_download"
         android:textColor="@color/white"
         android:textSize="@dimen/size_content_sp_12"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_menu"
         app:layout_constraintVertical_bias="0.2" />
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

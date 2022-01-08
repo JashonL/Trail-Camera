@@ -40,9 +40,9 @@ public class BasePresenter<V extends BaseView> implements Handler.Callback {
      */
     protected API.WAZApi apiServer = RetrofitService.getInstance().getApiService();
 
-    public BasePresenter(V baseView) {
-        this.baseView = baseView;
-    }
+//    public BasePresenter(V baseView) {
+//        this.baseView = baseView;
+//    }
     public BasePresenter(Context context, V baseView) {
         this.baseView = baseView;
         this.context=context;
