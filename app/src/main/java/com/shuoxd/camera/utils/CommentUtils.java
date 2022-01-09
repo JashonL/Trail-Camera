@@ -23,6 +23,7 @@ import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
@@ -361,6 +362,26 @@ public class CommentUtils {
         return getMins;
     }
 
+
+
+
+    /**
+     * 获取12个月份的英文
+     */
+    public static List<String> getMonth() {
+        String [] month={"January","February","March","April","May","June","July","August","September","October","November","December"};
+        return Arrays.asList(month);
+    }
+
+
+
+    /**
+     * 获取一周的英文
+     */
+    public static List<String> getWeeks() {
+        String [] month={"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+        return Arrays.asList(month);
+    }
 
 
 

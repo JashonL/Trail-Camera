@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toobar_title" />
+
+    <View
+        android:id="@+id/v_pop"
+        android:layout_width="@dimen/dp_10"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/dp_20"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
+
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_42"
+        android:background="@color/white"
+        android:drawableRight="@drawable/selector_chart_rb"
+        android:gravity="center"
+        android:text="September 2021"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        app:layout_constraintTop_toBottomOf="@+id/tv_subtitle"
+        app:tabIndicatorColor="@color/nocolor"
+        app:tabSelectedTextColor="@color/white"
+        app:tabBackground="@drawable/selector_chart_rb"
+        app:tabTextAppearance="@style/style_tab_layout2">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/m25_day" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/m26_week" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/m27_month" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/m28_year" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/m100_total" />
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+    <View
+        android:id="@+id/v_chart_background"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="@+id/v_top_padding"
+        app:layout_constraintBottom_toBottomOf="@+id/v_bottom_padding"
+        android:layout_height="0dp"/>
+
+    <View
+        android:id="@+id/v_top_padding"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        app:layout_constraintTop_toBottomOf="@+id/tab_title"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_42"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/dp_20"
+        android:text="22 September 2021 - 28 September 2021 "
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/iv_left"
+        app:layout_constraintTop_toBottomOf="@+id/v_top_padding" />
+
+    <View
+        android:id="@+id/v_bottom_padding"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_20"
+        app:layout_constraintTop_toBottomOf="@+id/tv_date"
+        />
+
+
+    <ImageView
+        android:id="@+id/iv_left"
+        android:layout_width="@dimen/dp_34"
+        android:layout_height="@dimen/dp_21"
+        android:layout_marginEnd="@dimen/dp_1"
+        android:background="@drawable/rb_left_rb"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+        app:layout_constraintRight_toLeftOf="@+id/iv_right"
+        app:layout_constraintTop_toTopOf="@+id/tv_date" />
+
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="@dimen/dp_34"
+        android:layout_height="@dimen/dp_21"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/rb_right_rb"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_date" />
+
+
+
+
+    <FrameLayout
+        android:id="@+id/vp_chart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_300"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/v_bottom_padding" />
+
+
+    <TextView
+        android:id="@+id/tv_wheater"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dp_42"
+        android:gravity="center"
+        android:background="@color/white"
+        android:text="@string/m29_nearest_weather"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/vp_chart" />
+
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="@dimen/dp_207"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_20"
+        android:background="@drawable/selector_button_rect"
+        android:minWidth="@dimen/dp_250"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m30_reset_tracking_history"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_wheater"
+        app:layout_constraintVertical_bias="0.2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

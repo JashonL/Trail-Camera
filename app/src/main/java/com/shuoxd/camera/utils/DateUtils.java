@@ -127,6 +127,7 @@ public class DateUtils {
                     "-" + ((month + 1) < 10 ? "0" + (month + 1) : (month + 1)) +
                     "-" + ((dayOfMonth < 10) ? "0" + dayOfMonth : dayOfMonth);
             listener.seletedListener(date);
+            listener.result(year,month,dayOfMonth);
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)) {
             @Override
             protected void onStop() {
@@ -134,9 +135,18 @@ public class DateUtils {
         }.show();
     }
 
+
+
+
+
+
     public interface ImplSelectTimeListener {
 
         void seletedListener(String date);
+
+
+        void result(int year,int month,int day);
+
     }
 
 }

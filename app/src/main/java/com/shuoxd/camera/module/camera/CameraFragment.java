@@ -126,6 +126,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         rvMenu.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mCameraInfoAdapter = new CameraInfoAdapter(R.layout.item_camera_info, new ArrayList<>());
         rvMenu.setAdapter(mCameraInfoAdapter);
+        mCameraInfoAdapter.setOnItemClickListener(this);
+
+
 
         ivSwitch.setOnClickListener(view12 -> {
             int itemDecorationCount = rlvDevice.getItemDecorationCount();
@@ -304,10 +307,19 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        CameraShowListManerge.getInstance().setPicList(picList);
-        Intent intent =new Intent(getContext(),CameraDetailActivity.class);
-        intent.putExtra("position",position);
-        startActivity(intent);
+        if (adapter==mCameraInfoAdapter){
+            Intent intent =new Intent(getContext(),ChartActivity.class);
+            intent.putExtra("imei",cameraId);
+            startActivity(intent);
+        }
+
+        if (adapter==mAdapter){
+            CameraShowListManerge.getInstance().setPicList(picList);
+            Intent intent =new Intent(getContext(),CameraDetailActivity.class);
+            intent.putExtra("position",position);
+            startActivity(intent);
+        }
+
     }
 
 

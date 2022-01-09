@@ -215,6 +215,11 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                         public void seletedListener(String date) {
                             tvDateStart.setText(date);
                         }
+
+                        @Override
+                        public void result(int year, int month, int day) {
+
+                        }
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -227,6 +232,11 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                         @Override
                         public void seletedListener(String date) {
                             tvDateEnd.setText(date);
+                        }
+
+                        @Override
+                        public void result(int year, int month, int day) {
+
                         }
                     });
                 } catch (Exception e) {

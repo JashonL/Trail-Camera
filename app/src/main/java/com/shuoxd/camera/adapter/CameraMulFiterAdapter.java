@@ -57,8 +57,9 @@ public class CameraMulFiterAdapter extends BaseQuickAdapter<CameraBean, BaseView
         try {
             CameraBean item = getItem(position);
             if (item != null) {
-                item.setSelected(true);
+//                item.setSelected(true);
                 if (position == 0) {
+                    item.setSelected(true);
                     //将其他项设置成未选中
                     int itemCount = getItemCount();
                     List<CameraBean> data = getData();
@@ -69,7 +70,21 @@ public class CameraMulFiterAdapter extends BaseQuickAdapter<CameraBean, BaseView
                         }
                     }
                 } else {
+                    boolean selected = item.isSelected();
                     getData().get(0).setSelected(false);
+                    if (selected){
+                        int count=0;
+                        int itemCount = getItemCount();
+                        List<CameraBean> data = getData();
+                        for (int i = 0; i < itemCount; i++) {
+                            CameraBean cameraBean = data.get(i);
+                            boolean selected1 = cameraBean.isSelected();
+                            if (selected1)count++;
+                        }
+                        if (count>1) item.setSelected(false);
+                    }else {
+                        item.setSelected(true);
+                    }
 
                 }
 

@@ -112,7 +112,7 @@
             android:textColor="@color/color_text_66"
             android:textSize="@dimen/size_content_sp_14"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/iv_right"
+            app:layout_constraintRight_toLeftOf="@+id/iv_left"
             app:layout_constraintTop_toTopOf="parent" />
 
 

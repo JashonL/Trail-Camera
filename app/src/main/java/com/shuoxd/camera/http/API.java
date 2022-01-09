@@ -97,6 +97,13 @@ public class API {
         @POST("/v1/camera/photo/operation/{photoId}")
         Observable<String> operation(@Path("photoId") String photoId,@Field("operationType")String operationType,@Field("operationValue")String operationValue);
 
+        //----------------------------【获取图表消息】--------------------------------
+        //获取图表数据
+        @FormUrlEncoded
+        @POST("/v1/camera/photo/chart/{dateType}")
+        Observable<String> chart(@Path("dateType") String dateType,@Field("isAllCamera")String isAllCamera,@Field("imeis")String imeis,@Field("date")String date);
+
+
 
         //----------------------------【获取消息】--------------------------------
 

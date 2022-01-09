@@ -64,6 +64,8 @@
     <color name="color_fiter_apply">#F25E2A</color>
     <color name="color_fiter_apply_press">#F2662A</color>
 
-
+<!--图表-->
+    <color name="barchart_color">#F38700</color>
+    <color name="barchart_hight_color">#F25E2A</color>
 
 </resources>
