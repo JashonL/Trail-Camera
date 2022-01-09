@@ -12,13 +12,14 @@ import java.util.Date;
 
 public class DateUtils {
 
-   public interface SeletctTimeListeners {
+    public interface SeletctTimeListeners {
         void seleted(String date);
+
         void ymdHms(int year, int month, int day, int hour, int min, int second);
     }
 
 
-    public static void showTotalTime(Context mContext, SeletctTimeListeners listeners ) throws Exception {
+    public static void showTotalTime(Context mContext, SeletctTimeListeners listeners) throws Exception {
         final Calendar c = Calendar.getInstance();
         StringBuilder sb = new StringBuilder();
         // 直接创建一个DatePickerDialog对话框实例，并将它显示出来
@@ -39,7 +40,7 @@ public class DateUtils {
                                             .append(":").append(minute < 10 ? "0" + minute : minute)
                                             .append(":").append(second < 10 ? "0" + second : second);
                                     listeners.seleted(sb.toString());
-                                    listeners.ymdHms(year,monthOfYear,dayOfMonth,hourOfDay,minute,second);
+                                    listeners.ymdHms(year, monthOfYear, dayOfMonth, hourOfDay, minute, second);
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
@@ -63,8 +64,6 @@ public class DateUtils {
             }
         }.show();
     }
-
-
 
 
     public static void showTotalTime(Context mContext, TextView textView) {
@@ -127,7 +126,7 @@ public class DateUtils {
                     "-" + ((month + 1) < 10 ? "0" + (month + 1) : (month + 1)) +
                     "-" + ((dayOfMonth < 10) ? "0" + dayOfMonth : dayOfMonth);
             listener.seletedListener(date);
-            listener.result(year,month,dayOfMonth);
+            listener.result(year, month, dayOfMonth);
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)) {
             @Override
             protected void onStop() {
@@ -136,8 +135,43 @@ public class DateUtils {
     }
 
 
+    public static void showTimeDialogViews(Context context, TimeSelectListener listener) throws Exception {
+        Calendar c = Calendar.getInstance();
+
+        new TimePickerDialog(context,
+                // 绑定监听器
+                (view1, hourOfDay, minute) -> {
+                    int second = c.get(Calendar.SECOND);
+                    try {
+                        String hh = hourOfDay<10?"0"+hourOfDay: String.valueOf(hourOfDay);
+                        String mm = minute<10?"0"+minute: String.valueOf(minute);
+                        String ss = second<10?"0"+second: String.valueOf(second);
+                        listener.result(hh,mm,ss);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                // 设置初始时间
+                , c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),
+                // true表示采用24小时制
+                true) {
+            @Override
+            protected void onStop() {
+//                                super.onStop();
+            }
+        }.show();
+    }
 
 
+    public interface TimeSelectListener {
+
+        void seletedListener(String date);
+
+
+        void result(String hh, String mm, String ss);
+
+    }
 
 
     public interface ImplSelectTimeListener {
@@ -145,7 +179,7 @@ public class DateUtils {
         void seletedListener(String date);
 
 
-        void result(int year,int month,int day);
+        void result(int year, int month, int day);
 
     }
 

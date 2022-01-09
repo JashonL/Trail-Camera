@@ -68,4 +68,7 @@
     <color name="barchart_color">#F38700</color>
     <color name="barchart_hight_color">#F25E2A</color>
 
+    <color name="button_normal">#a1acb3</color>
+    <color name="button_click">#05c356</color>
+
 </resources>

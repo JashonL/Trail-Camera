@@ -308,9 +308,19 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         if (adapter==mCameraInfoAdapter){
-            Intent intent =new Intent(getContext(),ChartActivity.class);
-            intent.putExtra("imei",cameraId);
-            startActivity(intent);
+            switch (position){
+                case 4:
+                    Intent intent =new Intent(getContext(),ChartActivity.class);
+                    intent.putExtra("imei",cameraId);
+                    startActivity(intent);
+                    break;
+                case 5:
+                    Intent intent5 =new Intent(getContext(),CameraStepUpActivity.class);
+                    intent5.putExtra("imei",cameraId);
+                    startActivity(intent5);
+                    break;
+            }
+
         }
 
         if (adapter==mAdapter){

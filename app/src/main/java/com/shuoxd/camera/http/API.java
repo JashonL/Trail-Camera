@@ -68,6 +68,17 @@ public class API {
         Observable<String> cameraInfo(@Path("imei") String imei,@Field("email")String email);
 
 
+        //相机设置获取
+        @FormUrlEncoded
+        @POST("/v1/camera/cameraParamter/{imei}/")
+        Observable<String> cameraParamter(@Path("imei") String imei,@Field("email")String email);
+
+
+        //相机设置
+        @FormUrlEncoded
+        @POST("/v1/camera/control/{imei}/")
+        Observable<String> control(@Path("imei") String imei,@Field("operationType")String operationType,@Field("operationValue")String operationValue);
+
 
         //相机图片
         @FormUrlEncoded
