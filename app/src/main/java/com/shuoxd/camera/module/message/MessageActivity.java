@@ -173,6 +173,16 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
     }
 
     @Override
+    public void showNoQuestion() {
+
+    }
+
+    @Override
+    public void showQuetionMoreFail() {
+
+    }
+
+    @Override
     public void showMoreFail() {
         //数据加载完毕
         mAdapter.loadMoreFail();

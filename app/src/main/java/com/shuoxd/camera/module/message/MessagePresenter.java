@@ -20,9 +20,13 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
 
 
     private int pageNow = 0;
-
     private int totalPage = 1;
 
+
+
+
+    private int qsPageNow = 0;
+    private int qsTotalPage = 1;
 
 
     public MessagePresenter(Context context, MessageView baseView) {
@@ -108,5 +112,23 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
     public int getTotalPage() {
         return totalPage;
     }
+
+
+
+    public void getQuestion() {
+        if (qsPageNow>=qsTotalPage){
+            //没有更多的数据
+        }else {
+            qsPageNow++;
+            String accountName = App.getUserBean().getAccountName();
+            //获取设备
+
+        }
+
+
+
+
+    }
+
 
 }

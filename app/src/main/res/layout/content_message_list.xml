@@ -38,7 +38,7 @@
                     android:button="@null"
                     android:checked="true"
                     android:gravity="center"
-                    android:text="@string/m25_day"
+                    android:text="@string/m129_question_list"
                     android:textColor="@color/rb_text_selector" />
 
                 <RadioButton
@@ -49,7 +49,7 @@
                     android:background="@drawable/selector_message_rb"
                     android:button="@null"
                     android:gravity="center"
-                    android:text="@string/m26_week"
+                    android:text="@string/m130_system_notification"
                     android:textColor="@color/rb_text_selector" />
 
 
@@ -60,6 +60,7 @@
                 android:id="@+id/fl_content"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:background="@color/gray_eeeeeee"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rg_quetion">
@@ -68,13 +69,15 @@
                     android:id="@+id/rv_quetion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/dp_10" />
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_message"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="@dimen/dp_10" />
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10" />
             </FrameLayout>
 
 

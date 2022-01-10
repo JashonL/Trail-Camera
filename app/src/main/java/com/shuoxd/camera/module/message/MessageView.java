@@ -11,5 +11,12 @@ public interface MessageView extends BaseView {
 
     void showNoMoreData();
 
+
     void showMoreFail();
+
+    void showNoQuestion();
+
+    void showQuetionMoreFail();
+
+
 }
