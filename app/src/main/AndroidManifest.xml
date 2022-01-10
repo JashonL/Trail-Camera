@@ -15,16 +15,9 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" /> <!-- 蓝牙权限 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-
-
-   <!-- 地图SDK（包含其搜索功能）需要的基础权限-->
-    <!--允许程序读写手机状态和身份-->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" /> <!-- 地图SDK（包含其搜索功能）需要的基础权限 -->
+    <!-- 允许程序读写手机状态和身份 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-
-
 
     <application
         android:name=".app.App"
@@ -39,8 +32,7 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="18a0225897b2d31fb6838b794dbe1e03"/>
-
+            android:value="18a0225897b2d31fb6838b794dbe1e03" />
         <meta-data
             android:name="android.max_aspect"
             android:value="2.4" /> <!-- 适配华为（huawei）刘海屏 -->
@@ -61,13 +53,10 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-
         <activity
             android:name=".module.login.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait" />
-
-
         <activity
             android:name=".module.init.SplashActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -81,8 +70,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -92,84 +79,55 @@
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".zxing.CustomScanActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".module.addcamera.ManulInputActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".module.message.MessageActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".module.camera.CameraDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-
-
-
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".module.pictrue.BigImageActivty"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
         </activity>
-
         <activity
             android:name=".module.camera.ChartActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
+
         </activity>
-
-
         <activity
             android:name=".module.camera.CameraStepUpActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
         </activity>
 
-
+        <activity
+            android:name=".module.message.MessageListActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            />
 
     </application>
 

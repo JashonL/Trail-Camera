@@ -350,30 +350,30 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     String signalStrength = cameraBean.getSignalStrength();
                     int wifiStrength = Integer.parseInt(signalStrength);
                     if (wifiStrength == 0) {
-                        bean.setIconRes(R.drawable.wifi0);
+                        bean.setIconRes(R.drawable.signal1);
                     } else if (wifiStrength <= 25) {
-                        bean.setIconRes(R.drawable.wifi1);
+                        bean.setIconRes(R.drawable.signal2);
                     } else if (wifiStrength <= 50) {
-                        bean.setIconRes(R.drawable.wifi3);
+                        bean.setIconRes(R.drawable.signal3);
                     } else if (wifiStrength <= 75) {
-                        bean.setIconRes(R.drawable.wifi4);
+                        bean.setIconRes(R.drawable.signal4);
                     } else {
-                        bean.setIconRes(R.drawable.wifi4);
+                        bean.setIconRes(R.drawable.signal4);
                     }
                     break;
                 case 1:
                     String batteryLevel = cameraBean.getBatteryLevel();
                     int batteryL = Integer.parseInt(batteryLevel);
                     if (batteryL == 0) {
-                        bean.setIconRes(R.drawable.battery1);
+                        bean.setIconRes(R.drawable.bat1);
                     } else if (batteryL <= 25) {
-                        bean.setIconRes(R.drawable.battery2);
+                        bean.setIconRes(R.drawable.bat2);
                     } else if (batteryL <= 50) {
-                        bean.setIconRes(R.drawable.battery2);
+                        bean.setIconRes(R.drawable.bat3);
                     } else if (batteryL <= 75) {
-                        bean.setIconRes(R.drawable.battery4);
+                        bean.setIconRes(R.drawable.bat4);
                     } else {
-                        bean.setIconRes(R.drawable.battery4);
+                        bean.setIconRes(R.drawable.bat4);
                     }
                     bean.setTitle(batteryLevel + "%");
                     break;
@@ -387,7 +387,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     } else if (sSpace <= 50) {
                         bean.setIconRes(R.drawable.sdcard3);
                     } else if (sSpace <= 75) {
-                        bean.setIconRes(R.drawable.sdcard3);
+                        bean.setIconRes(R.drawable.sdcard4);
                     } else {
                         bean.setIconRes(R.drawable.sdcard4);
                     }

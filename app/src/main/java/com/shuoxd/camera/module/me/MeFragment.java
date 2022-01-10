@@ -29,6 +29,7 @@ import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.module.gallery.PhotoPresenter;
 import com.shuoxd.camera.module.gallery.PhotoView;
 import com.shuoxd.camera.module.message.MessageActivity;
+import com.shuoxd.camera.module.message.MessageListActivity;
 
 import java.util.ArrayList;
 import java.util.List;

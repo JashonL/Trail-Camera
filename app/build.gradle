@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('G:\\WorkPlace\\key\\sxd.jks')
+            storeFile file('D:\\WorkPlace\\key\\sxd.jks')
             storePassword '123456'
             keyAlias = 'key'
             keyPassword '123456'

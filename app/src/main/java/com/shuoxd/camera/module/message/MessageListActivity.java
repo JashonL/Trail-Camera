@@ -1,9 +1,9 @@
 package com.shuoxd.camera.module.message;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -13,10 +13,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.MessageAdapter;
 import com.shuoxd.camera.base.BaseActivity;
-import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.bean.MessageBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
@@ -27,22 +28,26 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class MessageActivity extends BaseActivity<MessagePresenter> implements MessageView,
+public class MessageListActivity extends BaseActivity<MessagePresenter> implements MessageView,
         Toolbar.OnMenuItemClickListener, BaseQuickAdapter.OnItemClickListener {
+
+
     @BindView(R.id.status_bar_view)
     View statusBarView;
     @BindView(R.id.tv_title)
     AppCompatTextView tvTitle;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.app_toolbar)
-    LinearLayout appToolbar;
     @BindView(R.id.rv_message)
     RecyclerView rvMessage;
     @BindView(R.id.srl_pull)
     MySwipeRefreshLayout srlPull;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+
 
     private MessageAdapter mAdapter;
+
 
     @Override
     protected MessagePresenter createPresenter() {
@@ -51,7 +56,7 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_message;
+        return R.layout.activity_message_list;
     }
 
     @Override
@@ -61,12 +66,26 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
         toolbar.setOnMenuItemClickListener(this);
         tvTitle.setText(R.string.m81_Message);
 
-        //recyclerview
+
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+
+        //问题
         setAdapter();
+        //系统
+        setAdapter();
+
     }
 
 
-    //小图片布局
+    //
     private void setAdapter() {
         rvMessage.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new MessageAdapter(R.layout.item_message, new ArrayList<>());
@@ -91,30 +110,6 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
 
     @Override
     protected void initData() {
-        srlPull.setOnRefreshListener(() -> {
-            try {
-                presenter.setPageNow(0);
-                presenter.getMessage();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        //获取列表设备列表
-        try {
-            presenter.setPageNow(0);
-            presenter.getMessage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 
     }
 
@@ -131,51 +126,27 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
 
     @Override
     public void showMessage(List<MessageBean> msgList) {
-        srlPull.setRefreshing(false);
-        int pageNow = presenter.getPageNow();
-
-        if (pageNow==1) {
-            mAdapter.setNewData(msgList);
-        }else {
-            mAdapter.addData(msgList);
-            mAdapter.loadMoreComplete();
-        }
 
     }
-
-
-
-
-    @Override
-    public void showResultError(String msg) {
-        super.showResultError(msg);
-        srlPull.setRefreshing(false);
-    }
-
-    @Override
-    public void showServerError(String msg) {
-        super.showServerError(msg);
-        srlPull.setRefreshing(false);
-    }
-
-    @Override
-    public void onErrorCode(BaseBean bean) {
-        super.onErrorCode(bean);
-
-        srlPull.setRefreshing(false);
-    }
-
 
     @Override
     public void showNoMoreData() {
-        //数据已加载完
-        mAdapter.loadMoreEnd();
+
     }
 
     @Override
     public void showMoreFail() {
-        //数据加载完毕
-        mAdapter.loadMoreFail();
+
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
     }
 
 }
