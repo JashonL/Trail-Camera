@@ -8,6 +8,7 @@ import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.MessageBean;
+import com.shuoxd.camera.bean.QuestionBean;
 import com.shuoxd.camera.bean.SetBean;
 
 import org.json.JSONArray;
@@ -105,6 +106,19 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
         this.pageNow = pageNow;
     }
 
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
+
+    public void setQsPageNow(int qsPageNow) {
+        this.qsPageNow = qsPageNow;
+    }
+
+    public void setQsTotalPage(int qsTotalPage) {
+        this.qsTotalPage = qsTotalPage;
+    }
+
     public int getPageNow() {
         return pageNow;
     }
@@ -118,10 +132,51 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
     public void getQuestion() {
         if (qsPageNow>=qsTotalPage){
             //没有更多的数据
+            baseView.showNoQuestion();
         }else {
             qsPageNow++;
+            //获取设备
             String accountName = App.getUserBean().getAccountName();
             //获取设备
+            addDisposable(apiServer.questionList(qsPageNow,accountName), new BaseObserver<String>(baseView,true) {
+
+                @Override
+                public void onSuccess(String bean) {
+                    try {
+                        JSONObject jsonObject = new JSONObject(bean);
+                        String result = jsonObject.optString("result");
+                        if ("0".equals(result)){//请求成功
+                            JSONObject obj = jsonObject.optJSONObject("obj");
+                            if (obj==null)return;
+                            qsPageNow = obj.optInt("pageTotal");
+                            qsPageNow = obj.optInt("pageNow");
+                            JSONArray dataList = obj.getJSONArray("dataList");
+                            //解析相机数据
+                            List<QuestionBean> questionBeans=new ArrayList<>();
+                            for (int i = 0; i < dataList.length(); i++) {
+                                JSONObject jsonObject1 = dataList.getJSONObject(i);
+                                QuestionBean info=new Gson().fromJson(jsonObject1.toString(),QuestionBean.class);
+                                questionBeans.add(info);
+                            }
+                            baseView.showQuestion(questionBeans);
+                        }else {
+                            String msg = jsonObject.optString("msg");
+                            baseView.showResultError(msg);
+                            refreshErrPage();
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        refreshErrPage();
+                    }
+                }
+
+                @Override
+                public void onError(String msg) {
+                    refreshErrPage();
+                    baseView.showServerError(msg);
+                }
+            });
+
 
         }
 

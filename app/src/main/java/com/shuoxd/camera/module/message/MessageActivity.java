@@ -18,6 +18,7 @@ import com.shuoxd.camera.adapter.MessageAdapter;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.bean.MessageBean;
+import com.shuoxd.camera.bean.QuestionBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
@@ -186,6 +187,11 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
     public void showMoreFail() {
         //数据加载完毕
         mAdapter.loadMoreFail();
+    }
+
+    @Override
+    public void showQuestion(List<QuestionBean> msgList) {
+
     }
 
 }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray_eeeeeee"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".module.message.MessageListActivity"
     tools:showIn="@layout/activity_message_list">
@@ -60,9 +61,9 @@
                 android:id="@+id/fl_content"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/gray_eeeeeee"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginTop="@dimen/dp_20"
                 app:layout_constraintTop_toBottomOf="@+id/rg_quetion">
 
                 <androidx.recyclerview.widget.RecyclerView

@@ -181,7 +181,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         switch (position){
             case 2:
-                startActivity(new Intent(getContext(), MessageActivity.class));
+                startActivity(new Intent(getContext(), MessageListActivity.class));
                 break;
         }
     }

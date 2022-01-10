@@ -23,6 +23,7 @@ import com.shuoxd.camera.adapter.MessageAdapter;
 import com.shuoxd.camera.adapter.QuestionAdapter;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.MessageBean;
+import com.shuoxd.camera.bean.QuestionBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
@@ -92,6 +93,8 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
         rgQuetion.setOnCheckedChangeListener(this);
         rgQuetion.check(R.id.rb_quetion);
 
+        rvQuetion.setVisibility(View.VISIBLE);
+        rvMessage.setVisibility(View.GONE);
         //问题
         setQuetionAdapter();
         //系统
@@ -152,16 +155,32 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
     protected void initData() {
         srlPull.setOnRefreshListener(() -> {
             try {
-                presenter.setPageNow(0);
-                presenter.getMessage();
+                int checkedRadioButtonId = rgQuetion.getCheckedRadioButtonId();
+                if (checkedRadioButtonId==R.id.rb_quetion){
+                    presenter.setPageNow(0);
+                    presenter.setTotalPage(1);
+                    presenter.getMessage();
+                }else {
+                    presenter.setQsPageNow(0);
+                    presenter.setQsTotalPage(1);
+                    presenter.getQuestion();
+                }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
         //获取列表设备列表
         try {
+            //获取消息
             presenter.setPageNow(0);
+            presenter.setTotalPage(1);
             presenter.getMessage();
+            //获取问题列表
+            presenter.setQsPageNow(0);
+            presenter.setQsTotalPage(1);
+            presenter.getQuestion();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -180,7 +199,15 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
 
     @Override
     public void showMessage(List<MessageBean> msgList) {
+        srlPull.setRefreshing(false);
+        int pageNow = presenter.getPageNow();
 
+        if (pageNow==1) {
+            mAdapter.setNewData(msgList);
+        }else {
+            mAdapter.addData(msgList);
+            mAdapter.loadMoreComplete();
+        }
     }
 
     @Override
@@ -205,6 +232,19 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
     public void showMoreFail() {
         //数据加载完毕
         mAdapter.loadMoreFail();
+    }
+
+    @Override
+    public void showQuestion(List<QuestionBean> msgList) {
+        srlPull.setRefreshing(false);
+        int pageNow = presenter.getPageNow();
+
+        if (pageNow==1) {
+            mQuestionAdapter.setNewData(msgList);
+        }else {
+            mQuestionAdapter.addData(msgList);
+            mQuestionAdapter.loadMoreComplete();
+        }
     }
 
     @Override

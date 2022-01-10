@@ -156,6 +156,9 @@
 
     <string name="m129_question_list">Question List</string>
     <string name="m130_system_notification">System Notification</string>
+    <string name="m131_question_wait">待回复</string>
+    <string name="m132_question_aleady">已回复</string>
+    <string name="m133_question_solved">已解决</string>
 
 
 </resources>
