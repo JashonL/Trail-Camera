@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:showIn="@layout/activity_quetion_detail">
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:ellipsize="end"
+        android:padding="@dimen/dp_10"
+        android:text="Mycamera"
+        android:textColor="@color/color_text_33"
+        android:textSize="@dimen/size_content_sp_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_num"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:text="99p"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+
+    <TextView
+        android:id="@+id/tv_question_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rlv_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question_detail" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

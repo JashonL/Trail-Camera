@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toobar_title" />
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:ellipsize="end"
+        android:padding="@dimen/dp_10"
+        android:text="Mycamera"
+        android:textColor="@color/color_text_33"
+        android:textSize="@dimen/size_content_sp_16"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/tv_date"
+        app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
+
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_10"
+        android:text="99p"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+
+    <TextView
+        android:id="@+id/tv_question_detail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:padding="@dimen/dp_10"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rlv_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question_detail" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rlv_content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/shape_white_rect"
+        app:layout_constraintBottom_toTopOf="@+id/cl_reply"
+        app:layout_constraintTop_toBottomOf="@+id/rlv_pic" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_reply"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_130"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/btn_demo">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="@string/m135_input_message"
+            android:padding="@dimen/dp_5"
+            android:textColor="@color/color_text_66"
+            android:textSize="@dimen/size_content_sp_12"
+            app:layout_constraintBottom_toTopOf="@+id/rlv_reply_pic"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_send"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="4"
+            android:padding="@dimen/dp_10"
+            android:text="@string/m134_send"
+            android:textColor="@color/color_app_main"
+            android:textSize="@dimen/size_content_sp_12"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rlv_reply_pic"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_60"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_demo"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_42"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:background="@drawable/button_ripple"
+        android:drawableStart="@drawable/solved"
+        android:drawablePadding="@dimen/dp_5"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingEnd="@dimen/dp_20"
+        android:text="@string/m133_question_solved"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_title_sp_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

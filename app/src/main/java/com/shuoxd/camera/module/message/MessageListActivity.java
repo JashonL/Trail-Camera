@@ -1,5 +1,6 @@
 package com.shuoxd.camera.module.message;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -194,7 +195,11 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        QuestionBean questionBean = mQuestionAdapter.getData().get(position);
+        String id = questionBean.getId();
+        Intent intent=new Intent(this,QuestionDetailActivity.class);
+        intent.putExtra("id",id);
+        startActivity(intent);
     }
 
     @Override

@@ -159,6 +159,12 @@
     <string name="m131_question_wait">待回复</string>
     <string name="m132_question_aleady">已回复</string>
     <string name="m133_question_solved">已解决</string>
+    <string name="m134_send">发送</string>
+    <string name="m135_input_message">输入回复消息</string>
+    <string name="m136_input_title">请输入标题</string>
+    <string name="m137_choose_camera">请选择相机</string>
+    <string name="m138_input_conten">请输入详细描述问题</string>
+    <string name="m139_question">Question</string>
 
 
 </resources>

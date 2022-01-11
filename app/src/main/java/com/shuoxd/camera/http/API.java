@@ -128,6 +128,13 @@ public class API {
         Observable<String> questionList(@Path("toPageNum")int toPageNum,@Field("email")String email);
 
 
+
+        @FormUrlEncoded
+        @POST("/v1/message/question/{questionId}")
+        Observable<String> question(@Path("questionId")String questionId,@Field("email")String email);
+
+
+
         //获取国家
         @GET(USER_URL + "newCountryCityAPI.do?op=getCountryList")
         Observable<String> getCountry();

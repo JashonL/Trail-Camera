@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <include layout="@layout/toobar_title" />
+
+
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/shape_white_rect"
+        android:hint="@string/m136_input_title"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <EditText
+        android:id="@+id/et_descript"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_75"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/shape_white_rect"
+        android:gravity="start"
+        android:hint="@string/m138_input_conten"
+        android:padding="@dimen/dp_5"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <EditText
+        android:id="@+id/et_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@drawable/shape_white_rect"
+        android:drawableEnd="@drawable/next"
+        android:hint="@string/m137_choose_camera"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ll_pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_pic1"
+            android:layout_width="@dimen/dp_75"
+            android:layout_height="@dimen/dp_75"
+            android:background="@drawable/shape_white_rect"
+            android:padding="@dimen/dp_20"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_pic2"
+            android:layout_width="@dimen/dp_75"
+            android:layout_height="@dimen/dp_75"
+            android:layout_marginStart="@dimen/dp_10"
+            android:background="@drawable/shape_white_rect"
+            android:padding="@dimen/dp_20"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add"
+            app:layout_constraintLeft_toRightOf="@+id/iv_pic1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_pic3"
+            android:layout_width="@dimen/dp_75"
+            android:layout_height="@dimen/dp_75"
+            android:layout_marginStart="@dimen/dp_10"
+            android:background="@drawable/shape_white_rect"
+            android:padding="@dimen/dp_20"
+            android:scaleType="centerCrop"
+            android:src="@drawable/add"
+            app:layout_constraintLeft_toRightOf="@+id/iv_pic2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_demo"
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="@dimen/dp_42"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_100"
+        android:background="@drawable/button_ripple"
+        android:drawablePadding="@dimen/dp_5"
+        android:paddingStart="@dimen/dp_20"
+        android:paddingEnd="@dimen/dp_20"
+        android:text="@string/m5_submmit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_title_sp_14" />
+
+
+</LinearLayout>
