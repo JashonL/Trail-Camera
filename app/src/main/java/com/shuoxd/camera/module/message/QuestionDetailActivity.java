@@ -330,7 +330,7 @@ public class QuestionDetailActivity extends BaseActivity<QuestionDetailPresenter
     @Override
     public void showStatus(String status) {
         clReply.setVisibility("2".equals(status)?View.GONE:View.VISIBLE);
-        btnSolved.setEnabled("2".equals(status));
+        btnSolved.setEnabled(!"2".equals(status));
     }
 
     @Override

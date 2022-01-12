@@ -329,7 +329,7 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
            public void onClick(View view) {
                presenter.operation(id,"remove");
            }
-       })
+       }).show(getSupportFragmentManager())
        ;
         return true;
     }
