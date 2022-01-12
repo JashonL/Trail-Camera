@@ -72,9 +72,10 @@
         android:layout_height="@dimen/dp_130"
         android:layout_margin="@dimen/dp_10"
         android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_demo">
+        app:layout_constraintBottom_toTopOf="@+id/btn_solved">
 
         <EditText
+            android:id="@+id/et_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@null"
@@ -83,7 +84,7 @@
             android:padding="@dimen/dp_5"
             android:textColor="@color/color_text_66"
             android:textSize="@dimen/size_content_sp_12"
-            app:layout_constraintBottom_toTopOf="@+id/rlv_reply_pic"
+            app:layout_constraintBottom_toTopOf="@+id/rlv_add_pic"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/tv_send"
             app:layout_constraintTop_toTopOf="parent" />
@@ -104,7 +105,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rlv_reply_pic"
+            android:id="@+id/rlv_add_pic"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_60"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -114,12 +115,12 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_demo"
+        android:id="@+id/btn_solved"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_42"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/dp_40"
-        android:background="@drawable/button_ripple"
+        android:background="@drawable/selector_button_corner"
         android:drawableStart="@drawable/solved"
         android:drawablePadding="@dimen/dp_5"
         android:paddingStart="@dimen/dp_20"

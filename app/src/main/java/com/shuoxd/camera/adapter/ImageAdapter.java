@@ -23,6 +23,6 @@ public class ImageAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
     @Override
     protected void convert(@NonNull BaseViewHolder helper, String item) {
         ImageView icPic = helper.getView(R.id.iv_pic);
-        GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, item, icPic);
+        GlideUtils.getInstance().showImageContext(mContext, item, icPic);
     }
 }

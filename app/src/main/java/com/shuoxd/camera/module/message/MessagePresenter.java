@@ -181,7 +181,34 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
         }
 
 
+    }
 
+
+    public void operation(String questionId,String operationType) {
+        //获取设备
+        addDisposable(apiServer.operation(questionId,operationType), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        baseView.delete();
+                    } else {
+                        String msg = jsonObject.optString("msg");
+                        baseView.showResultError(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showServerError(msg);
+            }
+        });
 
     }
 

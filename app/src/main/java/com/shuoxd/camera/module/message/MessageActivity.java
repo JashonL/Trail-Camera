@@ -184,6 +184,11 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
     }
 
     @Override
+    public void delete() {
+
+    }
+
+    @Override
     public void showMoreFail() {
         //数据加载完毕
         mAdapter.loadMoreFail();

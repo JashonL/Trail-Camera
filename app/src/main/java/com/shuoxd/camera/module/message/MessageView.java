@@ -23,4 +23,5 @@ public interface MessageView extends BaseView {
     void showQuetionMoreFail();
 
 
+    void delete();
 }

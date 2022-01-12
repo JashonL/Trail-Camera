@@ -1,13 +1,20 @@
 package com.shuoxd.camera.http;
 
 
+import java.util.List;
+import java.util.Map;
+
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -132,6 +139,25 @@ public class API {
         @FormUrlEncoded
         @POST("/v1/message/question/{questionId}")
         Observable<String> question(@Path("questionId")String questionId,@Field("email")String email);
+
+
+        @Multipart
+        @POST("/v1/message/replyQuestion/{questionId}")
+        Observable<String> replyQuestion(@Path("questionId")String questionId,
+                                         @PartMap Map<String, RequestBody> map,
+                                         @Part List<MultipartBody.Part> parts);
+
+
+
+        @Multipart
+        @POST("/v1/message/addQuestion")
+        Observable<String> addQuestion(@PartMap Map<String, RequestBody> map,
+                                         @Part List<MultipartBody.Part> parts);
+
+
+        @FormUrlEncoded
+        @POST("/v1/message/question/operation/{questionId}")
+        Observable<String> operation(@Path("questionId")String questionId,@Field("operationType")String operationType);
 
 
 

@@ -11,7 +11,14 @@ public interface QuestionDetailView extends BaseView {
     void showQuestion(QuestionBean questionBean);
 
 
+    void showStatus(String status);
+
     void showReply( List<ReplyBean> beans );
+
+
+    void solved();
+
+    void replySuccess();
 
 
 }

@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import com.mylhyl.circledialog.CircleDialog;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.MessageAdapter;
 import com.shuoxd.camera.adapter.QuestionAdapter;
@@ -28,6 +28,12 @@ import com.shuoxd.camera.bean.QuestionBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.eventbus.FreshQuestion;
+import com.shuoxd.camera.utils.CircleDialogUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +42,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MessageListActivity extends BaseActivity<MessagePresenter> implements MessageView,
-        Toolbar.OnMenuItemClickListener, BaseQuickAdapter.OnItemClickListener , RadioGroup.OnCheckedChangeListener {
+        Toolbar.OnMenuItemClickListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemLongClickListener, RadioGroup.OnCheckedChangeListener {
 
 
     @BindView(R.id.status_bar_view)
@@ -78,6 +84,7 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
 
     @Override
     protected void initViews() {
+        EventBus.getDefault().register(this);
         //toolbar
         initToobar(toolbar);
         toolbar.setOnMenuItemClickListener(this);
@@ -88,6 +95,9 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
         fab.setOnClickListener(view -> {
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
+            //跳转到提交问题页面
+            Intent intent =new Intent(this,QuestionSubmitActivity.class);
+            startActivity(intent);
         });
 
 
@@ -115,6 +125,7 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
         mQuestionAdapter.setEmptyView(view);
         mQuestionAdapter.setHeaderAndEmpty(true);
         mQuestionAdapter.setOnItemClickListener(this);
+        mQuestionAdapter.setOnItemLongClickListener(this);
 
         mQuestionAdapter.setLoadMoreView(new CustomLoadMoreView());
         mQuestionAdapter.disableLoadMoreIfNotFullPage(rvQuetion);
@@ -158,13 +169,14 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
             try {
                 int checkedRadioButtonId = rgQuetion.getCheckedRadioButtonId();
                 if (checkedRadioButtonId==R.id.rb_quetion){
-                    presenter.setPageNow(0);
-                    presenter.setTotalPage(1);
-                    presenter.getMessage();
-                }else {
                     presenter.setQsPageNow(0);
                     presenter.setQsTotalPage(1);
                     presenter.getQuestion();
+
+                }else {
+                    presenter.setPageNow(0);
+                    presenter.setTotalPage(1);
+                    presenter.getMessage();
                 }
 
             } catch (Exception e) {
@@ -234,6 +246,14 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
     }
 
     @Override
+    public void delete() {
+        //获取问题列表
+        presenter.setQsPageNow(0);
+        presenter.setQsTotalPage(1);
+        presenter.getQuestion();
+    }
+
+    @Override
     public void showMoreFail() {
         //数据加载完毕
         mAdapter.loadMoreFail();
@@ -269,10 +289,48 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
         if (id==R.id.rb_quetion){
             rvQuetion.setVisibility(View.VISIBLE);
             rvMessage.setVisibility(View.GONE);
+            fab.setVisibility(View.VISIBLE);
         }else if (id==R.id.rb_notifycation){
             rvQuetion.setVisibility(View.GONE);
             rvMessage.setVisibility(View.VISIBLE);
+            fab.setVisibility(View.GONE);
         }
 
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdata(FreshQuestion bean) {
+        //获取问题列表
+        presenter.setQsPageNow(0);
+        presenter.setQsTotalPage(1);
+        presenter.getQuestion();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+        QuestionBean questionBean = mQuestionAdapter.getData().get(position);
+        String id = questionBean.getId();
+        new CircleDialog.Builder().setWidth(0.7f)
+               .setTitle(getString(R.string.m150_tips))
+               .setText(getString(R.string.m151_delete_question))
+                .setNegative(getString(R.string.m127_cancel), view1 -> {
+
+                })
+       .setPositive(getString(R.string.m152_ok), new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               presenter.operation(id,"remove");
+           }
+       })
+       ;
+        return true;
     }
 }

@@ -165,6 +165,21 @@
     <string name="m137_choose_camera">请选择相机</string>
     <string name="m138_input_conten">请输入详细描述问题</string>
     <string name="m139_question">Question</string>
+    <string name="m140_selection">Selection</string>
+
+
+    <string name="m141_take_photo">Take a photo</string>
+    <string name="m142_choose_photos">Choose from photos</string>
+    <string name="m143_request_permission">Request Permission</string>
+    <string name="m144_camera_or_storage">Camera or storage</string>
+    <string name="m145_content_cannot_empty">Content can not be empty</string>
+    <string name="m146_must_smaller">Image must be smaller than 10MB</string>
+    <string name="m147_problem_feedback">Problem feedback</string>
+    <string name="m148_success">Success</string>
+    <string name="m150_tips">Tips</string>
+
+    <string name="m151_delete_question">delete this question</string>
+    <string name="m152_ok">OK</string>
 
 
 </resources>
