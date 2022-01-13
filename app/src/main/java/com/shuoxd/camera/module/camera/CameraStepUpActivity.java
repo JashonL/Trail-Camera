@@ -389,9 +389,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 data.get(14).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(15).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             } else {
-                data.get(13).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(14).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(15).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                data.get(13).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+                data.get(14).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+                data.get(15).setItemType(SettingConstants.SETTING_TYPE_NEXT);
             }
 
             //判断Opration time是否为1
@@ -403,8 +403,8 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 data.get(12).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             } else {
                 data.get(10).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-                data.get(11).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(12).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                data.get(11).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+                data.get(12).setItemType(SettingConstants.SETTING_TYPE_NEXT);
             }
 
         } catch (Exception e) {
@@ -454,9 +454,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 data.get(14).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(15).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             } else {
-                data.get(13).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(14).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(15).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                data.get(13).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+                data.get(14).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+                data.get(15).setItemType(SettingConstants.SETTING_TYPE_NEXT);
             }
 
 
@@ -472,8 +472,8 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             data.get(12).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
         } else {
             data.get(10).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-            data.get(11).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-            data.get(12).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+            data.get(11).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+            data.get(12).setItemType(SettingConstants.SETTING_TYPE_NEXT);
         }
 
 

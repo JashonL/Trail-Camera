@@ -35,7 +35,7 @@ public class CameraSetUtils {
                 context.getString(R.string.m114_timelapse_stop),//内部时间
 
 
-                context.getString(R.string.m114_timelapse_stop),//拍照间隔时间
+                context.getString(R.string.m157_time_lapse_start_interval),//拍照间隔时间
 
 
                 context.getString(R.string.m115_upload_frequency),//内部时间
@@ -126,7 +126,7 @@ public class CameraSetUtils {
         };
 
 
-        String[] time = new String[118];
+        String[] time = new String[119];
         for (int i = 0; i < time.length; i++) {
             if (i < 59) {
                 time[i] = (i + 1) + "sec";
@@ -157,7 +157,7 @@ public class CameraSetUtils {
                 {""},
                 {"After Trigger", "Twice a Day", "Once a Day"},
                 {""},
-                {"Photo/HQ/Video", "Photo/HQ", "Daily Sync only"},
+                {"Photo/HQ/Video", "Photo/HQ", "Daily Sync Only"},
                 {"OFF", "ON"},
                 {"OFF", "ON"},
                 {"12-hour", "24-hour"},
@@ -168,7 +168,7 @@ public class CameraSetUtils {
 
         };
 
-        int[] timeValue = new int[118];
+        int[] timeValue = new int[119];
         for (int i = 0; i < timeValue.length; i++) {
             if (i < 59) {
                 timeValue[i] = i + 1;

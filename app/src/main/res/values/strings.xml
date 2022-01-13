@@ -136,13 +136,13 @@
 
     <string name="m111_shot_lag">Shot Lag</string>
     <string name="m112_pir_sensitivity">PIR Sensitivity</string>
-    <string name="m113_timelapse_start">Timelapse Start</string>
-    <string name="m114_timelapse_stop">Timelapse Stop</string>
+    <string name="m113_timelapse_start">Time Lapse Start Time</string>
+    <string name="m114_timelapse_stop">Time Lapse Stop Time</string>
     <string name="m115_upload_frequency">Upload Frequency</string>
     <string name="m116_daily_sync_time">Daily Sync Time</string>
     <string name="m117_transmit_type">Transmit Type</string>
     <string name="m118_loop_recording">Loop Recording</string>
-    <string name="m119_info_stamp">Info Stamp</string>
+    <string name="m119_info_stamp">Information Stamp</string>
     <string name="m120_time_format">Time Format</string>
 
     <string name="m121_time_zone">Time Zone</string>

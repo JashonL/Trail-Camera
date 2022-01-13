@@ -26,12 +26,12 @@
         android:id="@+id/tv_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="1"
+        android:maxLines="2"
         android:gravity="end|center_vertical"
         android:maxWidth="@dimen/dp_175"
         android:layout_marginEnd="@dimen/dp_10"
         android:textColor="@color/color_text_66"
-        android:textSize="@dimen/size_content_sp_14" />
+        android:textSize="@dimen/size_content_sp_12" />
 
 
     <ImageView
