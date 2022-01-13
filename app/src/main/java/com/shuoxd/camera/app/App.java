@@ -8,6 +8,7 @@ import com.hjq.toast.ToastUtils;
 import com.mylhyl.circledialog.res.values.CircleColor;
 import com.shuoxd.camera.module.login.User;
 import com.shuoxd.camera.utils.LogUtil;
+import com.xsj.crasheye.Crasheye;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -48,6 +49,7 @@ public class App extends Application {
 
 //        initSampleAssets();
 
+        Crasheye.init(this, "5665c120");
     }
 
 

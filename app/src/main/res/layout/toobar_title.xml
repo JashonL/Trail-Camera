@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:background="@color/color_app_main"
             app:popupTheme="@style/ToolbarPopupTheme"
+            app:titleTextAppearance="@style/Toolbar.TitleText"
             android:minHeight="?attr/actionBarSize"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent">

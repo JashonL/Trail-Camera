@@ -56,6 +56,14 @@
     </style>
 
 
+    <!-- 设置Toolbar标题字体的颜色大小 -->
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">#ffffff</item><!--toolbar标题字体颜色-->
+    </style>
+
+
+
+
     <!--poput动画-->
     <style name="Popup_Anim" parent="@android:style/Animation">
         <item name="android:windowEnterAnimation">@anim/popup_in</item>

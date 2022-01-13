@@ -18,6 +18,8 @@ public class DeviceSettingBean implements MultiItemEntity {
     private String hint;
     //选项卡
     private String[] items;
+    //选项卡对应的值
+    private int[] items_value;
     //数据的倍数
     private float mul;
     //设置的key
@@ -74,6 +76,15 @@ public class DeviceSettingBean implements MultiItemEntity {
 
     public void setItems(String[] items) {
         this.items = items;
+    }
+
+
+    public int[] getItems_value() {
+        return items_value;
+    }
+
+    public void setItems_value(int[] items_value) {
+        this.items_value = items_value;
     }
 
     public float getMul() {

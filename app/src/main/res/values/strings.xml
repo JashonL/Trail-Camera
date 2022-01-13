@@ -180,6 +180,11 @@
 
     <string name="m151_delete_question">delete this question</string>
     <string name="m152_ok">OK</string>
+    <string name="m153_operation_time">Operation Time</string>
+    <string name="m154_operation_day">Operation Day</string>
+    <string name="m155_operation_start_time">Operation Start Time</string>
+    <string name="m156_operation_stop_time">Operation Stop Time</string>
+    <string name="m157_time_lapse_start_interval">Time Lapse Start Interval</string>
 
 
 </resources>

@@ -78,6 +78,7 @@ public class CameraStepPresenter extends BasePresenter<CameraStepView> {
                     JSONObject jsonObject = new JSONObject(bean);
                     String result = jsonObject.optString("result");
                     if ("0".equals(result)) {//请求成功
+                        baseView.cameraSetSuccess(operationType,operationValue);
                         String msg = jsonObject.optString("msg");
                         MyToastUtils.toast(msg);
                     } else {
