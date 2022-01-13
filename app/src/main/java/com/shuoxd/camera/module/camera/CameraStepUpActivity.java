@@ -152,7 +152,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 final CheckedAdapter checkedAdapter = new CheckedAdapter(this, weeks);
                 char[] chars = value1.toCharArray();
                 for (int i = 0; i < chars.length; i++) {
-                    if (String.valueOf(chars[i]).equals("1")){
+                    if (String.valueOf(chars[i]).equals("1")) {
                         checkedAdapter.toggle(i, weeks[i]);
                     }
                 }
@@ -174,7 +174,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                 String s = saveChecked.get(keyV);
                                 Log.e("key = " + keyV, s);
                                 value.append(s).append(",");
-                                weekValue[keyV]="1";
+                                weekValue[keyV] = "1";
                             }
 
                             String s = value.toString();
@@ -184,7 +184,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                             settingBean.setValueStr(s);
 
                             StringBuilder sb = new StringBuilder();
-                            for (String item : weekValue) {sb.append(item);}
+                            for (String item : weekValue) {
+                                sb.append(item);
+                            }
                             String s1 = sb.toString();
                             settingBean.setValue(s1);
                             presenter.control(imei, key, s1);
@@ -292,10 +294,15 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
                         if (itemType == SettingConstants.SETTING_TYPE_SELECT) {
                             String[] items = settingBean.getItems();
+                            int[] items_value = settingBean.getItems_value();
                             int pos = Integer.parseInt(value);
                             String valueS = String.valueOf(pos);
-                            if (pos < items.length) {
-                                valueS = items[pos];
+                            for (int k = 0; k < items_value.length; k++) {
+                                int i1 = items_value[k];
+                                if (i1 == pos) {
+                                    valueS = items[k];
+                                    break;
+                                }
                             }
                             settingBean.setValueStr(valueS);
 
