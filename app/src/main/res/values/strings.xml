@@ -129,10 +129,10 @@
     <string name="m104_photo_resolution">Photo Resolution</string>
     <string name="m105_photo_upload_resolution">Photo Upload Resolution </string>
     <string name="m106_burst_shot">Burst Shot</string>
-    <string name="m107_burst_interval">Burst interval</string>
+    <string name="m107_burst_interval">Burst Interval</string>
     <string name="m108_video_resolution">Video Resolution</string>
     <string name="m109_video_length">Video Length</string>
-    <string name="m110_audio_recording">Audio Recording</string>
+    <string name="m110_audio_recording">Audio</string>
 
     <string name="m111_shot_lag">Shot Lag</string>
     <string name="m112_pir_sensitivity">PIR Sensitivity</string>

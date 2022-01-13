@@ -59,10 +59,10 @@ public class CameraSetUtils {
                 SettingConstants.SETTING_TYPE_SELECT,//相机连拍的时间间隔
                 SettingConstants.SETTING_TYPE_SELECT,//拍照视频分辨率
                 SettingConstants.SETTING_TYPE_SELECT,//视频长度
-                SettingConstants.SETTING_TYPE_SELECT,//视频是否开启声音
+                SettingConstants.SETTING_TYPE_SWITCH,//视频是否开启声音
                 SettingConstants.SETTING_TYPE_SELECT,//相机拍照时间间隔
                 SettingConstants.SETTING_TYPE_SELECT,//拍照灵敏度
-                SettingConstants.SETTING_TYPE_SELECT,//拍照起始时间
+                SettingConstants.SETTING_TYPE_SWITCH,//拍照起始时间
 
 
 

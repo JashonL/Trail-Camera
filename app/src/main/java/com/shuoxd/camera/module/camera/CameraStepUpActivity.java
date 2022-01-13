@@ -266,6 +266,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
     public void oncheck(boolean check, int position) {
         String key = mAdapter.getData().get(position).getKey();
         String value = check ? "1" : "0";
+        mAdapter.getData().get(position).setValue(value);
         presenter.control(imei, key, value);
     }
 
@@ -380,7 +381,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             } else {
                 data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
                 data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SWITCH);
             }
 
             if ("0".equals(value) || "1".equals(value)) {
@@ -445,7 +446,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             } else {
                 data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
                 data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SWITCH);
             }
 
             if ("0".equals(value) || "1".equals(value)) {
