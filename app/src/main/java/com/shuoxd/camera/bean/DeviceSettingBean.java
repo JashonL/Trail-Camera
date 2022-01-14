@@ -22,8 +22,10 @@ public class DeviceSettingBean implements MultiItemEntity {
     private int[] items_value;
     //数据的倍数
     private float mul;
-    //设置的key
+    //读取的key
     private String key;
+    //设置的key
+    private String setKey;
 
 
     public void setItemType(int itemType) {
@@ -107,6 +109,15 @@ public class DeviceSettingBean implements MultiItemEntity {
     @Override
     public int getItemType() {
         return itemType;
+    }
+
+
+    public String getSetKey() {
+        return setKey;
+    }
+
+    public void setSetKey(String setKey) {
+        this.setKey = setKey;
     }
 }
 

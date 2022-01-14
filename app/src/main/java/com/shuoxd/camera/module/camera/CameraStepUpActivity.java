@@ -117,6 +117,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         DeviceSettingBean settingBean = mAdapter.getData().get(position);
         String key = settingBean.getKey();
+        String setKey = settingBean.getSetKey();
         String title = settingBean.getTitle();
         int itemType = settingBean.getItemType();
         String value1 = settingBean.getValue();
@@ -139,14 +140,14 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                         public void result(int year, int month, int day) {
                             String time = year + ":" + month + ":" + day;
                             String value = year + month + day + "";
-                            presenter.control(imei, key, value);
+                            presenter.control(imei, setKey, value);
                         }
                     });
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-            } else if ("operationDay".equals(key)) {
+            } else if ("operationDayText".equals(key)) {
                 String[] weeks = (String[]) CommentUtils.getWeeks().toArray();
                 String[] weekValue = {"0", "0", "0", "0", "0", "0", "0"};
                 final CheckedAdapter checkedAdapter = new CheckedAdapter(this, weeks);
@@ -189,7 +190,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                             }
                             String s1 = sb.toString();
                             settingBean.setValue(s1);
-                            presenter.control(imei, key, s1);
+                            presenter.control(imei, setKey, s1);
                             mAdapter.notifyDataSetChanged();
                         })
                         .show(getSupportFragmentManager());
@@ -216,7 +217,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                 String time = hh + ":" + mm + ":" + ss;
                                 String value = hh + mm + ss;
                                 settingBean.setValueStr(time);
-                                presenter.control(imei, key, value);
+                                presenter.control(imei, setKey, value);
                             }
                             mAdapter.notifyDataSetChanged();
                         }
@@ -238,7 +239,8 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         if (data.size() > pos) {
             DeviceSettingBean bean = data.get(pos);
             String[] items = bean.getItems();
-            String key = bean.getKey();
+//            String key = bean.getKey();
+            String setKey = bean.getSetKey();
             int[] items_value = bean.getItems_value();
             List<String> selects = new ArrayList<>(Arrays.asList(items));
 
@@ -252,7 +254,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                         mAdapter.getData().get(pos).setValue(String.valueOf(items_value[position]));
                         mAdapter.notifyDataSetChanged();
                         String operationValue = String.valueOf(items_value[position]);
-                        presenter.control(imei, key, operationValue);
+                        presenter.control(imei, setKey, operationValue);
                         return true;
                     })
                     .setNegative(getString(R.string.m127_cancel), null)
@@ -332,7 +334,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                 }
                             }
 
-                            if ("operationDay".equals(key1)) {
+                            if ("operationDayText".equals(key1)) {
                                 //
                                 if (!TextUtils.isEmpty(value)) {
                                     char[] chars = value.toCharArray();

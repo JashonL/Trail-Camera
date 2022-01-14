@@ -155,7 +155,7 @@ public class CameraSetUtils {
                 {""},
                 {""},
                 {""},
-                {"After Trigger", "Twice a Day", "Once a Day"},
+                {"After Trigger", "Hourly","Twice a Day", "Once a Day"},
                 {""},
                 {"Photo/HQ/Video", "Photo/HQ", "Daily Sync Only"},
                 {"OFF", "ON"},
@@ -223,6 +223,44 @@ public class CameraSetUtils {
                 "pirSensitivity",
                 "operationTime",
 
+                "operationDayText",
+                "operationStart",
+                "operationStop",
+
+
+
+                "timelapseStart",
+                "timelapseStop",
+                "timelapseInterval",
+
+
+                "uploadFrequency",
+                "dailySyncTime",
+                "transmitType",
+                "loopRecording",
+                "infoStamp",
+                "timeFormat",
+                "timeZone",
+                "temperatureFormat",
+                "lcdDuringON",
+                "formatCard",
+
+        };
+
+
+
+        String[] setkey = new String[]{
+                "captureMode",
+                "photoResolution",
+                "burstShot",
+                "photoBurstInterval",
+                "videoResolution",
+                "videoLength",
+                "audioRecording",
+                "shotLag",
+                "pirSensitivity",
+                "operationTime",
+
                 "operationDay",
                 "operationStart",
                 "operationStop",
@@ -247,6 +285,8 @@ public class CameraSetUtils {
 
         };
 
+
+
         for (int i = 0; i < titls.length; i++) {
             DeviceSettingBean bean = new DeviceSettingBean();
             bean.setTitle(titls[i]);
@@ -257,6 +297,7 @@ public class CameraSetUtils {
             bean.setHint(hints[i]);
             bean.setMul(multiples[i]);
             bean.setKey(key[i]);
+            bean.setSetKey(setkey[i]);
             list.add(bean);
         }
         return list;

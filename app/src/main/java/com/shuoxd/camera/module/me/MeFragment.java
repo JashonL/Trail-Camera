@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.immersionbar.ImmersionBar;
+import com.shuoxd.camera.ActivityAbout;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
 import com.shuoxd.camera.adapter.MySetAdapter;
@@ -144,12 +145,12 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
 
 
         String[] titles={getString(R.string.m79_plans),getString(R.string.m80_billing_history),getString(R.string.m81_Message),
-                getString(R.string.m82_account),getString(R.string.m83_Support),getString(R.string.m84_sign_out)
+                getString(R.string.m82_account),getString(R.string.m83_Support),getString(R.string.m84_sign_out),"关于"
         };
 
 
         int[] res={R.drawable.plans,R.drawable.billing_hisory,R.drawable.messages,
-                R.drawable.account,R.drawable.support,R.drawable.sign_out
+                R.drawable.account,R.drawable.support,R.drawable.sign_out,R.drawable.support
         };
 
 
@@ -182,6 +183,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
         switch (position){
             case 2:
                 startActivity(new Intent(getContext(), MessageListActivity.class));
+                break;
+            case 6:
+                startActivity(new Intent(getContext(), ActivityAbout.class));
                 break;
         }
     }
