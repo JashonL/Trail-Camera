@@ -185,6 +185,9 @@
     <string name="m155_operation_start_time">Operation Start Time</string>
     <string name="m156_operation_stop_time">Operation Stop Time</string>
     <string name="m157_time_lapse_start_interval">Time Lapse Start Interval</string>
+    <string name="m158_message">Message</string>
+    <string name="m159_message_allread">已读所有消息</string>
+    <string name="m160_message_delete">删除这条消息</string>
 
 
 </resources>

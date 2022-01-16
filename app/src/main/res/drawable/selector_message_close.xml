@@ -5,8 +5,8 @@
     <item android:state_pressed="true">
         <shape android:shape="rectangle">
             <solid android:color="@color/color_message_press"/>
-            <corners android:bottomRightRadius="@dimen/dp_10"
-                android:topLeftRadius="@dimen/dp_10"/>
+            <corners android:bottomLeftRadius="@dimen/dp_10"
+                android:topRightRadius="@dimen/dp_10"/>
         </shape>
     </item>
 
@@ -18,7 +18,7 @@
         <shape android:shape="rectangle">
             <solid android:color="@color/color_message_close"/>
             <corners
-                android:topLeftRadius="@dimen/dp_10" android:bottomRightRadius="@dimen/dp_10"/>
+                android:topRightRadius="@dimen/dp_10" android:bottomLeftRadius="@dimen/dp_10"/>
         </shape>
     </item>
 

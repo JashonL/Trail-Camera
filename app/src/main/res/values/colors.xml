@@ -56,7 +56,7 @@
 
 
     <!--消息-->
-    <color name="color_message_close">#F38700</color>
+    <color name="color_message_close">#FB6E72</color>
     <color name="color_message_press">#FF6600</color>
 
     <!--条件筛选-->

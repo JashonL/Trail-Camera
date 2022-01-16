@@ -161,6 +161,13 @@ public class API {
 
 
 
+
+        @FormUrlEncoded
+        @POST("/v1/message/operation/{msgId}")
+        Observable<String> msgOperation(@Path("questionId")String questionId,@Field("operationType")String operationType);
+
+
+
         //获取国家
         @GET(USER_URL + "newCountryCityAPI.do?op=getCountryList")
         Observable<String> getCountry();

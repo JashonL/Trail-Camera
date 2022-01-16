@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,7 @@ public class MessageAdapter extends BaseQuickAdapter<MessageBean, BaseViewHolder
     protected void convert(@NonNull BaseViewHolder helper, MessageBean item) {
         MessageBean.MessageInfo info = item.getInfo();
         if (info!=null){
-            String title = info.getTitle();
+            String title = "【"+info.getTitle()+"】";
             String content = info.getContent();
             String createTime = info.getCreateTime();
 
@@ -39,11 +40,24 @@ public class MessageAdapter extends BaseQuickAdapter<MessageBean, BaseViewHolder
         }
 
 
-
         MessageBean.UserInfo user = item.getUser();
         if (user!=null){
-
+            String readStatus = user.getReadStatus();
+            helper.setVisible(R.id.tv_read,"1".equals(readStatus));
         }
+
+    }
+
+
+
+    public void setALlRead(){
+        List<MessageBean> data = getData();
+        for (int i = 0; i < data.size(); i++) {
+            MessageBean messageBean = data.get(i);
+            MessageBean.UserInfo user = messageBean.getUser();
+            user.setReadStatus("1");
+        }
+        notifyDataSetChanged();
 
     }
 

@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -29,7 +29,6 @@ import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
 import com.shuoxd.camera.eventbus.FreshQuestion;
-import com.shuoxd.camera.utils.CircleDialogUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -40,6 +39,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class MessageListActivity extends BaseActivity<MessagePresenter> implements MessageView,
         Toolbar.OnMenuItemClickListener, BaseQuickAdapter.OnItemClickListener, BaseQuickAdapter.OnItemLongClickListener, RadioGroup.OnCheckedChangeListener {
@@ -61,12 +61,13 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
     RecyclerView rvQuetion;
     @BindView(R.id.rv_message)
     RecyclerView rvMessage;
-    @BindView(R.id.fl_content)
-    FrameLayout flContent;
     @BindView(R.id.srl_pull)
     MySwipeRefreshLayout srlPull;
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    @BindView(R.id.tv_all_read)
+    TextView tvAllRead;
+
 
     private MessageAdapter mAdapter;
 
@@ -96,7 +97,7 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
 //                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
 //                        .setAction("Action", null).show();
             //跳转到提交问题页面
-            Intent intent =new Intent(this,QuestionSubmitActivity.class);
+            Intent intent = new Intent(this, QuestionSubmitActivity.class);
             startActivity(intent);
         });
 
@@ -106,13 +107,13 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
 
         rvQuetion.setVisibility(View.VISIBLE);
         rvMessage.setVisibility(View.GONE);
+        tvAllRead.setVisibility(View.GONE);
         //问题
         setQuetionAdapter();
         //系统
         setSystemAdapter();
 
     }
-
 
 
     //
@@ -137,7 +138,6 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
             }
         }, rvQuetion);
     }
-
 
 
     //
@@ -168,12 +168,12 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
         srlPull.setOnRefreshListener(() -> {
             try {
                 int checkedRadioButtonId = rgQuetion.getCheckedRadioButtonId();
-                if (checkedRadioButtonId==R.id.rb_quetion){
+                if (checkedRadioButtonId == R.id.rb_quetion) {
                     presenter.setQsPageNow(0);
                     presenter.setQsTotalPage(1);
                     presenter.getQuestion();
 
-                }else {
+                } else {
                     presenter.setPageNow(0);
                     presenter.setTotalPage(1);
                     presenter.getMessage();
@@ -207,11 +207,33 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        QuestionBean questionBean = mQuestionAdapter.getData().get(position);
-        String id = questionBean.getId();
-        Intent intent=new Intent(this,QuestionDetailActivity.class);
-        intent.putExtra("id",id);
-        startActivity(intent);
+        if (mQuestionAdapter == adapter) {
+            QuestionBean questionBean = mQuestionAdapter.getData().get(position);
+            String id = questionBean.getId();
+            Intent intent = new Intent(this, QuestionDetailActivity.class);
+            intent.putExtra("id", id);
+            startActivity(intent);
+        }
+
+        if (mAdapter == adapter) {
+            MessageBean messageBean = mAdapter.getData().get(position);
+            String readStatus = messageBean.getUser().getReadStatus();
+            if ("0".equals(readStatus)) {
+                messageBean.getUser().setReadStatus("1");
+                mAdapter.notifyDataSetChanged();
+                //将消息设置成已读
+                String id = messageBean.getInfo().getId();
+                presenter.operation_msg(id, "read");
+            }
+
+            String content = messageBean.getInfo().getContent();
+            String title = messageBean.getInfo().getTitle();
+            Intent intent = new Intent(this, MessageDetailActivity.class);
+            intent.putExtra("message", content);
+            intent.putExtra("title", title);
+            startActivity(intent);
+        }
+
     }
 
     @Override
@@ -219,9 +241,9 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
         srlPull.setRefreshing(false);
         int pageNow = presenter.getPageNow();
 
-        if (pageNow==1) {
+        if (pageNow == 1) {
             mAdapter.setNewData(msgList);
-        }else {
+        } else {
             mAdapter.addData(msgList);
             mAdapter.loadMoreComplete();
         }
@@ -264,9 +286,9 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
         srlPull.setRefreshing(false);
         int pageNow = presenter.getPageNow();
 
-        if (pageNow==1) {
+        if (pageNow == 1) {
             mQuestionAdapter.setNewData(msgList);
-        }else {
+        } else {
             mQuestionAdapter.addData(msgList);
             mQuestionAdapter.loadMoreComplete();
         }
@@ -286,13 +308,15 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
     @Override
     public void onCheckedChanged(RadioGroup radioGroup, int id) {
 
-        if (id==R.id.rb_quetion){
+        if (id == R.id.rb_quetion) {
             rvQuetion.setVisibility(View.VISIBLE);
             rvMessage.setVisibility(View.GONE);
+            tvAllRead.setVisibility(View.GONE);
             fab.setVisibility(View.VISIBLE);
-        }else if (id==R.id.rb_notifycation){
+        } else if (id == R.id.rb_notifycation) {
             rvQuetion.setVisibility(View.GONE);
             rvMessage.setVisibility(View.VISIBLE);
+            tvAllRead.setVisibility(View.VISIBLE);
             fab.setVisibility(View.GONE);
         }
 
@@ -316,21 +340,56 @@ public class MessageListActivity extends BaseActivity<MessagePresenter> implemen
 
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-        QuestionBean questionBean = mQuestionAdapter.getData().get(position);
-        String id = questionBean.getId();
-        new CircleDialog.Builder().setWidth(0.7f)
-               .setTitle(getString(R.string.m150_tips))
-               .setText(getString(R.string.m151_delete_question))
-                .setNegative(getString(R.string.m127_cancel), view1 -> {
+        if (adapter==mQuestionAdapter){
+            QuestionBean questionBean = mQuestionAdapter.getData().get(position);
+            String id = questionBean.getId();
+            new CircleDialog.Builder().setWidth(0.7f)
+                    .setTitle(getString(R.string.m150_tips))
+                    .setText(getString(R.string.m151_delete_question))
+                    .setNegative(getString(R.string.m127_cancel), view1 -> {
 
-                })
-       .setPositive(getString(R.string.m152_ok), new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-               presenter.operation(id,"remove");
-           }
-       }).show(getSupportFragmentManager())
-       ;
+                    })
+                    .setPositive(getString(R.string.m152_ok), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            presenter.operation(id, "remove");
+                        }
+                    }).show(getSupportFragmentManager());
+        }
+
+
+        if (mAdapter==adapter){
+            MessageBean messageBean = mAdapter.getData().get(position);
+            String id = messageBean.getInfo().getId();
+            new CircleDialog.Builder().setWidth(0.7f)
+                    .setTitle(getString(R.string.m150_tips))
+                    .setText(getString(R.string.m160_message_delete))
+                    .setNegative(getString(R.string.m127_cancel), view1 -> {
+
+                    })
+                    .setPositive(getString(R.string.m152_ok), new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            presenter.operation_msg(id, "remove");
+                        }
+                    }).show(getSupportFragmentManager());
+        }
+
         return true;
+    }
+
+
+    @OnClick({R.id.tv_all_read, R.id.rv_message})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_all_read:
+                //已读所有
+                mAdapter.setALlRead();
+                //调用接口
+                presenter.operation_msg("-1", "allRead");
+                break;
+            case R.id.rv_message:
+                break;
+        }
     }
 }

@@ -95,6 +95,7 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
         srlPull.setOnRefreshListener(() -> {
             try {
                 presenter.setPageNow(0);
+                presenter.setTotalPage(1);
                 presenter.getMessage();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -103,6 +104,7 @@ public class MessageActivity extends BaseActivity<MessagePresenter> implements M
         //获取列表设备列表
         try {
             presenter.setPageNow(0);
+            presenter.setTotalPage(1);
             presenter.getMessage();
         } catch (Exception e) {
             e.printStackTrace();

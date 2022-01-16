@@ -24,4 +24,6 @@ public interface MessageView extends BaseView {
 
 
     void delete();
+
+
 }

@@ -213,4 +213,42 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
     }
 
 
+
+
+
+    public void operation_msg(String questionId,String operationType) {
+        //获取设备
+        addDisposable(apiServer.msgOperation(questionId,operationType), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        if ("remove".equals(operationType)){
+                            //刷新列表
+                            setPageNow(0);
+                            setTotalPage(1);
+                            getMessage();
+                        }
+
+                    } else {
+                        String msg = jsonObject.optString("msg");
+                        baseView.showResultError(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showServerError(msg);
+            }
+        });
+
+    }
+
+
 }
