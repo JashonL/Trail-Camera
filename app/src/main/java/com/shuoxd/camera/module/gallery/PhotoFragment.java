@@ -214,6 +214,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         Intent intent =new Intent(getContext(), CameraDetailActivity.class);
         //当前选择的是哪一张
         intent.putExtra("position",position);
+        intent.putExtra("alias",getString(R.string.m77_all_camera));
         startActivity(intent);
     }
 

@@ -29,10 +29,7 @@
         android:gravity="end|center_vertical"
         android:maxWidth="@dimen/dp_60"
         android:textColor="@color/color_text_99"
-        android:textSize="@dimen/size_content_sp_14"
-        app:autoSizeMaxTextSize="@dimen/size_content_sp_14"
-        app:autoSizeMinTextSize="@dimen/sp_6"
-        app:autoSizeTextType="uniform" />
+        android:textSize="@dimen/size_content_sp_14" />
 
 
     <ImageView

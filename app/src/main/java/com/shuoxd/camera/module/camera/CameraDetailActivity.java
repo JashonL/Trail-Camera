@@ -94,6 +94,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
     @Override
     protected void initData() {
+        String alias = getIntent().getStringExtra("alias");
+        tvTitle.setText(alias);
+
         int position = getIntent().getIntExtra("position", 0);
         int count = mAdapter.getCount();
         vp.setCurrentItem(position);
@@ -280,7 +283,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-            super.destroyItem(container, position, object);
+//            super.destroyItem(container, position, object);
             container.removeView(imageViews.get(position));//销毁的item
         }
 

@@ -340,6 +340,11 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             CameraShowListManerge.getInstance().setPicList(picList);
             Intent intent = new Intent(getContext(), CameraDetailActivity.class);
             intent.putExtra("position", position);
+            if (!TextUtils.isEmpty(alias)){
+                intent.putExtra("alias",alias);
+            }else {
+                intent.putExtra("alias",cameraId);
+            }
             startActivity(intent);
         }
 
