@@ -62,7 +62,7 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
     @BindView(R.id.tv_find_serialnum)
     AppCompatTextView tvFindSerialnum;
     private CaptureHelper mCaptureHelper;
-    private int type;
+    private String type;
 
     private LoginManager manager;
 
@@ -80,6 +80,7 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
 
     @Override
     protected void initData() {
+        type = getIntent().getStringExtra("type");
         initUI();
     }
 
@@ -87,6 +88,21 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
     private void initUI() {
         toolbar.inflateMenu(R.menu.scan_menu);
         toolbar.setOnMenuItemClickListener(this);
+
+        if ("0".equals(type)){
+            tvStep1.setVisibility(View.VISIBLE);
+            vStepCenter.setVisibility(View.VISIBLE);
+            tvStep2.setVisibility(View.VISIBLE);
+            tvStep1Text.setVisibility(View.VISIBLE);
+            tvStep2Text.setVisibility(View.VISIBLE);
+        }else {
+            tvStep1.setVisibility(View.GONE);
+            vStepCenter.setVisibility(View.GONE);
+            tvStep2.setVisibility(View.GONE);
+            tvStep1Text.setVisibility(View.GONE);
+            tvStep2Text.setVisibility(View.GONE);
+        }
+
         mCaptureHelper = new CaptureHelper(this, surfaceView, viewfinderView, ivFlash);
         mCaptureHelper.setOnCaptureCallback(this);
         mCaptureHelper.onCreate();
@@ -104,7 +120,7 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
     @Override
     public boolean onResultCallback(String result) {//扫码回调
 //        MyToastUtils.toast(result);
-          //扫码成功跳转到手动添加页面
+        //扫码成功跳转到手动添加页面
         Intent intent = new Intent(this, ManulInputActivity.class);
         intent.putExtra(GlobalConstant.SCAN_RESULT, result);
         startActivity(intent);
@@ -141,7 +157,7 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
                 User userBean = App.getUserBean();
                 String accountName = userBean.getAccountName();
                 String password = userBean.getPassword();
-                manager.userLogin(accountName,password);
+                manager.userLogin(accountName, password);
                 break;
         }
         return true;
@@ -159,8 +175,6 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
         }
 
     }
-
-
 
 
     @Override

@@ -101,7 +101,7 @@ public class CameraStepPresenter extends BasePresenter<CameraStepView> {
 
 
     public void cameraOperation(String imei, String operationType, String operationValue) {
-        //正式登录
+        //修改别名
         addDisposable(apiServer.operation_camera(imei, operationType,operationValue), new BaseObserver<String>(baseView, true) {
 
             @Override

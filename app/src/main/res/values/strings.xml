@@ -191,5 +191,7 @@
 
     <string name="m161_camera_name">Camera Name</string>
     <string name="m162_requires_permission">App scan code requires shooting permission</string>
+    <string name="m163_cannot_zero">不设置为0~</string>
+
 
 </resources>

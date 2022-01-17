@@ -51,20 +51,20 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         String sWiff="";
         if (wifiStrength == 0) {
             sWiff=mContext.getString(R.string.m69_offline);
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi0);
+            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
         } else if (wifiStrength <= 25) {
             sWiff=mContext.getString(R.string.m68_weak);
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi1);
+            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal2);
         } else if (wifiStrength <= 50) {
             sWiff=mContext.getString(R.string.m67_normal);
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi1);
+            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal3);
         } else if (wifiStrength <= 75) {
             sWiff=mContext.getString(R.string.m67_normal);
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi3);
+            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal4);
         } else {
 
             sWiff=mContext.getString(R.string.m66_good);
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.wifi4);
+            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal4);
         }
 
         tvWifi.setText(sWiff);
@@ -72,10 +72,9 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
 
         String extDcLevel = camera.getExtDcLevel();
         TextView tvBattery = helper.getView(R.id.tv_battery);
-        if ("1".equals(extDcLevel)){
-            int batteryL = Integer.parseInt(batteryLevel);
+        if ("100".equals(extDcLevel)){
             setTextViewDrawableTop(mContext, tvBattery, R.drawable.chadian);
-            tvBattery.setText(batteryL+"%");
+            tvBattery.setText(extDcLevel+"%");
         }else {
             int batteryL = Integer.parseInt(batteryLevel);
             if (batteryL == 0) {

@@ -24,6 +24,7 @@ import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.eventbus.FreshCameraList;
 import com.shuoxd.camera.eventbus.FreshQuestion;
 import com.shuoxd.camera.zxing.CustomScanActivity;
 
@@ -332,6 +333,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
                 break;
             case R.id.iv_add:
                 Intent intent = new Intent(getContext(), CustomScanActivity.class);
+                intent.putExtra("type","1");
                 startActivity(intent);
                 break;
         }
@@ -349,7 +351,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventUpdata(FreshQuestion bean) {
+    public void onEventUpdata(FreshCameraList bean) {
         //获取相机列表
         try {
             presenter.setPageNow(0);

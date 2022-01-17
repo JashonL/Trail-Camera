@@ -155,6 +155,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     public void registerSuccess(){
         Intent intent = new Intent(context, CustomScanActivity.class);
+        intent.putExtra("type","0");
         context. startActivity(intent,
                 ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
 

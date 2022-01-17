@@ -383,9 +383,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     String batteryLevel = cameraBean.getBatteryLevel();
                     int batteryL = Integer.parseInt(batteryLevel);
                     String extDcLevel = cameraBean.getExtDcLevel();
-                    if ("1".equals(extDcLevel)) {
+                    if ("100".equals(extDcLevel)) {
                         bean.setIconRes(R.drawable.chadian);
-                        bean.setTitle(batteryLevel + "%");
+                        bean.setTitle(extDcLevel + "%");
                     } else {
                         if (batteryL == 0) {
                             bean.setIconRes(R.drawable.bat1);

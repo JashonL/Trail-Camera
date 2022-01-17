@@ -36,6 +36,7 @@ import com.shuoxd.camera.utils.CircleDialogUtils;
 import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.DateUtils;
 import com.shuoxd.camera.utils.LogUtil;
+import com.shuoxd.camera.utils.MyToastUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -65,6 +66,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
     private CameraSettingAdapter mAdapter;
 
     private String imei;
+
+    private List<String> mins = new ArrayList<>();
+    private List<String> seconds = new ArrayList<>();
 
 
     @Override
@@ -100,10 +104,16 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         List<DeviceSettingBean> deviceBasicList = CameraSetUtils.getDeviceBasicList(this);
         mAdapter.replaceData(deviceBasicList);
 
+        for (int i = 0; i < 60; i++) {
+            mins.add(i + "");
+            seconds.add(i + "");
+        }
 
         imei = getIntent().getStringExtra("imei");
         String accountName = App.getUserBean().getAccountName();
         presenter.cameraParamter(imei, accountName);
+
+
     }
 
     @Override
@@ -128,7 +138,32 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         String valueStr = settingBean.getValueStr();
 
         if (itemType == SettingConstants.SETTING_TYPE_SELECT) {
-            setSelectItem(position, title);
+            if ("shotLag".equals(key)) {
+                int time = 0;
+
+                if (!TextUtils.isEmpty(value1)) {
+                    time = Integer.parseInt(value1);
+                }
+
+                int min = time / 60;
+                int second = time % 60;
+
+                CircleDialogUtils.showTimeValueDialog(this, title, mins, min, seconds, second, (min1, second1) -> {
+                    int value = min1 * 60 + second1;
+                    if (value == 0) {
+                        MyToastUtils.toast(R.string.m163_cannot_zero);
+                        return;
+                    }
+                    String sValue = min1 + "min" + second1 + "s";
+                    mAdapter.getData().get(position).setValueStr(sValue);
+                    mAdapter.getData().get(position).setValue(String.valueOf(value));
+                    mAdapter.notifyDataSetChanged();
+                    String operationValue = String.valueOf(value);
+                    presenter.control(imei, setKey, operationValue);
+                });
+            } else {
+                setSelectItem(position, title);
+            }
         } else if (itemType == SETTING_TYPE_NEXT) {
             if ("serverDate".equals(key)) {
                 try {
@@ -232,8 +267,8 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             }
 
 
-        }else if (itemType==SETTING_TYPE_INPUT){
-            setInputValue(position,title,valueStr,1f);
+        } else if (itemType == SETTING_TYPE_INPUT) {
+            setInputValue(position, title, valueStr, 1f);
         }
 
 
@@ -249,11 +284,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     String setKey = bean.getSetKey();
                     mAdapter.notifyDataSetChanged();
                     //调用接口
-                    presenter.control(imei, setKey, value);
+                    presenter.cameraOperation(imei, setKey, value);
                 });
     }
-
-
 
 
     private void setSelectItem(int pos, String title) {
@@ -313,23 +346,36 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     DeviceSettingBean settingBean = data.get(j);
                     String key1 = settingBean.getKey();
                     String value = settingBean1.getValue();
+                    if (TextUtils.isEmpty(value))continue;
                     if (key1.equals(key)) {
                         int itemType = settingBean.getItemType();
                         settingBean.setValue(value);
-
                         if (itemType == SettingConstants.SETTING_TYPE_SELECT) {
-                            String[] items = settingBean.getItems();
-                            int[] items_value = settingBean.getItems_value();
-                            int pos = Integer.parseInt(value);
-                            String valueS = String.valueOf(pos);
-                            for (int k = 0; k < items_value.length; k++) {
-                                int i1 = items_value[k];
-                                if (i1 == pos) {
-                                    valueS = items[k];
-                                    break;
+                            if ("shotLag".equals(key1)) {
+                                if (!TextUtils.isEmpty(value)) {
+                                    int time = Integer.parseInt(value);
+                                    int min = time / 60;
+                                    int second = time % 60;
+                                    String sValue = min + "min" + second + "sec";
+                                    settingBean.setValueStr(sValue);
                                 }
+
+
+                            } else {
+                                String[] items = settingBean.getItems();
+                                int[] items_value = settingBean.getItems_value();
+                                int pos = Integer.parseInt(value);
+                                String valueS = String.valueOf(pos);
+                                for (int k = 0; k < items_value.length; k++) {
+                                    int i1 = items_value[k];
+                                    if (i1 == pos) {
+                                        valueS = items[k];
+                                        break;
+                                    }
+                                }
+                                settingBean.setValueStr(valueS);
                             }
-                            settingBean.setValueStr(valueS);
+
 
                         } else if (itemType == SETTING_TYPE_NEXT) {
                             settingBean.setValueStr(value);
@@ -377,7 +423,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                             }
 
 
-                        }else if (itemType == SETTING_TYPE_INPUT){
+                        } else if (itemType == SETTING_TYPE_INPUT) {
                             settingBean.setValueStr(value);
                         }
                         break;

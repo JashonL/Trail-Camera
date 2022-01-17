@@ -233,19 +233,19 @@ public class CircleDialogUtils {
         minWheel.setAdapter(new ArrayWheelAdapter<>(mins));
         minWheel.setCurrentItem(select1);
         minWheel.setTextColorCenter(ContextCompat.getColor(context, R.color.color_text_00));
-        minWheel.setItemsVisibleCount(3);
+        minWheel.setItemsVisibleCount(6);
+        minWheel.setLabel("min");
 
         minWhee2.setCyclic(true);
         minWhee2.isCenterLabel(true);
         minWhee2.setAdapter(new ArrayWheelAdapter<>(seconds));
         minWhee2.setCurrentItem(select2);
         minWhee2.setTextColorCenter(ContextCompat.getColor(context, R.color.color_text_00));
-        minWhee2.setItemsVisibleCount(3);
-
+        minWhee2.setItemsVisibleCount(6);
+        minWhee2.setLabel("sec");
 
         CircleDialog.Builder builder = new CircleDialog.Builder();
-        builder.setWidth(0.75f);
-        builder.setMaxHeight(0.8f);
+        builder.setWidth(0.8f);
         builder.setBodyView(contentView, view -> {
             CircleDrawable bgCircleDrawable = new CircleDrawable(CircleColor.DIALOG_BACKGROUND
                     , CircleDimen.DIALOG_RADIUS, CircleDimen.DIALOG_RADIUS, CircleDimen.DIALOG_RADIUS, CircleDimen.DIALOG_RADIUS);
@@ -266,6 +266,7 @@ public class CircleDialogUtils {
             int currentItem = minWheel.getCurrentItem();
             int currentItem1 = minWhee2.getCurrentItem();
             listener.selected(currentItem,currentItem1);
+            show.dialogDismiss();
         });
     }
 

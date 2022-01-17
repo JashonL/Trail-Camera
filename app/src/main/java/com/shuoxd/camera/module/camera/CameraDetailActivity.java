@@ -159,7 +159,15 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         }
 
         String type = pictureBean.getType();
-        btnDownLoad.setEnabled("1".equals(type));
+
+
+        if ("1".equals(type)||"2".equals(type)){
+            btnDownLoad.setEnabled(false);
+
+        }else {
+            btnDownLoad.setEnabled(true);
+        }
+
 
     }
 
@@ -225,7 +233,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         mAdapter.notifyDataSetChanged();
         //通知其他页面更新
         EventBus.getDefault().post(new FreshPhoto());
-
+        finish();
     }
 
     @Override

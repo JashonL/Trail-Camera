@@ -14,9 +14,11 @@ import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.constants.GlobalConstant;
 import com.shuoxd.camera.constants.SharePreferenConstants;
+import com.shuoxd.camera.eventbus.FreshCameraList;
 import com.shuoxd.camera.module.login.User;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 public class Addpresenter extends BasePresenter<AddCanmeraView> {
@@ -45,6 +47,10 @@ public class Addpresenter extends BasePresenter<AddCanmeraView> {
                     JSONObject jsonObject = new JSONObject(bean);
                     String result = jsonObject.optString("result");
                     if ("0".equals(result)){//请求成功
+                        //通知刷新列表
+                        EventBus.getDefault().post(new FreshCameraList());
+
+
                         String accountName = App.getUserBean().getAccountName();
                         String password = App.getUserBean().getPassword();
                         if (App.IS_LOGIN){

@@ -58,15 +58,14 @@ public class LineChartFrag extends ChartBaseFragment{
         chart.setDrawGridBackground(false);
 
 //        chart.setData(generateLineData());
-        chart.animateX(1000);
+        chart.animateX(500);
 
 
         Legend l = chart.getLegend();
 
         YAxis leftAxis = chart.getAxisLeft();
-        leftAxis.setAxisMaximum(1.2f);
-        leftAxis.setAxisMinimum(-1.2f);
-
+//        leftAxis.setAxisMaximum(1.2f);
+        leftAxis.setAxisMinimum(0f);
         chart.getAxisRight().setEnabled(false);
 
 //        XAxis xAxis = chart.getXAxis();
@@ -147,7 +146,7 @@ public class LineChartFrag extends ChartBaseFragment{
             ArrayList<Entry> entries = new ArrayList<>();
 
             for (int j = 0; j < count; j++) {
-                entries.add(new BarEntry(j, (float) totalNumList.get(i)));
+                entries.add(new BarEntry(j, (float) totalNumList.get(j)));
             }
 
             LineDataSet ds = new LineDataSet(entries, "");
