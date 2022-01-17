@@ -69,7 +69,7 @@
     <string name="m53_next">NEXT</string>
     <string name="m54_change_password">CHANGE PASSWORD</string>
     <string name="m55_determine">Determine</string>
-    <string name="m56_home">Determine</string>
+    <string name="m56_home">Home</string>
     <string name="m57_nearby">Nearby</string>
     <string name="m58_user">User</string>
     <string name="m59_username">Username</string>
@@ -89,9 +89,9 @@
 
     <string name="m71_bat">battery</string>
     <string name="m72_sd">sdcard</string>
-    <string name="m73_map">map</string>
+    <string name="m73_map">Map</string>
     <string name="m74_tracker">Tracker</string>
-    <string name="m75_steup">Steup</string>
+    <string name="m75_steup">Setup</string>
     <string name="m76_photos">Photos</string>
     <string name="m77_all_camera">All CAMERA</string>
     <string name="m78_my">My</string>
@@ -122,7 +122,7 @@
     <string name="m100_total">Total</string>
 
     <string name="m101_photo_tracker">PHOTO TRACKER</string>
-    <string name="m102_camera_stepup">CAMERA STEUP</string>
+    <string name="m102_camera_stepup">CAMERA SETUP</string>
 
 
     <string name="m103_capture_mode">Capture Mode</string>
@@ -152,7 +152,7 @@
     <string name="m125_Server_Time">Server Time</string>
     <string name="m126_Format_Card">Format Card</string>
     <string name="m127_cancel">Cancel</string>
-    <string name="m128_read">Read</string>
+    <string name="m128_read">Refresh</string>
 
     <string name="m129_question_list">Question List</string>
     <string name="m130_system_notification">System Notification</string>
@@ -189,5 +189,7 @@
     <string name="m159_message_allread">已读所有消息</string>
     <string name="m160_message_delete">删除这条消息</string>
 
+    <string name="m161_camera_name">Camera Name</string>
+    <string name="m162_requires_permission">App scan code requires shooting permission</string>
 
 </resources>

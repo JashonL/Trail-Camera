@@ -37,6 +37,8 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         String signalStrength = camera.getSignalStrength();
         String batteryLevel = camera.getBatteryLevel();
         String cardSpace = camera.getCardSpace();
+        String extDcLevel = camera.getExtDcLevel();
+
 
         TextView tvName = helper.getView(R.id.tv_name);
         if (TextUtils.isEmpty(alias)) {
@@ -73,20 +75,27 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
 
 
         TextView tvBattery = helper.getView(R.id.tv_battery);
-        int batteryL = Integer.parseInt(batteryLevel);
-        if (batteryL == 0) {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery1);
-        } else if (batteryL <= 25) {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery2);
-        } else if (batteryL <= 50) {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery2);
-        } else if (batteryL <= 75) {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery4);
-        } else {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.battery_4);
+        if ("1".equals(extDcLevel)){
+            int batteryL = Integer.parseInt(batteryLevel);
+            setTextViewDrawableTop(mContext, tvBattery, R.drawable.chadian);
+            tvBattery.setText(batteryL+"%");
+        }else {
+            int batteryL = Integer.parseInt(batteryLevel);
+            if (batteryL == 0) {
+                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
+            } else if (batteryL <= 25) {
+                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat2);
+            } else if (batteryL <= 50) {
+                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat3);
+            } else if (batteryL <= 75) {
+                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat4);
+            } else {
+                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat4);
+            }
+
+            tvBattery.setText(batteryL+"%");
         }
 
-        tvBattery.setText(batteryL+"%");
 
 
 

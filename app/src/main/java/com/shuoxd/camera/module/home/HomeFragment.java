@@ -24,7 +24,12 @@ import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.eventbus.FreshQuestion;
 import com.shuoxd.camera.zxing.CustomScanActivity;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +69,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     private int mLayoutType = TYPE_SMALL;
 
 
-
     @Override
     protected HomePresenter createPresenter() {
         return new HomePresenter(getContext(), this);
@@ -77,6 +81,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     protected void initView() {
+        //注册接收器
+        EventBus.getDefault().register(this);
+
         srlPull.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.color_theme_green));
         //设备列表初始化
         setSmallAdapter();
@@ -221,7 +228,8 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
             cameraBean = mBigAdapter.getData().get(position);
         }
         String id = cameraBean.getCamera().getImei();
-        showCameraInfo(id);
+        String alias = cameraBean.getCamera().getAlias();
+        showCameraInfo(id,alias);
 
     }
 
@@ -229,9 +237,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     /**
      * 点击item跳转到Fragment1V2
      */
-    private void showCameraInfo(String id) {
+    private void showCameraInfo(String id, String alias) {
         MainActivity main = (MainActivity) getActivity();
         main.cameraId = id;
+        main.cameraAlias = alias;
         main.showCameraInfo();
     }
 
@@ -240,24 +249,24 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     public void setDeviceList(List<CameraBean> cameraBeanList) {
         srlPull.setRefreshing(false);
         int pageNow = presenter.getPageNow();
-        if (pageNow==1){
+        if (pageNow == 1) {
             deviceList.clear();
         }
         deviceList.addAll(cameraBeanList);
 
         if (mLayoutType == TYPE_BIG) {
-            if (pageNow==1) {
+            if (pageNow == 1) {
                 mBigAdapter.setNewData(deviceList);
-            }else {
+            } else {
                 mBigAdapter.addData(cameraBeanList);
                 mBigAdapter.loadMoreComplete();
             }
 
         } else {
             //列表模式
-            if (pageNow==1) {
+            if (pageNow == 1) {
                 mSmallAdapter.setNewData(deviceList);
-            }else {
+            } else {
                 mSmallAdapter.addData(cameraBeanList);
                 mSmallAdapter.loadMoreComplete();
 
@@ -336,5 +345,24 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
                 .statusBarColor(R.color.white)//这里的颜色，你可以自定义。
                 .statusBarView(statusBarView)
                 .init();
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdata(FreshQuestion bean) {
+        //获取相机列表
+        try {
+            presenter.setPageNow(0);
+            presenter.getAlldevice();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 }

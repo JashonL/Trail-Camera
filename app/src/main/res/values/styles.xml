@@ -57,10 +57,9 @@
 
 
     <!-- 设置Toolbar标题字体的颜色大小 -->
-    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
-        <item name="android:textColor">#ffffff</item><!--toolbar标题字体颜色-->
+    <style name="AppTheme.ActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="actionMenuTextColor">@color/white</item>
     </style>
-
 
 
 

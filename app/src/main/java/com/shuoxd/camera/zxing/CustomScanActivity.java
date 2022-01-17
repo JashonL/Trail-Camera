@@ -161,13 +161,20 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
     }
 
 
+
+
     @Override
-    public void showUserInfo(User user) {
+    public void showUserInfo(User user, String isAuto) {
 
     }
 
     @Override
     public void showLoginError(String errorMsg) {
+
+    }
+
+    @Override
+    public void registerSuccess() {
 
     }
 

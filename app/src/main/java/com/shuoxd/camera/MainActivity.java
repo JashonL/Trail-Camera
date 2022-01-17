@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.module.camera.CameraFragment;
@@ -22,6 +24,7 @@ import com.shuoxd.camera.module.gallery.PhotoFragment;
 import com.shuoxd.camera.module.home.HomeFragment;
 import com.shuoxd.camera.module.map.MapFragment;
 import com.shuoxd.camera.module.me.MeFragment;
+import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
 import java.util.List;
 
@@ -49,6 +52,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
 
 
     public String cameraId;
+    public String cameraAlias;
 
 
     private FragmentTransaction mTransaction;
@@ -201,11 +205,14 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
             mCameraFragment = new CameraFragment();
             Bundle bundle = new Bundle();
             bundle.putString("cameraId", cameraId);//电站id传值
+            bundle.putString("alias", cameraAlias);//电站id传值
             mCameraFragment.setArguments(bundle);
             mTransaction.add(R.id.fl_content, mCameraFragment);
         } else {
             //刷新界面
             mCameraFragment.cameraId = this.cameraId;
+            mCameraFragment.alias = this.cameraAlias;
+
             isRefresh = true;
         }
         mTransaction.commit();
@@ -334,5 +341,14 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            App.getInstance().exit();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

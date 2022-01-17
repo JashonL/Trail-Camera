@@ -118,9 +118,9 @@ public class ChartPresenter extends BasePresenter<ChartView> {
 
 
 
-                                String d=day+" "+ CommentUtils.getMonth().get(Integer.parseInt(month)+1)+" "+year;
+                                String d=day+" "+ CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year;
                                 baseView.upDate(d);
-                                String d2=CommentUtils.getMonth().get(Integer.parseInt(month)+1)+" "+year;
+                                String d2=CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year;
                                 baseView.upDateYear(d2);
 
                                 //设置图表
@@ -146,9 +146,9 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 String month_end = e_split[1];
                                 String day_end = e_split[2];
 
-                                String d=day+" "+ CommentUtils.getMonth().get(Integer.parseInt(month)+1)+" "+year+
+                                String d=day+" "+ CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year+
 
-                                        "-"+day_end+" "+CommentUtils.getMonth().get(Integer.parseInt(month_end)+1)+" "+year_end;
+                                        "-"+day_end+" "+CommentUtils.getMonth().get(Integer.parseInt(month_end)-1)+" "+year_end;
 
                                 baseView.upDate(d);
                                 String d2=CommentUtils.getMonth().get(Integer.parseInt(month)+1)+" "+year;
@@ -179,9 +179,9 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 String[] split = start.split("[\\D]");
                                 String year = split[0];
                                 String month = split[1];
-                                String d= CommentUtils.getMonth().get(Integer.parseInt(month)+1)+" "+year;
+                                String d= CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year;
                                 baseView.upDate(d);
-                                String d2=CommentUtils.getMonth().get(Integer.parseInt(month)+1)+" "+year;
+                                String d2=CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year;
                                 baseView.upDateYear(d2);
 
                                 List<String> monthList = new ArrayList<>();

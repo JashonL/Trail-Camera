@@ -40,7 +40,7 @@
                     android:checked="true"
                     android:gravity="center"
                     android:text="@string/m129_question_list"
-                    android:textColor="@color/rb_text_selector" />
+                    android:textColor="@color/rb_message_text_selector" />
 
                 <RadioButton
                     android:id="@+id/rb_notifycation"
@@ -51,7 +51,7 @@
                     android:button="@null"
                     android:gravity="center"
                     android:text="@string/m130_system_notification"
-                    android:textColor="@color/rb_text_selector" />
+                    android:textColor="@color/rb_message_text_selector" />
 
 
             </RadioGroup>

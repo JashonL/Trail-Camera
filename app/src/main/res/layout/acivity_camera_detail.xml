@@ -46,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/vp">
 
         <TextView
@@ -131,7 +132,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
-        android:id="@+id/btn_register"
+        android:id="@+id/btn_download"
         android:layout_width="@dimen/dp_207"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

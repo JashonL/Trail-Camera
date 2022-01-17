@@ -47,9 +47,22 @@ public class CameraDetailPresenter extends BasePresenter<CameraDetailView>   {
                     JSONObject jsonObject = new JSONObject(bean);
                     String result = jsonObject.optString("result");
                     if ("0".equals(result)) {//请求成功
-                        baseView.showCollecMsg(operationValue);
+                        switch (operationType){
+                            case "favorites":
+                                baseView.showCollecMsg(operationValue);
+                                break;
+                            case "remove":
+                                baseView.delete(photoId);
+                                break;
+                            case "resolution":
+                                String msg = jsonObject.optString("msg");
+                                baseView.dowload(photoId,msg);
+                                break;
+                        }
+
                     } else {
                         String msg = jsonObject.optString("msg");
+
                         baseView.showResultError(msg);
                     }
                 } catch (Exception e) {
@@ -64,6 +77,12 @@ public class CameraDetailPresenter extends BasePresenter<CameraDetailView>   {
         });
 
     }
+
+
+
+
+
+
 
 
 }

@@ -35,6 +35,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     public void savaUserInfo(String username, String password, User user) {
         SharedPreferencesUnit.getInstance(context).put(SharePreferenConstants.SP_USER_NAME, username);
         SharedPreferencesUnit.getInstance(context).put(SharePreferenConstants.SP_USER_PASSWORD, password);
+        SharedPreferencesUnit.getInstance(context).put(SharePreferenConstants.SP_AUTO_LOGIN, "1");
         App.setUserBean(user);
     }
 
@@ -43,9 +44,10 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         User user=new User();
         String username = SharedPreferencesUnit.getInstance(context).get(SharePreferenConstants.SP_USER_NAME);
         String password = SharedPreferencesUnit.getInstance(context).get(SharePreferenConstants.SP_USER_PASSWORD);
+        String auto = SharedPreferencesUnit.getInstance(context).get(SharePreferenConstants.SP_AUTO_LOGIN);
         user.setAccountName(username);
         user.setPassword(password);
-        baseView.showUserInfo(user);
+        baseView.showUserInfo(user,auto);
     }
 
 
@@ -84,7 +86,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                         String msg = jsonObject.optString("msg");
                         baseView.showLoginError(msg);
                     }
-                    registerSuccess();
+
+                    baseView.registerSuccess();
+//                    registerSuccess();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -149,7 +153,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     }
 
-    private void registerSuccess(){
+    public void registerSuccess(){
         Intent intent = new Intent(context, CustomScanActivity.class);
         context. startActivity(intent,
                 ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());

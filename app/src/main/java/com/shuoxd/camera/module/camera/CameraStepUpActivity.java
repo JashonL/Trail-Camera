@@ -35,6 +35,7 @@ import com.shuoxd.camera.utils.CameraSetUtils;
 import com.shuoxd.camera.utils.CircleDialogUtils;
 import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.DateUtils;
+import com.shuoxd.camera.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,6 +43,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_INPUT;
+import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_NEXT;
 
 public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> implements CameraStepView,
         BaseQuickAdapter.OnItemClickListener,
@@ -121,11 +125,11 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         String title = settingBean.getTitle();
         int itemType = settingBean.getItemType();
         String value1 = settingBean.getValue();
-
+        String valueStr = settingBean.getValueStr();
 
         if (itemType == SettingConstants.SETTING_TYPE_SELECT) {
             setSelectItem(position, title);
-        } else if (itemType == SettingConstants.SETTING_TYPE_NEXT) {
+        } else if (itemType == SETTING_TYPE_NEXT) {
             if ("serverDate".equals(key)) {
                 try {
                     String date = settingBean.getValueStr();
@@ -228,10 +232,28 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             }
 
 
+        }else if (itemType==SETTING_TYPE_INPUT){
+            setInputValue(position,title,valueStr,1f);
         }
 
 
     }
+
+
+    private void setInputValue(int pos, String title, String hint, float mul) {
+        CircleDialogUtils.showInputValueDialog(this, title,
+                hint, "", "", value -> {
+                    List<DeviceSettingBean> data = mAdapter.getData();
+                    DeviceSettingBean bean = data.get(pos);
+                    bean.setValueStr(value);
+                    String setKey = bean.getSetKey();
+                    mAdapter.notifyDataSetChanged();
+                    //调用接口
+                    presenter.control(imei, setKey, value);
+                });
+    }
+
+
 
 
     private void setSelectItem(int pos, String title) {
@@ -309,7 +331,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                             }
                             settingBean.setValueStr(valueS);
 
-                        } else if (itemType == SettingConstants.SETTING_TYPE_NEXT) {
+                        } else if (itemType == SETTING_TYPE_NEXT) {
                             settingBean.setValueStr(value);
                             if ("timelapseStart".equals(key1) || "timelapseStop".equals(key1)
                                     || "dailySyncTime".equals(key1) || "operationStart".equals(key1) || "operationStop".equals(key1)) {//时间
@@ -355,6 +377,8 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                             }
 
 
+                        }else if (itemType == SETTING_TYPE_INPUT){
+                            settingBean.setValueStr(value);
                         }
                         break;
                     }
@@ -391,9 +415,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 data.get(14).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(15).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             } else {
-                data.get(13).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-                data.get(14).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-                data.get(15).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+                data.get(13).setItemType(SETTING_TYPE_NEXT);
+                data.get(14).setItemType(SETTING_TYPE_NEXT);
+                data.get(15).setItemType(SETTING_TYPE_NEXT);
             }
 
             //判断Opration time是否为1
@@ -404,9 +428,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 data.get(11).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(12).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             } else {
-                data.get(10).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-                data.get(11).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-                data.get(12).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+                data.get(10).setItemType(SETTING_TYPE_NEXT);
+                data.get(11).setItemType(SETTING_TYPE_NEXT);
+                data.get(12).setItemType(SETTING_TYPE_NEXT);
             }
 
         } catch (Exception e) {
@@ -456,9 +480,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 data.get(14).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(15).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             } else {
-                data.get(13).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-                data.get(14).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-                data.get(15).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+                data.get(13).setItemType(SETTING_TYPE_NEXT);
+                data.get(14).setItemType(SETTING_TYPE_NEXT);
+                data.get(15).setItemType(SETTING_TYPE_NEXT);
             }
 
 
@@ -473,9 +497,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             data.get(11).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             data.get(12).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
         } else {
-            data.get(10).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-            data.get(11).setItemType(SettingConstants.SETTING_TYPE_NEXT);
-            data.get(12).setItemType(SettingConstants.SETTING_TYPE_NEXT);
+            data.get(10).setItemType(SETTING_TYPE_NEXT);
+            data.get(11).setItemType(SETTING_TYPE_NEXT);
+            data.get(12).setItemType(SETTING_TYPE_NEXT);
         }
 
 

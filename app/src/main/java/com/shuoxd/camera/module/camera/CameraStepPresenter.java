@@ -99,4 +99,37 @@ public class CameraStepPresenter extends BasePresenter<CameraStepView> {
     }
 
 
+
+    public void cameraOperation(String imei, String operationType, String operationValue) {
+        //正式登录
+        addDisposable(apiServer.operation_camera(imei, operationType,operationValue), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        baseView.cameraSetSuccess(operationType,operationValue);
+                        String msg = jsonObject.optString("msg");
+                        MyToastUtils.toast(msg);
+                    } else {
+                        String msg = jsonObject.optString("msg");
+                        baseView.showResultError(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showServerError(msg);
+            }
+        });
+
+    }
+
+
+
 }

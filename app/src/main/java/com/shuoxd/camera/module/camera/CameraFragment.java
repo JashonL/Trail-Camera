@@ -2,6 +2,7 @@ package com.shuoxd.camera.module.camera;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,8 +39,13 @@ import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +79,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     @BindView(R.id.iv_switch)
     ImageView ivSwitch;
 
-    public String cameraId;
     @BindView(R.id.navigationview1)
     NavigationView navigationview;
     @BindView(R.id.drawer_layout1)
@@ -89,7 +94,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
     private int spanCount = 1;
+    public String cameraId;
 
+    public String alias;
 
     @Override
     protected CameraPresenter createPresenter() {
@@ -129,7 +136,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         mCameraInfoAdapter.setOnItemClickListener(this);
 
 
-
         ivSwitch.setOnClickListener(view12 -> {
             int itemDecorationCount = rlvDevice.getItemDecorationCount();
             for (int i = 0; i < itemDecorationCount; i++) {
@@ -147,8 +153,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             }
             setAdapter(spanCount);
         });
-
-
 
 
         srlPull.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.color_theme_green));
@@ -183,8 +187,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     }
 
 
-
-
     //小图片布局
     private void setAdapter(int span) {
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), span);
@@ -212,7 +214,20 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
+
         cameraId = getArguments().getString("cameraId");
+        alias = getArguments().getString("alias");
+
+        if (TextUtils.isEmpty(alias)) {
+            alias = cameraId;
+        }
+        if (TextUtils.isEmpty(alias)) {
+            alias = "";
+        }
+        tvTitle.setText(alias);
+
+
         srlPull.setOnRefreshListener(() -> {
             try {
                 presenter.setTotalPage(1);
@@ -250,7 +265,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId()==R.id.right_action){
+        if (item.getItemId() == R.id.right_action) {
             // 一锟斤拷锟皆讹拷锟斤拷牟锟斤拷郑锟斤拷锟轿拷锟绞撅拷锟斤拷锟斤拷锟�
             View contentView = LayoutInflater.from(getActivity()).inflate(
                     R.layout.pop_layout, null);
@@ -258,7 +273,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             List<CameraBean> cameraList = presenter.getCameraList();
             RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
             rvCamera.setLayoutManager(new LinearLayoutManager(getContext()));
-            CameraFiterAdapter camerAdapter=new CameraFiterAdapter(R.layout.item_camera_menu,cameraList);
+            CameraFiterAdapter camerAdapter = new CameraFiterAdapter(R.layout.item_camera_menu, cameraList);
             rvCamera.setAdapter(camerAdapter);
             camerAdapter.setOnItemClickListener((adapter, view, position) -> {
                 camerAdapter.setNowSelectPosition(position);
@@ -276,10 +291,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
             int weight = getResources().getDimensionPixelSize(R.dimen.dp_248);
 
-            final PopupWindow popupWindow = new PopupWindow(contentView, width,weight, true);
+            final PopupWindow popupWindow = new PopupWindow(contentView, width, weight, true);
             popupWindow.setTouchable(true);
-
-
 
 
             popupWindow.setTouchInterceptor((v, event) -> false);
@@ -307,26 +320,26 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        if (adapter==mCameraInfoAdapter){
-            switch (position){
+        if (adapter == mCameraInfoAdapter) {
+            switch (position) {
                 case 4:
-                    Intent intent =new Intent(getContext(),ChartActivity.class);
-                    intent.putExtra("imei",cameraId);
+                    Intent intent = new Intent(getContext(), ChartActivity.class);
+                    intent.putExtra("imei", cameraId);
                     startActivity(intent);
                     break;
                 case 5:
-                    Intent intent5 =new Intent(getContext(),CameraStepUpActivity.class);
-                    intent5.putExtra("imei",cameraId);
+                    Intent intent5 = new Intent(getContext(), CameraStepUpActivity.class);
+                    intent5.putExtra("imei", cameraId);
                     startActivity(intent5);
                     break;
             }
 
         }
 
-        if (adapter==mAdapter){
+        if (adapter == mAdapter) {
             CameraShowListManerge.getInstance().setPicList(picList);
-            Intent intent =new Intent(getContext(),CameraDetailActivity.class);
-            intent.putExtra("position",position);
+            Intent intent = new Intent(getContext(), CameraDetailActivity.class);
+            intent.putExtra("position", position);
             startActivity(intent);
         }
 
@@ -364,18 +377,26 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 case 1:
                     String batteryLevel = cameraBean.getBatteryLevel();
                     int batteryL = Integer.parseInt(batteryLevel);
-                    if (batteryL == 0) {
-                        bean.setIconRes(R.drawable.bat1);
-                    } else if (batteryL <= 25) {
-                        bean.setIconRes(R.drawable.bat2);
-                    } else if (batteryL <= 50) {
-                        bean.setIconRes(R.drawable.bat3);
-                    } else if (batteryL <= 75) {
-                        bean.setIconRes(R.drawable.bat4);
+                    String extDcLevel = cameraBean.getExtDcLevel();
+                    if ("1".equals(extDcLevel)) {
+                        bean.setIconRes(R.drawable.chadian);
+                        bean.setTitle(batteryLevel + "%");
                     } else {
-                        bean.setIconRes(R.drawable.bat4);
+                        if (batteryL == 0) {
+                            bean.setIconRes(R.drawable.bat1);
+                        } else if (batteryL <= 25) {
+                            bean.setIconRes(R.drawable.bat2);
+                        } else if (batteryL <= 50) {
+                            bean.setIconRes(R.drawable.bat3);
+                        } else if (batteryL <= 75) {
+                            bean.setIconRes(R.drawable.bat4);
+                        } else {
+                            bean.setIconRes(R.drawable.bat4);
+                        }
+                        bean.setTitle(batteryLevel + "%");
                     }
-                    bean.setTitle(batteryLevel + "%");
+
+
                     break;
                 case 2:
                     String cardSpace = cameraBean.getCardSpace();
@@ -507,4 +528,24 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         drawerLayout.closeDrawers();
 
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdata(FreshPhoto bean) {
+        //刷新图片列表
+        try {
+            presenter.setTotalPage(1);
+            presenter.setPageNow(0);
+            presenter.getCameraPic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

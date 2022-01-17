@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.immersionbar.ImmersionBar;
+import com.hjq.toast.ToastUtils;
 import com.shuoxd.camera.ActivityAbout;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
@@ -29,6 +30,7 @@ import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.module.gallery.PhotoPresenter;
 import com.shuoxd.camera.module.gallery.PhotoView;
+import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.module.message.MessageActivity;
 import com.shuoxd.camera.module.message.MessageListActivity;
 
@@ -99,7 +101,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
 
     @Override
     protected MePresenter createPresenter() {
-        return new MePresenter(getContext(),this);
+        return new MePresenter(getContext(), this);
     }
 
     @Override
@@ -120,11 +122,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     }
 
 
-
-
     //小图片布局
     private void setAdapter() {
-        rvSet.setLayoutManager(new GridLayoutManager(getContext(),3));
+        rvSet.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mAdapter = new MySetAdapter(R.layout.item_app_set, new ArrayList<>());
         rvSet.setAdapter(mAdapter);
         rvSet.addItemDecoration(new GridDivider(ContextCompat.getColor(getActivity(), R.color.nocolor), 30, 30));
@@ -135,7 +135,6 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     }
 
 
-
     @Override
     protected void initData() {
         //设置用户信息
@@ -144,19 +143,19 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
         tvEmail.setText(accountName);
 
 
-        String[] titles={getString(R.string.m79_plans),getString(R.string.m80_billing_history),getString(R.string.m81_Message),
-                getString(R.string.m82_account),getString(R.string.m83_Support),getString(R.string.m84_sign_out),"关于"
+        String[] titles = {getString(R.string.m79_plans), getString(R.string.m80_billing_history), getString(R.string.m81_Message),
+                getString(R.string.m82_account), getString(R.string.m83_Support), getString(R.string.m84_sign_out), "关于"
         };
 
 
-        int[] res={R.drawable.plans,R.drawable.billing_hisory,R.drawable.messages,
-                R.drawable.account,R.drawable.support,R.drawable.sign_out,R.drawable.support
+        int[] res = {R.drawable.plans, R.drawable.billing_hisory, R.drawable.messages,
+                R.drawable.account, R.drawable.support, R.drawable.sign_out, R.drawable.support
         };
 
 
-        List<SetBean>list=new ArrayList<>();
+        List<SetBean> list = new ArrayList<>();
         for (int i = 0; i < titles.length; i++) {
-            SetBean setBean=new SetBean();
+            SetBean setBean = new SetBean();
             setBean.setIconRes(res[i]);
             setBean.setTitle(titles[i]);
             list.add(setBean);
@@ -165,8 +164,6 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
 
 
     }
-
-
 
 
     @Override
@@ -180,13 +177,33 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        switch (position){
+        switch (position) {
             case 2:
                 startActivity(new Intent(getContext(), MessageListActivity.class));
+                break;
+            case 5:
+                //
+                String accountName = App.getUserBean().accountName;
+                presenter.userLogout(accountName);
                 break;
             case 6:
                 startActivity(new Intent(getContext(), ActivityAbout.class));
                 break;
         }
+    }
+
+
+    @Override
+    public void showLoginError(String errorMsg) {
+        ToastUtils.show(errorMsg);
+    }
+
+    @Override
+    public void logout() {
+        //跳转到登录界面
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        getActivity().finish();
     }
 }

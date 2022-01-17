@@ -52,13 +52,13 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_find_serialnum"
-                android:layout_width="@dimen/dp_200"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/dp_30"
                 android:ellipsize="end"
                 android:gravity="center"
-                android:lines="2"
+                android:lines="1"
                 android:drawableStart="@drawable/input"
                 android:minHeight="@dimen/dp_30"
                 android:text="@string/m11_find_bar"

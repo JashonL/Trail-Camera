@@ -135,7 +135,8 @@ public class BarChartFrag extends ChartBaseFragment implements OnChartGestureLis
             ArrayList<BarEntry> entries = new ArrayList<>();
 
             for (int j = 0; j < weekList.size(); j++) {
-                entries.add(new BarEntry(j, (float) totalNumList.get(i)));
+                int value = totalNumList.get(j);
+                entries.add(new BarEntry(j, (float) value));
             }
 
             BarDataSet ds = new BarDataSet(entries, "");

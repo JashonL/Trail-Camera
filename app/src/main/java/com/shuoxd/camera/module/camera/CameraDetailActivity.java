@@ -20,9 +20,13 @@ import androidx.viewpager.widget.ViewPager;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.PictureBean;
+import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.pictrue.BigImageActivty;
 import com.shuoxd.camera.utils.GlideUtils;
+import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.ViewUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,8 +64,8 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     TextView tvShare;
     @BindView(R.id.cl_menu)
     ConstraintLayout clMenu;
-    @BindView(R.id.btn_register)
-    Button btnRegister;
+    @BindView(R.id.btn_download)
+    Button btnDownLoad;
 
 
     private ViewPagerAdapter mAdapter;
@@ -150,6 +154,10 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         if (!TextUtils.isEmpty(uploadDate)) {
             tvDate.setText(uploadDate);
         }
+
+        String type = pictureBean.getType();
+        btnDownLoad.setEnabled("1".equals(type));
+
     }
 
     @Override
@@ -158,22 +166,39 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     }
 
 
-    @OnClick({R.id.tv_collec, R.id.tv_delete, R.id.tv_share})
+    @OnClick({R.id.tv_collec, R.id.tv_delete, R.id.tv_share, R.id.btn_download})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_collec:
+            case R.id.tv_collec: {
                 List<PictureBean> viewLists = mAdapter.getViewLists();
                 int position = vp.getCurrentItem();
                 PictureBean pictureBean = viewLists.get(position);
                 String id = pictureBean.getId();
                 String collection = pictureBean.getCollection();
-                String operationValue = "1".equals(collection)?"0":"1";
+                String operationValue = "1".equals(collection) ? "0" : "1";
                 presenter.operation(id, "favorites", operationValue);
-                break;
-            case R.id.tv_delete:
-                break;
+            }
+            break;
+            case R.id.tv_delete: {
+                List<PictureBean> viewLists = mAdapter.getViewLists();
+                int position = vp.getCurrentItem();
+                PictureBean pictureBean = viewLists.get(position);
+                String id = pictureBean.getId();
+                presenter.operation(id, "remove", "1");
+            }
+            break;
             case R.id.tv_share:
                 break;
+
+            case R.id.btn_download: {
+                List<PictureBean> viewLists = mAdapter.getViewLists();
+                int position = vp.getCurrentItem();
+                PictureBean pictureBean = viewLists.get(position);
+                String id = pictureBean.getId();
+                presenter.operation(id, "resolution", "1");
+            }
+            break;
+
         }
     }
 
@@ -188,6 +213,21 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         } else {
             ViewUtils.setTextViewDrawableTop(this, tvCollec, R.drawable.collection);
         }
+    }
+
+    @Override
+    public void delete(String photoId) {
+        int currentItem = vp.getCurrentItem();
+        mAdapter.getViewLists().remove(currentItem);
+        mAdapter.notifyDataSetChanged();
+        //通知其他页面更新
+        EventBus.getDefault().post(new FreshPhoto());
+
+    }
+
+    @Override
+    public void dowload(String photoId,String msg) {
+        MyToastUtils.toast(msg);
     }
 
 

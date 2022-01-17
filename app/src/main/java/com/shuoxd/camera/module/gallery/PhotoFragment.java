@@ -34,9 +34,15 @@ import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.eventbus.FreshPhoto;
+import com.shuoxd.camera.eventbus.FreshQuestion;
 import com.shuoxd.camera.module.camera.CameraDetailActivity;
 import com.shuoxd.camera.module.camera.CameraShowListManerge;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +149,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     @Override
     protected void initData() {
+        EventBus.getDefault().register(this);
 //        cameraId = getArguments().getString("cameraId");
 
 
@@ -382,4 +389,21 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     }
 
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdata(FreshPhoto bean) {
+        //刷新图片列表
+        try {
+            presenter.setTotalPage(1);
+            presenter.setPageNow(0);
+            presenter.getCameraPic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

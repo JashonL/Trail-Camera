@@ -14,6 +14,7 @@ public class CameraSetUtils {
     public static List<DeviceSettingBean> getDeviceBasicList(Context context) {
         List<DeviceSettingBean> list = new ArrayList<>();
         String[] titls = new String[]{
+                context.getString(R.string.m161_camera_name),//相机名称
                 context.getString(R.string.m103_capture_mode),//设备SN号
                 context.getString(R.string.m104_photo_resolution),//内部时间
                 context.getString(R.string.m106_burst_shot),//内部时间
@@ -50,9 +51,10 @@ public class CameraSetUtils {
                 context.getString(R.string.m126_Format_Card),//内部时间
         };
         String[] hints = new String[]{
-                "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "", "", "", "", "", "", "",
+               "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "", "", "", "", "", "", "",
         };
         int[] itemTypes = new int[]{
+                SettingConstants.SETTING_TYPE_INPUT,//Opration
                 SettingConstants.SETTING_TYPE_SELECT,//拍照模式
                 SettingConstants.SETTING_TYPE_SELECT,//拍照分辨率
                 SettingConstants.SETTING_TYPE_SELECT,//相机连拍张数
@@ -90,9 +92,10 @@ public class CameraSetUtils {
         };
 
         float[] multiples = new float[]{
-                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1
+                1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1
         };
         String[] units = new String[]{
+                "",
                 "",
                 "",
                 "",
@@ -137,6 +140,7 @@ public class CameraSetUtils {
 
 
         String[][] items = new String[][]{
+                {},
                 {"PIR Photo", "PIR Video", "Time Lapse", "PIR&Time Lapse"},
                 {"4MP", "8MP", "16MP", "26MP"},
                 {"1 photo in series", "2 photo in series", "3 photo in series", "6 photo in series", "9 photo in series"},
@@ -178,6 +182,7 @@ public class CameraSetUtils {
         }
 
         int[][] items_values = new int[][]{
+                {},
                 {0, 1, 2, 3},
                 {4, 8, 16, 26},
                 {1, 2, 3, 6, 9},
@@ -212,6 +217,7 @@ public class CameraSetUtils {
 
 
         String[] key = new String[]{
+                "alias",
                 "captureMode",
                 "photoResolution",
                 "burstShot",
@@ -250,6 +256,7 @@ public class CameraSetUtils {
 
 
         String[] setkey = new String[]{
+                "alias",
                 "captureMode",
                 "photoResolution",
                 "burstShot",

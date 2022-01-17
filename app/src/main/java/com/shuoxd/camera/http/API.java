@@ -56,6 +56,12 @@ public class API {
         @POST("v1/user/login")
         Observable<String> login(@Field("email") String username, @Field("password") String password);
 
+        //登出
+        @FormUrlEncoded
+        @POST("v1/user/logOut")
+        Observable<String> loginOut(@Field("email") String username);
+
+
 
         //注册
         @FormUrlEncoded
@@ -67,7 +73,7 @@ public class API {
         //添加相机
         @FormUrlEncoded
         @POST("/v1/camera/addCamera")
-        Observable<String> addCamera(@Field("imei") String imei);
+        Observable<String> addCamera(@Field("imei") String imei,@Field("careamName")String careamName);
 
         //相机详情
         @FormUrlEncoded
@@ -85,6 +91,12 @@ public class API {
         @FormUrlEncoded
         @POST("/v1/camera/control/{imei}/")
         Observable<String> control(@Path("imei") String imei,@Field("operationType")String operationType,@Field("operationValue")String operationValue);
+
+
+        @FormUrlEncoded
+        @POST("/v1/camera/operation/{imei}")
+        Observable<String> operation_camera(@Path("imei") String imei,@Field("operationType")String operationType,@Field("operationValue")String operationValue);
+
 
 
         //相机图片
@@ -165,6 +177,11 @@ public class API {
         @FormUrlEncoded
         @POST("/v1/message/operation/{msgId}")
         Observable<String> msgOperation(@Path("questionId")String questionId,@Field("operationType")String operationType);
+
+
+
+
+
 
 
 

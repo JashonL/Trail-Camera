@@ -1,5 +1,6 @@
 package com.shuoxd.camera.module.login;
 
+import android.Manifest;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,6 +31,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
+
+import static com.shuoxd.camera.constants.PermissionConstant.RC_CAMERA;
 
 public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginView,
         TabLayout.OnTabSelectedListener {
@@ -149,6 +154,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
 
+
+    /**
+     * 检测拍摄权限
+     */
+    @AfterPermissionGranted(RC_CAMERA)
+    private void checkCameraPermissions(){
+        String[] perms = {Manifest.permission.CAMERA};
+        if (EasyPermissions.hasPermissions(this, perms)) {//有权限
+           presenter.registerSuccess();
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this, getString(R.string.m162_requires_permission),
+                    RC_CAMERA, perms);
+        }
+    }
+
+
+
     @OnClick({R.id.btn_login,R.id.btn_register})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -206,7 +229,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
 
     @Override
-    public void showUserInfo(User user) {
+    public void showUserInfo(User user,String isAuto) {
         String username = user.getAccountName();
         String password = user.getPassword();
         if (!TextUtils.isEmpty(username)) {
@@ -216,10 +239,22 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         if (!TextUtils.isEmpty(password)) {
             etPassword.setText(password);
         }
+
+
+        //调用接口自动登录
+        if ("1".equals(isAuto)){
+            presenter.userLogin(username,password);
+        }
+
     }
 
     @Override
     public void showLoginError(String errorMsg) {
         ToastUtils.show(errorMsg);
+    }
+
+    @Override
+    public void registerSuccess() {
+        checkCameraPermissions();
     }
 }
