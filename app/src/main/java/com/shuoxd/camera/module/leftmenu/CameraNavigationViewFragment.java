@@ -250,7 +250,8 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                 break;
 
             case R.id.ll_reset:
-                listeners.reset();
+                reset();
+//                listeners.reset();
                 break;
 
             case R.id.ll_apply:
@@ -326,6 +327,40 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         } else if (compoundButton == cbPm) {
             if (b) cbAm.setChecked(false);
         }
+    }
+
+
+    private void reset() {
+        startDate = "-1";
+        endDate = "-1";
+        amPm = "-1";
+        photoType = "-1";
+        favorites = "-1";
+        moonPhase = "-1";
+        startTemperature = "0";
+        endTemperature = "0";
+        temperatureUnit = "0";
+
+        cbHd.setChecked(false);
+        cbVideo.setChecked(false);
+
+        tvDateStart.setText("");
+        tvDateEnd.setText("");
+
+        cbAm.setChecked(false);
+        cbPm.setChecked(false);
+
+        cbFavorites.setChecked(false);
+
+        wheelEnd.setCurrentItem(50);
+        wheelStart.setCurrentItem(50);
+
+        List<PhaseBean> data = mAdapter.getData();
+        for (int i = 0; i < data.size(); i++) {
+            data.get(i).setSelected(false);
+        }
+
+        mAdapter.notifyDataSetChanged();
     }
 
 

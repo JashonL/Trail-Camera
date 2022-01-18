@@ -39,6 +39,7 @@ import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
@@ -289,9 +290,18 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
             int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
-            int weight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+            int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+            int itemHight = getResources().getDimensionPixelOffset(R.dimen.dp_40);
 
-            final PopupWindow popupWindow = new PopupWindow(contentView, width, weight, true);
+
+            if (itemHight * cameraList.size() > hight) {
+                hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+            } else {
+                hight = LinearLayout.LayoutParams.WRAP_CONTENT;
+            }
+
+
+            final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
             popupWindow.setTouchable(true);
 
 
@@ -340,10 +350,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             CameraShowListManerge.getInstance().setPicList(picList);
             Intent intent = new Intent(getContext(), CameraDetailActivity.class);
             intent.putExtra("position", position);
-            if (!TextUtils.isEmpty(alias)){
-                intent.putExtra("alias",alias);
-            }else {
-                intent.putExtra("alias",cameraId);
+            if (!TextUtils.isEmpty(alias)) {
+                intent.putExtra("alias", alias);
+            } else {
+                intent.putExtra("alias", cameraId);
             }
             startActivity(intent);
         }
@@ -370,11 +380,11 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     if (wifiStrength == 0) {
                         bean.setIconRes(R.drawable.signal1);
                     } else if (wifiStrength <= 25) {
-                        bean.setIconRes(R.drawable.signal2);
+                        bean.setIconRes(R.drawable.signal1);
                     } else if (wifiStrength <= 50) {
-                        bean.setIconRes(R.drawable.signal3);
+                        bean.setIconRes(R.drawable.signal2);
                     } else if (wifiStrength <= 75) {
-                        bean.setIconRes(R.drawable.signal4);
+                        bean.setIconRes(R.drawable.signal3);
                     } else {
                         bean.setIconRes(R.drawable.signal4);
                     }
@@ -390,11 +400,11 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                         if (batteryL == 0) {
                             bean.setIconRes(R.drawable.bat1);
                         } else if (batteryL <= 25) {
-                            bean.setIconRes(R.drawable.bat2);
+                            bean.setIconRes(R.drawable.bat1);
                         } else if (batteryL <= 50) {
-                            bean.setIconRes(R.drawable.bat3);
+                            bean.setIconRes(R.drawable.bat2);
                         } else if (batteryL <= 75) {
-                            bean.setIconRes(R.drawable.bat4);
+                            bean.setIconRes(R.drawable.bat3);
                         } else {
                             bean.setIconRes(R.drawable.bat4);
                         }
@@ -409,11 +419,11 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     if (sSpace == 0) {
                         bean.setIconRes(R.drawable.sdcard1);
                     } else if (sSpace <= 25) {
-                        bean.setIconRes(R.drawable.sdcard2);
+                        bean.setIconRes(R.drawable.sdcard1);
                     } else if (sSpace <= 50) {
-                        bean.setIconRes(R.drawable.sdcard3);
+                        bean.setIconRes(R.drawable.sdcard2);
                     } else if (sSpace <= 75) {
-                        bean.setIconRes(R.drawable.sdcard4);
+                        bean.setIconRes(R.drawable.sdcard3);
                     } else {
                         bean.setIconRes(R.drawable.sdcard4);
                     }
@@ -490,7 +500,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     public void showTotalNum(int totalNum) {
-        String s = totalNum + getString(R.string.m76_photos);
+        String s = totalNum +" "+ getString(R.string.m76_photos);
         tvPicNum.setText(s);
     }
 
@@ -546,6 +556,21 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             e.printStackTrace();
         }
     }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdata(FreshCameraName bean) {
+        //刷新图片列表
+        try {
+            String name = bean.getName();
+            if (!TextUtils.isEmpty(name)){
+                tvTitle.setText(name);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void onDestroy() {

@@ -8,8 +8,11 @@ import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.DeviceSettingBean;
+import com.shuoxd.camera.eventbus.FreshCameraList;
+import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.utils.MyToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -113,6 +116,12 @@ public class CameraStepPresenter extends BasePresenter<CameraStepView> {
                         baseView.cameraSetSuccess(operationType,operationValue);
                         String msg = jsonObject.optString("msg");
                         MyToastUtils.toast(msg);
+
+                        //通知刷新设别列表
+                        EventBus.getDefault().post(new FreshCameraList());
+                        EventBus.getDefault().post(new FreshCameraName(operationValue));
+
+
                     } else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);

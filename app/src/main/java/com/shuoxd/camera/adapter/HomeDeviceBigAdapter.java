@@ -54,13 +54,13 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
         } else if (wifiStrength <= 25) {
             sWiff=mContext.getString(R.string.m68_weak);
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal2);
+            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
         } else if (wifiStrength <= 50) {
             sWiff=mContext.getString(R.string.m67_normal);
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal3);
+            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal2);
         } else if (wifiStrength <= 75) {
             sWiff=mContext.getString(R.string.m67_normal);
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal4);
+            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal3);
         } else {
 
             sWiff=mContext.getString(R.string.m66_good);
@@ -72,25 +72,42 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
 
         String extDcLevel = camera.getExtDcLevel();
         TextView tvBattery = helper.getView(R.id.tv_battery);
-        if ("100".equals(extDcLevel)){
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.chadian);
-            tvBattery.setText(extDcLevel+"%");
-        }else {
-            int batteryL = Integer.parseInt(batteryLevel);
-            if (batteryL == 0) {
-                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
-            } else if (batteryL <= 25) {
-                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat2);
-            } else if (batteryL <= 50) {
-                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat3);
-            } else if (batteryL <= 75) {
-                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat4);
-            } else {
-                setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat4);
-            }
-
-            tvBattery.setText(batteryL+"%");
+        int batteryL = Integer.parseInt(batteryLevel);
+        if (batteryL == 0) {
+            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
+        } else if (batteryL <= 25) {
+            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
+        } else if (batteryL <= 50) {
+            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat2);
+        } else if (batteryL <= 75) {
+            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat3);
+        } else {
+            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat4);
         }
+
+        tvBattery.setText(batteryL+"%");
+
+
+
+
+
+
+
+        TextView tvExt = helper.getView(R.id.tv_ext);
+        int extDcl = Integer.parseInt(extDcLevel);
+        if (extDcl == 0) {
+            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
+        } else if (extDcl <= 25) {
+            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
+        } else if (extDcl <= 50) {
+            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext2);
+        } else if (extDcl <= 75) {
+            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext3);
+        } else {
+            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext4);
+        }
+
+        tvExt.setText(extDcl + "%");
 
 
 
@@ -101,9 +118,9 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         } else if (wifiStrength <= 25) {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
         } else if (wifiStrength <= 50) {
-            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
+            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard2);
         } else if (wifiStrength <= 75) {
-            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
+            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
         } else {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
         }

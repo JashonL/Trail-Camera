@@ -104,8 +104,12 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         List<DeviceSettingBean> deviceBasicList = CameraSetUtils.getDeviceBasicList(this);
         mAdapter.replaceData(deviceBasicList);
 
-        for (int i = 0; i < 60; i++) {
-            mins.add(i + "");
+        for (int i = 0; i < 119; i++) {
+            if (i < 59) {
+                mins.add((i + 1) + "sec");
+            } else {
+                mins.add((i - 58) + "min");
+            }
             seconds.add(i + "");
         }
 
@@ -145,16 +149,32 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     time = Integer.parseInt(value1);
                 }
 
-                int min = time / 60;
-                int second = time % 60;
+                int min_index;//这里是下标
+                int second = 0;
+                if (time < 60) {
+                    min_index = time-1;
+                } else {
+                    min_index = time/60+58;
+                }
 
-                CircleDialogUtils.showTimeValueDialog(this, title, mins, min, seconds, second, (min1, second1) -> {
-                    int value = min1 * 60 + second1;
+
+                CircleDialogUtils.showTimeValueDialog(this, title, mins, min_index, seconds, second, (min1, second1) -> {
+                    String sValue;
+
+                    int value;
+                    if (min1 < 59) {
+                        value = min1+1;//下标加1是真实值
+                        sValue=value+"sec";
+                    } else {
+                        value = (min1 - 58) * 60;
+                        sValue=(min1 - 58)+"min";
+                    }
+
                     if (value == 0) {
                         MyToastUtils.toast(R.string.m163_cannot_zero);
                         return;
                     }
-                    String sValue = min1 + "min" + second1 + "s";
+
                     mAdapter.getData().get(position).setValueStr(sValue);
                     mAdapter.getData().get(position).setValue(String.valueOf(value));
                     mAdapter.notifyDataSetChanged();
@@ -330,13 +350,13 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
     @Override
     public void showSetting(List<DeviceSettingBean> list) {
         try {
-            int index_capture_mode = 0;
-            int index_photo_resolution = 1;
-            int index_burst_sshot = 2;
-            int index_burst_interval = 3;
-            int index_video_resolution = 4;
-            int index_video_length = 5;
-            int index_audio_recording = 6;
+            int index_capture_mode = 1;
+            int index_photo_resolution = 2;
+            int index_burst_sshot = 3;
+            int index_burst_interval = 4;
+            int index_video_resolution = 5;
+            int index_video_length = 6;
+            int index_audio_recording = 7;
 
             List<DeviceSettingBean> data = mAdapter.getData();
             for (int i = 0; i < list.size(); i++) {
@@ -346,7 +366,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     DeviceSettingBean settingBean = data.get(j);
                     String key1 = settingBean.getKey();
                     String value = settingBean1.getValue();
-                    if (TextUtils.isEmpty(value))continue;
+                    if (TextUtils.isEmpty(value)) continue;
                     if (key1.equals(key)) {
                         int itemType = settingBean.getItemType();
                         settingBean.setValue(value);
@@ -354,10 +374,16 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                             if ("shotLag".equals(key1)) {
                                 if (!TextUtils.isEmpty(value)) {
                                     int time = Integer.parseInt(value);
-                                    int min = time / 60;
-                                    int second = time % 60;
-                                    String sValue = min + "min" + second + "sec";
-                                    settingBean.setValueStr(sValue);
+                                    if (time<60){
+                                        String sValue = time+ "sec";
+                                        settingBean.setValueStr(sValue);
+                                    }else {
+                                        int min = time / 60;
+                                        String sValue = min + "min";
+                                        settingBean.setValueStr(sValue);
+                                    }
+
+
                                 }
 
 
@@ -488,13 +514,13 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
     @Override
     public void cameraSetSuccess(String operationType, String operationValue) {
         List<DeviceSettingBean> data = mAdapter.getData();
-        int index_capture_mode = 0;
-        int index_photo_resolution = 1;
-        int index_burst_sshot = 2;
-        int index_burst_interval = 3;
-        int index_video_resolution = 4;
-        int index_video_length = 5;
-        int index_audio_recording = 6;
+        int index_capture_mode = 1;
+        int index_photo_resolution = 2;
+        int index_burst_sshot = 3;
+        int index_burst_interval = 4;
+        int index_video_resolution = 5;
+        int index_video_length = 6;
+        int index_audio_recording = 7;
 
 
         if ("captureMode".equals(operationType)) {

@@ -1,8 +1,10 @@
 package com.shuoxd.camera.module.camera;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -68,6 +70,8 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     Button btnDownLoad;
 
 
+
+
     private ViewPagerAdapter mAdapter;
 
     @Override
@@ -114,6 +118,26 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         } else {
             ViewUtils.setTextViewDrawableTop(this, tvCollec, R.drawable.collection);
         }
+
+
+        String type = pictureBean.getType();
+
+
+        if ("1".equals(type)||"2".equals(type)){
+            btnDownLoad.setEnabled(false);
+
+        }else {
+            btnDownLoad.setEnabled(true);
+        }
+
+
+
+        //类型 图片类型(0:缩略图;1:高清图;2:视频)
+  /*      if (!"1".equals(type)) {
+            tvHd.setVisibility(View.GONE);
+        } else {
+            tvHd.setVisibility(View.VISIBLE);
+        }*/
 
         String num = (position + 1) + "/" + count;
         tvNum.setText(num);
@@ -167,6 +191,15 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         }else {
             btnDownLoad.setEnabled(true);
         }
+
+
+
+  /*      //类型 图片类型(0:缩略图;1:高清图;2:视频)
+        if (!"1".equals(type)) {
+            tvHd.setVisibility(View.GONE);
+        } else {
+            tvHd.setVisibility(View.VISIBLE);
+        }*/
 
 
     }
@@ -245,19 +278,31 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     class ViewPagerAdapter extends PagerAdapter {
 
         private List<PictureBean> viewLists;
-        private List<ImageView> imageViews;
+        private List<View> imageViews;
 
 
         public ViewPagerAdapter(List<PictureBean> viewLists) {
             this.viewLists = viewLists;
             imageViews = new ArrayList<>();
             for (int i = 0; i < viewLists.size(); i++) {
-                ImageView imageView = new ImageView(CameraDetailActivity.this);
-                imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                View inflate = LayoutInflater.from(CameraDetailActivity.this).inflate(R.layout.layout_vp_image, vp, false);
+                ImageView ivCamera = inflate.findViewById(R.id.iv_camera);
+                TextView tvHd = inflate.findViewById(R.id.tv_hd);
+
+
+                String type = viewLists.get(i).getType();
+                //类型 图片类型(0:缩略图;1:高清图;2:视频)
+                if (!"1".equals(type)) {
+                    tvHd.setVisibility(View.GONE);
+                } else {
+                    tvHd.setVisibility(View.VISIBLE);
+                }
+
+
+
                 String url = viewLists.get(i).getFullPath();
-                GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, url, imageView);
-                imageView.setOnClickListener(view -> {
+                GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, url, ivCamera);
+                inflate.setOnClickListener(view -> {
                     Intent intent = new Intent(CameraDetailActivity.this, BigImageActivty.class);
                     int position = vp.getCurrentItem();
                     PictureBean pictureBean = viewLists.get(position);
@@ -266,7 +311,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                     startActivity(intent);
                 });
 
-                imageViews.add(imageView);
+                imageViews.add(inflate);
             }
         }
 

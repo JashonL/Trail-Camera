@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="@dimen/dp_225"
+    android:layout_width="@dimen/dp_225"
+    android:layout_height="wrap_content"
     android:background="@drawable/shape_white_rect"
-    android:layout_height="@dimen/dp_248">
+    android:orientation="vertical">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ry_camera"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

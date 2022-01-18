@@ -57,32 +57,12 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <View
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="wrap_content" />
-
         <com.contrarywind.view.WheelView
             android:id="@+id/np_choose1"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_weight="1" />
+            android:background="@null" />
 
-        <View
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="wrap_content" />
-
-
-        <com.contrarywind.view.WheelView
-            android:id="@+id/np_choose2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:layout_weight="1" />
-
-        <View
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="wrap_content" />
 
     </LinearLayout>
 

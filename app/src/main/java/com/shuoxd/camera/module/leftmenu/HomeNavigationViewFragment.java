@@ -250,16 +250,17 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                 break;
 
             case R.id.ll_reset:
-                listeners.reset();
+                reset();
+//                listeners.reset();
                 break;
 
             case R.id.ll_apply:
 
-                if (cbVideo.isChecked()){
+                if (cbVideo.isChecked()) {
                     photoType = "2";
-                }else if (cbHd.isChecked()){
+                } else if (cbHd.isChecked()) {
                     photoType = "1";
-                }else {
+                } else {
                     photoType = "-1";
                 }
 
@@ -275,36 +276,35 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                 }
 
 
-
-                if (cbAm.isChecked()){
+                if (cbAm.isChecked()) {
                     amPm = "0";
-                }else if (cbPm.isChecked()){
+                } else if (cbPm.isChecked()) {
                     amPm = "1";
-                }else {
+                } else {
                     amPm = "-1";
                 }
 
                 favorites = cbFavorites.isChecked() ? "1" : "-1";
 
 
-                if (rbC.isChecked()){
-                    temperatureUnit="1";
+                if (rbC.isChecked()) {
+                    temperatureUnit = "1";
                 }
 
-                if (rbF.isChecked()){
-                    temperatureUnit="0";
+                if (rbF.isChecked()) {
+                    temperatureUnit = "0";
                 }
 
 
                 int temp_start = wheelStart.getCurrentItem();
                 int temp_end = wheelEnd.getCurrentItem();
 
-                startTemperature=""+temp_start;
-                endTemperature=""+temp_end;
+                startTemperature = "" + temp_start;
+                endTemperature = "" + temp_end;
 
 
                 int nowSelectPosition = mAdapter.getNowSelectPosition();
-                moonPhase=String.valueOf(nowSelectPosition+1);
+                moonPhase = String.valueOf(nowSelectPosition + 1);
 
                 listeners.apply(
                         startDate, endDate,
@@ -326,6 +326,40 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
         } else if (compoundButton == cbPm) {
             if (b) cbAm.setChecked(false);
         }
+    }
+
+
+    private void reset() {
+        startDate = "-1";
+        endDate = "-1";
+        amPm = "-1";
+        photoType = "-1";
+        favorites = "-1";
+        moonPhase = "-1";
+        startTemperature = "0";
+        endTemperature = "0";
+        temperatureUnit = "0";
+
+        cbHd.setChecked(false);
+        cbVideo.setChecked(false);
+
+        tvDateStart.setText("");
+        tvDateEnd.setText("");
+
+        cbAm.setChecked(false);
+        cbPm.setChecked(false);
+
+        cbFavorites.setChecked(false);
+
+        wheelEnd.setCurrentItem(50);
+        wheelStart.setCurrentItem(50);
+
+        List<PhaseBean> data = mAdapter.getData();
+        for (int i = 0; i < data.size(); i++) {
+            data.get(i).setSelected(false);
+        }
+
+        mAdapter.notifyDataSetChanged();
     }
 
 

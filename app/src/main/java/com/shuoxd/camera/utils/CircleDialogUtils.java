@@ -224,25 +224,25 @@ public class CircleDialogUtils {
 
 
         WheelView minWheel = contentView.findViewById(R.id.np_choose1);
-        WheelView minWhee2 = contentView.findViewById(R.id.np_choose2);
+//        WheelView minWhee2 = contentView.findViewById(R.id.np_choose2);
 
 
         //初始化时间选择器
         minWheel.setCyclic(true);
-        minWheel.isCenterLabel(true);
+//        minWheel.isCenterLabel(true);
         minWheel.setAdapter(new ArrayWheelAdapter<>(mins));
         minWheel.setCurrentItem(select1);
         minWheel.setTextColorCenter(ContextCompat.getColor(context, R.color.color_text_00));
         minWheel.setItemsVisibleCount(6);
-        minWheel.setLabel("min");
+//        minWheel.setLabel("min");
 
-        minWhee2.setCyclic(true);
-        minWhee2.isCenterLabel(true);
-        minWhee2.setAdapter(new ArrayWheelAdapter<>(seconds));
-        minWhee2.setCurrentItem(select2);
-        minWhee2.setTextColorCenter(ContextCompat.getColor(context, R.color.color_text_00));
-        minWhee2.setItemsVisibleCount(6);
-        minWhee2.setLabel("sec");
+//        minWhee2.setCyclic(true);
+//        minWhee2.isCenterLabel(true);
+//        minWhee2.setAdapter(new ArrayWheelAdapter<>(seconds));
+//        minWhee2.setCurrentItem(select2);
+//        minWhee2.setTextColorCenter(ContextCompat.getColor(context, R.color.color_text_00));
+//        minWhee2.setItemsVisibleCount(6);
+//        minWhee2.setLabel("sec");
 
         CircleDialog.Builder builder = new CircleDialog.Builder();
         builder.setWidth(0.8f);
@@ -264,8 +264,8 @@ public class CircleDialogUtils {
 
         tvSure.setOnClickListener(view -> {
             int currentItem = minWheel.getCurrentItem();
-            int currentItem1 = minWhee2.getCurrentItem();
-            listener.selected(currentItem,currentItem1);
+//            int currentItem1 = minWhee2.getCurrentItem();
+            listener.selected(currentItem,0);
             show.dialogDismiss();
         });
     }

@@ -113,7 +113,7 @@
 
         <TextView
             android:id="@+id/tv_wifi"
-            android:layout_width="@dimen/dp_60"
+            android:layout_width="@dimen/dp_40"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:layout_marginBottom="@dimen/dp_10"
@@ -130,7 +130,7 @@
 
         <TextView
             android:id="@+id/tv_battery"
-            android:layout_width="@dimen/dp_60"
+            android:layout_width="@dimen/dp_40"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:text="99%"
@@ -140,13 +140,30 @@
             android:textSize="@dimen/size_content_sp_14"
             app:layout_constraintBottom_toBottomOf="@+id/tv_wifi"
             app:layout_constraintLeft_toRightOf="@+id/tv_wifi"
-            app:layout_constraintRight_toLeftOf="@+id/tv_sdcard"
+            app:layout_constraintRight_toLeftOf="@+id/tv_ext"
             app:layout_constraintTop_toTopOf="@+id/tv_wifi" />
 
 
         <TextView
+            android:id="@+id/tv_ext"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:text="99%"
+            android:gravity="center"
+            android:drawableTop="@drawable/ext1"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_wifi"
+            app:layout_constraintLeft_toRightOf="@+id/tv_battery"
+            app:layout_constraintRight_toLeftOf="@+id/tv_sdcard"
+            app:layout_constraintTop_toTopOf="@+id/tv_wifi" />
+
+
+
+        <TextView
             android:id="@+id/tv_sdcard"
-            android:layout_width="@dimen/dp_60"
+            android:layout_width="@dimen/dp_40"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:text="100%"
@@ -155,7 +172,7 @@
             android:textSize="@dimen/size_content_sp_14"
             android:drawableTop="@drawable/sdcard1"
             app:layout_constraintBottom_toBottomOf="@+id/tv_wifi"
-            app:layout_constraintLeft_toRightOf="@+id/tv_battery"
+            app:layout_constraintLeft_toRightOf="@+id/tv_ext"
             app:layout_constraintRight_toRightOf="@+id/tv_name"
             app:layout_constraintTop_toTopOf="@+id/tv_wifi" />
 

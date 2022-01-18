@@ -270,10 +270,20 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
             });
 
 
-            int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
-            int weight = getResources().getDimensionPixelSize(R.dimen.dp_248);
 
-            final PopupWindow popupWindow = new PopupWindow(contentView, width,weight, true);
+            int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
+            int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+            int itemHight = getResources().getDimensionPixelOffset(R.dimen.dp_40);
+
+
+            if (itemHight * cameraList.size() > hight) {
+                hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+            } else {
+                hight = LinearLayout.LayoutParams.WRAP_CONTENT;
+            }
+
+
+            final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
             popupWindow.setTouchable(true);
 
 
@@ -354,7 +364,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     @Override
     public void showTotalNum(int totalNum) {
-        String s = totalNum + getString(R.string.m76_photos);
+        String s = totalNum +" "+ getString(R.string.m76_photos);
         tvPicNum.setText(s);
     }
 

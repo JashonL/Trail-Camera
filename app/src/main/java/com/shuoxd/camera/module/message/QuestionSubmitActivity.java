@@ -272,12 +272,29 @@ public class QuestionSubmitActivity extends BaseActivity<QuestionSubmitPresenter
                         R.layout.pop_layout, null);
 
                 List<CameraBean> cameraList = presenter.getCameraList();
-                final PopupWindow popupWindow = new PopupWindow(contentView,etNext.getWidth(), ViewGroup.LayoutParams.WRAP_CONTENT, true);
+
 
                 RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
                 rvCamera.setLayoutManager(new LinearLayoutManager(this));
                 CameraNameAdapter camerAdapter=new CameraNameAdapter(R.layout.item_text,cameraList);
                 rvCamera.setAdapter(camerAdapter);
+
+
+
+                int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
+                int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+                int itemHight = getResources().getDimensionPixelOffset(R.dimen.dp_40);
+
+
+                if (itemHight * cameraList.size() > hight) {
+                    hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+                } else {
+                    hight = LinearLayout.LayoutParams.WRAP_CONTENT;
+                }
+
+                final PopupWindow popupWindow = new PopupWindow(contentView,etNext.getWidth(), hight, true);
+
+
                 camerAdapter.setOnItemClickListener((adapter, view1, position) -> {
                     String imei = cameraList.get(position).getCamera().getImei();
                     presenter.setImei(imei);
@@ -286,6 +303,9 @@ public class QuestionSubmitActivity extends BaseActivity<QuestionSubmitPresenter
                     }
                     popupWindow.dismiss();
                 });
+
+
+
 
                 popupWindow.setTouchable(true);
                 popupWindow.setTouchInterceptor((v, event) -> false);
