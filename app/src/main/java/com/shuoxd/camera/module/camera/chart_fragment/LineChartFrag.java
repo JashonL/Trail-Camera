@@ -66,6 +66,13 @@ public class LineChartFrag extends ChartBaseFragment{
         YAxis leftAxis = chart.getAxisLeft();
 //        leftAxis.setAxisMaximum(1.2f);
         leftAxis.setAxisMinimum(0f);
+        leftAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.valueOf((int) value);
+            }
+        });
+
         chart.getAxisRight().setEnabled(false);
 
 //        XAxis xAxis = chart.getXAxis();
@@ -75,8 +82,7 @@ public class LineChartFrag extends ChartBaseFragment{
         xAxis.setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
-                String s = xDatas.get((int) value);
-                return s;
+                return xDatas.get((int) value);
             }
         });
 

@@ -1,8 +1,6 @@
 package com.shuoxd.camera.module.camera.chart_fragment;
 
-import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,43 +12,33 @@ import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.customview.MyMarkerView;
-import com.shuoxd.camera.utils.ChartUtils;
 import com.shuoxd.camera.utils.CommentUtils;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
-public class BarChartFrag extends ChartBaseFragment implements OnChartGestureListener {
+public class BarChartYearFrag extends ChartBaseFragment implements OnChartGestureListener {
 
 
     private BarChart chart;
 
-    private List<String>xDatas;
+    private List<String> xDatas;
 
 
     @Nullable
@@ -84,7 +72,7 @@ public class BarChartFrag extends ChartBaseFragment implements OnChartGestureLis
         });
 
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-
+        leftAxis.setGranularity(1);
         chart.getAxisRight().setEnabled(false);
 
    /*     XAxis xAxis = chart.getXAxis();
@@ -112,48 +100,78 @@ public class BarChartFrag extends ChartBaseFragment implements OnChartGestureLis
         parent.addView(chart);
 
 
-
-
-
         return v;
 
     }
 
 
-
-
     public void setBarChart(List<String> xDatas, List<Integer> totalNumList) {
-        this.xDatas=xDatas;
+        this.xDatas = xDatas;
         Log.i("barchart", "设置数据");
-        BarData barData = parserWeekChart(1, xDatas, totalNumList);
 
-        chart.setData(barData);
+        if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
+
+            BarDataSet set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+            ArrayList<BarEntry> entries = parserData(xDatas, totalNumList);
+            set1.setValues(entries);
+
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+
+        } else {
+            // create 4 DataSets
+            BarData barData = parserYearChart(xDatas, totalNumList);
+            chart.setData(barData);
+        }
+
+
         chart.getBarData().setBarWidth(0.75f);
         chart.animateY(1000);
         chart.invalidate();
     }
 
 
-    protected BarData parserWeekChart(int dataSets,List<String> weekList, List<Integer> totalNumList) {
+    protected BarData parserYearChart(List<String> xDatas, List<Integer> totalNumList) {
 
         ArrayList<IBarDataSet> sets = new ArrayList<>();
-        for (int i = 0; i < dataSets; i++) {
+//        for (int i = 0; i < dataSets; i++) {
 
-            ArrayList<BarEntry> entries = new ArrayList<>();
+       /*     ArrayList<BarEntry> entries = new ArrayList<>();
 
-            for (int j = 0; j < weekList.size(); j++) {
+            for (int j = 0; j < xDatas.size(); j++) {
                 int value = totalNumList.get(j);
                 entries.add(new BarEntry(j, (float) value));
             }
+*/
 
-            BarDataSet ds = new BarDataSet(entries, "");
-            ds.setColor(ContextCompat.getColor(context, R.color.barchart_color));
-            ds.setHighLightColor(ContextCompat.getColor(context, R.color.barchart_hight_color));
-            sets.add(ds);
+        ArrayList<BarEntry> entries = parserData(xDatas, totalNumList);
+
+        BarDataSet ds = new BarDataSet(entries, "");
+        ds.setColor(ContextCompat.getColor(context, R.color.barchart_color));
+        ds.setHighLightColor(ContextCompat.getColor(context, R.color.barchart_hight_color));
+        ds.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                return String.valueOf((int) value);
+            }
+        });
+        ds.setValueTextColor(ContextCompat.getColor(context, R.color.barchart_hight_color));
+        ds.setValueTextSize(14);
+        sets.add(ds);
+//        }
+
+        return new BarData(sets);
+    }
+
+
+    private ArrayList<BarEntry> parserData(List<String> xDatas, List<Integer> totalNumList) {
+        ArrayList<BarEntry> entries = new ArrayList<>();
+
+        for (int j = 0; j < xDatas.size(); j++) {
+            int value = totalNumList.get(j);
+            entries.add(new BarEntry(j, (float) value));
         }
-
-        BarData d = new BarData(sets);
-        return d;
+        return entries;
     }
 
 

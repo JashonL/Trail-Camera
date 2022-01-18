@@ -25,6 +25,7 @@ import com.shuoxd.camera.adapter.CameraMulFiterAdapter;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.module.camera.chart_fragment.BarChartFrag;
+import com.shuoxd.camera.module.camera.chart_fragment.BarChartYearFrag;
 import com.shuoxd.camera.module.camera.chart_fragment.LineChartFrag;
 import com.shuoxd.camera.module.camera.chart_fragment.PieChartFrag;
 import com.shuoxd.camera.utils.CommentUtils;
@@ -79,7 +80,7 @@ public class ChartActivity extends BaseActivity<ChartPresenter> implements Chart
     private PieChartFrag dayFragment;
     private BarChartFrag weekFragment;
     private LineChartFrag monthFragment;
-    private LineChartFrag yearFragment;
+    private BarChartYearFrag yearFragment;
     private BarChartFrag totalFragment;
 
 
@@ -269,7 +270,7 @@ public class ChartActivity extends BaseActivity<ChartPresenter> implements Chart
     @Override
     public void upYearChart(List<String> yearList, List<Integer> totalNumList) {
         if (yearFragment != null) {
-            yearFragment.setLineChart(yearList, totalNumList);
+            yearFragment.setBarChart(yearList, totalNumList);
         }
     }
 
@@ -320,7 +321,7 @@ public class ChartActivity extends BaseActivity<ChartPresenter> implements Chart
 
             case 3:
                 if (yearFragment == null) {
-                    yearFragment = new LineChartFrag();
+                    yearFragment = new BarChartYearFrag();
                     mTransaction.add(R.id.vp_chart, yearFragment);
                 } else {
                     mTransaction.show(yearFragment);

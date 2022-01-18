@@ -216,8 +216,8 @@ public class ChartPresenter extends BasePresenter<ChartView> {
 
                                 List<String> monthList = new ArrayList<>();
                                 for (int i = 0; i < jsonArray.length(); i++) {
-                                    String s = jsonArray.optString(i);
-                                    String label = s.substring(s.lastIndexOf("-")+1, s.length());
+                                    String label = jsonArray.optString(i);
+//                                    String label = s.substring(s.lastIndexOf("-")+1, s.length());
                                     monthList.add(label);
                                 }
 
