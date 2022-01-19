@@ -1,6 +1,5 @@
 package com.shuoxd.camera.module.camera.chart_fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,12 +19,10 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.LargeValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.customview.MyMarkerView;
 import com.shuoxd.camera.utils.CommentUtils;
@@ -34,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class BarChartYearFrag extends ChartBaseFragment implements OnChartGestureListener {
+public class BarChartTotalFrag extends ChartBaseFragment implements OnChartGestureListener {
 
 
     private BarChart chart;
@@ -169,7 +166,6 @@ public class BarChartYearFrag extends ChartBaseFragment implements OnChartGestur
         ds.setValueTextColor(ContextCompat.getColor(context, R.color.white));
         ds.setValueTextSize(10);
         ds.setDrawValues(false);
-
         sets.add(ds);
 //        }
 

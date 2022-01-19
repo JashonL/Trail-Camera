@@ -25,6 +25,9 @@ import com.shuoxd.camera.adapter.CameraMulFiterAdapter;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.module.camera.chart_fragment.BarChartFrag;
+import com.shuoxd.camera.module.camera.chart_fragment.BarChartMonthFrag;
+import com.shuoxd.camera.module.camera.chart_fragment.BarChartTotalFrag;
+import com.shuoxd.camera.module.camera.chart_fragment.BarChartWeekFrag;
 import com.shuoxd.camera.module.camera.chart_fragment.BarChartYearFrag;
 import com.shuoxd.camera.module.camera.chart_fragment.LineChartFrag;
 import com.shuoxd.camera.module.camera.chart_fragment.PieChartFrag;
@@ -78,10 +81,10 @@ public class ChartActivity extends BaseActivity<ChartPresenter> implements Chart
      * 包括五个fragment
      */
     private PieChartFrag dayFragment;
-    private BarChartFrag weekFragment;
-    private LineChartFrag monthFragment;
+    private BarChartWeekFrag weekFragment;
+    private BarChartMonthFrag monthFragment;
     private BarChartYearFrag yearFragment;
-    private BarChartFrag totalFragment;
+    private BarChartTotalFrag totalFragment;
 
 
     private FragmentTransaction mTransaction;
@@ -254,30 +257,30 @@ public class ChartActivity extends BaseActivity<ChartPresenter> implements Chart
     }
 
     @Override
-    public void upWeekChart(List<String> weekList, List<Integer> totalNumList) {
+    public void upWeekChart(List<String> weekList, List<Integer> readList, List<Integer> unreadlist) {
         if (weekFragment != null) {
-            weekFragment.setBarChart(weekList, totalNumList);
+            weekFragment.setBarChart(weekList, readList, unreadlist);
         }
     }
 
     @Override
-    public void upMonthChart(List<String> monthList, List<Integer> totalNumList) {
+    public void upMonthChart(List<String> monthList, List<Integer> readList, List<Integer> unreadlist) {
         if (monthFragment != null) {
-            monthFragment.setLineChart(monthList, totalNumList);
+            monthFragment.setBarChart(monthList, readList, unreadlist);
         }
     }
 
     @Override
-    public void upYearChart(List<String> yearList, List<Integer> totalNumList) {
+    public void upYearChart(List<String> yearList, List<Integer> readList, List<Integer> unreadlist) {
         if (yearFragment != null) {
-            yearFragment.setBarChart(yearList, totalNumList);
+            yearFragment.setBarChart(yearList, readList, unreadlist);
         }
     }
 
     @Override
-    public void upTotalChart(List<String> totalList, List<Integer> totalNumList) {
+    public void upTotalChart(List<String> totalList, List<Integer> readList, List<Integer> unreadlist) {
         if (totalFragment != null) {
-            totalFragment.setBarChart(totalList, totalNumList);
+            totalFragment.setBarChart(totalList, readList, unreadlist);
         }
     }
 
@@ -303,7 +306,7 @@ public class ChartActivity extends BaseActivity<ChartPresenter> implements Chart
 
             case 1:
                 if (weekFragment == null) {
-                    weekFragment = new BarChartFrag();
+                    weekFragment = new BarChartWeekFrag();
                     mTransaction.add(R.id.vp_chart, weekFragment);
                 } else {
                     mTransaction.show(weekFragment);
@@ -312,7 +315,7 @@ public class ChartActivity extends BaseActivity<ChartPresenter> implements Chart
 
             case 2:
                 if (monthFragment == null) {
-                    monthFragment = new LineChartFrag();
+                    monthFragment = new BarChartMonthFrag();
                     mTransaction.add(R.id.vp_chart, monthFragment);
                 } else {
                     mTransaction.show(monthFragment);
@@ -329,7 +332,7 @@ public class ChartActivity extends BaseActivity<ChartPresenter> implements Chart
                 break;
             case 4:
                 if (totalFragment == null) {
-                    totalFragment = new BarChartFrag();
+                    totalFragment = new BarChartTotalFrag();
                     mTransaction.add(R.id.vp_chart, totalFragment);
                 } else {
                     mTransaction.show(totalFragment);

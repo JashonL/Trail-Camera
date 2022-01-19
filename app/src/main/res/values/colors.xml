@@ -71,5 +71,8 @@
 
     <color name="button_normal">#a1acb3</color>
     <color name="button_click">#05c356</color>
+    <color name="pie_am">#4554E1</color>
+    <color name="pie_pm">#FE7701</color>
+
 
 </resources>

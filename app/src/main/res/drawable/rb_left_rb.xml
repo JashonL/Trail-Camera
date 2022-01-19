@@ -10,7 +10,7 @@
 
     <item>
         <shape>
-            <solid android:color="@color/gray_eeeeeee" />
+            <solid android:color="@color/gray_d2d2d" />
             <corners android:bottomLeftRadius="@dimen/dp_360" android:topLeftRadius="@dimen/dp_360" />
         </shape>
     </item>

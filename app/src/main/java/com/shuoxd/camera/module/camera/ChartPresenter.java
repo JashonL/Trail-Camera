@@ -166,8 +166,25 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 for (int i = 0; i < total.length(); i++) {
                                     totalNumList.add(total.optInt(i));
                                 }
+
+
+
+
+                                JSONArray read = obj.optJSONArray("readNumList");
+                                List<Integer> readNumList = new ArrayList<>();
+                                for (int i = 0; i < read.length(); i++) {
+                                    readNumList.add(read.optInt(i));
+                                }
+
+                                JSONArray unRead = obj.optJSONArray("unReadNumList");
+                                List<Integer> unReadNumList = new ArrayList<>();
+                                for (int i = 0; i < unRead.length(); i++) {
+                                    unReadNumList.add(unRead.optInt(i));
+                                }
+
+
                                 //设置图表
-                                baseView.upWeekChart(weekList,totalNumList);
+                                baseView.upWeekChart(weekList,readNumList,unReadNumList);
                             }
 
 
@@ -196,8 +213,22 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 for (int i = 0; i < total.length(); i++) {
                                     totalNumList.add(total.optInt(i));
                                 }
+
+
+                                JSONArray read = obj.optJSONArray("readNumList");
+                                List<Integer> readNumList = new ArrayList<>();
+                                for (int i = 0; i < read.length(); i++) {
+                                    readNumList.add(read.optInt(i));
+                                }
+
+                                JSONArray unRead = obj.optJSONArray("unReadNumList");
+                                List<Integer> unReadNumList = new ArrayList<>();
+                                for (int i = 0; i < unRead.length(); i++) {
+                                    unReadNumList.add(unRead.optInt(i));
+                                }
+
                                 //设置图表
-                                baseView.upMonthChart(monthList,totalNumList);
+                                baseView.upMonthChart(monthList,readNumList,unReadNumList);
                             }
 
 
@@ -226,8 +257,22 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 for (int i = 0; i < total.length(); i++) {
                                     totalNumList.add(total.optInt(i));
                                 }
+
+
+                                JSONArray read = obj.optJSONArray("readNumList");
+                                List<Integer> readNumList = new ArrayList<>();
+                                for (int i = 0; i < read.length(); i++) {
+                                    readNumList.add(read.optInt(i));
+                                }
+
+                                JSONArray unRead = obj.optJSONArray("unReadNumList");
+                                List<Integer> unReadNumList = new ArrayList<>();
+                                for (int i = 0; i < unRead.length(); i++) {
+                                    unReadNumList.add(unRead.optInt(i));
+                                }
+
                                 //设置图表
-                                baseView.upYearChart(monthList,totalNumList);
+                                baseView.upYearChart(monthList,readNumList,unReadNumList);
                             }
 
                         } else if ("total".equals(dateType)) {
@@ -253,8 +298,21 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 for (int i = 0; i < total.length(); i++) {
                                     totalNumList.add(total.optInt(i));
                                 }
+
+                                JSONArray read = obj.optJSONArray("readNumList");
+                                List<Integer> readNumList = new ArrayList<>();
+                                for (int i = 0; i < read.length(); i++) {
+                                    readNumList.add(read.optInt(i));
+                                }
+
+                                JSONArray unRead = obj.optJSONArray("unReadNumList");
+                                List<Integer> unReadNumList = new ArrayList<>();
+                                for (int i = 0; i < unRead.length(); i++) {
+                                    unReadNumList.add(unRead.optInt(i));
+                                }
+
                                 //设置图表
-                                baseView.upTotalChart(monthList,totalNumList);
+                                baseView.upTotalChart(monthList,readNumList,unReadNumList);
                             }
                         }
 

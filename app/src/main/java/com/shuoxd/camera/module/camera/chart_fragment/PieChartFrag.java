@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.github.mikephil.charting.charts.PieChart;
@@ -19,6 +20,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.shuoxd.camera.R;
 
@@ -60,7 +62,7 @@ public class PieChartFrag extends ChartBaseFragment {
         l.setDrawInside(false);
 
 
-        setChartData(total,am,pm);
+        setChartData(total, am, pm);
 
         //设置图表
 //        chart.setData(generatePieData());
@@ -89,17 +91,27 @@ public class PieChartFrag extends ChartBaseFragment {
         //pm
         entries1.add(new PieEntry((float) (pm), "PM"));
 
+
+        int[] colors = new int[]{ContextCompat.getColor(getActivity(), R.color.pie_am),
+                ContextCompat.getColor(getActivity(), R.color.pie_pm)};
+
         PieDataSet ds1 = new PieDataSet(entries1, "");
-        ds1.setColors(ColorTemplate.VORDIPLOM_COLORS);
+        ds1.setColors(colors);
         ds1.setSliceSpace(2f);
         ds1.setValueTextColor(Color.WHITE);
         ds1.setValueTextSize(12f);
 
         PieData d = new PieData(ds1);
-
+        d.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                int s = (int) value;
+                return String.valueOf(s);
+            }
+        });
         chart.setData(d);
+        chart.invalidate();
     }
-
 
 
 }

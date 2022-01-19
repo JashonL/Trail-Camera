@@ -33,6 +33,7 @@ import com.shuoxd.camera.module.gallery.PhotoView;
 import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.module.message.MessageActivity;
 import com.shuoxd.camera.module.message.MessageListActivity;
+import com.shuoxd.camera.utils.MyToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,7 +114,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     protected void initView() {
         //设置toolbar
         toolbar.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.nocolor));
-        tvTitle.setText(getString(R.string.m78_my));
+        tvTitle.setText("");
 
         //初始化RecyclerView
         setAdapter();
@@ -178,6 +179,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         switch (position) {
+            case 1:
+                MyToastUtils.toast(R.string.m164_cooming_soon);
+                break;
             case 2:
                 startActivity(new Intent(getContext(), MessageListActivity.class));
                 break;

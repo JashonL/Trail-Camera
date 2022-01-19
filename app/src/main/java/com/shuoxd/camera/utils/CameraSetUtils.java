@@ -24,9 +24,11 @@ public class CameraSetUtils {
                 context.getString(R.string.m110_audio_recording),//内部时间
                 context.getString(R.string.m111_shot_lag),//内部时间
                 context.getString(R.string.m112_pir_sensitivity),//内部时间
-                context.getString(R.string.m153_operation_time),//
 
                 context.getString(R.string.m154_operation_day),//
+
+                context.getString(R.string.m153_operation_time),//
+
                 context.getString(R.string.m155_operation_start_time),//
                 context.getString(R.string.m156_operation_stop_time),//
 
@@ -64,11 +66,12 @@ public class CameraSetUtils {
                 SettingConstants.SETTING_TYPE_SWITCH,//视频是否开启声音
                 SettingConstants.SETTING_TYPE_SELECT,//相机拍照时间间隔
                 SettingConstants.SETTING_TYPE_SELECT,//拍照灵敏度
-                SettingConstants.SETTING_TYPE_SWITCH,//拍照起始时间
 
 
 
                 SettingConstants.SETTING_TYPE_NEXT,//Opration
+                SettingConstants.SETTING_TYPE_SWITCH,//拍照起始时间
+
                 SettingConstants.SETTING_TYPE_NEXT,//Opration
                 SettingConstants.SETTING_TYPE_NEXT,//Opration
 
@@ -150,9 +153,10 @@ public class CameraSetUtils {
                 {"OFF", "ON"},
                 time,
                 {"High", "Middle", "Low"},
-                {"OFF", "ON"},
 
                 {""},
+                {"OFF", "ON"},
+
                 {""},
                 {""},
 
@@ -227,9 +231,10 @@ public class CameraSetUtils {
                 "audioRecording",
                 "shotLag",
                 "pirSensitivity",
-                "operationTime",
 
                 "operationDayText",
+                "operationTime",
+
                 "operationStart",
                 "operationStop",
 
@@ -266,9 +271,10 @@ public class CameraSetUtils {
                 "audioRecording",
                 "shotLag",
                 "pirSensitivity",
-                "operationTime",
 
                 "operationDay",
+                "operationTime",
+
                 "operationStart",
                 "operationStop",
 

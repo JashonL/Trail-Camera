@@ -483,26 +483,24 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             }
 
             if ("0".equals(value) || "1".equals(value)) {
-                data.get(13).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(14).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(15).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                data.get(16).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             } else {
-                data.get(13).setItemType(SETTING_TYPE_NEXT);
                 data.get(14).setItemType(SETTING_TYPE_NEXT);
                 data.get(15).setItemType(SETTING_TYPE_NEXT);
+                data.get(16).setItemType(SETTING_TYPE_NEXT);
             }
 
             //判断Opration time是否为1
-            String operaValue = data.get(9).getValue();
+            String operaValue = data.get(11).getValue();
 
             if ("0".equals(operaValue)) {
-                data.get(10).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(11).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(12).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                data.get(13).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             } else {
-                data.get(10).setItemType(SETTING_TYPE_NEXT);
-                data.get(11).setItemType(SETTING_TYPE_NEXT);
                 data.get(12).setItemType(SETTING_TYPE_NEXT);
+                data.get(13).setItemType(SETTING_TYPE_NEXT);
             }
 
         } catch (Exception e) {
@@ -548,13 +546,13 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             }
 
             if ("0".equals(value) || "1".equals(value)) {
-                data.get(13).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(14).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(15).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                data.get(16).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             } else {
-                data.get(13).setItemType(SETTING_TYPE_NEXT);
                 data.get(14).setItemType(SETTING_TYPE_NEXT);
                 data.get(15).setItemType(SETTING_TYPE_NEXT);
+                data.get(16).setItemType(SETTING_TYPE_NEXT);
             }
 
 
@@ -562,16 +560,14 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
 
         //判断Opration time是否为1
-        String operaValue = data.get(9).getValue();
+        String operaValue = data.get(11).getValue();
 
         if ("0".equals(operaValue)) {
-            data.get(10).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-            data.get(11).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
             data.get(12).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+            data.get(13).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
         } else {
-            data.get(10).setItemType(SETTING_TYPE_NEXT);
-            data.get(11).setItemType(SETTING_TYPE_NEXT);
             data.get(12).setItemType(SETTING_TYPE_NEXT);
+            data.get(13).setItemType(SETTING_TYPE_NEXT);
         }
 
 

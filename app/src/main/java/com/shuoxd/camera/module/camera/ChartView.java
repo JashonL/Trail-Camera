@@ -12,13 +12,13 @@ public interface ChartView extends BaseView {
 
     void upPieChart(int total,int am,int pm);
 
-    void upWeekChart( List<String> weekList, List<Integer> totalNumList );
+    void upWeekChart( List<String> weekList, List<Integer> readList,List<Integer> unreadlist);
 
-    void upMonthChart( List<String> monthList, List<Integer> totalNumList );
+    void upMonthChart( List<String> monthList, List<Integer> readList,List<Integer> unreadlist );
 
-    void upYearChart( List<String> yearList, List<Integer> totalNumList );
+    void upYearChart( List<String> yearList, List<Integer> readList,List<Integer> unreadlist);
 
-    void upTotalChart( List<String> yearList, List<Integer> totalNumList );
+    void upTotalChart( List<String> yearList, List<Integer> readList,List<Integer> unreadlist);
 
 
 
