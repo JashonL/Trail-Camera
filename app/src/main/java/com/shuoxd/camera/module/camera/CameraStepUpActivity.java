@@ -5,23 +5,20 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mylhyl.circledialog.CircleDialog;
-import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
 import com.shuoxd.camera.adapter.CameraSettingAdapter;
@@ -37,6 +34,7 @@ import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.DateUtils;
 import com.shuoxd.camera.utils.LogUtil;
 import com.shuoxd.camera.utils.MyToastUtils;
+import com.shuoxd.camera.utils.PickViewUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,6 +67,11 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
     private List<String> mins = new ArrayList<>();
     private List<String> seconds = new ArrayList<>();
+
+
+    private List<String>hours=new ArrayList<>();
+    private List<String>minutes=new ArrayList<>();
+    private List<String>ss=new ArrayList<>();
 
 
     @Override
@@ -113,6 +116,24 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             seconds.add(i + "");
         }
 
+
+        for (int i = 0; i < 60; i++) {
+            if (i<10){
+                hours.add("0"+i);
+                minutes.add("0"+i);
+                ss.add("0"+i);
+            }else {
+                hours.add(i+"");
+                minutes.add(i+"");
+                ss.add(i+"");
+            }
+
+        }
+
+
+
+
+
         imei = getIntent().getStringExtra("imei");
         String accountName = App.getUserBean().getAccountName();
         presenter.cameraParamter(imei, accountName);
@@ -144,11 +165,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         if (itemType == SettingConstants.SETTING_TYPE_SELECT) {
             if ("shotLag".equals(key)) {
                 int time = 0;
-
                 if (!TextUtils.isEmpty(value1)) {
                     time = Integer.parseInt(value1);
                 }
-
                 int min_index;//这里是下标
                 int second = 0;
                 if (time < 60) {
@@ -156,11 +175,8 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 } else {
                     min_index = time/60+58;
                 }
-
-
                 CircleDialogUtils.showTimeValueDialog(this, title, mins, min_index, seconds, second, (min1, second1) -> {
                     String sValue;
-
                     int value;
                     if (min1 < 59) {
                         value = min1+1;//下标加1是真实值
@@ -169,7 +185,6 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                         value = (min1 - 58) * 60;
                         sValue=(min1 - 58)+"min";
                     }
-
                     if (value == 0) {
                         MyToastUtils.toast(R.string.m163_cannot_zero);
                         return;
@@ -181,7 +196,22 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     String operationValue = String.valueOf(value);
                     presenter.control(imei, setKey, operationValue);
                 });
-            } else {
+            } else if ("burstShot".equals(key)){
+                int index=0;
+                if (!TextUtils.isEmpty(value1)) {
+                    index = Integer.parseInt(value1)-1;
+                }
+                List<String> items = Arrays.asList(settingBean.getItems());
+                CircleDialogUtils.showTimeValueDialog(this, title, items, index, seconds, 0, (min1, second1) -> {
+                    String sValue=items.get(min1);
+                    int value=Integer.parseInt(sValue);
+                    mAdapter.getData().get(position).setValueStr(sValue);
+                    mAdapter.getData().get(position).setValue(String.valueOf(value));
+                    mAdapter.notifyDataSetChanged();
+                    String operationValue = String.valueOf(value);
+                    presenter.control(imei, setKey, operationValue);
+                });
+            }else {
                 setSelectItem(position, title);
             }
         } else if (itemType == SETTING_TYPE_NEXT) {
@@ -207,7 +237,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 }
 
             } else if ("operationDayText".equals(key)) {
-                String[] weeks = (String[]) CommentUtils.getWeeks().toArray();
+                String[] weeks = (String[]) CommentUtils.getWeeks2().toArray();
                 String[] weekValue = {"0", "0", "0", "0", "0", "0", "0"};
                 final CheckedAdapter checkedAdapter = new CheckedAdapter(this, weeks);
                 char[] chars = value1.toCharArray();
@@ -254,7 +284,32 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                         })
                         .show(getSupportFragmentManager());
 
-            } else {
+            }else if ("timelapseInterval".equals(key)){
+                PickViewUtils.showPickView(this, hours, minutes, ss, 0, 0, 0, new OnOptionsSelectListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
+
+                        if (options1==0&&options2==0&&options3<2){
+                            MyToastUtils.toast(R.string.m165_cannot_3s);
+                            return;
+                        }
+
+
+
+                       String hh=hours.get(options1);
+                       String mm=minutes.get(options2);
+                       String s=ss.get(options3);
+
+
+
+                        String time = hh + ":" + mm + ":" + s;
+                        String value = hh + mm + s;
+                        settingBean.setValueStr(time);
+                        presenter.control(imei, setKey, value);
+                    }
+                },title);
+
+            }else {
                 try {
                     DateUtils.showTimeDialogViews(this, new DateUtils.TimeSelectListener() {
                         @Override
@@ -272,7 +327,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                 presenter.control(imei, key, value);
                             }
 
-                            if ("serverTime".equals(key) || "timelapseInterval".equals(key)) {
+                            if ("serverTime".equals(key)) {
                                 String time = hh + ":" + mm + ":" + ss;
                                 String value = hh + mm + ss;
                                 settingBean.setValueStr(time);
@@ -382,11 +437,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                         String sValue = min + "min";
                                         settingBean.setValueStr(sValue);
                                     }
-
-
                                 }
-
-
                             } else {
                                 String[] items = settingBean.getItems();
                                 int[] items_value = settingBean.getItems_value();
@@ -435,7 +486,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                     StringBuilder loopStyle = new StringBuilder();
                                     for (int k = 0; k < chars.length; k++) {
                                         if (String.valueOf(chars[k]).equals("1")) {
-                                            String week = CommentUtils.getWeeks().get(k);
+                                            String week = CommentUtils.getWeeks2().get(k);
                                             loopStyle.append(week).append(",");
                                         }
                                     }

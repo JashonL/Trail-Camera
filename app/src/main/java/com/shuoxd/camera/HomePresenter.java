@@ -24,8 +24,11 @@ import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.bean.CameraBean;
+import com.shuoxd.camera.eventbus.FreshCameraList;
+import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.module.home.HomeView;
 import com.shuoxd.camera.module.login.User;
+import com.shuoxd.camera.utils.MyToastUtils;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -122,4 +125,38 @@ public class HomePresenter extends BasePresenter<HomeView> {
     public int getTotalPage() {
         return totalPage;
     }
+
+    public void cameraOperation(String imei, String operationType, String operationValue) {
+        //修改别名
+        addDisposable(apiServer.operation_camera(imei, operationType,operationValue), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        String msg = jsonObject.optString("msg");
+                        MyToastUtils.toast(msg);
+                        //通知刷新设备列表
+                        baseView.deleteSuccess();
+
+                    } else {
+                        String msg = jsonObject.optString("msg");
+                        baseView.showResultError(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showServerError(msg);
+            }
+        });
+
+    }
+
+
 }

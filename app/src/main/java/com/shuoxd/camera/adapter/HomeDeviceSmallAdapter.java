@@ -54,19 +54,14 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         int wifiStrength = Integer.parseInt(signalStrength);
         String sWiff = "";
         if (wifiStrength == 0) {
-            sWiff = mContext.getString(R.string.m69_offline);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
         } else if (wifiStrength <= 25) {
-            sWiff = mContext.getString(R.string.m68_weak);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
         } else if (wifiStrength <= 50) {
-            sWiff = mContext.getString(R.string.m67_normal);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal2);
         } else if (wifiStrength <= 75) {
-            sWiff = mContext.getString(R.string.m67_normal);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal3);
         } else {
-            sWiff = mContext.getString(R.string.m66_good);
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal4);
         }
 

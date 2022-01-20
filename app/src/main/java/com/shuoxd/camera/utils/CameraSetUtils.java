@@ -169,7 +169,7 @@ public class CameraSetUtils {
                 {"OFF", "ON"},
                 {"OFF", "ON"},
                 {"12-hour", "24-hour"},
-                {"Pacific Time", "Mountain Time", "Central Time", "Eastern Time", "Alaska Time", "Hawaii Time"},
+                {"Hawaii Time", "Alaska Time", "Pacific Time", "Mountain Time", "Central Time", "Eastern Time"},
                 {"Fahrenheit ⁰F", "Celsius ⁰C"},
                 {"OFF", "ON"},
                 {"OFF", "ON"},

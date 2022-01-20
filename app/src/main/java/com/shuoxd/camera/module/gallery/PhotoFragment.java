@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
-import com.shuoxd.camera.adapter.CameraFiterAdapter;
 import com.shuoxd.camera.adapter.CameraMulFiterAdapter;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
 import com.shuoxd.camera.app.App;
@@ -31,6 +30,7 @@ import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.PictureBean;
+import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
@@ -39,6 +39,7 @@ import com.shuoxd.camera.eventbus.FreshQuestion;
 import com.shuoxd.camera.module.camera.CameraDetailActivity;
 import com.shuoxd.camera.module.camera.CameraShowListManerge;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
+import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -113,7 +114,24 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         ivSwitch.setImageResource(R.drawable.list_style_menu);
 
         //设备图片列表
+        spanCount = SharedPreferencesUnit.getInstance(getContext()).getInt(SharePreferenConstants.SP_HOME_SHOW_STYLE);
+        if (spanCount==0){
+            spanCount=1;
+        }
+
+        //设备列表初始化
+        if (spanCount == 1) {
+            spanCount = 2;
+            ivSwitch.setImageResource(R.drawable.camera_arrang);
+        } else if (spanCount == 2) {
+            spanCount = 3;
+            ivSwitch.setImageResource(R.drawable.spancount);
+        } else {
+            spanCount = 1;
+            ivSwitch.setImageResource(R.drawable.list_style_menu);
+        }
         setAdapter(spanCount);
+
 
 
         ivSwitch.setOnClickListener(view12 -> {
@@ -132,6 +150,10 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
                 ivSwitch.setImageResource(R.drawable.list_style_menu);
             }
             setAdapter(spanCount);
+
+
+            //保存到本地
+            SharedPreferencesUnit.getInstance(getContext()).putInt(SharePreferenConstants.SP_CAMERA_SHOW_STYLE,spanCount);
         });
 
 
@@ -291,12 +313,10 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
             popupWindow.setTouchInterceptor((v, event) -> false);
             WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-            lp.alpha = 0.4f; //设置透明度
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             getActivity().getWindow().setAttributes(lp);
             popupWindow.setOnDismissListener(() -> {
                 WindowManager.LayoutParams lp1 = getActivity().getWindow().getAttributes();
-                lp1.alpha = 1f;
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                 getActivity().getWindow().setAttributes(lp1);
             });

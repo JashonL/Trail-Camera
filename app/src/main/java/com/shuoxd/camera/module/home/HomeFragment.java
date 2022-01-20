@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.immersionbar.ImmersionBar;
+import com.mylhyl.circledialog.CircleDialog;
 import com.shuoxd.camera.HomePresenter;
 import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
@@ -21,11 +22,14 @@ import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
+import com.shuoxd.camera.bean.QuestionBean;
+import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
 import com.shuoxd.camera.eventbus.FreshCameraList;
 import com.shuoxd.camera.eventbus.FreshQuestion;
+import com.shuoxd.camera.utils.SharedPreferencesUnit;
 import com.shuoxd.camera.zxing.CustomScanActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -40,7 +44,7 @@ import butterknife.OnClick;
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeView,
         Toolbar.OnMenuItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
-        BaseQuickAdapter.OnItemClickListener {
+        BaseQuickAdapter.OnItemClickListener ,BaseQuickAdapter.OnItemLongClickListener {
 
 
     @BindView(R.id.rlv_device)
@@ -86,8 +90,22 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         EventBus.getDefault().register(this);
 
         srlPull.setColorSchemeColors(ContextCompat.getColor(getActivity(), R.color.color_theme_green));
+
+
+        mLayoutType = SharedPreferencesUnit.getInstance(getContext()).getInt(SharePreferenConstants.SP_HOME_SHOW_STYLE);
+        if (mLayoutType==0){
+            mLayoutType=TYPE_SMALL;
+        }
+
         //设备列表初始化
-        setSmallAdapter();
+        if (mLayoutType == TYPE_SMALL) {
+            setBigAdapter();
+            mLayoutType = TYPE_BIG;
+        } else {
+            //列表模式
+            setSmallAdapter();
+            mLayoutType = TYPE_SMALL;
+        }
     }
 
 
@@ -106,6 +124,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
             mLayoutType = TYPE_SMALL;
         }
 
+        //保存到本地
+        SharedPreferencesUnit.getInstance(getContext()).putInt(SharePreferenConstants.SP_HOME_SHOW_STYLE,mLayoutType);
+
+
     }
 
     //小图片布局
@@ -115,6 +137,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         rlvDevice.setLayoutManager(layoutManager);
         mSmallAdapter = new HomeDeviceSmallAdapter(R.layout.item_camera, deviceList);
         mSmallAdapter.setLoadMoreView(new CustomLoadMoreView());
+        mSmallAdapter.setOnItemLongClickListener(this);
         rlvDevice.setAdapter(mSmallAdapter);
         rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, 32, ContextCompat.getColor(getActivity(), R.color.nocolor)));
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, null);
@@ -163,6 +186,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         mBigAdapter.setEmptyView(view);
         mBigAdapter.setOnItemClickListener(this);
         mBigAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
+        mBigAdapter.setOnItemLongClickListener(this);
+
+
 
         mBigAdapter.setOnLoadMoreListener(() -> {
             try {
@@ -300,6 +326,17 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     }
 
     @Override
+    public void deleteSuccess() {
+        //获取列表设备列表
+        try {
+            presenter.setPageNow(0);
+            presenter.getAlldevice();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void showResultError(String msg) {
         super.showResultError(msg);
         srlPull.setRefreshing(false);
@@ -366,5 +403,34 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+
+        CameraBean cameraBean;
+        if (mLayoutType == TYPE_BIG) {
+             cameraBean = mBigAdapter.getData().get(position);
+        } else {
+             cameraBean = mSmallAdapter.getData().get(position);
+        }
+        String imei = cameraBean.getCamera().getImei();
+
+        new CircleDialog.Builder().setWidth(0.7f)
+                .setTitle(getString(R.string.m150_tips))
+                .setText(getString(R.string.m151_delete_question))
+                .setNegative(getString(R.string.m127_cancel), view1 -> {
+
+                })
+                .setPositive(getString(R.string.m152_ok), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        presenter.cameraOperation(imei, "remove", "1");
+                    }
+                }).show(getActivity().getSupportFragmentManager());
+
+
+
+        return true;
     }
 }

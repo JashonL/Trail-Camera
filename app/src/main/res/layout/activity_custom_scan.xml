@@ -39,16 +39,17 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_150"
+        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:padding="@dimen/dp_5"
+        android:padding="@dimen/dp_20"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_find_serialnum"
@@ -84,6 +85,7 @@
                 android:textSize="@dimen/size_content_sp_14"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@+id/tv_step_2"
+                app:layout_constraintBottom_toTopOf="@+id/tv_step1_text"
                 app:layout_constraintTop_toBottomOf="@+id/tv_find_serialnum" />
 
 
@@ -124,7 +126,9 @@
                 android:textSize="@dimen/size_content_sp_14"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_step_1"
                 app:layout_constraintRight_toRightOf="@+id/tv_step_1"
-                app:layout_constraintTop_toBottomOf="@+id/tv_step_1" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_step_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
 
             <TextView

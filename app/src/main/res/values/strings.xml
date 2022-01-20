@@ -20,7 +20,7 @@
     <string name="m9_imei_num">IMEI Number</string>
     <string name="m10_complete">COMPLETE</string>
 
-    <string name="m11_find_bar">Can’t Find Barcode? Enter yourself</string>
+    <string name="m11_find_bar">Can\'t Find Barcode? Enter Yourself.</string>
     <string name="m12_skip">Skip</string>
     <string name="m13_filter">FILTER</string>
     <string name="m14_photo">Photo</string>
@@ -192,7 +192,8 @@
     <string name="m161_camera_name">Camera Name</string>
     <string name="m162_requires_permission">App scan code requires shooting permission</string>
     <string name="m163_cannot_zero">不设置为0~</string>
-    <string name="m164_cooming_soon">cooming soon;</string>
+    <string name="m164_cooming_soon">Cooming soon;</string>
+    <string name="m165_cannot_3s">不能小于3秒</string>
 
 
 </resources>

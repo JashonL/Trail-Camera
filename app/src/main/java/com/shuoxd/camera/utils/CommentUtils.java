@@ -385,6 +385,15 @@ public class CommentUtils {
 
 
 
+    /**
+     * 获取一周的英文
+     */
+    public static List<String> getWeeks2() {
+        String [] month={"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+        return Arrays.asList(month);
+    }
+
+
     public static List<String> tempF(){
         List<String> temps = new ArrayList<>();
         for (int min = -50; min < 71; min++) {

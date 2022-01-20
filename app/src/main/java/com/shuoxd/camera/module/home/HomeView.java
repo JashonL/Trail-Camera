@@ -13,4 +13,5 @@ public interface HomeView extends BaseView {
 
     void showMoreFail();
 
+    void deleteSuccess();
 }

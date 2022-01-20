@@ -36,6 +36,7 @@ import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.InfoHeadBean;
 import com.shuoxd.camera.bean.PictureBean;
+import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
@@ -43,6 +44,7 @@ import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
+import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -123,14 +125,33 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         });
 
 
-        //设备图片列表
+
+        spanCount = SharedPreferencesUnit.getInstance(getContext()).getInt(SharePreferenConstants.SP_HOME_SHOW_STYLE);
+        if (spanCount==0){
+            spanCount=1;
+        }
+
+        //设备列表初始化
+        if (spanCount == 1) {
+            spanCount = 2;
+            ivSwitch.setImageResource(R.drawable.camera_arrang);
+        } else if (spanCount == 2) {
+            spanCount = 3;
+            ivSwitch.setImageResource(R.drawable.spancount);
+        } else {
+            spanCount = 1;
+            ivSwitch.setImageResource(R.drawable.list_style_menu);
+        }
         setAdapter(spanCount);
+
+
+
+
+
 
         //设备相片列表
 
         ivStyle.setImageResource(R.drawable.list_pic_row);
-        ivSwitch.setImageResource(R.drawable.list_style_menu);
-
         rvMenu.setLayoutManager(new GridLayoutManager(getContext(), 3));
         mCameraInfoAdapter = new CameraInfoAdapter(R.layout.item_camera_info, new ArrayList<>());
         rvMenu.setAdapter(mCameraInfoAdapter);
@@ -153,6 +174,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 ivSwitch.setImageResource(R.drawable.list_style_menu);
             }
             setAdapter(spanCount);
+
+            //保存到本地
+            SharedPreferencesUnit.getInstance(getContext()).putInt(SharePreferenConstants.SP_CAMERA_SHOW_STYLE,spanCount);
         });
 
 
@@ -365,7 +389,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public void showCameraInfo(CameraBean.CameraInfo cameraBean) {
 
         String[] title = {
-                getString(R.string.m70_Signal), getString(R.string.m75_steup), getString(R.string.m72_sd),
+                getString(R.string.m70_Signal), getString(R.string.m75_steup), getString(R.string.m75_steup), getString(R.string.m72_sd),
                 getString(R.string.m73_map), getString(R.string.m74_tracker), getString(R.string.m75_steup),
         };
 
@@ -392,28 +416,42 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 case 1:
                     String batteryLevel = cameraBean.getBatteryLevel();
                     int batteryL = Integer.parseInt(batteryLevel);
-                    String extDcLevel = cameraBean.getExtDcLevel();
-                    if ("100".equals(extDcLevel)) {
-                        bean.setIconRes(R.drawable.chadian);
-                        bean.setTitle(extDcLevel + "%");
+
+                    if (batteryL == 0) {
+                        bean.setIconRes(R.drawable.bat1);
+                    } else if (batteryL <= 25) {
+                        bean.setIconRes(R.drawable.bat1);
+                    } else if (batteryL <= 50) {
+                        bean.setIconRes(R.drawable.bat2);
+                    } else if (batteryL <= 75) {
+                        bean.setIconRes(R.drawable.bat3);
                     } else {
-                        if (batteryL == 0) {
-                            bean.setIconRes(R.drawable.bat1);
-                        } else if (batteryL <= 25) {
-                            bean.setIconRes(R.drawable.bat1);
-                        } else if (batteryL <= 50) {
-                            bean.setIconRes(R.drawable.bat2);
-                        } else if (batteryL <= 75) {
-                            bean.setIconRes(R.drawable.bat3);
-                        } else {
-                            bean.setIconRes(R.drawable.bat4);
-                        }
-                        bean.setTitle(batteryLevel + "%");
+                        bean.setIconRes(R.drawable.bat4);
                     }
+                    bean.setTitle(batteryLevel + "%");
 
 
                     break;
+
                 case 2:
+                    String extDcLevel = cameraBean.getExtDcLevel();
+                    int extDcl = Integer.parseInt(extDcLevel);
+                    if (extDcl == 0) {
+                        bean.setIconRes(R.drawable.ext1);
+                    } else if (extDcl <= 25) {
+                        bean.setIconRes(R.drawable.ext2);
+                    } else if (extDcl <= 50) {
+                        bean.setIconRes(R.drawable.ext3);
+                    } else if (extDcl <= 75) {
+                        bean.setIconRes(R.drawable.ext4);
+                    } else {
+                        bean.setIconRes(R.drawable.ext4);
+                    }
+                    bean.setTitle(extDcLevel + "%");
+
+                    break;
+
+                case 3:
                     String cardSpace = cameraBean.getCardSpace();
                     int sSpace = Integer.parseInt(cardSpace);
                     if (sSpace == 0) {
@@ -430,13 +468,15 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     bean.setTitle(cardSpace + "%");
 
                     break;
-                case 3:
+
+
+                case 4:
                     bean.setIconRes(R.drawable.map);
                     break;
-                case 4:
+                case 5:
                     bean.setIconRes(R.drawable.chart);
                     break;
-                case 5:
+                case 6:
                     bean.setIconRes(R.drawable.setting);
                     break;
             }
@@ -500,7 +540,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     public void showTotalNum(int totalNum) {
-        String s = totalNum +" "+ getString(R.string.m76_photos);
+        String s = totalNum + " " + getString(R.string.m76_photos);
         tvPicNum.setText(s);
     }
 
@@ -563,7 +603,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         //刷新图片列表
         try {
             String name = bean.getName();
-            if (!TextUtils.isEmpty(name)){
+            if (!TextUtils.isEmpty(name)) {
                 tvTitle.setText(name);
             }
         } catch (Exception e) {
