@@ -81,12 +81,12 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
     CheckBox cbFavorites;
     @BindView(R.id.tv_temp)
     TextView tvTemp;
-    @BindView(R.id.rb_f)
-    RadioButton rbF;
-    @BindView(R.id.rb_c)
-    RadioButton rbC;
-    @BindView(R.id.rg_temp)
-    RadioGroup rgTemp;
+    @BindView(R.id.cb_f)
+    CheckBox cbF;
+    @BindView(R.id.cb_c)
+    CheckBox cbC;
+    @BindView(R.id.ll_temp)
+    LinearLayout llTemp;
     @BindView(R.id.wheel_start)
     WheelView wheelStart;
     @BindView(R.id.tv_to)
@@ -122,7 +122,7 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
     private String moonPhase = "-1";
     private String startTemperature = "0";
     private String endTemperature = "0";
-    private String temperatureUnit = "0";
+    private String temperatureUnit = "-1";
 
 
     public HomeNavigationViewFragment(IMenuListeners listeners) {
@@ -205,7 +205,7 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
         mAdapter.setNowSelectPosition(position);
     }
 
-    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.ll_reset, R.id.ll_apply, R.id.iv_delete})
+    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.ll_reset, R.id.ll_apply, R.id.iv_delete,R.id.iv_delete_unit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_date_start:
@@ -249,6 +249,12 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                 tvDateEnd.setText("");
                 break;
 
+            case R.id.iv_delete_unit:
+                cbF.setChecked(false);
+                cbC.setChecked(false);
+                temperatureUnit="-1";
+                break;
+
             case R.id.ll_reset:
                 reset();
 //                listeners.reset();
@@ -287,12 +293,12 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                 favorites = cbFavorites.isChecked() ? "1" : "-1";
 
 
-                if (rbC.isChecked()) {
-                    temperatureUnit = "1";
+                if (cbC.isChecked()) {
+                    temperatureUnit = "0";
                 }
 
-                if (rbF.isChecked()) {
-                    temperatureUnit = "0";
+                if (cbF.isChecked()) {
+                    temperatureUnit = "1";
                 }
 
 
@@ -325,6 +331,10 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
             if (b) cbPm.setChecked(false);
         } else if (compoundButton == cbPm) {
             if (b) cbAm.setChecked(false);
+        }else if (compoundButton==cbF){
+            if (b) cbC.setChecked(false);
+        }else if (compoundButton==cbC){
+            if (b) cbF.setChecked(false);
         }
     }
 
@@ -338,7 +348,7 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
         moonPhase = "-1";
         startTemperature = "0";
         endTemperature = "0";
-        temperatureUnit = "0";
+        temperatureUnit = "-1";
 
         cbHd.setChecked(false);
         cbVideo.setChecked(false);

@@ -18,4 +18,6 @@ public interface CameraView extends BaseView {
 
     void showTotalNum(int totalNum);
 
+    void showOperationSuccess();
+
 }

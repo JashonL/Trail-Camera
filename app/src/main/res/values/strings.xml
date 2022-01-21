@@ -196,6 +196,18 @@
     <string name="m165_cannot_3s">不能小于3秒</string>
     <string name="m166_information">Info</string>
     <string name="m167_delete_camera">Delete This Camera?</string>
+    <string name="m168_update">Update</string>
+    <string name="m169_latest">Latest</string>
+    <string name="m170_ccid_num">CCID Num</string>
+
+
+
+    <string name="m171_device_model">Device Model</string>
+    <string name="m172_fireware_version">Fireware Version</string>
+    <string name="m173_modem_fireware_version">Modem Fireware Version</string>
+    <string name="m174_last_update_time">Last Update Time</string>
+    <string name="m175_modem_model">Modem Model</string>
+
 
 
 </resources>

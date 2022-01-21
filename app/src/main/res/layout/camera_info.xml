@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10">
+
+
+    <ImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:padding="@dimen/dp_10"
+        android:src="@drawable/close_gray" />
+
+
+    <!--camera name-->
+
+
+    <TextView
+        android:id="@+id/tv_camera_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m161_camera_name"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <TextView
+        android:id="@+id/tv_name_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_33"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <!--tv_imei_num-->
+
+
+    <TextView
+        android:id="@+id/tv_imei_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m9_imei_num"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <TextView
+        android:id="@+id/tv_imei_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_33"
+        android:textSize="@dimen/size_content_sp_14" />
+
+    <!--tv_iccid_num-->
+
+
+    <TextView
+        android:id="@+id/tv_iccid_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m170_ccid_num"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <TextView
+        android:id="@+id/tv_iccid_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_33"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+
+    <!--tv_device_model-->
+
+    <TextView
+        android:id="@+id/tv_device_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m171_device_model"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <TextView
+        android:id="@+id/tv_model_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_33"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <!--tv_fire_version-->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_fire_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="@string/m172_fireware_version"
+            android:textColor="@color/color_text_99"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_version_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fire_version" />
+
+
+        <TextView
+            android:id="@+id/tv_version_point"
+            android:layout_width="@dimen/dp_4"
+            android:layout_height="@dimen/dp_4"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="MyCamera Nme"
+            android:background="@drawable/read_circle"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintLeft_toRightOf="@+id/tv_version_value"
+            app:layout_constraintTop_toTopOf="@+id/tv_version_value" />
+
+
+
+        <TextView
+            android:id="@+id/tv_to_update"
+            android:layout_width="@dimen/dp_75"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_red_corner"
+            android:gravity="center"
+            android:padding="@dimen/dp_5"
+            android:text="@string/m168_update"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--tv_modem_model-->
+
+
+    <TextView
+        android:id="@+id/tv_modem_model"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m175_modem_model"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <TextView
+        android:id="@+id/tv_modem_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_33"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <!--tv_modem_fireware-->
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/tv_modem_fireware"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="@string/m173_modem_fireware_version"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="@color/color_text_99"
+            android:textSize="@dimen/size_content_sp_14" />
+
+
+        <TextView
+            android:id="@+id/tv_fireware_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            app:layout_constraintTop_toBottomOf="@+id/tv_modem_fireware"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_content_sp_14" />
+
+
+        <TextView
+            android:id="@+id/tv_fireware_point"
+            android:layout_width="@dimen/dp_4"
+            android:layout_height="@dimen/dp_4"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="MyCamera Nme"
+            android:background="@drawable/read_circle"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintLeft_toRightOf="@+id/tv_fireware_value"
+            app:layout_constraintTop_toTopOf="@+id/tv_fireware_value" />
+
+
+        <TextView
+            android:id="@+id/tv_last"
+            android:layout_width="@dimen/dp_75"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_red_corner"
+            android:gravity="center"
+            android:padding="@dimen/dp_5"
+            android:text="@string/m169_latest"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+    <!--tv_last_update_time-->
+
+
+    <TextView
+        android:id="@+id/tv_last_update_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m174_last_update_time"
+        android:textColor="@color/color_text_99"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+    <TextView
+        android:id="@+id/tv_lastupdate_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:padding="@dimen/dp_5"
+        android:textColor="@color/color_text_33"
+        android:textSize="@dimen/size_content_sp_14" />
+
+
+</LinearLayout>
