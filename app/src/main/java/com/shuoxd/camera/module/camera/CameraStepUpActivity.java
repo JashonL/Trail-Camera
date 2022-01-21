@@ -196,15 +196,16 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     String operationValue = String.valueOf(value);
                     presenter.control(imei, setKey, operationValue);
                 });
-            } else if ("burstShot".equals(key)){
+            } else if ("photoBurstInterval".equals(key)){
                 int index=0;
                 if (!TextUtils.isEmpty(value1)) {
                     index = Integer.parseInt(value1)-1;
                 }
                 List<String> items = Arrays.asList(settingBean.getItems());
+                int[] items_value = settingBean.getItems_value();
                 CircleDialogUtils.showTimeValueDialog(this, title, items, index, seconds, 0, (min1, second1) -> {
-                    String sValue=items.get(min1);
-                    int value=Integer.parseInt(sValue);
+                    String sValue= items.get(min1);
+                    int value=items_value[min1];
                     mAdapter.getData().get(position).setValueStr(sValue);
                     mAdapter.getData().get(position).setValue(String.valueOf(value));
                     mAdapter.notifyDataSetChanged();

@@ -48,7 +48,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
 
         TextView tvWifi = helper.getView(R.id.tv_wifi);
         int wifiStrength = Integer.parseInt(signalStrength);
-        String sWiff="";
+        String sWiff = mContext.getString(R.string.m70_Signal);
         if (wifiStrength == 0) {
             setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
         } else if (wifiStrength <= 25) {
@@ -80,12 +80,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
             setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat4);
         }
 
-        tvBattery.setText(batteryL+"%");
-
-
-
-
-
+        tvBattery.setText(batteryL + "%");
 
 
         TextView tvExt = helper.getView(R.id.tv_ext);
@@ -105,21 +100,20 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         tvExt.setText(extDcl + "%");
 
 
-
         TextView tvSdcard = helper.getView(R.id.tv_sdcard);
         int sSpace = Integer.parseInt(cardSpace);
         if (sSpace == 0) {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
-        } else if (wifiStrength <= 25) {
+        } else if (sSpace > 0 && sSpace <= 25) {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
-        } else if (wifiStrength <= 50) {
+        } else if (sSpace > 25 && sSpace <= 50) {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard2);
-        } else if (wifiStrength <= 75) {
+        } else if (sSpace > 50 && sSpace <= 75) {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
         } else {
             setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
         }
-        tvSdcard.setText(sSpace+"%");
+        tvSdcard.setText(sSpace + "%");
 
         String noReadPhotoNum = item.getNoReadPhotoNum();
         TextView navDot = helper.getView(R.id.nav_tv_dot);
@@ -137,31 +131,31 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         //相机的最后一张图片
         CameraBean.LastPhoto lastPhoto = item.getLastPhoto();
         String path = lastPhoto.getFullPath();
-        ImageView ivPic=helper.getView(R.id.iv_camera);
-        if (!TextUtils.isEmpty(path)){
+        ImageView ivPic = helper.getView(R.id.iv_camera);
+        if (!TextUtils.isEmpty(path)) {
             GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
         }
 
         //类型 图片类型(0:缩略图;1:高清图;2:视频)
         TextView tvHD = helper.getView(R.id.tv_hd);
         String type = lastPhoto.getType();
-        if (!"1".equals(type)){
+        if (!"1".equals(type)) {
             tvHD.setVisibility(View.GONE);
-        }else {
+        } else {
             tvHD.setVisibility(View.VISIBLE);
         }
 
         String amPm = lastPhoto.getAmPm();
         String uploadTime = lastPhoto.getUploadTime();
         String uploadDate = lastPhoto.getUploadDate();
-        TextView tvTime=helper.getView(R.id.tv_time);
-        TextView tvDate=helper.getView(R.id.tv_date);
-        TextView tvTemp=helper.getView(R.id.tv_temp);
+        TextView tvTime = helper.getView(R.id.tv_time);
+        TextView tvDate = helper.getView(R.id.tv_date);
+        TextView tvTemp = helper.getView(R.id.tv_temp);
 
-        if ("0".equals(amPm)){
-            tvTime.setText(uploadTime+"AM");
-        }else {
-            tvTime.setText(uploadTime+"PM");
+        if ("0".equals(amPm)) {
+            tvTime.setText(uploadTime + "AM");
+        } else {
+            tvTime.setText(uploadTime + "PM");
         }
 
         tvDate.setText(uploadDate);

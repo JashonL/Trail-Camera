@@ -98,7 +98,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         }
 
         //设备列表初始化
-        if (mLayoutType == TYPE_SMALL) {
+        if (mLayoutType == TYPE_BIG) {
             setBigAdapter();
             mLayoutType = TYPE_BIG;
         } else {

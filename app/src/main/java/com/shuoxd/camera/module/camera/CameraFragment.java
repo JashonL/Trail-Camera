@@ -126,20 +126,17 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
 
-        spanCount = SharedPreferencesUnit.getInstance(getContext()).getInt(SharePreferenConstants.SP_HOME_SHOW_STYLE);
+        spanCount = SharedPreferencesUnit.getInstance(getContext()).getInt(SharePreferenConstants.SP_CAMERA_SHOW_STYLE);
         if (spanCount==0){
             spanCount=1;
         }
 
         //设备列表初始化
         if (spanCount == 1) {
-            spanCount = 2;
             ivSwitch.setImageResource(R.drawable.camera_arrang);
         } else if (spanCount == 2) {
-            spanCount = 3;
             ivSwitch.setImageResource(R.drawable.spancount);
         } else {
-            spanCount = 1;
             ivSwitch.setImageResource(R.drawable.list_style_menu);
         }
         setAdapter(spanCount);
@@ -152,7 +149,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         //设备相片列表
 
         ivStyle.setImageResource(R.drawable.list_pic_row);
-        rvMenu.setLayoutManager(new GridLayoutManager(getContext(), 3));
+        rvMenu.setLayoutManager(new GridLayoutManager(getContext(), 4));
         mCameraInfoAdapter = new CameraInfoAdapter(R.layout.item_camera_info, new ArrayList<>());
         rvMenu.setAdapter(mCameraInfoAdapter);
         mCameraInfoAdapter.setOnItemClickListener(this);
@@ -291,7 +288,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.right_action) {
-            // 一锟斤拷锟皆讹拷锟斤拷牟锟斤拷郑锟斤拷锟轿拷锟绞撅拷锟斤拷锟斤拷锟�
             View contentView = LayoutInflater.from(getActivity()).inflate(
                     R.layout.pop_layout, null);
 
@@ -356,12 +352,12 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         if (adapter == mCameraInfoAdapter) {
             switch (position) {
-                case 4:
+                case 5:
                     Intent intent = new Intent(getContext(), ChartActivity.class);
                     intent.putExtra("imei", cameraId);
                     startActivity(intent);
                     break;
-                case 5:
+                case 6:
                     Intent intent5 = new Intent(getContext(), CameraStepUpActivity.class);
                     intent5.putExtra("imei", cameraId);
                     startActivity(intent5);
@@ -390,7 +386,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
         String[] title = {
                 getString(R.string.m70_Signal), getString(R.string.m75_steup), getString(R.string.m75_steup), getString(R.string.m72_sd),
-                getString(R.string.m73_map), getString(R.string.m74_tracker), getString(R.string.m75_steup),
+              getString(R.string.m166_information),  getString(R.string.m73_map), getString(R.string.m74_tracker), getString(R.string.m75_steup),
         };
 
         List<InfoHeadBean> beans = new ArrayList<>();
@@ -469,14 +465,18 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
                     break;
 
-
                 case 4:
+                    bean.setIconRes(R.drawable.info);
+                    break;
+
+
+                case 5:
                     bean.setIconRes(R.drawable.map);
                     break;
-                case 5:
+                case 6:
                     bean.setIconRes(R.drawable.chart);
                     break;
-                case 6:
+                case 7:
                     bean.setIconRes(R.drawable.setting);
                     break;
             }

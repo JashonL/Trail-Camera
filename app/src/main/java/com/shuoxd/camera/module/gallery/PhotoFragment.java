@@ -114,20 +114,17 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         ivSwitch.setImageResource(R.drawable.list_style_menu);
 
         //设备图片列表
-        spanCount = SharedPreferencesUnit.getInstance(getContext()).getInt(SharePreferenConstants.SP_HOME_SHOW_STYLE);
+        spanCount = SharedPreferencesUnit.getInstance(getContext()).getInt(SharePreferenConstants.SP_PHOTO_SHOW_STYLE);
         if (spanCount==0){
             spanCount=1;
         }
 
         //设备列表初始化
         if (spanCount == 1) {
-            spanCount = 2;
             ivSwitch.setImageResource(R.drawable.camera_arrang);
         } else if (spanCount == 2) {
-            spanCount = 3;
             ivSwitch.setImageResource(R.drawable.spancount);
         } else {
-            spanCount = 1;
             ivSwitch.setImageResource(R.drawable.list_style_menu);
         }
         setAdapter(spanCount);
@@ -153,7 +150,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
 
             //保存到本地
-            SharedPreferencesUnit.getInstance(getContext()).putInt(SharePreferenConstants.SP_CAMERA_SHOW_STYLE,spanCount);
+            SharedPreferencesUnit.getInstance(getContext()).putInt(SharePreferenConstants.SP_PHOTO_SHOW_STYLE,spanCount);
         });
 
 

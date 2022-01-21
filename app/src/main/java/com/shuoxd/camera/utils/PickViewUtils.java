@@ -35,12 +35,15 @@ public class PickViewUtils {
                 .setCancelText(App.getInstance().getString(R.string.m127_cancel))//取消按钮文字
                 .setSubmitText(App.getInstance().getString(R.string.m152_ok))//确认按钮文字
                 .setTitleBgColor(ContextCompat.getColor(context,R.color.white))
-                .setTitleColor(ContextCompat.getColor(context,R.color.color_theme_green))
-                .setSubmitColor(ContextCompat.getColor(context,R.color.color_theme_green))
-                .setCancelColor(ContextCompat.getColor(context,R.color.color_theme_green))
+                .setTitleColor(ContextCompat.getColor(context,R.color.color_app_main))
+                .setSubmitColor(ContextCompat.getColor(context,R.color.color_app_main))
+                .setCancelColor(ContextCompat.getColor(context,R.color.color_app_main))
                 .setBgColor(ContextCompat.getColor(context,R.color.white))
                 .setTitleSize(18)
-                .setTextColorCenter(ContextCompat.getColor(context,R.color.color_theme_green))
+                .setTextXOffset(5,5,5)
+                .setLabels("hour","min","sec")
+                .isCenterLabel(true)
+                .setTextColorCenter(ContextCompat.getColor(context,R.color.color_app_main))
                 .setSelectOptions(option1,option2,option3)
                 .build();
         pvOptions.setNPicker(data,data1,data2);

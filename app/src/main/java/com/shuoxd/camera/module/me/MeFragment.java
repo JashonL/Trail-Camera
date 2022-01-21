@@ -179,7 +179,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         switch (position) {
-            case 1:
+            case 1: case 0:
                 MyToastUtils.toast(R.string.m164_cooming_soon);
                 break;
             case 2:
