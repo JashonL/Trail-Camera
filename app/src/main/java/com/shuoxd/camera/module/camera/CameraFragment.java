@@ -352,12 +352,12 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         if (adapter == mCameraInfoAdapter) {
             switch (position) {
-                case 5:
+                case 6:
                     Intent intent = new Intent(getContext(), ChartActivity.class);
                     intent.putExtra("imei", cameraId);
                     startActivity(intent);
                     break;
-                case 6:
+                case 7:
                     Intent intent5 = new Intent(getContext(), CameraStepUpActivity.class);
                     intent5.putExtra("imei", cameraId);
                     startActivity(intent5);
