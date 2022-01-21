@@ -418,7 +418,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
         new CircleDialog.Builder().setWidth(0.7f)
                 .setTitle(getString(R.string.m150_tips))
-                .setText(getString(R.string.m151_delete_question))
+                .setText(getString(R.string.m167_delete_camera))
                 .setNegative(getString(R.string.m127_cancel), view1 -> {
 
                 })

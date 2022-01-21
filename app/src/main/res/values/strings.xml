@@ -178,7 +178,7 @@
     <string name="m148_success">Success</string>
     <string name="m150_tips">Tips</string>
 
-    <string name="m151_delete_question">delete this question</string>
+    <string name="m151_delete_question">Delete This Question?</string>
     <string name="m152_ok">OK</string>
     <string name="m153_operation_time">Operation Time</string>
     <string name="m154_operation_day">Operation Day</string>
@@ -195,6 +195,7 @@
     <string name="m164_cooming_soon">Cooming Soon…</string>
     <string name="m165_cannot_3s">不能小于3秒</string>
     <string name="m166_information">Info</string>
+    <string name="m167_delete_camera">Delete This Camera?</string>
 
 
 </resources>

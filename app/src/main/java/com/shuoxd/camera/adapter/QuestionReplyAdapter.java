@@ -1,5 +1,6 @@
 package com.shuoxd.camera.adapter;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import com.shuoxd.camera.R;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.ReplyBean;
 import com.shuoxd.camera.customview.LinearDivider;
+import com.shuoxd.camera.module.pictrue.BigImageActivty;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,9 @@ public class QuestionReplyAdapter extends BaseQuickAdapter<ReplyBean, BaseViewHo
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+        String s = ((ImageAdapter) adapter).getData().get(position);
+        Intent intent = new Intent(mContext, BigImageActivty.class);
+        intent.putExtra("path", s);
+        mContext.startActivity(intent);
     }
 }
