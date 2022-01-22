@@ -196,6 +196,8 @@
     <string name="m165_cannot_3s">不能小于3秒</string>
     <string name="m166_information">Info</string>
     <string name="m167_delete_camera">Delete This Camera?</string>
+    <string name="m168_by_email">通过邮箱找回</string>
+    <string name="m169_by_imei">通过IMEI找回</string>
 
 
 </resources>

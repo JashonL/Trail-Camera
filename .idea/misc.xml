@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/workplace/SXD_CAMERA/app/src/main/res/layout/activity_account.xml" value="0.27239583333333334" />
+        <entry key="..\:/workplace/SXD_CAMERA/app/src/main/res/layout/activity_forget_password.xml" value="0.27239583333333334" />
+        <entry key="..\:/workplace/SXD_CAMERA/app/src/main/res/layout/activity_login.xml" value="0.27239583333333334" />
         <entry key="..\:/workplace/SXD_CAMERA/app/src/main/res/layout/activity_message_list.xml" value="0.27239583333333334" />
         <entry key="..\:/workplace/SXD_CAMERA/app/src/main/res/layout/frament_camera_info.xml" value="0.27239583333333334" />
         <entry key="..\:/workplace/SXD_CAMERA/app/src/main/res/layout/header_of_carden.xml" value="0.27239583333333334" />
