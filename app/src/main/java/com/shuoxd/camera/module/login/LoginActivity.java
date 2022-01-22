@@ -25,6 +25,7 @@ import com.hjq.toast.ToastUtils;
 import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
+import com.shuoxd.camera.module.account.ForgetPassWordActivity;
 
 import java.util.List;
 
@@ -154,15 +155,14 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
 
-
     /**
      * 检测拍摄权限
      */
     @AfterPermissionGranted(RC_CAMERA)
-    private void checkCameraPermissions(){
+    private void checkCameraPermissions() {
         String[] perms = {Manifest.permission.CAMERA};
         if (EasyPermissions.hasPermissions(this, perms)) {//有权限
-           presenter.registerSuccess();
+            presenter.registerSuccess();
         } else {
             // Do not have permissions, request them now
             EasyPermissions.requestPermissions(this, getString(R.string.m162_requires_permission),
@@ -171,8 +171,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
 
-
-    @OnClick({R.id.btn_login,R.id.btn_register})
+    @OnClick({R.id.btn_login, R.id.btn_register, R.id.tv_forgot_pwd})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -193,6 +192,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 String reUserName = etRegisterUsername.getText().toString();
                 String rePassword = etRegisterPassword.getText().toString();
                 presenter.register(reUserName, rePassword);
+                break;
+            case R.id.tv_forgot_pwd:
+                startActivity(new Intent(this, ForgetPassWordActivity.class));
                 break;
         }
     }
@@ -229,7 +231,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
 
     @Override
-    public void showUserInfo(User user,String isAuto) {
+    public void showUserInfo(User user, String isAuto) {
         String username = user.getAccountName();
         String password = user.getPassword();
         if (!TextUtils.isEmpty(username)) {
@@ -242,8 +244,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
 
         //调用接口自动登录
-        if ("1".equals(isAuto)){
-            presenter.userLogin(username,password);
+        if ("1".equals(isAuto)) {
+            presenter.userLogin(username, password);
         }
 
     }

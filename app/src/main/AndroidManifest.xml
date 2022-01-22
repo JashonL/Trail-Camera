@@ -151,19 +151,28 @@
         <activity
             android:name=".ActivityAbout"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
 
         <activity
             android:name=".module.message.MessageDetailActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
         <activity
             android:name=".module.account.ForgetPassWordActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+
+        <activity
+            android:name=".module.account.FindPasswordActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
 
 
     </application>

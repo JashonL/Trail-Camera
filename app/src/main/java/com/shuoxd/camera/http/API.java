@@ -63,10 +63,19 @@ public class API {
 
 
 
+
         //注册
         @FormUrlEncoded
         @POST("/v1/user/register")
         Observable<String> register(@Field("email") String email, @Field("password") String password);
+
+
+
+        //登录
+        @FormUrlEncoded
+        @POST("/v1/user/findPassword")
+        Observable<String> findPassword(@Field("type") String type, @Field("value") String value);
+
 
         //----------------------------【获取相机相册】--------------------------------
 
