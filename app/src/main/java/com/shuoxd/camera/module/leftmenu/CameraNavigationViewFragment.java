@@ -9,8 +9,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -81,12 +79,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
     CheckBox cbFavorites;
     @BindView(R.id.tv_temp)
     TextView tvTemp;
-    @BindView(R.id.rb_f)
-    RadioButton rbF;
-    @BindView(R.id.rb_c)
-    RadioButton rbC;
-    @BindView(R.id.rg_temp)
-    RadioGroup rgTemp;
+
     @BindView(R.id.wheel_start)
     WheelView wheelStart;
     @BindView(R.id.tv_to)
@@ -105,6 +98,12 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
     TextView tvApply;
     @BindView(R.id.ll_apply)
     LinearLayout llApply;
+    @BindView(R.id.cb_f)
+    CheckBox cbF;
+    @BindView(R.id.cb_c)
+    CheckBox cbC;
+    @BindView(R.id.ll_temp)
+    LinearLayout llTemp;
 
 
     /*设备部分*/
@@ -122,7 +121,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
     private String moonPhase = "-1";
     private String startTemperature = "0";
     private String endTemperature = "0";
-    private String temperatureUnit = "0";
+    private String temperatureUnit = "-1";
 
 
     public CameraNavigationViewFragment(IMenuListeners listeners) {
@@ -205,7 +204,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         mAdapter.setNowSelectPosition(position);
     }
 
-    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.ll_reset, R.id.ll_apply, R.id.iv_delete})
+    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.ll_reset, R.id.ll_apply, R.id.iv_delete,R.id.iv_delete_unit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_date_start:
@@ -248,6 +247,11 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                 tvDateStart.setText("");
                 tvDateEnd.setText("");
                 break;
+            case R.id.iv_delete_unit:
+                 cbF.setChecked(false);
+                 cbC.setChecked(false);
+                 temperatureUnit="-1";
+                break;
 
             case R.id.ll_reset:
                 reset();
@@ -256,11 +260,11 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
 
             case R.id.ll_apply:
 
-                if (cbVideo.isChecked()){
+                if (cbVideo.isChecked()) {
                     photoType = "2";
-                }else if (cbHd.isChecked()){
+                } else if (cbHd.isChecked()) {
                     photoType = "1";
-                }else {
+                } else {
                     photoType = "-1";
                 }
 
@@ -276,36 +280,35 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                 }
 
 
-
-                if (cbAm.isChecked()){
+                if (cbAm.isChecked()) {
                     amPm = "0";
-                }else if (cbPm.isChecked()){
+                } else if (cbPm.isChecked()) {
                     amPm = "1";
-                }else {
+                } else {
                     amPm = "-1";
                 }
 
                 favorites = cbFavorites.isChecked() ? "1" : "-1";
 
 
-                if (rbC.isChecked()){
-                    temperatureUnit="0";
+                if (cbC.isChecked()) {
+                    temperatureUnit = "0";
                 }
 
-                if (rbF.isChecked()){
-                    temperatureUnit="1";
+                if (cbF.isChecked()) {
+                    temperatureUnit = "1";
                 }
 
 
                 int temp_start = wheelStart.getCurrentItem();
                 int temp_end = wheelEnd.getCurrentItem();
 
-                startTemperature=""+temp_start;
-                endTemperature=""+temp_end;
+                startTemperature = "" + temp_start;
+                endTemperature = "" + temp_end;
 
 
                 int nowSelectPosition = mAdapter.getNowSelectPosition();
-                moonPhase=String.valueOf(nowSelectPosition+1);
+                moonPhase = String.valueOf(nowSelectPosition + 1);
 
                 listeners.apply(
                         startDate, endDate,
@@ -326,6 +329,10 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
             if (b) cbPm.setChecked(false);
         } else if (compoundButton == cbPm) {
             if (b) cbAm.setChecked(false);
+        }else if (compoundButton==cbF){
+            if (b) cbC.setChecked(false);
+        }else if (compoundButton==cbC){
+            if (b) cbF.setChecked(false);
         }
     }
 

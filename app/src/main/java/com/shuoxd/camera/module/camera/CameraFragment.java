@@ -2,7 +2,9 @@ package com.shuoxd.camera.module.camera;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.navigation.NavigationView;
 import com.gyf.immersionbar.ImmersionBar;
+import com.mylhyl.circledialog.BaseCircleDialog;
+import com.mylhyl.circledialog.CircleDialog;
+import com.mylhyl.circledialog.view.listener.OnCreateBodyViewListener;
 import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.CameraFiterAdapter;
@@ -44,6 +49,7 @@ import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
+import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
 import org.greenrobot.eventbus.EventBus;
@@ -88,6 +94,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     DrawerLayout drawerLayout;
     @BindView(R.id.v_pop)
     View vPop;
+    @BindView(R.id.content)
+    LinearLayout content;
+
+
 
     private CameraPicAdapter mAdapter;
 
@@ -100,6 +110,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public String cameraId;
 
     public String alias;
+
+    private CameraBean.CameraInfo info;
+
 
     @Override
     protected CameraPresenter createPresenter() {
@@ -125,10 +138,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         });
 
 
-
         spanCount = SharedPreferencesUnit.getInstance(getContext()).getInt(SharePreferenConstants.SP_CAMERA_SHOW_STYLE);
-        if (spanCount==0){
-            spanCount=1;
+        if (spanCount == 0) {
+            spanCount = 1;
         }
 
         //设备列表初始化
@@ -140,10 +152,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             ivSwitch.setImageResource(R.drawable.list_style_menu);
         }
         setAdapter(spanCount);
-
-
-
-
 
 
         //设备相片列表
@@ -173,7 +181,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             setAdapter(spanCount);
 
             //保存到本地
-            SharedPreferencesUnit.getInstance(getContext()).putInt(SharePreferenConstants.SP_CAMERA_SHOW_STYLE,spanCount);
+            SharedPreferencesUnit.getInstance(getContext()).putInt(SharePreferenConstants.SP_CAMERA_SHOW_STYLE, spanCount);
         });
 
 
@@ -327,12 +335,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
             popupWindow.setTouchInterceptor((v, event) -> false);
             WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-            lp.alpha = 0.4f; //设置透明度
             getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
             getActivity().getWindow().setAttributes(lp);
             popupWindow.setOnDismissListener(() -> {
                 WindowManager.LayoutParams lp1 = getActivity().getWindow().getAttributes();
-                lp1.alpha = 1f;
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
                 getActivity().getWindow().setAttributes(lp1);
             });
@@ -352,6 +358,114 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         if (adapter == mCameraInfoAdapter) {
             switch (position) {
+                case 4:
+                    View dialog_view = LayoutInflater.from(getContext()).inflate(R.layout.camera_info, content, false);
+                    TextView tvName = dialog_view.findViewById(R.id.tv_name_value);
+                    TextView tvImei = dialog_view.findViewById(R.id.tv_imei_value);
+                    TextView tvIccid = dialog_view.findViewById(R.id.tv_iccid_value);
+                    TextView tvModel = dialog_view.findViewById(R.id.tv_model_value);
+                    TextView tvVersion = dialog_view.findViewById(R.id.tv_version_value);
+                    TextView tvFirewarePoint = dialog_view.findViewById(R.id.tv_version_point);
+                    TextView tvModem = dialog_view.findViewById(R.id.tv_modem_value);
+                    TextView tvFireware = dialog_view.findViewById(R.id.tv_fireware_value);
+                    TextView tvFireModemPoint = dialog_view.findViewById(R.id.tv_fireware_point);
+
+
+                    TextView tvLastUpdate = dialog_view.findViewById(R.id.tv_lastupdate_value);
+
+
+                    TextView tvUpdate = dialog_view.findViewById(R.id.tv_to_update);
+                    TextView tvLatest = dialog_view.findViewById(R.id.tv_last);
+
+                    ImageView ivClose = dialog_view.findViewById(R.id.iv_close);
+
+                    String alias = info.getAlias();
+                    String imei = info.getImei();
+                    String iccid = info.getIccid();
+                    String deviceModel = info.getDeviceModel();
+                    String fwVersion = info.getFwVersion();
+                    String modemModel = info.getModemModel();
+                    String modemFwVersion = info.getModemFwVersion();
+                    String lastUpdateTime = info.getLastUpdateTime();
+                    if (!TextUtils.isEmpty(alias)){
+                        tvName.setText(alias);
+                    }
+                    if (!TextUtils.isEmpty(imei)){
+                        tvImei.setText(imei);
+                    }
+                    if (!TextUtils.isEmpty(iccid)){
+                        tvIccid.setText(iccid);
+                    }
+                    if (!TextUtils.isEmpty(deviceModel)){
+                        tvModel.setText(deviceModel);
+                    }
+                    if (!TextUtils.isEmpty(fwVersion)){
+                        tvVersion.setText(fwVersion);
+                    }
+                    if (!TextUtils.isEmpty(modemModel)){
+                        tvModem.setText(modemModel);
+                    }
+                    if (!TextUtils.isEmpty(modemFwVersion)){
+                        tvFireware.setText(modemFwVersion);
+                    }
+                    if (!TextUtils.isEmpty(lastUpdateTime)){
+                        tvLastUpdate.setText(lastUpdateTime);
+                    }
+
+
+                    //判断是否有新版本
+                    String newFwVersion = info.getNewFwVersion();
+                    String newModemFwVersion = info.getNewModemFwVersion();
+
+
+                    if ("1".equals(newFwVersion)){
+                        tvFirewarePoint.setVisibility(View.VISIBLE);
+                    }else {
+                        tvFirewarePoint.setVisibility(View.GONE);
+                    }
+
+                    tvUpdate.setEnabled("1".equals(newFwVersion));
+                    tvLatest.setEnabled("1".equals(newModemFwVersion));
+
+
+
+
+                    if ("1".equals(newModemFwVersion)){
+                        tvFireModemPoint.setVisibility(View.VISIBLE);
+                    }else {
+                        tvFireModemPoint.setVisibility(View.GONE);
+                    }
+
+
+
+
+                    BaseCircleDialog show = new CircleDialog.Builder().setBodyView(dialog_view, view1 -> {
+                    })
+                            .setGravity(Gravity.BOTTOM)
+                            .setCancelable(true)
+                            .setWidth(1)
+                            .show(getActivity().getSupportFragmentManager());
+
+
+                    tvUpdate.setOnClickListener(view12 -> {
+                        presenter.cameraOperation(imei, "updateFwVersion", "1");
+                        show.dialogDismiss();
+                    });
+
+
+                    tvLatest.setOnClickListener(view13 -> {
+                        presenter.cameraOperation(imei, "updateModemFwVersion", "1");
+                        show.dialogDismiss();
+
+
+                    });
+
+                    ivClose.setOnClickListener(view14 -> {
+                        show.dialogDismiss();
+                    });
+
+                    break;
+
                 case 6:
                     Intent intent = new Intent(getContext(), ChartActivity.class);
                     intent.putExtra("imei", cameraId);
@@ -384,9 +498,12 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     @Override
     public void showCameraInfo(CameraBean.CameraInfo cameraBean) {
 
+        this.info = cameraBean;
+
+
         String[] title = {
                 getString(R.string.m70_Signal), getString(R.string.m75_steup), getString(R.string.m75_steup), getString(R.string.m72_sd),
-              getString(R.string.m166_information),  getString(R.string.m73_map), getString(R.string.m74_tracker), getString(R.string.m75_steup),
+                getString(R.string.m166_information), getString(R.string.m73_map), getString(R.string.m74_tracker), getString(R.string.m75_steup),
         };
 
         List<InfoHeadBean> beans = new ArrayList<>();
@@ -542,6 +659,11 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public void showTotalNum(int totalNum) {
         String s = totalNum + " " + getString(R.string.m76_photos);
         tvPicNum.setText(s);
+    }
+
+    @Override
+    public void showOperationSuccess() {
+        MyToastUtils.toast(R.string.m148_success);
     }
 
     @Override

@@ -158,13 +158,11 @@
                 android:id="@+id/iv_delete"
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="@dimen/dp_35"
-                android:src="@drawable/delete"
                 android:padding="@dimen/dp_7"
-                app:layout_constraintLeft_toRightOf="@+id/tv_date_end"
+                android:src="@drawable/delete"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_date_start"
-                app:layout_constraintTop_toTopOf="@+id/tv_date_end"
-                />
-
+                app:layout_constraintLeft_toRightOf="@+id/tv_date_end"
+                app:layout_constraintTop_toTopOf="@+id/tv_date_end" />
 
 
             <TextView
@@ -255,32 +253,31 @@
                 app:layout_constraintTop_toBottomOf="@+id/cb_favorites" />
 
 
-            <RadioGroup
-                android:id="@+id/rg_temp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll_temp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:background="@color/gray_eeeeeee"
+                android:gravity="center"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_temp"
-                app:layout_constraintLeft_toRightOf="@+id/tv_temp"
-                app:layout_constraintTop_toTopOf="@+id/tv_temp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_temp">
 
-                >
-
-                <RadioButton
-                    android:id="@+id/rb_f"
+                <CheckBox
+                    android:id="@+id/cb_f"
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
                     android:background="@drawable/selector_rb"
                     android:button="@null"
-                    android:checked="true"
                     android:gravity="center"
                     android:padding="@dimen/dp_3"
                     android:text="@string/m95_f"
                     android:textColor="@color/rb_text_selector" />
 
-                <RadioButton
-                    android:id="@+id/rb_c"
+                <CheckBox
+                    android:id="@+id/cb_c"
                     android:layout_width="@dimen/dp_60"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_20"
@@ -291,7 +288,18 @@
                     android:text="@string/m96_c"
                     android:textColor="@color/rb_text_selector" />
 
-            </RadioGroup>
+                <ImageView
+                    android:id="@+id/iv_delete_unit"
+                    android:layout_width="@dimen/dp_35"
+                    android:layout_height="@dimen/dp_35"
+                    android:padding="@dimen/dp_7"
+                    android:src="@drawable/delete"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_date_start"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_date_end"
+                    app:layout_constraintTop_toTopOf="@+id/tv_date_end" />
+
+
+            </LinearLayout>
 
 
             <com.contrarywind.view.WheelView
@@ -301,7 +309,7 @@
                 android:layout_marginTop="@dimen/dp_20"
                 android:padding="@dimen/dp_10"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_temp"
-                app:layout_constraintTop_toBottomOf="@+id/tv_temp" />
+                app:layout_constraintTop_toBottomOf="@+id/ll_temp" />
 
 
             <TextView

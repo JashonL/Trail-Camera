@@ -11,6 +11,7 @@ import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.module.home.HomeView;
 import com.shuoxd.camera.module.login.User;
+import com.shuoxd.camera.utils.MyToastUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -333,4 +334,39 @@ public class CameraPresenter extends BasePresenter<CameraView> {
     public List<CameraBean> getCameraList() {
         return cameraList;
     }
+
+
+
+    public void cameraOperation(String imei, String operationType, String operationValue) {
+        //修改别名
+        addDisposable(apiServer.operation_camera(imei, operationType,operationValue), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        String msg = jsonObject.optString("msg");
+                        MyToastUtils.toast(msg);
+                        //通知刷新设备列表
+                        baseView.showOperationSuccess();
+
+                    } else {
+                        String msg = jsonObject.optString("msg");
+                        baseView.showResultError(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showServerError(msg);
+            }
+        });
+
+    }
+
 }

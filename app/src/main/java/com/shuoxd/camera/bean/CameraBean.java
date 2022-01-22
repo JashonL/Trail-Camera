@@ -73,6 +73,26 @@ public class CameraBean {
         private String lastUpdateTime;
         private String longitude;
         private String latitude;
+        private String newFwVersion;
+
+        private String newModemFwVersion;
+
+
+        public String getNewModemFwVersion() {
+            return newModemFwVersion;
+        }
+
+        public void setNewModemFwVersion(String newModemFwVersion) {
+            this.newModemFwVersion = newModemFwVersion;
+        }
+
+        public String getNewFwVersion() {
+            return newFwVersion;
+        }
+
+        public void setNewFwVersion(String newFwVersion) {
+            this.newFwVersion = newFwVersion;
+        }
 
         public String getId() {
             return id;
