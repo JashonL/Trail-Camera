@@ -207,10 +207,16 @@
     <string name="m173_modem_fireware_version">Modem Fireware Version</string>
     <string name="m174_last_update_time">Last Update Time</string>
     <string name="m175_modem_model">Modem Model</string>
-
     <string name="m176_by_email">通过邮箱找回</string>
     <string name="m177_by_imei">通过IMEI找回</string>
     <string name="m178_find_password">找回密码</string>
+    <string name="m179_first_name">First Name</string>
+    <string name="m180_last_name">Last Name</string>
+    <string name="m180_address">Address</string>
+
+
+    <string name="m181_city">City</string>
+    <string name="m182_save">Save</string>
 
 
 </resources>
