@@ -21,6 +21,7 @@ import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseView;
 import com.shuoxd.camera.constants.GlobalConstant;
 import com.shuoxd.camera.module.addcamera.ManulInputActivity;
+import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.module.login.LoginManager;
 import com.shuoxd.camera.module.login.LoginView;
 import com.shuoxd.camera.module.login.User;
@@ -215,5 +216,12 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
     @Override
     public void showServerError(String msg) {
 
+    }
+
+    @Override
+    public void LoginException() {
+        Intent intent =new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

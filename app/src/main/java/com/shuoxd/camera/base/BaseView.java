@@ -12,4 +12,6 @@ public interface BaseView {
 
     void showServerError(String msg);
 
+    void LoginException();
+
 }

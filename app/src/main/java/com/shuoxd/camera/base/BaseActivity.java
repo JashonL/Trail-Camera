@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
+import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.Mydialog;
 
@@ -143,7 +144,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         MyToastUtils.toast(msg);
     }
 
-
+    @Override
+    public void LoginException() {
+        Intent intent =new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

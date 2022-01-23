@@ -1,6 +1,7 @@
 package com.shuoxd.camera.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.gyf.immersionbar.ImmersionBar;
 import com.gyf.immersionbar.components.ImmersionFragment;
 import com.shuoxd.camera.R;
+import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.Mydialog;
 
@@ -213,7 +215,12 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         MyToastUtils.toast(msg);
     }
 
-
+    @Override
+    public void LoginException() {
+        Intent intent =new Intent(getActivity(), LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 
     @Override
     public void onHiddenChanged(boolean hidden) {

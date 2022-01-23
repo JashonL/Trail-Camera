@@ -1,8 +1,10 @@
 package com.shuoxd.camera.base;
 
 import com.google.gson.JsonParseException;
+import com.shuoxd.camera.utils.MyToastUtils;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.InterruptedIOException;
 import java.net.ConnectException;
@@ -49,7 +51,21 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onNext(T o) {
-        onSuccess(o);
+        String o1 = (String) o;
+        try {
+            JSONObject jsonObject=new JSONObject(o1);
+            String result = jsonObject.optString("result");
+            String msg = jsonObject.optString("msg");
+            if ("50000".equals(result)){
+                MyToastUtils.toast(msg);
+                view.LoginException();
+            }else {
+                onSuccess(o);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

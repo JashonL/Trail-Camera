@@ -62,4 +62,7 @@ public abstract class BaseScanActivity extends AppCompatActivity {
     }
 
 
+
+
+
 }
