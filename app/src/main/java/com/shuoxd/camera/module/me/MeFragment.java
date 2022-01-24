@@ -28,6 +28,7 @@ import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.bean.SetBean;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.LinearDivider;
+import com.shuoxd.camera.module.account.ChangePassWordActivity;
 import com.shuoxd.camera.module.account.UserCenterActivity;
 import com.shuoxd.camera.module.gallery.PhotoPresenter;
 import com.shuoxd.camera.module.gallery.PhotoView;
@@ -183,7 +184,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_edit:
-                startActivity(new Intent(getContext(), UserCenterActivity.class));
+                startActivity(new Intent(getContext(), ChangePassWordActivity.class));
                 break;
         }
     }
@@ -198,6 +199,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
                 break;
             case 2:
                 startActivity(new Intent(getContext(), MessageListActivity.class));
+                break;
+            case 3:
+                startActivity(new Intent(getContext(), UserCenterActivity.class));
                 break;
             case 5:
                 //
