@@ -224,6 +224,19 @@
     <string name="m187_selected_state">选择州</string>
     <string name="m188_country">国家</string>
     <string name="m189_mobile_number">Mobile Number</string>
+    <string name="m190_same_as_mailing_address">Same as Mailing Address</string>
+
+
+    <string name="m191_name_onhte_card">Name On The Card</string>
+    <string name="m192_billing_address">Billing Address</string>
+    <string name="m193_card_number">Card Number</string>
+
+
+    <string name="m194_old_password">Old PassWord</string>
+    <string name="m195_new_password">New PassWord</string>
+    <string name="m196_new_password_comfir">Comfirm PassWord</string>
+    <string name="m197_password_error">两次输入的密码不一致</string>
+
 
 
 </resources>

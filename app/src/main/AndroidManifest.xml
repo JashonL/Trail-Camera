@@ -191,6 +191,15 @@
             android:screenOrientation="portrait"
             />
 
+        <activity android:name=".module.account.ChangePassWordActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            />
+
+
+
 
     </application>
 

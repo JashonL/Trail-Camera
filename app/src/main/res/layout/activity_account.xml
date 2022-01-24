@@ -11,7 +11,6 @@
         android:id="@+id/tv_custom_service"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
         android:background="@color/white"
         android:gravity="center"
         android:padding="@dimen/dp_10"
@@ -22,15 +21,16 @@
 
 
     <EditText
-        android:id="@+id/et_alfah"
+        android:id="@+id/et_olb_password"
         android:layout_width="@dimen/dp_250"
         android:layout_height="@dimen/dp_45"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_30"
         android:background="@drawable/shape_green_stroke"
         android:gravity="center_vertical"
-        android:hint="@string/m46_hlfha"
+        android:hint="@string/m194_old_password"
         android:paddingStart="@dimen/dp_10"
+        android:inputType="textPassword"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -38,37 +38,39 @@
 
 
     <EditText
-        android:id="@+id/et_testing"
+        android:id="@+id/et_new_password"
         android:layout_width="@dimen/dp_250"
         android:layout_height="@dimen/dp_45"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_10"
         android:background="@drawable/shape_green_stroke"
         android:gravity="center_vertical"
-        android:hint="@string/m46_hlfha"
+        android:hint="@string/m195_new_password"
         android:paddingStart="@dimen/dp_10"
+        android:inputType="textPassword"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_alfah" />
+        app:layout_constraintTop_toBottomOf="@+id/et_olb_password" />
 
     <EditText
-        android:id="@+id/et_somewere_onearth"
+        android:id="@+id/et_newpassword_comfir"
         android:layout_width="@dimen/dp_250"
         android:layout_height="@dimen/dp_45"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_10"
         android:background="@drawable/shape_green_stroke"
         android:gravity="center_vertical"
-        android:hint="@string/m46_hlfha"
+        android:hint="@string/m196_new_password_comfir"
         android:paddingStart="@dimen/dp_10"
+        android:inputType="textPassword"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_testing" />
+        app:layout_constraintTop_toBottomOf="@+id/et_new_password" />
 
 
-    <EditText
+ <!--   <EditText
         android:id="@+id/et_address"
         android:layout_width="@dimen/dp_250"
         android:layout_height="@dimen/dp_45"
@@ -81,7 +83,7 @@
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_somewere_onearth" />
+        app:layout_constraintTop_toBottomOf="@+id/et_newpassword_comfir" />
 
     <TextView
         android:id="@+id/tv_state"
@@ -142,11 +144,11 @@
             app:layout_constraintTop_toBottomOf="@+id/et_address" />
 
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 
     <Button
-        android:id="@+id/btn_register"
+        android:id="@+id/btn_save"
         android:layout_width="@dimen/dp_250"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -160,7 +162,7 @@
         android:textSize="@dimen/size_title_sp_14"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_hoolywood"
+        app:layout_constraintTop_toBottomOf="@+id/et_newpassword_comfir"
         app:layout_constraintVertical_bias="0.2" />
 
 

@@ -1,31 +1,25 @@
 package com.shuoxd.camera.module.account;
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.hjq.toast.ToastUtils;
-import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
-import com.shuoxd.camera.eventbus.FreshCameraList;
+import com.shuoxd.camera.constants.SharePreferenConstants;
+import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
-import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
-import retrofit2.http.Field;
-
-public class UserCenterPresenter extends BasePresenter<UserCenterView> {
-
-    public UserCenterPresenter(Context context, UserCenterView baseView) {
+public class ChangePassWordPresenter extends BasePresenter<ChangePassWordView> {
+    public ChangePassWordPresenter(Context context, ChangePassWordView baseView) {
         super(context, baseView);
     }
 
 
-    public void modifyUserInfo(String firstName, String lastName,
-                               String address, String addressDetail,
-                               String country, String state,
-                               String city, String zipCode, String mobileNum) {
-        addDisposable(apiServer.modifyUserInfo(firstName, lastName,address,addressDetail,country,state,city,zipCode,mobileNum), new BaseObserver<String>(baseView,
+
+    public void modifyUserInfo(String oldPassword, String newPassword,
+                               String confirmPassword) {
+        addDisposable(apiServer.modifyPassword(oldPassword, newPassword,confirmPassword), new BaseObserver<String>(baseView,
                 true) {
             @Override
             public void onSuccess(String bean) {
@@ -37,6 +31,7 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
 //                        EventBus.getDefault().post(new FreshCameraList());
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
+                        baseView.changePasswordSuccess();
 
                     } else {
                         String msg = jsonObject.getString("msg");
@@ -57,28 +52,25 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
 
 
 
+    /**
+     * 登录
+     */
+    public void userLogout(String username) {
+        //正式登录
+        addDisposable(apiServer.loginOut(username), new BaseObserver<String>(baseView, true) {
 
-
-    public void modifyCreditCard(String cardName, String cardAddr,
-                               String cardCity, String cardCountry,
-                               String cardState, String cardZip,
-                               String cardNum, String cardYear, String cardMonth) {
-        addDisposable(apiServer.modifyCreditCard(cardName, cardAddr,cardCity,cardCountry,cardState,cardZip,cardNum,cardYear,cardMonth), new BaseObserver<String>(baseView,
-                true) {
             @Override
             public void onSuccess(String bean) {
                 try {
                     JSONObject jsonObject = new JSONObject(bean);
                     String result = jsonObject.optString("result");
                     if ("0".equals(result)) {//请求成功
-                        //通知刷新列表
-//                        EventBus.getDefault().post(new FreshCameraList());
-                        String msg = jsonObject.getString("msg");
-                        ToastUtils.show(msg);
-
+                        //用户解析
+                        SharedPreferencesUnit.getInstance(context).put(SharePreferenConstants.SP_AUTO_LOGIN, "0");
+                        baseView.logout();
                     } else {
-                        String msg = jsonObject.getString("msg");
-                        ToastUtils.show(msg);
+                        String msg = jsonObject.optString("msg");
+                        baseView.showLoginError(msg);
                     }
 
                 } catch (Exception e) {
@@ -88,12 +80,11 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
 
             @Override
             public void onError(String msg) {
-
+                baseView.showLoginError(msg);
             }
         });
+
     }
-
-
 
 
 }

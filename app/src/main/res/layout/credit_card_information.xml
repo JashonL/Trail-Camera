@@ -7,12 +7,25 @@
 
     <CheckBox
         android:id="@+id/cb_same"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/dp_15"
+        android:layout_height="@dimen/dp_15"
         android:layout_marginLeft="@dimen/dp_10"
-        android:text="@string/m5_submmit"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/selector_checkbox"
+        android:button="@null"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/tv_sameas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_10"
+        android:text="@string/m190_same_as_mailing_address"
+        app:layout_constraintBottom_toBottomOf="@+id/cb_same"
+        app:layout_constraintLeft_toRightOf="@+id/cb_same"
+        app:layout_constraintTop_toTopOf="@+id/cb_same" />
 
 
     <EditText
@@ -25,7 +38,7 @@
         android:layout_marginEnd="@dimen/dp_10"
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
-        android:hint="@string/m180_address"
+        android:hint="@string/m191_name_onhte_card"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/cb_same"
@@ -43,7 +56,7 @@
         android:layout_marginEnd="@dimen/dp_10"
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
-        android:hint="@string/m50_address2"
+        android:hint="@string/m192_billing_address"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/et_address" />
@@ -84,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
-        android:text="@string/m50_address2"
+        android:text="@string/m47_state"
         app:layout_constraintBottom_toBottomOf="@+id/v_state"
         app:layout_constraintLeft_toLeftOf="@+id/v_state"
         app:layout_constraintTop_toTopOf="@+id/v_state" />
@@ -95,7 +108,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="@string/m50_address2"
+        android:text="@string/m187_selected_state"
         app:layout_constraintBottom_toBottomOf="@+id/v_state"
         app:layout_constraintLeft_toRightOf="@+id/tv_states"
         app:layout_constraintRight_toLeftOf="@+id/iv_drop"
@@ -124,7 +137,7 @@
         android:background="@drawable/shape_white_rect"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/et_country"
+        app:layout_constraintRight_toLeftOf="@+id/et_zip"
         app:layout_constraintTop_toBottomOf="@+id/v_state"
         app:layout_constraintVertical_weight="3" />
 
@@ -134,7 +147,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
-        android:text="@string/m50_address2"
+        android:text="@string/m188_country"
         app:layout_constraintBottom_toBottomOf="@+id/v_country"
         app:layout_constraintLeft_toLeftOf="@+id/v_country"
         app:layout_constraintTop_toTopOf="@+id/v_country" />
@@ -145,7 +158,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="@string/m50_address2"
+        android:text="@string/m186_selected_country"
         app:layout_constraintBottom_toBottomOf="@+id/v_country"
         app:layout_constraintLeft_toRightOf="@+id/tv_country"
         app:layout_constraintRight_toLeftOf="@+id/iv_country_drop"
@@ -164,7 +177,7 @@
 
 
     <EditText
-        android:id="@+id/et_country"
+        android:id="@+id/et_zip"
         android:layout_width="0dp"
         android:layout_height="@dimen/dp_45"
         android:layout_gravity="center"
@@ -172,7 +185,7 @@
         android:layout_marginEnd="@dimen/dp_10"
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
-        android:hint="@string/m181_city"
+        android:hint="@string/m185_zip"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintBottom_toBottomOf="@+id/v_country"
@@ -192,7 +205,7 @@
         android:layout_marginEnd="@dimen/dp_10"
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
-        android:hint="@string/m50_address2"
+        android:hint="@string/m193_card_number"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/v_country" />
@@ -226,7 +239,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
-        android:text="@string/m50_address2"
+        android:text="@string/m27_month"
         app:layout_constraintBottom_toBottomOf="@+id/v_expires"
         app:layout_constraintLeft_toLeftOf="@+id/v_expires"
         app:layout_constraintRight_toLeftOf="@+id/tv_month_value"
@@ -238,7 +251,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="@string/m50_address2"
         app:layout_constraintBottom_toBottomOf="@+id/v_expires"
         app:layout_constraintLeft_toRightOf="@+id/tv_month"
         app:layout_constraintRight_toLeftOf="@+id/iv_month_drop"
@@ -262,7 +274,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
-        android:text="@string/m50_address2"
+        android:text="@string/m28_year"
         app:layout_constraintBottom_toBottomOf="@+id/v_expires"
         app:layout_constraintLeft_toRightOf="@+id/iv_month_drop"
         app:layout_constraintRight_toLeftOf="@+id/tv_year_value"
@@ -274,7 +286,6 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="@string/m50_address2"
         app:layout_constraintBottom_toBottomOf="@+id/v_expires"
         app:layout_constraintLeft_toRightOf="@+id/tv_year"
         app:layout_constraintRight_toLeftOf="@+id/iv_year_drop"
@@ -292,25 +303,25 @@
         app:layout_constraintTop_toTopOf="@+id/tv_month" />
 
 
-<!--
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="@dimen/dp_250"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginTop="@dimen/dp_50"
-        android:layout_marginBottom="@dimen/dp_64"
-        android:background="@drawable/selector_button_corner"
-        android:minWidth="@dimen/dp_250"
-        android:padding="@dimen/dp_5"
-        android:text="@string/m182_save"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_title_sp_14"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/v_expires"
-        app:layout_constraintVertical_bias="0.2" />
--->
+    <!--
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="@dimen/dp_250"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginTop="@dimen/dp_50"
+            android:layout_marginBottom="@dimen/dp_64"
+            android:background="@drawable/selector_button_corner"
+            android:minWidth="@dimen/dp_250"
+            android:padding="@dimen/dp_5"
+            android:text="@string/m182_save"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_title_sp_14"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/v_expires"
+            app:layout_constraintVertical_bias="0.2" />
+    -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

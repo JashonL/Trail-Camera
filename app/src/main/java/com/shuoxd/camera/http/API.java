@@ -86,13 +86,35 @@ public class API {
 
         //----------------------------【获取相机相册】--------------------------------
 
-        //添加相机
+        //修改用户信息
         @FormUrlEncoded
         @POST("/v1/user/modifyUserInfo")
         Observable<String> modifyUserInfo(@Field("firstName") String firstName,@Field("lastName")String lastName,
                                           @Field("address") String address,@Field("careamName")String addressDetail,
                                           @Field("country") String country,@Field("state")String state,
                                           @Field("city") String city,@Field("zipCode")String zipCode,@Field("mobileNum")String mobileNum);
+
+
+
+
+        //修改银行卡信息
+        @FormUrlEncoded
+        @POST("/v1/user/modifyCreditCard")
+        Observable<String> modifyCreditCard(@Field("cardName") String cardName,@Field("cardAddr")String cardAddr,
+                                          @Field("cardCity") String cardCity,@Field("cardCountry")String cardCountry,
+                                          @Field("cardState") String cardState,@Field("cardZip")String cardZip,
+                                          @Field("cardNum") String cardNum,@Field("cardYear")String cardYear,@Field("cardMonth")String cardMonth);
+
+
+
+
+
+        //修改密码
+        @FormUrlEncoded
+        @POST("/v1/user/modifyPassword")
+        Observable<String> modifyPassword(@Field("oldPassword") String oldPassword,@Field("newPassword")String newPassword,@Field("confirmPassword")String confirmPassword);
+
+
 
         //相机详情
         @FormUrlEncoded

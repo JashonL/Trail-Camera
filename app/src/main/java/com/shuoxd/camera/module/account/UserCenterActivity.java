@@ -2,19 +2,25 @@ package com.shuoxd.camera.module.account;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -22,8 +28,12 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.shuoxd.camera.R;
+import com.shuoxd.camera.adapter.CameraFiterAdapter;
+import com.shuoxd.camera.adapter.PopAdapter;
 import com.shuoxd.camera.adapter.SceneViewPagerAdapter;
+import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
+import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.ProvinceCityBean;
 import com.shuoxd.camera.utils.CountryDataUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
@@ -39,7 +49,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implements UserCenterView, Toolbar.OnMenuItemClickListener, View.OnClickListener, BaseQuickAdapter.OnItemChildClickListener,
-        BaseQuickAdapter.OnItemClickListener, ViewPager.OnPageChangeListener {
+        BaseQuickAdapter.OnItemClickListener, ViewPager.OnPageChangeListener, CompoundButton.OnCheckedChangeListener {
     @BindView(R.id.status_bar_view)
     View statusBarView;
     @BindView(R.id.tv_title)
@@ -74,10 +84,15 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     private EditText creditCity;
     private TextView creditStateValue;
     private TextView creditCountryValue;
-    private EditText creditContry;
+    private EditText creditZip;
     private EditText creditMobileNumber;
     private TextView creditMonthValue;
     private TextView creditYearValue;
+
+
+
+    private List<String>months=new ArrayList<>();
+    private List<String>years=new ArrayList<>();
 
 
     @Override
@@ -101,6 +116,16 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
     @Override
     protected void initData() {
+
+        for (int i = 0; i < 12; i++) {
+            months.add(i+1+"");
+        }
+
+        for (int i =  2022; i < 2050; i++) {
+            years.add(i+"");
+        }
+
+
         //viewpager
         List<View> pagers = new ArrayList<>();
         View malinginformation = LayoutInflater.from(this).inflate(R.layout.view_maling_information, null, false);
@@ -137,10 +162,49 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         creditCity = creditcardinformation.findViewById(R.id.et_city);
         creditStateValue = creditcardinformation.findViewById(R.id.tv_state_value);
         creditCountryValue = creditcardinformation.findViewById(R.id.tv_country_value);
-        creditContry = creditcardinformation.findViewById(R.id.et_country);
+        creditZip = creditcardinformation.findViewById(R.id.et_zip);
         creditMobileNumber = creditcardinformation.findViewById(R.id.et_mobile_number);
         creditMonthValue = creditcardinformation.findViewById(R.id.tv_month_value);
         creditYearValue = creditcardinformation.findViewById(R.id.tv_year_value);
+        ImageView creditIvconutryDrop = creditcardinformation.findViewById(R.id.iv_country_drop);
+
+
+        ImageView creditIvDrop = creditcardinformation.findViewById(R.id.iv_drop);
+        creditIvDrop.setOnClickListener(view -> {
+            showCityPickView();
+        });
+        creditStateValue.setOnClickListener(view -> {
+            showCityPickView();
+        });
+
+        creditIvconutryDrop.setOnClickListener(view -> {
+            showCityPickView();
+        });
+        creditCountryValue.setOnClickListener(view -> {
+            showCityPickView();
+        });
+
+
+        View monthDrop = creditcardinformation.findViewById(R.id.iv_month_drop);
+        View yearDrop = creditcardinformation.findViewById(R.id.iv_year_drop);
+
+
+        monthDrop.setOnClickListener(view -> {
+            showSelect(creditMonthValue,months);
+        });
+        creditMonthValue.setOnClickListener(view -> {
+            showSelect(creditYearValue,years);
+        });
+
+        yearDrop.setOnClickListener(view -> {
+
+        });
+        creditYearValue.setOnClickListener(view -> {
+
+        });
+
+
+        cbSame.setOnCheckedChangeListener(this);
 
 
         pagers.add(malinginformation);
@@ -203,6 +267,39 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     @Override
     public void onPageSelected(int position) {
 
+        if (position == 1) {
+            boolean checked = cbSame.isChecked();
+            if (checked) {
+                String address = etAddress.getText().toString();
+                String address_detail = etAddress2.getText().toString();
+                String city = etCity.getText().toString();
+                String value = tvStateValue.getText().toString();
+                String country = tvCountry.getText().toString();
+                String zip = etZip.getText().toString();
+
+                if (!TextUtils.isEmpty(address)) {
+                    creditAddress.setText(address);
+                }
+                if (!TextUtils.isEmpty(address_detail)) {
+                    creditAddress2.setText(address_detail);
+                }
+                if (!TextUtils.isEmpty(city)) {
+                    creditCity.setText(city);
+                }
+                if (!TextUtils.isEmpty(value)) {
+                    creditStateValue.setText(city);
+                }
+                if (!TextUtils.isEmpty(country)) {
+                    creditCountryValue.setText(country);
+                }
+                if (!TextUtils.isEmpty(zip)) {
+                    creditZip.setText(zip);
+                }
+
+            }
+
+        }
+
     }
 
     @Override
@@ -249,8 +346,16 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
             if (provinceList != null && state != null && provinceList.size() > 0 && state.size() > 0) {
                 String tx1 = provinceList.get(options1).getPickerViewText();
                 String tx2 = state.get(options1).get(options2);
-                tvCountry.setText(tx1);
-                tvStateValue.setText(tx2);
+
+                int currentItem = viewPager.getCurrentItem();
+                if (currentItem == 1) {
+                    tvCountry.setText(tx1);
+                    tvStateValue.setText(tx2);
+                } else {
+                    creditCountryValue.setText(tx1);
+                    creditStateValue.setText(tx2);
+                }
+
             }
 
 
@@ -290,12 +395,111 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
                         MyToastUtils.toast(R.string.m145_content_cannot_empty);
                         return;
                     }
-                    presenter.modifyUserInfo(firstName,lastName,address,addressDetail,country,state,city,zipCode,mobileNum);
+                    presenter.modifyUserInfo(firstName, lastName, address, addressDetail, country, state, city, zipCode, mobileNum);
                 } else {
+
+
+                    String carName = creditAddress.getText().toString();
+                    String cardAddr = creditAddress2.getText().toString();
+                    String cardCity = creditCity.getText().toString();
+                    String cardCountry = creditCountryValue.getText().toString();
+                    String cardState = creditStateValue.getText().toString();
+                    String cardZip = creditZip.getText().toString();
+                    String cardNumber = creditMobileNumber.getText().toString();
+                    String cardYear = creditYearValue.getText().toString();
+                    String cardMonth = creditMonthValue.getText().toString();
+                    if (TextUtils.isEmpty(carName) || TextUtils.isEmpty(cardAddr) || TextUtils.isEmpty(cardCity) || TextUtils.isEmpty(cardCountry) ||
+                            TextUtils.isEmpty(cardState) || TextUtils.isEmpty(cardZip) || TextUtils.isEmpty(cardNumber) || TextUtils.isEmpty(cardYear) || TextUtils.isEmpty(cardMonth)) {
+                        MyToastUtils.toast(R.string.m145_content_cannot_empty);
+                        return;
+                    }
+                    presenter.modifyCreditCard(carName, cardAddr, cardCity, cardCountry, cardState, cardZip, cardNumber, cardYear, cardMonth);
 
                 }
                 break;
         }
+    }
+
+
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        if (b) {
+            String address = etAddress.getText().toString();
+            String address_detail = etAddress2.getText().toString();
+            String city = etCity.getText().toString();
+            String value = tvStateValue.getText().toString();
+            String country = tvCountry.getText().toString();
+            String zip = etZip.getText().toString();
+
+            if (!TextUtils.isEmpty(address)) {
+                creditAddress.setText(address);
+            }
+            if (!TextUtils.isEmpty(address_detail)) {
+                creditAddress2.setText(address_detail);
+            }
+            if (!TextUtils.isEmpty(city)) {
+                creditCity.setText(city);
+            }
+
+            if (!TextUtils.isEmpty(value)) {
+                creditStateValue.setText(city);
+            }
+
+            if (!TextUtils.isEmpty(country)) {
+                creditCountryValue.setText(country);
+            }
+
+
+            if (!TextUtils.isEmpty(zip)) {
+                creditZip.setText(zip);
+            }
+
+        } else {
+            creditAddress.setText("");
+            creditAddress2.setText("");
+            creditCity.setText("");
+            creditStateValue.setText("");
+            creditCountryValue.setText("");
+            creditZip.setText("");
+        }
+    }
+
+
+
+
+    private void showSelect(View dropView,List<String>list){
+
+        View contentView = LayoutInflater.from(this).inflate(
+                R.layout.pop_layout, null);
+
+        RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
+        rvCamera.setLayoutManager(new LinearLayoutManager(this));
+
+        PopAdapter camerAdapter = new PopAdapter(R.layout.item_string, list);
+        rvCamera.setAdapter(camerAdapter);
+        camerAdapter.setOnItemClickListener((adapter, view, position) -> {
+           if (creditMonthValue==dropView){
+               creditMonthValue.setText(list.get(position));
+           }else {
+               creditYearValue.setText(list.get(position));
+           }
+        });
+
+
+        int width = dropView.getWidth();
+        int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+
+
+
+
+        final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
+        popupWindow.setTouchable(true);
+
+
+        popupWindow.setTouchInterceptor((v, event) -> false);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(0));
+        popupWindow.setAnimationStyle(R.style.Popup_Anim);
+        popupWindow.showAsDropDown(dropView);
     }
 
 
