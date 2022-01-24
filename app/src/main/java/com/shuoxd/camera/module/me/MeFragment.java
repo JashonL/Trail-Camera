@@ -28,6 +28,7 @@ import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.bean.SetBean;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.LinearDivider;
+import com.shuoxd.camera.module.account.UserCenterActivity;
 import com.shuoxd.camera.module.gallery.PhotoPresenter;
 import com.shuoxd.camera.module.gallery.PhotoView;
 import com.shuoxd.camera.module.login.LoginActivity;
@@ -39,6 +40,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MeFragment extends BaseFragment<MePresenter> implements MeView, BaseQuickAdapter.OnItemClickListener {
@@ -176,10 +178,22 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
                 .init();
     }
 
+
+    @OnClick({R.id.iv_edit})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_edit:
+                startActivity(new Intent(getContext(), UserCenterActivity.class));
+                break;
+        }
+    }
+
+
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         switch (position) {
-            case 1: case 0:
+            case 1:
+            case 0:
                 MyToastUtils.toast(R.string.m164_cooming_soon);
                 break;
             case 2:

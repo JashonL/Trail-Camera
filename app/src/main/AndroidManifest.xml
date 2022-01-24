@@ -18,7 +18,7 @@
     <!-- 允许程序读写手机状态和身份 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
-    <uses-permission android:name="com.growatt.shinephone.activity.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="com.shuoxd.camera.activity.permission.MAPS_RECEIVE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
 
@@ -34,7 +34,9 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDO4V-nQN-PHJE2bXIDzri_R4asmcFjSZY"/>
+            android:value="AIzaSyA9vL_iHqOXIPjFlr4i_wopRKin_YmNblk"/>
+
+
 
 
         <meta-data
@@ -177,6 +179,17 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".module.map.MapActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".module.account.UserCenterActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            />
 
 
     </application>

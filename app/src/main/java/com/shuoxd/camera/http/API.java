@@ -77,12 +77,22 @@ public class API {
         Observable<String> findPassword(@Field("type") String type, @Field("value") String value);
 
 
-        //----------------------------【获取相机相册】--------------------------------
-
         //添加相机
         @FormUrlEncoded
         @POST("/v1/camera/addCamera")
         Observable<String> addCamera(@Field("imei") String imei,@Field("careamName")String careamName);
+
+
+
+        //----------------------------【获取相机相册】--------------------------------
+
+        //添加相机
+        @FormUrlEncoded
+        @POST("/v1/user/modifyUserInfo")
+        Observable<String> modifyUserInfo(@Field("firstName") String firstName,@Field("lastName")String lastName,
+                                          @Field("address") String address,@Field("careamName")String addressDetail,
+                                          @Field("country") String country,@Field("state")String state,
+                                          @Field("city") String city,@Field("zipCode")String zipCode,@Field("mobileNum")String mobileNum);
 
         //相机详情
         @FormUrlEncoded

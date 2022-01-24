@@ -59,7 +59,7 @@
     <string name="m44_ask_questions">FREQUENTLY ASKED QUESTIONS</string>
     <string name="m45_maling_information">MALING INFORMATION</string>
     <string name="m46_hlfha">Alfha</string>
-    <string name="m47_state">*State</string>
+    <string name="m47_state">State</string>
     <string name="m48_Testing">Testing</string>
     <string name="m49_somewhere_on_earth">Somewhere on earth</string>
     <string name="m50_address2">Address2</string>
@@ -217,6 +217,13 @@
 
     <string name="m181_city">City</string>
     <string name="m182_save">Save</string>
+    <string name="m183_mailing_information">Maling  Information</string>
+    <string name="m184_credti_card_information">Credit Card information</string>
+    <string name="m185_zip">Zip</string>
+    <string name="m186_selected_country">选择国家</string>
+    <string name="m187_selected_state">选择州</string>
+    <string name="m188_country">国家</string>
+    <string name="m189_mobile_number">Mobile Number</string>
 
 
 </resources>

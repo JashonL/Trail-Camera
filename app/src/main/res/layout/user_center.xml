@@ -18,7 +18,8 @@
         android:background="@color/white"
         android:paddingBottom="@dimen/dp_5"
         app:layout_constraintTop_toBottomOf="@+id/headerView"
-        app:tabIndicatorColor="@color/black"
+        app:tabIndicatorColor="@color/color_app_main"
+        app:tabSelectedTextColor="@color/color_app_main"
         app:tabTextAppearance="@style/style_tab_layout">
 
 
@@ -28,9 +29,25 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tab_title" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+
+
+
+    <Button
+        android:id="@+id/btn_save"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_50"
+        android:layout_marginBottom="@dimen/dp_64"
+        android:background="@drawable/selector_button_corner"
+        android:minWidth="@dimen/dp_250"
+        android:padding="@dimen/dp_5"
+        android:text="@string/m182_save"
+        android:textColor="@color/white"
+        android:textSize="@dimen/size_title_sp_14" />
 
 
 </LinearLayout>
