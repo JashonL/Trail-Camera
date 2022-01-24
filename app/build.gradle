@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('G:\\workplace\\key\\sxd.jks')
+            storeFile file('D:\\workplace\\key\\sxd\\sxd.jks')
             storePassword '123456'
             keyAlias = 'key'
             keyPassword '123456'
@@ -41,6 +41,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
     implementation 'com.amap.api:3dmap:7.6.0'
     implementation 'com.amap.api:location:5.2.0'
     implementation 'com.amap.api:search:7.6.0'
@@ -129,4 +130,8 @@ dependencies {
     //加载框
     implementation 'com.wang.avi:library:2.1.3'
     implementation files('libs/crasheye-2.2.5.jar')
+
+    /*谷歌服务*/
+    implementation 'com.google.android.gms:play-services-maps:18.0.2'
+
 }

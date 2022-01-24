@@ -49,6 +49,7 @@ import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
+import com.shuoxd.camera.module.map.MapActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
@@ -464,6 +465,13 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                         show.dialogDismiss();
                     });
 
+                    break;
+
+
+                case 5:
+                    Intent intent1 = new Intent(getContext(), MapActivity.class);
+                    intent1.putExtra("imei", cameraId);
+                    startActivity(intent1);
                     break;
 
                 case 6:
