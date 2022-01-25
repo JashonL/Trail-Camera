@@ -35,6 +35,7 @@ import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.ProvinceCityBean;
+import com.shuoxd.camera.module.login.User;
 import com.shuoxd.camera.utils.CountryDataUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
 
@@ -90,9 +91,18 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     private TextView creditYearValue;
 
 
+    private List<String> months = new ArrayList<>();
+    private List<String> years = new ArrayList<>();
 
-    private List<String>months=new ArrayList<>();
-    private List<String>years=new ArrayList<>();
+
+    private User userBean;
+    private String address;
+    private String addressDetail;
+    private String country;
+    private String state;
+    private String city;
+    private String zipCode;
+    private String mobileNum;
 
 
     @Override
@@ -117,12 +127,24 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     @Override
     protected void initData() {
 
+        userBean = App.getUserBean();
+
+
+        address = userBean.getAddress();
+        addressDetail = userBean.getAddressDetail();
+        country = userBean.getCountry();
+        state = userBean.getState();
+        city = userBean.getCity();
+        zipCode = userBean.getZipCode();
+        mobileNum = userBean.getMobileNum();
+
+
         for (int i = 0; i < 12; i++) {
-            months.add(i+1+"");
+            months.add(i + 1 + "");
         }
 
-        for (int i =  2022; i < 2050; i++) {
-            years.add(i+"");
+        for (int i = 2022; i < 2050; i++) {
+            years.add(i + "");
         }
 
 
@@ -157,6 +179,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
         cbSame = creditcardinformation.findViewById(R.id.cb_same);
+        cbSame.setChecked(true);
         creditAddress = creditcardinformation.findViewById(R.id.et_address);
         creditAddress2 = creditcardinformation.findViewById(R.id.et_address2);
         creditCity = creditcardinformation.findViewById(R.id.et_city);
@@ -167,6 +190,34 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         creditMonthValue = creditcardinformation.findViewById(R.id.tv_month_value);
         creditYearValue = creditcardinformation.findViewById(R.id.tv_year_value);
         ImageView creditIvconutryDrop = creditcardinformation.findViewById(R.id.iv_country_drop);
+
+
+        if (!TextUtils.isEmpty(address)) {
+            etAddress.setText(address);
+        }
+
+
+        if (!TextUtils.isEmpty(addressDetail)) {
+            etAddress2.setText(addressDetail);
+        }
+
+        if (!TextUtils.isEmpty(country)) {
+            tvCountry.setText(country);
+        }
+        if (!TextUtils.isEmpty(state)) {
+            tvStateValue.setText(state);
+        }
+        if (!TextUtils.isEmpty(city)) {
+            etCity.setText(city);
+        }
+
+        if (!TextUtils.isEmpty(zipCode)) {
+            etZip.setText(zipCode);
+        }
+
+        if (!TextUtils.isEmpty(mobileNum)) {
+            etMobileNumber.setText(mobileNum);
+        }
 
 
         ImageView creditIvDrop = creditcardinformation.findViewById(R.id.iv_drop);
@@ -190,10 +241,10 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
         monthDrop.setOnClickListener(view -> {
-            showSelect(creditMonthValue,months);
+            showSelect(creditMonthValue, months);
         });
         creditMonthValue.setOnClickListener(view -> {
-            showSelect(creditYearValue,years);
+            showSelect(creditYearValue, years);
         });
 
         yearDrop.setOnClickListener(view -> {
@@ -465,9 +516,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     }
 
 
-
-
-    private void showSelect(View dropView,List<String>list){
+    private void showSelect(View dropView, List<String> list) {
 
         View contentView = LayoutInflater.from(this).inflate(
                 R.layout.pop_layout, null);
@@ -478,18 +527,16 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         PopAdapter camerAdapter = new PopAdapter(R.layout.item_string, list);
         rvCamera.setAdapter(camerAdapter);
         camerAdapter.setOnItemClickListener((adapter, view, position) -> {
-           if (creditMonthValue==dropView){
-               creditMonthValue.setText(list.get(position));
-           }else {
-               creditYearValue.setText(list.get(position));
-           }
+            if (creditMonthValue == dropView) {
+                creditMonthValue.setText(list.get(position));
+            } else {
+                creditYearValue.setText(list.get(position));
+            }
         });
 
 
         int width = dropView.getWidth();
         int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
-
-
 
 
         final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
@@ -503,4 +550,19 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     }
 
 
+    @Override
+    public void modifyUserInfoSuccess(String firstName, String lastName, String address, String addressDetail, String country, String state, String city, String zipCode, String mobileNum) {
+        App.getUserBean().setAddress(address);
+        App.getUserBean().setAddressDetail(addressDetail);
+        App.getUserBean().setCountry(country);
+        App.getUserBean().setState(state);
+        App.getUserBean().setCity(city);
+        App.getUserBean().setZipCode(zipCode);
+        App.getUserBean().setMobileNum(mobileNum);
+    }
+
+    @Override
+    public void modifyCardSuccess(String firstName, String lastName, String address, String addressDetail, String country, String state, String city, String zipCode, String mobileNum) {
+
+    }
 }

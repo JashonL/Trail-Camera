@@ -135,7 +135,7 @@ public class DateUtils {
     }
 
 
-    public static void showTimeDialogViews(Context context, TimeSelectListener listener) throws Exception {
+    public static void showTimeDialogViews(Context context, TimeSelectListener listener,boolean is24HourView) throws Exception {
         Calendar c = Calendar.getInstance();
 
         new TimePickerDialog(context,
@@ -155,7 +155,7 @@ public class DateUtils {
                 // 设置初始时间
                 , c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE),
                 // true表示采用24小时制
-                true) {
+                is24HourView) {
             @Override
             protected void onStop() {
 //                                super.onStop();
