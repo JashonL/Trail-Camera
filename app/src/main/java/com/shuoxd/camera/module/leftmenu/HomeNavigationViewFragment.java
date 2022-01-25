@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.Group;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -105,6 +106,9 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
     TextView tvApply;
     @BindView(R.id.ll_apply)
     LinearLayout llApply;
+    @BindView(R.id.gp_temp)
+    Group gpTemp;
+
 
 
     /*设备部分*/
@@ -185,6 +189,10 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
         cbAm.setOnCheckedChangeListener(this);
         cbPm.setOnCheckedChangeListener(this);
         cbFavorites.setOnCheckedChangeListener(this);
+        cbC.setOnCheckedChangeListener(this);
+        cbF.setOnCheckedChangeListener(this);
+
+        gpTemp.setVisibility(View.GONE);
 
 
         return view;
@@ -253,6 +261,7 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                 cbF.setChecked(false);
                 cbC.setChecked(false);
                 temperatureUnit="-1";
+                gpTemp.setVisibility(View.GONE);
                 break;
 
             case R.id.ll_reset:
@@ -301,6 +310,9 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                     temperatureUnit = "1";
                 }
 
+                if (!cbC.isChecked() && !cbF.isChecked()) {
+                    temperatureUnit = "-1";
+                }
 
                 int temp_start = wheelStart.getCurrentItem();
                 int temp_end = wheelEnd.getCurrentItem();
@@ -333,8 +345,15 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
             if (b) cbAm.setChecked(false);
         }else if (compoundButton==cbF){
             if (b) cbC.setChecked(false);
+            if (compoundButton.isPressed()&&b){
+                gpTemp.setVisibility(View.VISIBLE);
+            }
+
         }else if (compoundButton==cbC){
             if (b) cbF.setChecked(false);
+            if (compoundButton.isPressed()&&b){
+                gpTemp.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -358,6 +377,12 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
 
         cbAm.setChecked(false);
         cbPm.setChecked(false);
+
+        cbF.setChecked(false);
+        cbC.setChecked(false);
+
+        gpTemp.setVisibility(View.GONE);
+
 
         cbFavorites.setChecked(false);
 

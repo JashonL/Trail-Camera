@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.Group;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -104,7 +105,8 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
     CheckBox cbC;
     @BindView(R.id.ll_temp)
     LinearLayout llTemp;
-
+    @BindView(R.id.gp_temp)
+    Group gpTemp;
 
     /*设备部分*/
     private PhaseAdapter mAdapter;
@@ -184,7 +186,10 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         cbAm.setOnCheckedChangeListener(this);
         cbPm.setOnCheckedChangeListener(this);
         cbFavorites.setOnCheckedChangeListener(this);
+        cbC.setOnCheckedChangeListener(this);
+        cbF.setOnCheckedChangeListener(this);
 
+        gpTemp.setVisibility(View.GONE);
 
         return view;
     }
@@ -204,7 +209,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         mAdapter.setNowSelectPosition(position);
     }
 
-    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.ll_reset, R.id.ll_apply, R.id.iv_delete,R.id.iv_delete_unit})
+    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.ll_reset, R.id.ll_apply, R.id.iv_delete, R.id.iv_delete_unit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_date_start:
@@ -248,9 +253,10 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                 tvDateEnd.setText("");
                 break;
             case R.id.iv_delete_unit:
-                 cbF.setChecked(false);
-                 cbC.setChecked(false);
-                 temperatureUnit="-1";
+                cbF.setChecked(false);
+                cbC.setChecked(false);
+                temperatureUnit = "-1";
+                gpTemp.setVisibility(View.GONE);
                 break;
 
             case R.id.ll_reset:
@@ -299,6 +305,10 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                     temperatureUnit = "1";
                 }
 
+                if (!cbC.isChecked() && !cbF.isChecked()) {
+                    temperatureUnit = "-1";
+                }
+
 
                 int temp_start = wheelStart.getCurrentItem();
                 int temp_end = wheelEnd.getCurrentItem();
@@ -329,10 +339,16 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
             if (b) cbPm.setChecked(false);
         } else if (compoundButton == cbPm) {
             if (b) cbAm.setChecked(false);
-        }else if (compoundButton==cbF){
+        } else if (compoundButton == cbF) {
             if (b) cbC.setChecked(false);
-        }else if (compoundButton==cbC){
+            if (compoundButton.isPressed() && b) {
+                gpTemp.setVisibility(View.VISIBLE);
+            }
+        } else if (compoundButton == cbC) {
             if (b) cbF.setChecked(false);
+            if (compoundButton.isPressed() && b) {
+                gpTemp.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -356,6 +372,11 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
 
         cbAm.setChecked(false);
         cbPm.setChecked(false);
+
+        cbF.setChecked(false);
+        cbC.setChecked(false);
+
+        gpTemp.setVisibility(View.GONE);
 
         cbFavorites.setChecked(false);
 

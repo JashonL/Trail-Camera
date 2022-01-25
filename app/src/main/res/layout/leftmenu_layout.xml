@@ -302,6 +302,13 @@
             </LinearLayout>
 
 
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/gp_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="wheel_start,tv_to,wheel_end" />
+
             <com.contrarywind.view.WheelView
                 android:id="@+id/wheel_start"
                 android:layout_width="@dimen/dp_101"

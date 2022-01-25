@@ -220,10 +220,16 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     //小图片布局
     private void setAdapter(int span) {
+        List<PictureBean> data=new ArrayList<>();
+        if (mAdapter!=null){
+            data=mAdapter.getData();
+        }
+
+
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), span);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvDevice.setLayoutManager(layoutManager);
-        mAdapter = new CameraPicAdapter(R.layout.item_camera_pic, picList);
+        mAdapter = new CameraPicAdapter(R.layout.item_camera_pic, data);
         rlvDevice.setAdapter(mAdapter);
         rlvDevice.addItemDecoration(new GridDivider(ContextCompat.getColor(getActivity(), R.color.nocolor), 10, 10));
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice, false);
@@ -425,10 +431,20 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                         tvFirewarePoint.setVisibility(View.GONE);
                     }
 
-                    tvUpdate.setEnabled("1".equals(newFwVersion));
-                    tvLatest.setEnabled("1".equals(newModemFwVersion));
 
 
+                    if ("1".equals(newFwVersion)){
+                        tvUpdate.setVisibility(View.VISIBLE);
+                    }else {
+                        tvUpdate.setVisibility(View.GONE);
+                    }
+
+
+                    if ("1".equals(newModemFwVersion)){
+                        tvLatest.setVisibility(View.VISIBLE);
+                    }else {
+                        tvLatest.setVisibility(View.GONE);
+                    }
 
 
                     if ("1".equals(newModemFwVersion)){
@@ -449,13 +465,13 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
                     tvUpdate.setOnClickListener(view12 -> {
-                        presenter.cameraOperation(imei, "updateFwVersion", "1");
+                        presenter.cameraOperation(imei, "upgradeFwVersion", "1");
                         show.dialogDismiss();
                     });
 
 
                     tvLatest.setOnClickListener(view13 -> {
-                        presenter.cameraOperation(imei, "updateModemFwVersion", "1");
+                        presenter.cameraOperation(imei, "upgradeModemFwVersion", "1");
                         show.dialogDismiss();
 
 
@@ -617,16 +633,14 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         int pageNow = presenter.getPageNow();
         if (pageNow == 1) {
             picList.clear();
-        }
-        picList.addAll(beans);
+            List<PictureBean> adapterList = new ArrayList<>(beans);
+            mAdapter.setNewData(adapterList);
 
-        if (pageNow == 1) {
-            mAdapter.setNewData(picList);
         } else {
             mAdapter.addData(beans);
             mAdapter.loadMoreComplete();
         }
-
+        picList.addAll(beans);
 
     }
 

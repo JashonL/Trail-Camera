@@ -2,6 +2,7 @@ package com.shuoxd.camera.module.gallery;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,7 +52,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class PhotoFragment extends BaseFragment<PhotoPresenter> implements PhotoView,
-        BaseQuickAdapter.OnItemClickListener , Toolbar.OnMenuItemClickListener,HomeNavigationViewFragment.IMenuListeners{
+        BaseQuickAdapter.OnItemClickListener, Toolbar.OnMenuItemClickListener, HomeNavigationViewFragment.IMenuListeners {
 
 
     @BindView(R.id.status_bar_view)
@@ -85,9 +86,8 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     private List<PictureBean> picList = new ArrayList<>();
 
 
+
     private int spanCount = 1;
-
-
 
 
     @Override
@@ -115,8 +115,8 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
         //设备图片列表
         spanCount = SharedPreferencesUnit.getInstance(getContext()).getInt(SharePreferenConstants.SP_PHOTO_SHOW_STYLE);
-        if (spanCount==0){
-            spanCount=1;
+        if (spanCount == 0) {
+            spanCount = 1;
         }
 
         //设备列表初始化
@@ -128,7 +128,6 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
             ivSwitch.setImageResource(R.drawable.list_style_menu);
         }
         setAdapter(spanCount);
-
 
 
         ivSwitch.setOnClickListener(view12 -> {
@@ -150,9 +149,8 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
 
             //保存到本地
-            SharedPreferencesUnit.getInstance(getContext()).putInt(SharePreferenConstants.SP_PHOTO_SHOW_STYLE,spanCount);
+            SharedPreferencesUnit.getInstance(getContext()).putInt(SharePreferenConstants.SP_PHOTO_SHOW_STYLE, spanCount);
         });
-
 
 
         ivStyle.setOnClickListener(v -> {
@@ -162,8 +160,6 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         /*---------------------------自定义侧边栏布局-----------------------------*/
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.navigationview, new HomeNavigationViewFragment(this)).commit();
     }
-
-
 
 
     @Override
@@ -180,7 +176,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
             try {
                 presenter.setTotalPage(1);
                 presenter.setPageNow(0);
-                refresh();
+                presenter.getCameraPic();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -197,7 +193,6 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     }
 
 
-
     public void refresh() {
         presenter.getAlldevice();
         presenter.getCameraPic();
@@ -206,9 +201,17 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     //小图片布局
     private void setAdapter(int span) {
+
+        List<PictureBean> data=new ArrayList<>();
+        if (mAdapter!=null){
+            data=mAdapter.getData();
+        }
+
+
+
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), span);
         rlvDevice.setLayoutManager(layoutManager);
-        mAdapter = new CameraPicAdapter(R.layout.item_camera_pic, picList);
+        mAdapter = new CameraPicAdapter(R.layout.item_camera_pic, data);
         rlvDevice.setAdapter(mAdapter);
         rlvDevice.addItemDecoration(new GridDivider(ContextCompat.getColor(getActivity(), R.color.nocolor), 10, 10));
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice, false);
@@ -230,10 +233,10 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         CameraShowListManerge.getInstance().setPicList(picList);
-        Intent intent =new Intent(getContext(), CameraDetailActivity.class);
+        Intent intent = new Intent(getContext(), CameraDetailActivity.class);
         //当前选择的是哪一张
-        intent.putExtra("position",position);
-        intent.putExtra("alias",getString(R.string.m77_all_camera));
+        intent.putExtra("position", position);
+        intent.putExtra("alias", getString(R.string.m77_all_camera));
         startActivity(intent);
     }
 
@@ -248,7 +251,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if (item.getItemId()==R.id.right_action){
+        if (item.getItemId() == R.id.right_action) {
             // 一锟斤拷锟皆讹拷锟斤拷牟锟斤拷郑锟斤拷锟轿拷锟绞撅拷锟斤拷锟斤拷锟�
             View contentView = LayoutInflater.from(getActivity()).inflate(
                     R.layout.pop_layout, null);
@@ -256,30 +259,30 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
             List<CameraBean> cameraList = presenter.getCameraList();
             RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
             rvCamera.setLayoutManager(new LinearLayoutManager(getContext()));
-            CameraMulFiterAdapter camerAdapter=new CameraMulFiterAdapter(R.layout.item_camera_menu,cameraList);
+            CameraMulFiterAdapter camerAdapter = new CameraMulFiterAdapter(R.layout.item_camera_menu, cameraList);
             rvCamera.setAdapter(camerAdapter);
             camerAdapter.setOnItemClickListener((adapter, view, position) -> {
                 camerAdapter.setNowSelectPosition(position);
-                StringBuilder imeis= new StringBuilder();
+                StringBuilder imeis = new StringBuilder();
                 List<CameraBean> data = camerAdapter.getData();
                 for (int i = 0; i < data.size(); i++) {
                     CameraBean cameraBean = data.get(i);
                     boolean selected = cameraBean.isSelected();
-                    if (selected){
-                        if (i==0){
+                    if (selected) {
+                        if (i == 0) {
                             imeis = new StringBuilder("-1");
                             break;
-                        }else {
+                        } else {
                             String imei = cameraBean.getCamera().getImei();
                             imeis.append(imei).append("_");
                         }
                     }
                 }
-                if (imeis.toString().endsWith("_")){
+                if (imeis.toString().endsWith("_")) {
                     imeis = new StringBuilder(imeis.substring(0, imeis.length() - 1));
                     presenter.setImeis(imeis.toString());
                     presenter.setIsAllCamera("-1");
-                }else {
+                } else {
                     presenter.setImeis("-1");
                     presenter.setIsAllCamera("1");
                 }
@@ -287,7 +290,6 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
                 presenter.setPageNow(0);
                 presenter.getCameraPic();
             });
-
 
 
             int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
@@ -304,8 +306,6 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
             final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
             popupWindow.setTouchable(true);
-
-
 
 
             popupWindow.setTouchInterceptor((v, event) -> false);
@@ -333,24 +333,22 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     }
 
 
-
     @Override
     public void showCameraPic(List<PictureBean> beans) {
         srlPull.setRefreshing(false);
         int pageNow = presenter.getPageNow();
-        if (pageNow==1){
+        if (pageNow == 1) {
             picList.clear();
-        }
-        picList.addAll(beans);
-
-        if (pageNow==1) {
-            mAdapter.setNewData(picList);
-        }else {
+            List<PictureBean> adapterList = new ArrayList<>(beans);
+            mAdapter.setNewData(adapterList);
+        } else {
             mAdapter.addData(beans);
             mAdapter.loadMoreComplete();
         }
-    }
 
+        picList.addAll(beans);
+
+    }
 
 
     @Override
@@ -381,7 +379,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     @Override
     public void showTotalNum(int totalNum) {
-        String s = totalNum +" "+ getString(R.string.m76_photos);
+        String s = totalNum + " " + getString(R.string.m76_photos);
         tvPicNum.setText(s);
     }
 
@@ -399,15 +397,15 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
                       String photoType, String favorites, String moonPhase,
                       String startTemperature, String endTemperature, String temperatureUnit) {
 
-            presenter.setStartDate(startDate);
-            presenter.setEndDate(endDate);
-            presenter.setAmPm(amPm);
-            presenter.setPhotoType(photoType);
-            presenter.setFavorites(favorites);
-            presenter.setMoonPhase(moonPhase);
-            presenter.setStartTemperature(startTemperature);
-            presenter.setEndTemperature(endTemperature);
-            presenter.setTemperatureUnit(temperatureUnit);
+        presenter.setStartDate(startDate);
+        presenter.setEndDate(endDate);
+        presenter.setAmPm(amPm);
+        presenter.setPhotoType(photoType);
+        presenter.setFavorites(favorites);
+        presenter.setMoonPhase(moonPhase);
+        presenter.setStartTemperature(startTemperature);
+        presenter.setEndTemperature(endTemperature);
+        presenter.setTemperatureUnit(temperatureUnit);
 
         presenter.setTotalPage(1);
         presenter.setPageNow(0);

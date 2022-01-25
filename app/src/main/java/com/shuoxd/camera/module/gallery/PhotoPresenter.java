@@ -1,6 +1,7 @@
 package com.shuoxd.camera.module.gallery;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.shuoxd.camera.R;
@@ -196,6 +197,7 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
                                         PictureBean pictureBean = new Gson().fromJson(jsonObject1.toString(), PictureBean.class);
                                         beans.add(pictureBean);
                                     }
+                                    Log.i("liaojinsha","解析的数量："+beans.size()+"");
                                     baseView.showCameraPic(beans);
 
                                 } else {

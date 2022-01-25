@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.immersionbar.ImmersionBar;
@@ -22,6 +23,7 @@ import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
+import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.bean.QuestionBean;
 import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
@@ -64,7 +66,6 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     private HomeDeviceBigAdapter mBigAdapter;
 
 
-    private List<CameraBean> deviceList = new ArrayList<>();
 
 
     //切换布局
@@ -111,7 +112,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     private void changeLayout() {
         int itemDecorationCount = rlvDevice.getItemDecorationCount();
-        for (int i = 0; i < itemDecorationCount; i++) {
+        for (int i = 0; i  <itemDecorationCount; i++) {
             rlvDevice.removeItemDecorationAt(i);
         }
         //布局切换方法
@@ -130,12 +131,19 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     }
 
-    //小图片布局
+   // 小图片布局
     private void setSmallAdapter() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvDevice.setLayoutManager(layoutManager);
-        mSmallAdapter = new HomeDeviceSmallAdapter(R.layout.item_camera, deviceList);
+
+        List<CameraBean> data=new ArrayList();
+        if (mBigAdapter!=null){
+            data=mBigAdapter.getData();
+        }
+
+
+        mSmallAdapter = new HomeDeviceSmallAdapter(R.layout.item_camera, data);
         mSmallAdapter.setLoadMoreView(new CustomLoadMoreView());
         mSmallAdapter.setOnItemLongClickListener(this);
         rlvDevice.setAdapter(mSmallAdapter);
@@ -146,39 +154,60 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         ivStyle.setImageResource(R.drawable.list_style_menu);
         mSmallAdapter.setOnItemClickListener(this);
         mSmallAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
-        mSmallAdapter.setOnLoadMoreListener(() -> {
-            try {
-                presenter.getAlldevice();
-            } catch (Exception e) {
-                e.printStackTrace();
+        mSmallAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                try {
+                    presenter.getAlldevice();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        }, rlvDevice);
-/*        //添加两个头布局
+        },rlvDevice);
+
+
+
+        //添加两个头布局
         View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mSmallAdapter.addHeaderView(adHeader);
         View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_header_menu, null);
         ImageView ivStyle = menuHeader.findViewById(R.id.iv_style);
         ivStyle.setImageResource(R.drawable.list_style_menu);
-        ivStyle.setOnClickListener(view1 -> {
-            changeLayout();
+        ivStyle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLayout();
+
+            }
         });
 
+
         ImageView ivAdd = menuHeader.findViewById(R.id.iv_add);
-        ivAdd.setOnClickListener(view12 -> {
-            Intent intent = new Intent(getContext(), CustomScanActivity.class);
-            startActivity(intent);
+        ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CustomScanActivity.class);
+                startActivity(intent);
+            }
         });
-        mSmallAdapter.addHeaderView(menuHeader);*/
+
+
+        mSmallAdapter.addHeaderView(menuHeader);
 
     }
 
-    //大图片布局
+   // 大图片布局
     private void setBigAdapter() {
         ivStyle.setImageResource(R.drawable.list_style_menu2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvDevice.setLayoutManager(layoutManager);
-        mBigAdapter = new HomeDeviceBigAdapter(R.layout.item_camera_big, deviceList);
+
+        List<CameraBean> data=new ArrayList();
+        if (mSmallAdapter!=null){
+            data=mSmallAdapter.getData();
+        }
+        mBigAdapter = new HomeDeviceBigAdapter(R.layout.item_camera_big, data);
         mBigAdapter.setLoadMoreView(new CustomLoadMoreView());
         rlvDevice.setAdapter(mBigAdapter);
         rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, 32, ContextCompat.getColor(getActivity(), R.color.nocolor)));
@@ -189,45 +218,65 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         mBigAdapter.setOnItemLongClickListener(this);
 
 
-
-        mBigAdapter.setOnLoadMoreListener(() -> {
-            try {
-                presenter.getAlldevice();
-            } catch (Exception e) {
-                e.printStackTrace();
+        mBigAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                try {
+                    presenter.getAlldevice();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-        }, rlvDevice);
+        },rlvDevice);
 
-/*        //添加两个头布局
+
+
+        //添加两个头布局
         View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mBigAdapter.addHeaderView(adHeader);
         View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_header_menu, null);
         ImageView ivStyle = menuHeader.findViewById(R.id.iv_style);
         ivStyle.setImageResource(R.drawable.list_style_menu2);
-        ivStyle.setOnClickListener(view1 -> {
-            changeLayout();
+
+        ivStyle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                changeLayout();
+
+            }
         });
+
         ImageView ivAdd = menuHeader.findViewById(R.id.iv_add);
-        ivAdd.setOnClickListener(view12 -> {
-            Intent intent = new Intent(getContext(), CustomScanActivity.class);
-            startActivity(intent);
+        ivAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CustomScanActivity.class);
+                startActivity(intent);
+            }
         });
-        mBigAdapter.addHeaderView(menuHeader);*/
+
+
+
+        mBigAdapter.addHeaderView(menuHeader);
 
     }
 
 
     @Override
     protected void initData() {
-        srlPull.setOnRefreshListener(() -> {
-            try {
-                presenter.setPageNow(0);
-                presenter.getAlldevice();
-            } catch (Exception e) {
-                e.printStackTrace();
+        srlPull.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                try {
+                    presenter.setPageNow(0);
+                    presenter.getAlldevice();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
-        //获取列表设备列表
+
+       // 获取列表设备列表
         try {
             presenter.setPageNow(0);
             presenter.getAlldevice();
@@ -261,9 +310,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     }
 
 
-    /**
-     * 点击item跳转到Fragment1V2
-     */
+
+    //点击item跳转到Fragment1V2
+
     private void showCameraInfo(String id, String alias) {
         MainActivity main = (MainActivity) getActivity();
         main.cameraId = id;
@@ -276,28 +325,31 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     public void setDeviceList(List<CameraBean> cameraBeanList) {
         srlPull.setRefreshing(false);
         int pageNow = presenter.getPageNow();
-        if (pageNow == 1) {
-            deviceList.clear();
-        }
-        deviceList.addAll(cameraBeanList);
-
         if (mLayoutType == TYPE_BIG) {
             if (pageNow == 1) {
-                mBigAdapter.setNewData(deviceList);
+                List<CameraBean> adapterList = new ArrayList(cameraBeanList);
+                mBigAdapter.setNewData(adapterList);
+
             } else {
                 mBigAdapter.addData(cameraBeanList);
                 mBigAdapter.loadMoreComplete();
+
             }
+
+
 
         } else {
             //列表模式
             if (pageNow == 1) {
-                mSmallAdapter.setNewData(deviceList);
+                List<CameraBean> adapterList = new ArrayList(cameraBeanList);
+                mSmallAdapter.setNewData(adapterList);
+
             } else {
                 mSmallAdapter.addData(cameraBeanList);
                 mSmallAdapter.loadMoreComplete();
 
             }
+
         }
 
     }
@@ -316,7 +368,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     @Override
     public void showMoreFail() {
         if (mLayoutType == TYPE_BIG) {
-            //数据加载完毕
+           // 数据加载完毕
             mBigAdapter.loadMoreFail();
         } else {
             //数据已加载完
@@ -327,7 +379,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     public void deleteSuccess() {
-        //获取列表设备列表
+       // 获取列表设备列表
         try {
             presenter.setPageNow(0);
             presenter.getAlldevice();
@@ -355,9 +407,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         srlPull.setRefreshing(false);
     }
 
-    /**
-     * 总览跳转刷新
-     */
+
+    //总览跳转刷新
+
     public void jumpRefresh() {
 
     }
@@ -370,7 +422,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
                 break;
             case R.id.iv_add:
                 Intent intent = new Intent(getContext(), CustomScanActivity.class);
-                intent.putExtra("type","1");
+                intent.putExtra("type",1);
                 startActivity(intent);
                 break;
         }
@@ -410,18 +462,23 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
         CameraBean cameraBean;
         if (mLayoutType == TYPE_BIG) {
-             cameraBean = mBigAdapter.getData().get(position);
+            cameraBean = mBigAdapter.getData().get(position);
         } else {
-             cameraBean = mSmallAdapter.getData().get(position);
+            cameraBean = mSmallAdapter.getData().get(position);
         }
         String imei = cameraBean.getCamera().getImei();
 
         new CircleDialog.Builder().setWidth(0.7f)
                 .setTitle(getString(R.string.m150_tips))
                 .setText(getString(R.string.m167_delete_camera))
-                .setNegative(getString(R.string.m127_cancel), view1 -> {
+                .setNegative(getString(R.string.m127_cancel), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                    }
                 })
+
+
                 .setPositive(getString(R.string.m152_ok), new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
