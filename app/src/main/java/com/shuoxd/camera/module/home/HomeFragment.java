@@ -167,7 +167,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
 
 
-        //添加两个头布局
+ /*       //添加两个头布局
         View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mSmallAdapter.addHeaderView(adHeader);
         View menuHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_header_menu, null);
@@ -192,7 +192,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         });
 
 
-        mSmallAdapter.addHeaderView(menuHeader);
+        mSmallAdapter.addHeaderView(menuHeader);*/
 
     }
 
@@ -230,7 +230,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         },rlvDevice);
 
 
-
+/*
         //添加两个头布局
         View adHeader = LayoutInflater.from(getContext()).inflate(R.layout.home_top_bigfic, null);
         mBigAdapter.addHeaderView(adHeader);
@@ -257,7 +257,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
 
 
-        mBigAdapter.addHeaderView(menuHeader);
+        mBigAdapter.addHeaderView(menuHeader);*/
 
     }
 
