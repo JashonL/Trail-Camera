@@ -45,6 +45,7 @@ import butterknife.ButterKnife;
 
 import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_INPUT;
 import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_NEXT;
+import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_ONLYREAD;
 
 public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> implements CameraStepView,
         BaseQuickAdapter.OnItemClickListener,
@@ -309,6 +310,11 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
             } else {
                 try {
+
+
+                    int hour = Integer.parseInt(value1.substring(0, 2));
+                    int min = Integer.parseInt(value1.substring(2));
+
                     DateUtils.showTimeDialogViews(this, new DateUtils.TimeSelectListener() {
                         @Override
                         public void seletedListener(String date) {
@@ -319,9 +325,23 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                         public void result(String hh, String mm, String ss) {
                             if ("timelapseStart".equals(key) || "timelapseStop".equals(key)
                                     || "dailySyncTime".equals(key) || "operationStart".equals(key) || "operationStop".equals(key)) {
-                                String time = hh + ":" + mm;
+                                //判断是不是24小时
+                                int hour = Integer.parseInt(hh);
+
+                                if (is24HourView) {
+                                    String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + mm;
+                                    settingBean.setValueStr(startTime);
+                                } else {
+                                    if (hour > 12) {
+                                        hour -= 12;
+                                        String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + mm + "PM";
+                                        settingBean.setValueStr(startTime);
+                                    } else {
+                                        String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + mm + "AM";
+                                        settingBean.setValueStr(startTime);
+                                    }
+                                }
                                 String value = hh + mm;
-                                settingBean.setValueStr(time);
                                 presenter.control(imei, key, value);
                             }
 
@@ -333,7 +353,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                             }
                             mAdapter.notifyDataSetChanged();
                         }
-                    }, is24HourView);
+                    }, is24HourView, hour, min);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -412,6 +432,17 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             int index_audio_recording = 7;
 
             List<DeviceSettingBean> data = mAdapter.getData();
+            //先找到小时制
+            for (int i = 0; i < list.size(); i++) {
+                String key = list.get(i).getKey();
+                String value = list.get(i).getValue();
+                if (key.equals("timeFormat")) {
+                    is24HourView = "1".equals(value);
+                    break;
+                }
+            }
+
+
             for (int i = 0; i < list.size(); i++) {
                 DeviceSettingBean settingBean1 = list.get(i);
                 String key = list.get(i).getKey();
@@ -423,12 +454,6 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     if (key1.equals(key)) {
                         int itemType = settingBean.getItemType();
                         settingBean.setValue(value);
-
-                        if (key1.equals("timeFormat")) {
-                            is24HourView = "0".equals(value);
-                        }
-
-
                         if (itemType == SettingConstants.SETTING_TYPE_SELECT) {
                             if ("shotLag".equals(key1)) {
                                 if (!TextUtils.isEmpty(value)) {
@@ -458,20 +483,26 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                             }
 
 
-                        } else if (itemType == SETTING_TYPE_NEXT) {
+                        } else if (itemType == SETTING_TYPE_NEXT||itemType==SETTING_TYPE_ONLYREAD) {
                             settingBean.setValueStr(value);
                             if ("timelapseStart".equals(key1) || "timelapseStop".equals(key1)
                                     || "dailySyncTime".equals(key1) || "operationStart".equals(key1) || "operationStop".equals(key1)) {//时间
                                 if (!TextUtils.isEmpty(value)) {
                                     int hour = Integer.parseInt(value.substring(0, 2));
-                                    if (hour > 12) {
-                                        hour -= 12;
-                                        String startTime = hour + ":" + value.substring(2) + "PM";
+                                    if (is24HourView) {
+                                        String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + value.substring(2);
                                         settingBean.setValueStr(startTime);
                                     } else {
-                                        String startTime = hour + ":" + value.substring(2) + "AM";
-                                        settingBean.setValueStr(startTime);
+                                        if (hour > 12) {
+                                            hour -= 12;
+                                            String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + value.substring(2) + "PM";
+                                            settingBean.setValueStr(startTime);
+                                        } else {
+                                            String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + value.substring(2) + "AM";
+                                            settingBean.setValueStr(startTime);
+                                        }
                                     }
+
                                 }
                             }
 
@@ -521,6 +552,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             }
 
 
+
             //判断capture mode是否为1
             String value = data.get(index_capture_mode).getValue();
             if ("1".equals(value)) {
@@ -567,80 +599,88 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
             //判断是否12小时制
 
+            mAdapter.notifyDataSetChanged();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void cameraSetSuccess(String operationType, String operationValue) {
-        List<DeviceSettingBean> data = mAdapter.getData();
-        int index_capture_mode = 1;
-        int index_photo_resolution = 2;
-        int index_burst_sshot = 3;
-        int index_burst_interval = 4;
-        int index_video_resolution = 5;
-        int index_video_length = 6;
-        int index_audio_recording = 7;
-
-
-        if ("captureMode".equals(operationType)) {
-            //判断capture mode是否为1
-            String value = data.get(index_capture_mode).getValue();
-
-            if ("1".equals(value)) {
-                data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(index_burst_interval).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-            } else {
-                data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(index_burst_interval).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-            }
-
-            if ("0".equals(value) || "2".equals(value) || "3".equals(value)) {
-                data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-            } else {
-                data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_SELECT);
-                data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SWITCH);
-            }
-
-            if ("0".equals(value) || "1".equals(value)) {
-                data.get(14).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(15).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(16).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-            } else {
-                data.get(14).setItemType(SETTING_TYPE_NEXT);
-                data.get(15).setItemType(SETTING_TYPE_NEXT);
-                data.get(16).setItemType(SETTING_TYPE_NEXT);
-            }
-
-
-        }
-
-
-        //判断Opration time是否为1
-        String operaValue = data.get(11).getValue();
-
-        if ("0".equals(operaValue)) {
-            data.get(12).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-            data.get(13).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+        //重新获取
+        if ("timeFormat".equals(operationType)) {
+            String accountName = App.getUserBean().getAccountName();
+            presenter.cameraParamter(imei, accountName);
         } else {
-            data.get(12).setItemType(SETTING_TYPE_NEXT);
-            data.get(13).setItemType(SETTING_TYPE_NEXT);
+            List<DeviceSettingBean> data = mAdapter.getData();
+            int index_capture_mode = 1;
+            int index_photo_resolution = 2;
+            int index_burst_sshot = 3;
+            int index_burst_interval = 4;
+            int index_video_resolution = 5;
+            int index_video_length = 6;
+            int index_audio_recording = 7;
+
+
+            if ("captureMode".equals(operationType)) {
+                //判断capture mode是否为1
+                String value = data.get(index_capture_mode).getValue();
+
+                if ("1".equals(value)) {
+                    data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                    data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                    data.get(index_burst_interval).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                } else {
+                    data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                    data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                    data.get(index_burst_interval).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                }
+
+                if ("0".equals(value) || "2".equals(value) || "3".equals(value)) {
+                    data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                    data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                    data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                } else {
+                    data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                    data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_SELECT);
+                    data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SWITCH);
+                }
+
+                if ("0".equals(value) || "1".equals(value)) {
+                    data.get(14).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                    data.get(15).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                    data.get(16).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                } else {
+                    data.get(14).setItemType(SETTING_TYPE_NEXT);
+                    data.get(15).setItemType(SETTING_TYPE_NEXT);
+                    data.get(16).setItemType(SETTING_TYPE_NEXT);
+                }
+
+
+            }
+
+
+            //判断Opration time是否为1
+            String operaValue = data.get(11).getValue();
+
+            if ("0".equals(operaValue)) {
+                data.get(12).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                data.get(13).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+            } else {
+                data.get(12).setItemType(SETTING_TYPE_NEXT);
+                data.get(13).setItemType(SETTING_TYPE_NEXT);
+            }
+
+
+            if (operationType.equals("timeFormat")) {
+                is24HourView = "1".equals(operationValue);
+
+            }
+
+            mAdapter.notifyDataSetChanged();
         }
 
-
-        if (operationType.equals("timeFormat")) {
-            is24HourView = "0".equals(operationValue);
-        }
-
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -41,6 +41,7 @@
         android:hint="@string/m191_name_onhte_card"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
+        android:textColor="@color/color_text_66"
         app:layout_constraintTop_toBottomOf="@+id/cb_same"
 
         />
@@ -58,6 +59,7 @@
         android:gravity="center_vertical"
         android:hint="@string/m192_billing_address"
         android:paddingStart="@dimen/dp_10"
+        android:textColor="@color/color_text_66"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/et_address" />
 
@@ -72,6 +74,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m181_city"
+        android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintHorizontal_weight="2"
@@ -108,6 +111,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14"
         android:text="@string/m187_selected_state"
         app:layout_constraintBottom_toBottomOf="@+id/v_state"
         app:layout_constraintLeft_toRightOf="@+id/tv_states"
@@ -186,6 +191,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m185_zip"
+        android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintBottom_toBottomOf="@+id/v_country"
@@ -206,6 +212,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m193_card_number"
+        android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/v_country" />
@@ -251,6 +258,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintBottom_toBottomOf="@+id/v_expires"
         app:layout_constraintLeft_toRightOf="@+id/tv_month"
         app:layout_constraintRight_toLeftOf="@+id/iv_month_drop"
@@ -286,6 +295,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintBottom_toBottomOf="@+id/v_expires"
         app:layout_constraintLeft_toRightOf="@+id/tv_year"
         app:layout_constraintRight_toLeftOf="@+id/iv_year_drop"

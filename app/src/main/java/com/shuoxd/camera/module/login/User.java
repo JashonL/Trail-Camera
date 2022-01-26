@@ -23,7 +23,25 @@ public class User {
     private String city;
     private String zipCode;
     private String mobileNum;
+    private String lastName;
+    private String firstName;
 
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
     public String getAddress() {
         return address;

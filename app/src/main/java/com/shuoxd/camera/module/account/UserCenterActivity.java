@@ -96,6 +96,10 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
     private User userBean;
+
+    private String firstName;
+    private String lastName;
+
     private String address;
     private String addressDetail;
     private String country;
@@ -129,7 +133,8 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
         userBean = App.getUserBean();
 
-
+        firstName=userBean.getFirstName();
+        lastName=userBean.getLastName();
         address = userBean.getAddress();
         addressDetail = userBean.getAddressDetail();
         country = userBean.getCountry();
@@ -196,6 +201,14 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
             etAddress.setText(address);
         }
 
+        if (!TextUtils.isEmpty(firstName)){
+            etFirstName.setText(firstName);
+        }
+
+        if (!TextUtils.isEmpty(lastName)){
+            etLastName.setText(lastName);
+        }
+
 
         if (!TextUtils.isEmpty(addressDetail)) {
             etAddress2.setText(addressDetail);
@@ -244,14 +257,16 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
             showSelect(creditMonthValue, months);
         });
         creditMonthValue.setOnClickListener(view -> {
-            showSelect(creditYearValue, years);
+            showSelect(creditMonthValue, months);
         });
+
+
 
         yearDrop.setOnClickListener(view -> {
-
+            showSelect(creditYearValue, years);
         });
         creditYearValue.setOnClickListener(view -> {
-
+            showSelect(creditYearValue, years);
         });
 
 
@@ -399,7 +414,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
                 String tx2 = state.get(options1).get(options2);
 
                 int currentItem = viewPager.getCurrentItem();
-                if (currentItem == 1) {
+                if (currentItem == 0) {
                     tvCountry.setText(tx1);
                     tvStateValue.setText(tx2);
                 } else {
@@ -524,15 +539,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
         rvCamera.setLayoutManager(new LinearLayoutManager(this));
 
-        PopAdapter camerAdapter = new PopAdapter(R.layout.item_string, list);
-        rvCamera.setAdapter(camerAdapter);
-        camerAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (creditMonthValue == dropView) {
-                creditMonthValue.setText(list.get(position));
-            } else {
-                creditYearValue.setText(list.get(position));
-            }
-        });
+
 
 
         int width = dropView.getWidth();
@@ -541,7 +548,18 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
         final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
         popupWindow.setTouchable(true);
+        PopAdapter camerAdapter = new PopAdapter(R.layout.item_string, list);
 
+        rvCamera.setAdapter(camerAdapter);
+        camerAdapter.setOnItemClickListener((adapter, view, position) -> {
+            if (creditMonthValue == dropView) {
+                creditMonthValue.setText(list.get(position));
+            } else {
+                creditYearValue.setText(list.get(position));
+            }
+            popupWindow.dismiss();
+
+        });
 
         popupWindow.setTouchInterceptor((v, event) -> false);
         popupWindow.setBackgroundDrawable(new ColorDrawable(0));

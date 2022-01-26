@@ -126,11 +126,11 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                         userInfo.setPassword(password);
                         App.IS_LOGIN=true;
                         savaUserInfo(username, password, userInfo);
+                        loginSuccess();
                     }else {
                         String msg = jsonObject.optString("msg");
                         baseView.showLoginError(msg);
                     }
-                    loginSuccess();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

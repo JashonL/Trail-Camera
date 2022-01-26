@@ -16,6 +16,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m179_first_name"
+        android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +32,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m180_last_name"
+        android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/et_first_name" />
@@ -47,6 +49,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m180_address"
+        android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/et_last_name" />
@@ -64,6 +67,7 @@
         android:gravity="center_vertical"
         android:hint="@string/m50_address2"
         android:paddingStart="@dimen/dp_10"
+        android:textColor="@color/color_text_66"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/et_address" />
 
@@ -80,6 +84,7 @@
         android:hint="@string/m181_city"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
+        android:textColor="@color/color_text_66"
         app:layout_constraintHorizontal_weight="2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/v_state"
@@ -114,6 +119,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14"
         android:text="@string/m187_selected_state"
         app:layout_constraintBottom_toBottomOf="@+id/v_state"
         app:layout_constraintLeft_toRightOf="@+id/tv_states"
@@ -154,6 +161,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/dp_10"
+        android:textColor="@color/color_text_66"
         android:text="@string/m188_country"
         app:layout_constraintBottom_toBottomOf="@+id/v_country"
         app:layout_constraintLeft_toLeftOf="@+id/v_country"
@@ -165,6 +173,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14"
         android:text="@string/m186_selected_country"
         app:layout_constraintBottom_toBottomOf="@+id/v_country"
         app:layout_constraintLeft_toRightOf="@+id/tv_country"
@@ -196,6 +206,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m185_zip"
+        android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintBottom_toBottomOf="@+id/v_country"
@@ -217,6 +228,7 @@
         android:gravity="center_vertical"
         android:hint="@string/m189_mobile_number"
         android:paddingStart="@dimen/dp_10"
+        android:textColor="@color/color_text_66"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/v_country" />
 

@@ -254,7 +254,7 @@
             android:background="@drawable/selector_red_corner"
             android:gravity="center"
             android:padding="@dimen/dp_5"
-            android:text="@string/m169_latest"
+            android:text="@string/m198_upgrade"
             android:textColor="@color/white"
             android:textSize="@dimen/size_content_sp_14"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -220,9 +220,9 @@
     <string name="m183_mailing_information">Maling  Information</string>
     <string name="m184_credti_card_information">Credit Card information</string>
     <string name="m185_zip">Zip</string>
-    <string name="m186_selected_country">选择国家</string>
-    <string name="m187_selected_state">选择州</string>
-    <string name="m188_country">国家</string>
+    <string name="m186_selected_country">Choose a country</string>
+    <string name="m187_selected_state">select state</string>
+    <string name="m188_country">Country</string>
     <string name="m189_mobile_number">Mobile Number</string>
 
 
@@ -239,6 +239,7 @@
     <string name="m195_new_password">New PassWord</string>
     <string name="m196_new_password_comfir">Comfirm PassWord</string>
     <string name="m197_password_error">两次输入的密码不一致</string>
+    <string name="m198_upgrade">Upgrade</string>
 
 
 </resources>
