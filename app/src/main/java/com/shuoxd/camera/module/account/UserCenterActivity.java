@@ -569,7 +569,8 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
     @Override
-    public void modifyUserInfoSuccess(String firstName, String lastName, String address, String addressDetail, String country, String state, String city, String zipCode, String mobileNum) {
+    public void modifyUserInfoSuccess(String firstName, String lastName, String address, String addressDetail,
+                                      String country, String state, String city, String zipCode, String mobileNum) {
         App.getUserBean().setAddress(address);
         App.getUserBean().setAddressDetail(addressDetail);
         App.getUserBean().setCountry(country);
@@ -577,6 +578,9 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         App.getUserBean().setCity(city);
         App.getUserBean().setZipCode(zipCode);
         App.getUserBean().setMobileNum(mobileNum);
+
+        App.getUserBean().setFirstName(firstName);
+        App.getUserBean().setLastName(lastName);
     }
 
     @Override
