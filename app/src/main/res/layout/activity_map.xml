@@ -11,7 +11,24 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvMarker"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvMarker"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:minHeight="@dimen/dp_40"
+        android:background="@color/white"
+        android:textColor="@color/color_text_66"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:autoSizeMaxTextSize="@dimen/size_content_sp_14"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="@dimen/sp_6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

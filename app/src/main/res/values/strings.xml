@@ -240,6 +240,9 @@
     <string name="m196_new_password_comfir">Comfirm PassWord</string>
     <string name="m197_password_error">两次输入的密码不一致</string>
     <string name="m198_upgrade">Upgrade</string>
+    <string name="m199_location">Need to get your location</string>
+    <string name="m200_longitude">Longitude</string>
 
+    <string name="m201_Latitude">Latitude</string>
 
 </resources>
