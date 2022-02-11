@@ -30,6 +30,7 @@ import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
@@ -286,17 +287,6 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
 
 
 
-    /**
-     * by moos on 2017/09/18
-     * func:调起谷歌导航
-     * @param lat
-     * @param lon
-     */
-    private void goNaviByGoogleMap(String lat,String lon){
-        Uri uri = Uri.parse(GOOGLE_MAP_NAVI_URI+lat+","+lon);
-        Intent mapIntent = new Intent(Intent.ACTION_VIEW, uri);
-        mapIntent.setPackage("com.google.android.apps.maps");
-        startActivity(mapIntent);
-    }
+
 
 }
