@@ -154,14 +154,11 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         ivStyle.setImageResource(R.drawable.list_style_menu);
         mSmallAdapter.setOnItemClickListener(this);
         mSmallAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
-        mSmallAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
-            @Override
-            public void onLoadMoreRequested() {
-                try {
-                    presenter.getAlldevice();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        mSmallAdapter.setOnLoadMoreListener(() -> {
+            try {
+                presenter.getAlldevice();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         },rlvDevice);
 

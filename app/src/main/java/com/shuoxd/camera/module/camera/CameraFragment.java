@@ -487,6 +487,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 case 5:
                     Intent intent1 = new Intent(getContext(), MapActivity.class);
                     intent1.putExtra("imei", cameraId);
+                    intent1.putExtra("lat", info.getLatitude());
+                    intent1.putExtra("lng", info.getLongitude());
                     startActivity(intent1);
                     break;
 

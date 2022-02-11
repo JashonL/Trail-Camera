@@ -242,6 +242,9 @@
     <string name="m198_upgrade">Upgrade</string>
     <string name="m199_navigation">Navigation</string>
     <string name="m200_camera_map">Camera Map</string>
+    <string name="m199_location">Need to get your location</string>
+    <string name="m200_longitude">Longitude</string>
 
+    <string name="m201_Latitude">Latitude</string>
 
 </resources>
