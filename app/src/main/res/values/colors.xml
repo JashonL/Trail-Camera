@@ -75,4 +75,9 @@
     <color name="pie_pm">#FE7701</color>
 
 
+
+    <color name="color_navigation">#00AF50</color>
+    <color name="color_navigation_press">#00AF99</color>
+
+
 </resources>

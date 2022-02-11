@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include layout="@layout/toobar_title" />
 
     <fragment
         android:id="@+id/map"
@@ -13,5 +14,64 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_share"
+        android:layout_width="@dimen/dp_152"
+        android:layout_height="@dimen/dp_47"
+        android:layout_marginBottom="@dimen/dp_40"
+        android:background="@drawable/share_button_rect"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/ll_navigation">
+
+
+        <TextView
+            android:id="@+id/tv_share"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/share_w"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center"
+            android:text="@string/m23_share"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_content_sp_14" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_navigation"
+        android:layout_width="@dimen/dp_152"
+        android:layout_height="@dimen/dp_47"
+        android:background="@drawable/navigation_button_rect"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="@+id/ll_share"
+        app:layout_constraintLeft_toRightOf="@+id/ll_share"
+        app:layout_constraintRight_toRightOf="parent">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <TextView
+            android:id="@+id/tv_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/guide"
+            android:drawablePadding="@dimen/dp_10"
+            android:gravity="center"
+            android:text="@string/m199_navigation"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_content_sp_14" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
