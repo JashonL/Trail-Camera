@@ -1,5 +1,6 @@
 package com.shuoxd.camera.module.camera;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,6 +29,8 @@ import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.DeviceSettingBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
+import com.shuoxd.camera.module.map.LocationActivity;
+import com.shuoxd.camera.module.map.MapActivity;
 import com.shuoxd.camera.utils.CameraSetUtils;
 import com.shuoxd.camera.utils.CircleDialogUtils;
 import com.shuoxd.camera.utils.CommentUtils;
@@ -308,7 +311,13 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     }
                 }, title);
 
-            } else {
+            } else if("longitude_latitude".equals(key)){
+                Intent intent1 = new Intent(this, LocationActivity.class);
+
+                startActivity(intent1);
+            }
+
+            else {
                 try {
 
 

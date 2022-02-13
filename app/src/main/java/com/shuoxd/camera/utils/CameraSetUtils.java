@@ -50,10 +50,13 @@ public class CameraSetUtils {
                 context.getString(R.string.m121_time_zone),//内部时间
                 context.getString(R.string.m122_temperature_format),//内部时间
                 context.getString(R.string.m123_lcd_during_on),//内部时间
-                context.getString(R.string.m126_Format_Card),//内部时间
+                context.getString(R.string.m208_camera_positioning),//内部时间
+
+
+
         };
         String[] hints = new String[]{
-               "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "", "", "", "", "", "", "",
+               "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "", "", "", "", "", "", "",""
         };
         int[] itemTypes = new int[]{
                 SettingConstants.SETTING_TYPE_INPUT,//Opration
@@ -91,11 +94,13 @@ public class CameraSetUtils {
                 SettingConstants.SETTING_TYPE_SELECT,//时区
                 SettingConstants.SETTING_TYPE_SELECT,//温度单位
                 SettingConstants.SETTING_TYPE_SWITCH,//LCD屏是否开启
-                SettingConstants.SETTING_TYPE_SWITCH//是否格式化卡
+                SettingConstants.SETTING_TYPE_SWITCH,//是否格式化卡
+
+                SettingConstants.SETTING_TYPE_NEXT,//每日上传时间
         };
 
         float[] multiples = new float[]{
-                1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1
+                1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1
         };
         String[] units = new String[]{
                 "",
@@ -129,6 +134,7 @@ public class CameraSetUtils {
                 "",
                 "",
                 "",
+                ""
         };
 
 
@@ -173,6 +179,7 @@ public class CameraSetUtils {
                 {"Fahrenheit ⁰F", "Celsius ⁰C"},
                 {"OFF", "ON"},
                 {"OFF", "ON"},
+                {}
 
         };
 
@@ -217,6 +224,7 @@ public class CameraSetUtils {
                 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12},
                 {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12},
 
+                {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12},
         };
 
 
@@ -255,6 +263,7 @@ public class CameraSetUtils {
                 "temperatureFormat",
                 "lcdDuringON",
                 "formatCard",
+                "longitude_latitude"
 
         };
 
@@ -295,6 +304,7 @@ public class CameraSetUtils {
                 "temperatureFormat",
                 "lcdDuringON",
                 "formatCard",
+                "longitude_latitude"
 
         };
 

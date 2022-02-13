@@ -7,6 +7,7 @@ import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.bean.CameraBean;
+import com.shuoxd.camera.utils.MyToastUtils;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -63,6 +64,38 @@ public class MapPresenter extends BasePresenter<IMapView> {
 
     public List<CameraBean> getCameraList() {
         return cameraList;
+    }
+
+
+
+
+    public void control(String imei, String operationType, String operationValue) {
+        //正式登录
+        addDisposable(apiServer.control(imei, operationType,operationValue), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        String msg = jsonObject.optString("msg");
+                        MyToastUtils.toast(msg);
+                    } else {
+                        String msg = jsonObject.optString("msg");
+                        baseView.showResultError(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showServerError(msg);
+            }
+        });
+
     }
 
 

@@ -28,7 +28,7 @@ public class AllPermissionRequestCode {
     /**
      * 定位权限 + 存储权限 + 手机状态权限组
      */
-    public static final String PERMISSION_LOCATION[] = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_PHONE_STATE};
+    public static final String PERMISSION_LOCATION[] = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
 
 

@@ -226,7 +226,7 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
             centerBean.setCountry(adds.getCountryName());
             centerBean.setDetail(address);
             String text = String.format("%s\n\n%s%s | %s:%f %s:%f", address, adds.getCountryName(), city
-                    , getString(R.string.m200_longitude), location.longitude, getString(R.string.m201_Latitude), location.latitude);
+                    , getString(R.string.m202_longitude), location.longitude, getString(R.string.m203_Latitude), location.latitude);
             mTvMarker.setText(text);
         } catch (Exception e) {
             e.printStackTrace();
@@ -265,7 +265,7 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
         } else {
             // Do not have permissions, request them now
             String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
-            EasyPermissions.requestPermissions(this, getString(R.string.m199_location),
+            EasyPermissions.requestPermissions(this, getString(R.string.m201_location),
                     RC_LOCATION, perms);
         }
     }

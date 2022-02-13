@@ -242,9 +242,15 @@
     <string name="m198_upgrade">Upgrade</string>
     <string name="m199_navigation">Navigation</string>
     <string name="m200_camera_map">Camera Map</string>
-    <string name="m199_location">Need to get your location</string>
-    <string name="m200_longitude">Longitude</string>
+    <string name="m201_location">Need to get your location</string>
+    <string name="m202_longitude">Longitude</string>
 
-    <string name="m201_Latitude">Latitude</string>
+    <string name="m203_Latitude">Latitude</string>
+    <string name="m204_detail">Detail</string>
+    <string name="m205_app_not_installed">App not installed</string>
+
+    <string name="m206_all_import">Please enter the content</string>
+    <string name="m207_modify_position">Modify camera position</string>
+    <string name="m208_camera_positioning">camera positioning</string>
 
 </resources>

@@ -15,9 +15,132 @@
            android:layout_height="match_parent"/>-->
 
     <com.google.android.gms.maps.MapView
-        android:layout_marginTop="1dp"
         android:id="@+id/mapview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="1dp" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/camera_navigation"
+        android:layout_width="@dimen/dp_345"
+        android:layout_height="@dimen/dp_110"
+        android:layout_marginTop="@dimen/dp_30"
+        android:background="@drawable/shape_gray_corner"
+        android:foreground="@drawable/card_foreground"
+        app:cardCornerRadius="@dimen/dp_10"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/iv_camera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/camera2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:maxLines="2"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="Camera Of Roof Top.."
+                android:textColor="@color/color_text_33"
+                android:textSize="@dimen/size_title_sp_14"
+                app:layout_constraintLeft_toRightOf="@+id/iv_camera"
+                app:layout_constraintRight_toLeftOf="@+id/tv_details"
+                app:layout_constraintTop_toTopOf="@+id/iv_camera" />
+
+
+
+
+            <TextView
+                android:id="@+id/tv_details"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_25"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_8"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center"
+                android:text="@string/m204_detail"
+                android:background="@drawable/shape_green_stroke"
+                android:textColor="@color/color_app_main"
+                android:textSize="@dimen/size_title_sp_12"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/iv_camera" />
+
+
+
+
+            <TextView
+                android:id="@+id/tv_wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:drawableStart="@drawable/wifi4"
+                android:drawablePadding="@dimen/dp_3"
+                android:gravity="center"
+                android:lines="1"
+                android:text="@string/m70_Signal"
+                android:textColor="@color/color_text_33"
+                android:textSize="@dimen/size_content_sp_12"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+
+            <ImageView
+                android:id="@+id/iv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:src="@drawable/location"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_wifi" />
+
+
+            <TextView
+                android:id="@+id/tv_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:lines="1"
+                android:text="@string/m70_Signal"
+                android:textColor="@color/color_text_99"
+                android:textSize="@dimen/size_content_sp_12"
+                app:layout_constraintLeft_toRightOf="@+id/iv_location"
+                app:layout_constraintRight_toLeftOf="@+id/iv_navigation"
+                app:layout_constraintTop_toBottomOf="@+id/tv_wifi" />
+
+
+            <ImageView
+                android:id="@+id/iv_navigation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_20"
+                android:src="@drawable/navigation"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_wifi" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
