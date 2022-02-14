@@ -50,6 +50,7 @@ public class CameraSetUtils {
                 context.getString(R.string.m121_time_zone),//内部时间
                 context.getString(R.string.m122_temperature_format),//内部时间
                 context.getString(R.string.m123_lcd_during_on),//内部时间
+                context.getString(R.string.m126_Format_Card),//内部时间
                 context.getString(R.string.m208_camera_positioning),//内部时间
 
 
@@ -96,7 +97,7 @@ public class CameraSetUtils {
                 SettingConstants.SETTING_TYPE_SWITCH,//LCD屏是否开启
                 SettingConstants.SETTING_TYPE_SWITCH,//是否格式化卡
 
-                SettingConstants.SETTING_TYPE_NEXT,//每日上传时间
+                SettingConstants.SETTING_TYPE_NEXT,//经纬度
         };
 
         float[] multiples = new float[]{

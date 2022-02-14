@@ -64,8 +64,6 @@ public class LocationActivity
     RecyclerView mPoiSugRV;
     @BindView(R.id.tvMarker)
     TextView mTvMarker;
-    @BindView(R.id.status_bar_view)
-    View statusBarView;
     @BindView(R.id.tv_title)
     AppCompatTextView tvTitle;
     @BindView(R.id.toolbar)
@@ -322,7 +320,6 @@ public class LocationActivity
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
                 .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
-                .statusBarView(statusBarView)
                 .init();
 
     }
