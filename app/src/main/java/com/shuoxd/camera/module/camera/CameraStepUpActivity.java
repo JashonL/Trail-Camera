@@ -29,6 +29,8 @@ import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.DeviceSettingBean;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
+import com.shuoxd.camera.eventbus.FreshCameraLocation;
+import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.module.map.LocationActivity;
 import com.shuoxd.camera.module.map.MapActivity;
 import com.shuoxd.camera.utils.CameraSetUtils;
@@ -38,6 +40,10 @@ import com.shuoxd.camera.utils.DateUtils;
 import com.shuoxd.camera.utils.LogUtil;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.PickViewUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -80,6 +86,10 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
     private boolean is24HourView = false;
 
+    private String lat;
+    private String lng;
+
+
     @Override
     protected CameraStepPresenter createPresenter() {
         return new CameraStepPresenter(this, this);
@@ -92,6 +102,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
     @Override
     protected void initViews() {
+        EventBus.getDefault().register(this);
         //初始化toolbar
         initToobar(toolbar);
         tvTitle.setText(R.string.m102_camera_stepup);
@@ -311,13 +322,11 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     }
                 }, title);
 
-            } else if("longitude_latitude".equals(key)){
+            } else if ("longitude_latitude".equals(key)) {
                 Intent intent1 = new Intent(this, LocationActivity.class);
 
                 startActivity(intent1);
-            }
-
-            else {
+            } else {
                 try {
 
 
@@ -451,10 +460,21 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 }
             }
 
-
+            //经纬度单独解析
             for (int i = 0; i < list.size(); i++) {
                 DeviceSettingBean settingBean1 = list.get(i);
                 String key = list.get(i).getKey();
+                String value1 = settingBean1.getValue();
+
+                if ("latitude".equals(key)) {
+                    lat = value1;
+                }
+
+                if ("longitude".equals(key)) {
+                    lng = value1;
+                }
+
+
                 for (int j = 0; j < data.size(); j++) {
                     DeviceSettingBean settingBean = data.get(j);
                     String key1 = settingBean.getKey();
@@ -492,7 +512,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                             }
 
 
-                        } else if (itemType == SETTING_TYPE_NEXT||itemType==SETTING_TYPE_ONLYREAD) {
+                        } else if (itemType == SETTING_TYPE_NEXT || itemType == SETTING_TYPE_ONLYREAD) {
                             settingBean.setValueStr(value);
                             if ("timelapseStart".equals(key1) || "timelapseStop".equals(key1)
                                     || "dailySyncTime".equals(key1) || "operationStart".equals(key1) || "operationStop".equals(key1)) {//时间
@@ -558,8 +578,11 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     }
                 }
 
-            }
 
+                data.get(data.size()-1).setValueStr(lat+","+lng);
+
+
+            }
 
 
             //判断capture mode是否为1
@@ -690,6 +713,21 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             mAdapter.notifyDataSetChanged();
         }
 
+    }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdata(FreshCameraLocation bean) {
+        String accountName = App.getUserBean().getAccountName();
+        presenter.cameraParamter(imei, accountName);
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.shuoxd.camera.module.map;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -24,6 +25,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
@@ -68,6 +70,8 @@ public class LocationActivity
     AppCompatTextView tvTitle;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+    @BindView(R.id.status_bar_view)
+    View statusBarView;
 
 
 
@@ -86,6 +90,9 @@ public class LocationActivity
     private String imei;
 
     public static final String MAP_LOCATION = "map_location";
+
+    private String mLng = "0";
+    private String mLat = "0";
 
     @Override
     public void onCameraIdle() {
@@ -121,7 +128,21 @@ public class LocationActivity
         uiSettings.setRotateGesturesEnabled(false);
         uiSettings.setMapToolbarEnabled(true);
         mMap.setOnCameraIdleListener(this);
-        getMyLocation();
+
+        //添加电站位置
+        try {
+            MarkerOptions markerOption = new MarkerOptions();
+            LatLng plantLg = new LatLng(Double.parseDouble(mLat), Double.parseDouble(mLng));
+            markerOption.position(plantLg);
+            markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                    .decodeResource(getResources(), R.drawable.camera_marker))).title("");
+            mMap.addMarker(markerOption);
+            moveCenter(plantLg);
+            getMyLocation();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -136,6 +157,11 @@ public class LocationActivity
 
     @Override
     protected void initViews() {
+
+        //获取经纬度
+        mLat = getIntent().getStringExtra("lat");
+        mLng = getIntent().getStringExtra("lng");
+
         Locale locale = getResources().getConfiguration().locale;
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -195,10 +221,22 @@ public class LocationActivity
     @Override
     protected void initData() {
         imei = getIntent().getStringExtra("imei");
+        //显示经纬度信息
+        if (!TextUtils.isEmpty(mLat)&&!TextUtils.isEmpty(mLng)){
+            double vLat = Double.parseDouble(mLat);
+            double vLng = Double.parseDouble(mLng);
+            LatLng location=new LatLng(vLat,vLng);
+            getAddress(location);
+        }
     }
 
     @Override
     public void showCameraList(List<CameraBean> cameraList) {
+
+    }
+
+    @Override
+    public void showLocationSuccess(String lat,String lng) {
 
     }
 
@@ -320,6 +358,7 @@ public class LocationActivity
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
                 .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
+                .statusBarView(statusBarView)
                 .init();
 
     }

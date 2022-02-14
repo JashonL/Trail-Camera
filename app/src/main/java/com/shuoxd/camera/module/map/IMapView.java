@@ -9,4 +9,6 @@ public interface IMapView extends BaseView {
 
     void showCameraList(List<CameraBean> cameraList);
 
+
+    void showLocationSuccess(String lat,String lng);
 }

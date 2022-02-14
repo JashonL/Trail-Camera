@@ -37,7 +37,10 @@ import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.MapLoctionBean;
+import com.shuoxd.camera.eventbus.FreshCameraLocation;
 import com.shuoxd.camera.utils.MyToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 import java.util.Locale;
@@ -284,9 +287,13 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
 
     }
 
-
-
-
+    @Override
+    public void showLocationSuccess(String lat,String lng) {
+        FreshCameraLocation freshCameraLocation = new FreshCameraLocation();
+        freshCameraLocation.setLat(lat);
+        freshCameraLocation.setLng(lng);
+        EventBus.getDefault().post(freshCameraLocation);
+    }
 
 
 }

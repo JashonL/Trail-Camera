@@ -372,6 +372,11 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
 
     }
 
+    @Override
+    public void showLocationSuccess(String lat,String lng) {
+
+    }
+
 
     @OnClick({R.id.tv_details,R.id.tv_address})
     public void onViewClicked(View view) {

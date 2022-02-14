@@ -20,6 +20,7 @@ import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.HomeDeviceBigAdapter;
 import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
+import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
@@ -30,6 +31,7 @@ import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
 import com.shuoxd.camera.eventbus.FreshCameraList;
+import com.shuoxd.camera.eventbus.FreshCameraLocation;
 import com.shuoxd.camera.eventbus.FreshQuestion;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 import com.shuoxd.camera.zxing.CustomScanActivity;
@@ -446,6 +448,22 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
             e.printStackTrace();
         }
     }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdata(FreshCameraLocation bean) {
+        //获取相机列表
+        try {
+            presenter.setPageNow(0);
+            presenter.getAlldevice();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 
     @Override
