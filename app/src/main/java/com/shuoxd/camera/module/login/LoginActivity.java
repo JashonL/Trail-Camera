@@ -127,7 +127,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         tabTitle.addOnTabSelectedListener(this);
 
         //初始化登录
-        String logHing = getString(R.string.m59_username) + "/" + getString(R.string.m60_email_address);
+        String logHing = getString(R.string.m60_email_address);
         etUsername.setHint(logHing);
         etPassword.setHint(R.string.m61_password);
 

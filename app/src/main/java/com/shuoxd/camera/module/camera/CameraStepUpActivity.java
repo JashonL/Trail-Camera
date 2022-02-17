@@ -134,7 +134,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         }
 
 
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 24; i++) {
             if (i < 10) {
                 hours.add("0" + i);
                 minutes.add("0" + i);
@@ -304,17 +304,14 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
 
-                        if (options1 == 0 && options2 == 0 && options3 < 2) {
-                            MyToastUtils.toast(R.string.m165_cannot_3s);
-                            return;
-                        }
-
-
                         String hh = hours.get(options1);
                         String mm = minutes.get(options2);
                         String s = ss.get(options3);
-
-
+                        if (options1 == 0 && options2 == 0 && options3 < 3) {
+                            hh="00";
+                            mm="00";
+                            s="03";
+                        }
                         String time = hh + ":" + mm + ":" + s;
                         String value = hh + mm + s;
                         settingBean.setValueStr(time);
@@ -355,8 +352,14 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                         String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + mm + "PM";
                                         settingBean.setValueStr(startTime);
                                     } else {
-                                        String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + mm + "AM";
-                                        settingBean.setValueStr(startTime);
+                                        if (hour==0){
+                                            String startTime = 12 + ":" + mm + "AM";
+                                            settingBean.setValueStr(startTime);
+                                        }else {
+                                            String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + mm + "AM";
+                                            settingBean.setValueStr(startTime);
+                                        }
+
                                     }
                                 }
                                 String value = hh + mm;
@@ -527,8 +530,15 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                             String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + value.substring(2) + "PM";
                                             settingBean.setValueStr(startTime);
                                         } else {
-                                            String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + value.substring(2) + "AM";
-                                            settingBean.setValueStr(startTime);
+                                            if (hour==0){
+                                                String startTime = 12 + ":" +  value.substring(2) + "AM";
+                                                settingBean.setValueStr(startTime);
+                                            }else {
+                                                String startTime = (hour < 10 ? ("0" + hour) : hour) + ":" + value.substring(2) + "AM";
+                                                settingBean.setValueStr(startTime);
+                                            }
+
+
                                         }
                                     }
 

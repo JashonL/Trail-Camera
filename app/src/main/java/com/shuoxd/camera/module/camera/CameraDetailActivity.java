@@ -122,17 +122,21 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
         String type = pictureBean.getType();
 
+        String wrongPhoto = pictureBean.getWrongPhoto();
 
 
         if ("5".equals(type)){
             btnDownLoad.setText(R.string.m209_waiting_synchronization);
             btnDownLoad.setEnabled(true);
+        }else if ("0".equals(type)&&"1".equals(wrongPhoto)){
+            btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
+            btnDownLoad.setEnabled(false);//不可点击
         }else {
             if ("1".equals(type)||"2".equals(type)){
-                btnDownLoad.setEnabled(false);
+                btnDownLoad.setEnabled(false);//不可点击
 
             }else {
-                btnDownLoad.setEnabled(true);
+                btnDownLoad.setEnabled(true);//可点击
             }
         }
 
@@ -185,13 +189,21 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         }
 
         String type = pictureBean.getType();
+        String wrongPhoto = pictureBean.getWrongPhoto();
 
-
-        if ("1".equals(type)||"2".equals(type)){
-            btnDownLoad.setEnabled(false);
-
-        }else {
+        if ("5".equals(type)){
+            btnDownLoad.setText(R.string.m209_waiting_synchronization);
             btnDownLoad.setEnabled(true);
+        }else if ("0".equals(type)&&"1".equals(wrongPhoto)){
+            btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
+            btnDownLoad.setEnabled(false);//不可点击
+        }else {
+            if ("1".equals(type)||"2".equals(type)){
+                btnDownLoad.setEnabled(false);//不可点击
+
+            }else {
+                btnDownLoad.setEnabled(true);//可点击
+            }
         }
 
 
@@ -236,7 +248,13 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 int position = vp.getCurrentItem();
                 PictureBean pictureBean = viewLists.get(position);
                 String id = pictureBean.getId();
-                presenter.operation(id, "resolution", "1");
+                String type = pictureBean.getType();
+                if ("5".equals(type)){
+                    presenter.operation(id, "resolution", "0");
+                }else {
+                    presenter.operation(id, "resolution", "1");
+                }
+
             }
             break;
 
@@ -269,6 +287,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     @Override
     public void dowload(String photoId,String msg) {
         MyToastUtils.toast(msg);
+        //通知其他页面更新
+        EventBus.getDefault().post(new FreshPhoto());
+        finish();
     }
 
 

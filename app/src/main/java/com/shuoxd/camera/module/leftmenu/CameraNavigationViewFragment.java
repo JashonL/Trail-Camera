@@ -255,6 +255,10 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
             case R.id.iv_delete_unit:
                 cbF.setChecked(false);
                 cbC.setChecked(false);
+
+                wheelEnd.setCurrentItem(50);
+                wheelStart.setCurrentItem(50);
+
                 temperatureUnit = "-1";
                 gpTemp.setVisibility(View.GONE);
                 break;
@@ -313,12 +317,19 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                 int temp_start = wheelStart.getCurrentItem();
                 int temp_end = wheelEnd.getCurrentItem();
 
-                startTemperature = "" + temp_start;
-                endTemperature = "" + temp_end;
+                List<String> tempF = CommentUtils.tempF();
+                List<String> tempC = CommentUtils.tempC();
+
+                startTemperature = "" +tempF.get(temp_start);
+                endTemperature = "" +tempC.get(temp_end);
 
 
                 int nowSelectPosition = mAdapter.getNowSelectPosition();
-                moonPhase = String.valueOf(nowSelectPosition + 1);
+                if (nowSelectPosition==-1){
+                    moonPhase=String.valueOf(-1);
+                }else {
+                    moonPhase = String.valueOf(nowSelectPosition + 1);
+                }
 
                 listeners.apply(
                         startDate, endDate,

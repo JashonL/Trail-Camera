@@ -17,7 +17,23 @@ public class PictureBean {
     private String uploadMonth;
     private String uploadDay;
     private String amPm;
+    private String wrongPhoto;
 
+    public String getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(String favorites) {
+        this.favorites = favorites;
+    }
+
+    public String getWrongPhoto() {
+        return wrongPhoto;
+    }
+
+    public void setWrongPhoto(String wrongPhoto) {
+        this.wrongPhoto = wrongPhoto;
+    }
 
     public String getId() {
         return id;
