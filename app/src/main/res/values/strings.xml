@@ -252,5 +252,6 @@
     <string name="m206_all_import">Please enter the content</string>
     <string name="m207_modify_position">Modify camera position</string>
     <string name="m208_camera_positioning">camera positioning</string>
+    <string name="m209_waiting_synchronization">Waiting synchronization,Click to cancel.</string>
 
 </resources>

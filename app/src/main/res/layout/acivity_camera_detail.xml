@@ -143,6 +143,7 @@
         android:drawableStart="@drawable/download"
         android:minWidth="@dimen/dp_250"
         android:lines="1"
+        android:textAllCaps="false"
         android:paddingStart="@dimen/dp_10"
         android:paddingEnd="@dimen/dp_10"
         android:text="@string/m24_download"

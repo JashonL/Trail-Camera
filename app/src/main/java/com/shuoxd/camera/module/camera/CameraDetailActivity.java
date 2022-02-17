@@ -123,21 +123,23 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         String type = pictureBean.getType();
 
 
-        if ("1".equals(type)||"2".equals(type)){
-            btnDownLoad.setEnabled(false);
 
-        }else {
+        if ("5".equals(type)){
+            btnDownLoad.setText(R.string.m209_waiting_synchronization);
             btnDownLoad.setEnabled(true);
+        }else {
+            if ("1".equals(type)||"2".equals(type)){
+                btnDownLoad.setEnabled(false);
+
+            }else {
+                btnDownLoad.setEnabled(true);
+            }
         }
 
 
 
-        //类型 图片类型(0:缩略图;1:高清图;2:视频)
-  /*      if (!"1".equals(type)) {
-            tvHd.setVisibility(View.GONE);
-        } else {
-            tvHd.setVisibility(View.VISIBLE);
-        }*/
+
+
 
         String num = (position + 1) + "/" + count;
         tvNum.setText(num);
@@ -194,12 +196,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
 
 
-  /*      //类型 图片类型(0:缩略图;1:高清图;2:视频)
-        if (!"1".equals(type)) {
-            tvHd.setVisibility(View.GONE);
-        } else {
-            tvHd.setVisibility(View.VISIBLE);
-        }*/
+
 
 
     }

@@ -1,0 +1,100 @@
+Index: .idea/runConfigurations.xml
+===================================================================
+diff --git a/.idea/runConfigurations.xml b/.idea/runConfigurations.xml
+deleted file mode 100644
+--- a/.idea/runConfigurations.xml	(revision 667801a1df0f89e3e083ee1e49d6378a1b350b35)
++++ /dev/null	(revision 667801a1df0f89e3e083ee1e49d6378a1b350b35)
+@@ -1,12 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="RunConfigurationProducerService">
+-    <option name="ignoredProducers">
+-      <set>
+-        <option value="org.jetbrains.plugins.gradle.execution.test.runner.AllInPackageGradleConfigurationProducer" />
+-        <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestClassGradleConfigurationProducer" />
+-        <option value="org.jetbrains.plugins.gradle.execution.test.runner.TestMethodGradleConfigurationProducer" />
+-      </set>
+-    </option>
+-  </component>
+-</project>
+\ No newline at end of file
+Index: app/src/main/java/com/shuoxd/camera/module/map/MapFragment.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.shuoxd.camera.module.map;\r\n\r\nimport static com.shuoxd.camera.constants.PermissionConstant.RC_LOCATION;\r\n\r\nimport android.Manifest;\r\nimport android.content.pm.PackageManager;\r\nimport android.graphics.BitmapFactory;\r\nimport android.location.Geocoder;\r\nimport android.location.Location;\r\nimport android.os.Bundle;\r\nimport android.view.LayoutInflater;\r\nimport android.view.View;\r\nimport android.view.ViewGroup;\r\n\r\nimport androidx.annotation.NonNull;\r\nimport androidx.annotation.Nullable;\r\nimport androidx.core.content.ContextCompat;\r\n\r\nimport com.google.android.gms.common.ConnectionResult;\r\nimport com.google.android.gms.common.GooglePlayServicesUtil;\r\nimport com.google.android.gms.maps.GoogleMap;\r\nimport com.google.android.gms.maps.MapView;\r\nimport com.google.android.gms.maps.MapsInitializer;\r\nimport com.google.android.gms.maps.OnMapReadyCallback;\r\nimport com.google.android.gms.maps.UiSettings;\r\nimport com.google.android.gms.maps.model.BitmapDescriptorFactory;\r\nimport com.google.android.gms.maps.model.CameraPosition;\r\nimport com.google.android.gms.maps.model.LatLng;\r\nimport com.google.android.gms.maps.model.Marker;\r\nimport com.google.android.gms.maps.model.MarkerOptions;\r\nimport com.gyf.immersionbar.ImmersionBar;\r\nimport com.shuoxd.camera.R;\r\nimport com.shuoxd.camera.base.BaseFragment;\r\nimport com.shuoxd.camera.bean.CameraBean;\r\nimport com.shuoxd.camera.bean.MapLoctionBean;\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\nimport butterknife.BindView;\r\nimport pub.devrel.easypermissions.EasyPermissions;\r\n\r\npublic class MapFragment extends BaseFragment<MapPresenter> implements IMapView,\r\n        OnMapReadyCallback, GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationButtonClickListener,\r\n        GoogleMap.OnMyLocationClickListener, GoogleMap.OnCameraIdleListener {\r\n\r\n    private MapView mMap;\r\n    private GoogleMap googleMap;\r\n    private LatLng mCenterLatlng;//中心坐标位置\r\n\r\n\r\n    @Override\r\n    protected MapPresenter createPresenter() {\r\n        return new MapPresenter(getContext(), this);\r\n    }\r\n\r\n    @Override\r\n    protected int getLayoutId() {\r\n        return R.layout.map_fragment;\r\n    }\r\n\r\n    @Override\r\n    protected void initView() {\r\n        //在activity执行onCreate时执行mMapView.onCreate(savedInstanceState)，创建地图\r\n\r\n    }\r\n\r\n\r\n    @Nullable\r\n    @Override\r\n    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {\r\n        View view = super.onCreateView(inflater, container, savedInstanceState);\r\n        mMap = (MapView) view.findViewById(R.id.mapview);\r\n        mMap.onCreate(savedInstanceState);\r\n        mMap.onResume();\r\n\r\n        try {\r\n            MapsInitializer.initialize(getActivity());\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n\r\n        int errorCode = GooglePlayServicesUtil\r\n                .isGooglePlayServicesAvailable(this.getActivity());\r\n\r\n        if (ConnectionResult.SUCCESS != errorCode) {\r\n            GooglePlayServicesUtil.getErrorDialog(errorCode,\r\n                    this.getActivity(), 0).show();\r\n        } else {\r\n            mMap.getMapAsync(this);\r\n        }\r\n        return view;\r\n    }\r\n\r\n    @Override\r\n    protected void initData() {\r\n    }\r\n\r\n\r\n    @Override\r\n    public void onResume() {\r\n        super.onResume();\r\n        mMap.onResume();\r\n    }\r\n\r\n    /**\r\n     * 74    * 方法必须重写\r\n     * 75    * map的生命周期方法\r\n     * 76\r\n     */\r\n    @Override\r\n    public void onPause() {\r\n        super.onPause();\r\n        mMap.onPause();\r\n    }\r\n\r\n\r\n    /**\r\n     * 85    * 方法必须重写\r\n     * 86    * map的生命周期方法\r\n     * 87\r\n     */\r\n    @Override\r\n    public void onSaveInstanceState(Bundle outState) {\r\n        super.onSaveInstanceState(outState);\r\n        mMap.onSaveInstanceState(outState);\r\n    }\r\n\r\n    /**\r\n     * 96    * 方法必须重写\r\n     * 97    * map的生命周期方法\r\n     * 98\r\n     */\r\n    @Override\r\n    public void onDestroy() {\r\n        super.onDestroy();\r\n        if (mMap != null) {\r\n            mMap.onDestroy();\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public void initImmersionBar() {\r\n        mImmersionBar = ImmersionBar.with(this);\r\n        mImmersionBar.statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)\r\n                .init();\r\n    }\r\n\r\n    @Override\r\n    public void onMapReady(@NonNull GoogleMap googleMap) {\r\n        this.googleMap = googleMap;\r\n        //添加相机的的坐标点marker\r\n        googleMap.setTrafficEnabled(true);\r\n        UiSettings uiSettings = googleMap.getUiSettings();\r\n        uiSettings.setZoomControlsEnabled(true);\r\n        uiSettings.setCompassEnabled(true);\r\n        uiSettings.setRotateGesturesEnabled(false);\r\n        //添加电站位置\r\n  /*      try {\r\n            MarkerOptions markerOption = new MarkerOptions();\r\n            LatLng plantLg = new LatLng(Double.parseDouble(\"22.006358\"), Double.parseDouble(\"143.530354\"));\r\n            markerOption.position(plantLg);\r\n            markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory\r\n                    .decodeResource(getResources(), R.drawable.camera_marker))).title(\"我的相机\");\r\n            googleMap.addMarker(markerOption);\r\n            moveCenter(plantLg);\r\n\r\n            enableMyLocation();\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }*/\r\n\r\n\r\n        googleMap.setOnMyLocationButtonClickListener(this);\r\n        googleMap.setOnMyLocationClickListener(this);\r\n\r\n        //获取相机列表\r\n        presenter.getAlldevice();\r\n    }\r\n\r\n    private void moveCenter(LatLng location) {\r\n        if (location != null) {\r\n            mCenterLatlng = location;\r\n            googleMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 16f));\r\n        }\r\n    }\r\n\r\n\r\n    /**\r\n     * Enables the My Location layer if the fine location permission has been granted.\r\n     */\r\n    private void enableMyLocation() {\r\n        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)\r\n                == PackageManager.PERMISSION_GRANTED) {\r\n            if (googleMap != null) {\r\n                googleMap.setMyLocationEnabled(true);\r\n            }\r\n        } else {\r\n            // Do not have permissions, request them now\r\n            String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};\r\n            EasyPermissions.requestPermissions(this, getString(R.string.m199_location),\r\n                    RC_LOCATION, perms);\r\n        }\r\n    }\r\n\r\n\r\n    /**\r\n     * Displays a dialog with error message explaining that the location permission is missing.\r\n     */\r\n    private void showMissingPermissionError() {\r\n\r\n    }\r\n\r\n\r\n    @Override\r\n    public void onCameraIdle() {\r\n        CameraPosition cameraPosition = googleMap.getCameraPosition();\r\n        mCenterLatlng = cameraPosition.target;\r\n    }\r\n\r\n    @Override\r\n    public boolean onMarkerClick(@NonNull Marker marker) {\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public boolean onMyLocationButtonClick() {\r\n        return false;\r\n    }\r\n\r\n    @Override\r\n    public void onMyLocationClick(@NonNull Location location) {\r\n\r\n    }\r\n\r\n    @Override\r\n    public void showCameraList(List<CameraBean> cameraList) {\r\n\r\n        List<Marker> mMarkerRainbow = new ArrayList<Marker>();\r\n        //解析经纬度\r\n        for (int i = 0; i < cameraList.size(); i++) {\r\n            CameraBean cameraBean = cameraList.get(i);\r\n            String latitude = cameraBean.getCamera().getLatitude();\r\n            String longitude = cameraBean.getCamera().getLongitude();\r\n\r\n            //封装marker\r\n            Marker marker = googleMap.addMarker(new MarkerOptions()\r\n                    .position(new LatLng(\r\n                            Double.parseDouble(latitude),\r\n                            Double.parseDouble(longitude)))\r\n                    .title(\"Marker \" + i).\r\n                            icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory\r\n                                    .decodeResource(getResources(), R.drawable.camera_marker))).title(\"我的相机\"));\r\n            mMarkerRainbow.add(marker);\r\n\r\n        }\r\n\r\n\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/shuoxd/camera/module/map/MapFragment.java b/app/src/main/java/com/shuoxd/camera/module/map/MapFragment.java
+--- a/app/src/main/java/com/shuoxd/camera/module/map/MapFragment.java	(revision 667801a1df0f89e3e083ee1e49d6378a1b350b35)
++++ b/app/src/main/java/com/shuoxd/camera/module/map/MapFragment.java	(date 1644628555855)
+@@ -248,10 +248,9 @@
+             Marker marker = googleMap.addMarker(new MarkerOptions()
+                     .position(new LatLng(
+                             Double.parseDouble(latitude),
+-                            Double.parseDouble(longitude)))
+-                    .title("Marker " + i).
++                            Double.parseDouble(longitude))).
+                             icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+-                                    .decodeResource(getResources(), R.drawable.camera_marker))).title("我的相机"));
++                                    .decodeResource(getResources(), R.drawable.camera_marker))).title("maker"));
+             mMarkerRainbow.add(marker);
+ 
+         }
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" project-jdk-name=\"JDK\" project-jdk-type=\"JavaSDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 667801a1df0f89e3e083ee1e49d6378a1b350b35)
++++ b/.idea/misc.xml	(date 1644632688321)
+@@ -1,4 +1,11 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="DesignSurface">
++    <option name="filePathToZoomLevelMap">
++      <map>
++        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/user_center.xml" value="0.1793478260869565" />
++      </map>
++    </option>
++  </component>
+   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="JDK" project-jdk-type="JavaSDK" />
+ </project>
+\ No newline at end of file
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"GradleSettings\">\r\n    <option name=\"linkedExternalProjectsSettings\">\r\n      <GradleProjectSettings>\r\n        <compositeConfiguration>\r\n          <compositeBuild compositeDefinitionSource=\"SCRIPT\" />\r\n        </compositeConfiguration>\r\n        <option name=\"distributionType\" value=\"DEFAULT_WRAPPED\" />\r\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\r\n        <option name=\"resolveModulePerSourceSet\" value=\"false\" />\r\n        <option name=\"testRunner\" value=\"PLATFORM\" />\r\n      </GradleProjectSettings>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision 667801a1df0f89e3e083ee1e49d6378a1b350b35)
++++ b/.idea/gradle.xml	(date 1644632688330)
+@@ -1,15 +1,22 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
++  <component name="GradleMigrationSettings" migrationVersion="1" />
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+         <compositeConfiguration>
+           <compositeBuild compositeDefinitionSource="SCRIPT" />
+         </compositeConfiguration>
++        <option name="testRunner" value="GRADLE" />
+         <option name="distributionType" value="DEFAULT_WRAPPED" />
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
++        <option name="modules">
++          <set>
++            <option value="$PROJECT_DIR$" />
++            <option value="$PROJECT_DIR$/app" />
++          </set>
++        </option>
+         <option name="resolveModulePerSourceSet" value="false" />
+-        <option name="testRunner" value="PLATFORM" />
+       </GradleProjectSettings>
+     </option>
+   </component>
