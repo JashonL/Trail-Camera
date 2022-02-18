@@ -2,7 +2,9 @@ package com.shuoxd.camera.module.camera;
 
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.os.Build;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,6 +37,7 @@ import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.CameraFiterAdapter;
 import com.shuoxd.camera.adapter.CameraInfoAdapter;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
+import com.shuoxd.camera.adapter.CameraPicVedeoAdapter;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
@@ -61,9 +64,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class CameraFragment extends BaseFragment<CameraPresenter> implements CameraView, Toolbar.OnMenuItemClickListener,
-        BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener, CameraNavigationViewFragment.IMenuListeners {
+        BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener, CameraNavigationViewFragment.IMenuListeners, CameraPicVedeoAdapter.SelectedListener {
 
 
     @BindView(R.id.status_bar_view)
@@ -100,7 +104,15 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
 
-    private CameraPicAdapter mAdapter;
+
+    @BindView(R.id.iv_edit)
+    ImageView ivEdit;
+
+
+    /*设备部分*/
+//    private CameraPicAdapter mAdapter;
+    private CameraPicVedeoAdapter mPicVideoAdapter;
+
 
     private CameraInfoAdapter mCameraInfoAdapter;
 
@@ -221,23 +233,23 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     //小图片布局
     private void setAdapter(int span) {
         List<PictureBean> data=new ArrayList<>();
-        if (mAdapter!=null){
-            data=mAdapter.getData();
+        if (mPicVideoAdapter!=null){
+            data=mPicVideoAdapter.getData();
         }
 
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), span);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvDevice.setLayoutManager(layoutManager);
-        mAdapter = new CameraPicAdapter(R.layout.item_camera_pic, data);
-        rlvDevice.setAdapter(mAdapter);
+        mPicVideoAdapter = new CameraPicVedeoAdapter(data,this);
+        rlvDevice.setAdapter(mPicVideoAdapter);
         rlvDevice.addItemDecoration(new GridDivider(ContextCompat.getColor(getActivity(), R.color.nocolor), 10, 10));
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice, false);
-        mAdapter.setEmptyView(view);
-        mAdapter.setHeaderAndEmpty(true);
-        mAdapter.setLoadMoreView(new CustomLoadMoreView());
-        mAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
-        mAdapter.setOnLoadMoreListener(() -> {
+        mPicVideoAdapter.setEmptyView(view);
+        mPicVideoAdapter.setHeaderAndEmpty(true);
+        mPicVideoAdapter.setLoadMoreView(new CustomLoadMoreView());
+        mPicVideoAdapter.disableLoadMoreIfNotFullPage(rlvDevice);
+        mPicVideoAdapter.setOnLoadMoreListener(() -> {
             try {
                 presenter.getCameraPic();
             } catch (Exception e) {
@@ -245,7 +257,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             }
         }, rlvDevice);
 
-        mAdapter.setOnItemClickListener(this);
+        mPicVideoAdapter.setOnItemClickListener(this);
     }
 
 
@@ -506,16 +518,54 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
         }
 
-        if (adapter == mAdapter) {
-            CameraShowListManerge.getInstance().setPicList(picList);
-            Intent intent = new Intent(getContext(), CameraDetailActivity.class);
-            intent.putExtra("position", position);
-            if (!TextUtils.isEmpty(alias)) {
-                intent.putExtra("alias", alias);
+        if (adapter == mPicVideoAdapter) {
+
+
+            List<PictureBean> data = mPicVideoAdapter.getData();
+            PictureBean pictureBean = data.get(position);
+            boolean checked = pictureBean.isChecked();
+            int itemType = pictureBean.getItemType();
+            String id = pictureBean.getId();
+            if (itemType == CameraPicVedeoAdapter.HD_PIC_FLAG_EDIT || itemType == CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO_EDIT) {
+                boolean b = !checked;
+                pictureBean.setChecked(b);
+                mPicVideoAdapter.toggle(id, b);
+                mPicVideoAdapter.notifyDataSetChanged();
+
+
+                List<String> selectedImeis = mPicVideoAdapter.getSelectedImeis();
+                int size = selectedImeis.size();
+                tv_selected_num.setText(size + "");
+
+                if (selectedImeis.size() == mPicVideoAdapter.getData().size()) {
+                    setAllSelected();
+                } else {
+                    setNotAllSelected();
+                }
+
             } else {
-                intent.putExtra("alias", cameraId);
+                CameraShowListManerge.getInstance().setPicList(picList);
+                Intent intent = new Intent(getContext(), CameraDetailActivity.class);
+                intent.putExtra("position", position);
+                if (!TextUtils.isEmpty(alias)) {
+                    intent.putExtra("alias", alias);
+                } else {
+                    intent.putExtra("alias", cameraId);
+                }
+                startActivity(intent);
             }
-            startActivity(intent);
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
     }
@@ -636,13 +686,23 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         if (pageNow == 1) {
             picList.clear();
             List<PictureBean> adapterList = new ArrayList<>(beans);
-            mAdapter.setNewData(adapterList);
+            mPicVideoAdapter.setNewData(adapterList);
 
         } else {
-            mAdapter.addData(beans);
-            mAdapter.loadMoreComplete();
+            mPicVideoAdapter.addData(beans);
+            mPicVideoAdapter.loadMoreComplete();
         }
         picList.addAll(beans);
+
+
+
+        int size = mPicVideoAdapter.getData().size();
+        int size1 = mPicVideoAdapter.getSelectedImeis().size();
+
+        if (size != size1) {
+            setNotAllSelected();
+        }
+
 
     }
 
@@ -670,13 +730,13 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     @Override
     public void showNoMoreData() {
         //数据已加载完
-        mAdapter.loadMoreEnd();
+        mPicVideoAdapter.loadMoreEnd();
     }
 
     @Override
     public void showMoreFail() {
         //数据加载完毕
-        mAdapter.loadMoreFail();
+        mPicVideoAdapter.loadMoreFail();
     }
 
     @Override
@@ -688,6 +748,45 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     @Override
     public void showOperationSuccess() {
         MyToastUtils.toast(R.string.m148_success);
+    }
+
+    @Override
+    public void showCollecMsg() {
+        //批量操作，关闭pop刷新数据
+        cloaseEdit(mPicVideoAdapter.getData());
+        try {
+            presenter.setTotalPage(1);
+            presenter.setPageNow(0);
+            presenter.getCameraPic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void delete() {
+        //批量操作，关闭pop刷新数据
+        cloaseEdit(mPicVideoAdapter.getData());
+        try {
+            presenter.setTotalPage(1);
+            presenter.setPageNow(0);
+            presenter.getCameraPic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void dowload() {
+        //批量操作，关闭pop刷新数据
+        cloaseEdit(mPicVideoAdapter.getData());
+        try {
+            presenter.setTotalPage(1);
+            presenter.setPageNow(0);
+            presenter.getCameraPic();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -762,6 +861,282 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+    }
+
+
+
+    @OnClick(R.id.iv_edit)
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_edit:
+                //点击修改布局
+                List<PictureBean> data = mPicVideoAdapter.getData();
+                if (presenter.isEditMode()) {
+                    cloaseEdit(data);
+
+                } else {
+
+                    showEditPop();
+
+
+                    presenter.setEditMode(true);
+                    for (int i = 0; i < data.size(); i++) {
+                        PictureBean pictureBean = data.get(i);
+                        String type = pictureBean.getType();
+                        //全部设置为未选中
+                        pictureBean.setChecked(false);
+                        if ("2".equals(type)) {
+                            pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO_EDIT);
+                        } else {
+                            pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_EDIT);
+                        }
+                    }
+                }
+
+                mPicVideoAdapter.notifyDataSetChanged();
+
+                break;
+        }
+    }
+
+    private void cloaseEdit(List<PictureBean> data) {
+        presenter.setEditMode(false);
+        for (int i = 0; i < data.size(); i++) {
+            PictureBean pictureBean = data.get(i);
+            String type = pictureBean.getType();
+            //全部设置为未选中
+            pictureBean.setChecked(false);
+            //清除记录
+            mPicVideoAdapter.getSelectedImeis().clear();
+
+            if ("2".equals(type)) {
+                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO);
+            } else {
+                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG);
+            }
+        }
+        if (editPop != null) {
+            editPop.dismiss();
+        }
+        srlPull.setEnabled(true);
+    }
+
+
+    private PopupWindow editPop;
+
+    private TextView tv_selected_num;
+    private TextView tv_select_all;
+    private TextView tv_download;
+    private TextView tv_collection;
+    private TextView tv_selected_delete;
+    private ImageView iv_camera;
+
+
+    private void showEditPop() {
+        srlPull.setEnabled(false);
+
+        View myView = LayoutInflater.from(getActivity()).inflate(
+                R.layout.pop_edit, null);
+
+        iv_camera = myView.findViewById(R.id.iv_camera);
+        tv_selected_num = myView.findViewById(R.id.tv_selected_num);
+        tv_select_all = myView.findViewById(R.id.tv_select_all);
+        tv_download = myView.findViewById(R.id.tv_download);
+        tv_collection = myView.findViewById(R.id.tv_collection);
+        tv_selected_delete = myView.findViewById(R.id.tv_selected_delete);
+
+
+        tv_download.setOnClickListener(view -> {
+            //批量下载
+            List<String> selectedImeis = mPicVideoAdapter.getSelectedImeis();
+            if (selectedImeis.size()==0){
+                MyToastUtils.toast(R.string.m215_not_choose);
+                return;
+            }
+
+
+            StringBuilder ids = new StringBuilder();
+            for (int i = 0; i < selectedImeis.size(); i++) {
+                String id = selectedImeis.get(i);
+                ids.append(id).append("_");
+            }
+            if (ids.toString().endsWith("_")) {
+                ids = new StringBuilder(ids.substring(0, ids.length() - 1));
+            }
+            presenter.operation(ids.toString(),"resolution","1");
+        });
+
+
+
+        tv_collection.setOnClickListener(view -> {//批量收藏
+
+            List<String> selectedImeis = mPicVideoAdapter.getSelectedImeis();
+            if (selectedImeis.size()==0){
+                MyToastUtils.toast(R.string.m215_not_choose);
+                return;
+            }
+
+            StringBuilder ids = new StringBuilder();
+            for (int i = 0; i < selectedImeis.size(); i++) {
+                String id = selectedImeis.get(i);
+                ids.append(id).append("_");
+            }
+            if (ids.toString().endsWith("_")) {
+                ids = new StringBuilder(ids.substring(0, ids.length() - 1));
+            }
+            presenter.operation(ids.toString(),"favorites","1");
+        });
+
+
+        //批量删除
+        tv_selected_delete.setOnClickListener(view -> {
+            List<String> selectedImeis = mPicVideoAdapter.getSelectedImeis();
+            if (selectedImeis.size()==0){
+                MyToastUtils.toast(R.string.m215_not_choose);
+                return;
+            }
+
+            StringBuilder ids = new StringBuilder();
+            for (int i = 0; i < selectedImeis.size(); i++) {
+                String id = selectedImeis.get(i);
+                ids.append(id).append("_");
+            }
+            if (ids.toString().endsWith("_")) {
+                ids = new StringBuilder(ids.substring(0, ids.length() - 1));
+            }
+            presenter.operation(ids.toString(),"remove","1");
+        });
+
+
+
+
+
+
+        iv_camera.setOnClickListener(view -> {
+            //清除记录
+            mPicVideoAdapter.getSelectedImeis().clear();
+
+            List<PictureBean> data = mPicVideoAdapter.getData();
+            presenter.setEditMode(false);
+            for (int i = 0; i < data.size(); i++) {
+                PictureBean pictureBean = data.get(i);
+                String type = pictureBean.getType();
+                //全部设置为未选中
+                pictureBean.setChecked(false);
+                //清除记录
+                mPicVideoAdapter.getSelectedImeis().clear();
+
+                if ("2".equals(type)) {
+                    pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO);
+                } else {
+                    pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG);
+                }
+            }
+
+            mPicVideoAdapter.notifyDataSetChanged();
+            if (editPop != null) {
+                editPop.dismiss();
+            }
+
+            srlPull.setEnabled(true);
+
+        });
+
+        tv_select_all.setOnClickListener(view -> {
+            if (presenter.isAllSelected()) {
+
+                setNotAllSelected();
+
+                List<PictureBean> data = mPicVideoAdapter.getData();
+                for (int i = 0; i < data.size(); i++) {
+                    PictureBean pictureBean = data.get(i);
+                    pictureBean.setChecked(false);
+                    mPicVideoAdapter.toggle(pictureBean.getId(), false);
+                }
+
+                tv_selected_num.setText(0 + "");
+
+                mPicVideoAdapter.notifyDataSetChanged();
+            } else {
+
+                setAllSelected();
+
+                List<PictureBean> data = mPicVideoAdapter.getData();
+                for (int i = 0; i < data.size(); i++) {
+                    PictureBean pictureBean = data.get(i);
+                    pictureBean.setChecked(true);
+                    mPicVideoAdapter.toggle(pictureBean.getId(), true);
+                }
+
+                tv_selected_num.setText(data.size() + "");
+
+                mPicVideoAdapter.notifyDataSetChanged();
+            }
+        });
+
+
+        int width = LinearLayout.LayoutParams.MATCH_PARENT;
+        int hight = LinearLayout.LayoutParams.WRAP_CONTENT;
+
+
+        editPop = new PopupWindow(myView, width, hight, false);
+        editPop.setTouchable(true);
+        editPop.setFocusable(false); // 设置PopupWindow可获得焦点
+        editPop.setTouchInterceptor((v, event) -> false);
+        editPop.setBackgroundDrawable(new ColorDrawable(0));
+        editPop.setAnimationStyle(R.style.Popup_Anim);
+        editPop.setOutsideTouchable(false);
+        editPop.showAtLocation(srlPull, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 200);
+
+    }
+
+
+    @Override
+    public void selected() {
+        List<String> selectedImeis = mPicVideoAdapter.getSelectedImeis();
+        int size = selectedImeis.size();
+        tv_selected_num.setText(size + "");
+        if (selectedImeis.size() == mPicVideoAdapter.getData().size()) {
+            setAllSelected();
+        } else {
+            setNotAllSelected();
+        }
+    }
+
+
+    private void setAllSelected() {
+        if (tv_select_all != null) {
+            tv_select_all.setText(R.string.m214_deselect_all);
+            tv_select_all.setTextColor(ContextCompat.getColor(getContext(), R.color.color_app_main));
+            presenter.setAllSelected(true);
+            setTextViewDrawableTop(R.drawable.allselected);
+        }
+
+    }
+
+
+    private void setNotAllSelected() {
+        if (tv_select_all != null) {
+            tv_select_all.setText(R.string.m212_selected_all);
+            tv_select_all.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+            presenter.setAllSelected(false);
+            setTextViewDrawableTop(R.drawable.selected_all);
+        }
+
+    }
+
+
+    public void setTextViewDrawableTop(int drawId) {
+        Drawable drawable;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            drawable = getResources().getDrawable(drawId, null);
+        } else {
+            drawable = getResources().getDrawable(drawId);
+        }
+        if (drawable != null) {
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            tv_select_all.setCompoundDrawables(null, drawable, null, null);
+        }
     }
 
 }

@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.shuoxd.camera.R;
+import com.shuoxd.camera.adapter.CameraPicVedeoAdapter;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
@@ -39,6 +40,12 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
     private String endTemperature;
     private String temperatureUnit;
 
+
+    //是否是编辑模式
+    private boolean isEditMode=false;
+
+    //是否全选
+    private boolean isAllSelected=false;
 
 
     private List<CameraBean> cameraList = new ArrayList<>();
@@ -195,6 +202,24 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         JSONObject jsonObject1 = jsonArray.optJSONObject(i);
                                         PictureBean pictureBean = new Gson().fromJson(jsonObject1.toString(), PictureBean.class);
+
+                                        //全部设置为未选中
+                                        pictureBean.setChecked(false);
+                                        //根据type设置布局样式
+                                        String type = pictureBean.getType();
+                                        if ("2".equals(type)){//视频
+                                            if (isEditMode){
+                                                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO_EDIT);
+                                            }else {
+                                                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO);
+                                            }
+                                        }else {//图片
+                                            if (isEditMode){
+                                                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_EDIT);
+                                            }else {
+                                                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG);
+                                            }
+                                        }
                                         beans.add(pictureBean);
                                     }
                                     Log.i("liaojinsha","解析的数量："+beans.size()+"");
@@ -296,9 +321,69 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
     }
 
 
+    public boolean isAllSelected() {
+        return isAllSelected;
+    }
+
+    public void setAllSelected(boolean allSelected) {
+        isAllSelected = allSelected;
+    }
+
+    public boolean isEditMode() {
+        return isEditMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        isEditMode = editMode;
+    }
 
     public List<CameraBean> getCameraList() {
         return cameraList;
     }
+
+
+
+
+
+    public void operation(String photoId,String operationType,String operationValue) {
+        //正式登录
+        addDisposable(apiServer.operation(photoId,operationType,operationValue), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        switch (operationType){
+                            case "favorites":
+                                baseView.showCollecMsg();
+                                break;
+                            case "remove":
+                                baseView.delete();
+                                break;
+                            case "resolution":
+                                baseView.dowload();
+                                break;
+                        }
+
+                    } else {
+                        String msg = jsonObject.optString("msg");
+
+                        baseView.showResultError(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showServerError(msg);
+            }
+        });
+
+    }
+
 
 }

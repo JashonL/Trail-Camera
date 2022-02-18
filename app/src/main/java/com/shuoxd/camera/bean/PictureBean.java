@@ -1,6 +1,8 @@
 package com.shuoxd.camera.bean;
 
-public class PictureBean {
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+public class PictureBean implements MultiItemEntity {
 
     private String id;
     private String userId;
@@ -18,6 +20,15 @@ public class PictureBean {
     private String uploadDay;
     private String amPm;
     private String wrongPhoto;
+
+
+
+
+
+    private boolean isChecked;
+    private int itemType;
+
+
 
     public String getFavorites() {
         return favorites;
@@ -153,5 +164,24 @@ public class PictureBean {
 
     public void setAmPm(String amPm) {
         this.amPm = amPm;
+    }
+
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
+    }
+
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 }

@@ -255,4 +255,13 @@
     <string name="m209_waiting_synchronization">Waiting synchronization,Click to cancel.</string>
     <string name="m210_hqphoto_is_not_available">HQ photo is not available</string>
 
+    <string name="m211_selected">Selected</string>
+    <string name="m212_selected_all">Selected All</string>
+    <string name="m213_download">DownLoad</string>
+    <string name="m214_deselect_all">Deselect All</string>
+    <string name="m215_not_choose">Not Choose</string>
+
+
+
+
 </resources>

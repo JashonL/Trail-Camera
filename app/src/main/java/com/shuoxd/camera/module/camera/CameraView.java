@@ -20,4 +20,13 @@ public interface CameraView extends BaseView {
 
     void showOperationSuccess();
 
+
+
+    //收藏结果
+    void showCollecMsg();
+    //删除
+    void delete();
+    //请求下载 或取消下载
+    void dowload();
+
 }
