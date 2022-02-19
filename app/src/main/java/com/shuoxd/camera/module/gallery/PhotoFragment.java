@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -568,6 +570,8 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     private PopupWindow editPop;
 
+    private int popOffset=200;
+
     private TextView tv_selected_num;
     private TextView tv_select_all;
     private TextView tv_download;
@@ -730,7 +734,41 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         editPop.setBackgroundDrawable(new ColorDrawable(0));
         editPop.setAnimationStyle(R.style.Popup_Anim);
         editPop.setOutsideTouchable(false);
-        editPop.showAtLocation(srlPull, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 200);
+        editPop.showAtLocation(srlPull, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, popOffset);
+
+
+
+        //整体展示popupwindow后 加上这个监听就可以了
+        //遇到的坑就是如果界面中存在ViewPager轮播，轮播后popupwindow会回到原来的位置，暂时解决方法：在MotionEvent.ACTION_MOVE:中停止轮播，当PopupWindow隐藏后再重新开始轮播
+        //********************注意是popupview设置监听************************
+        //********************其实我尝试了下用popupwindow中的某个控件也是可以的************************
+        myView.setOnTouchListener(new View.OnTouchListener() {
+            int orgX, orgY;
+            int offsetX,offsetY;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        orgX = (int) event.getRawX();
+                        orgY = (int) event.getRawY();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        offsetX = (int) event.getRawX() - orgX;
+                        offsetY = (int) event.getRawY() - orgY;
+
+
+                        Log.d("liaojinsha","down:"+orgY+"move:"+event.getRawY());
+                        editPop.update(0, -offsetY+popOffset, -1, -1, true);
+                        break;
+                    case MotionEvent.ACTION_UP:
+
+                        popOffset=-offsetY+popOffset;
+
+                        break;
+                }
+                return true;
+            }
+        });
 
     }
 
@@ -782,6 +820,10 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
             tv_select_all.setCompoundDrawables(null, drawable, null, null);
         }
     }
+
+
+
+
 
 
 }
