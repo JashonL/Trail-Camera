@@ -72,13 +72,18 @@ public class CameraPicVedeoAdapter extends BaseMultiItemQuickAdapter<PictureBean
                 if (!TextUtils.isEmpty(path)) {
                     GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
                 }
-                //类型 图片类型(0:缩略图;1:高清图;2:视频)
-                TextView tvHD = helper.getView(R.id.tv_hd);
-                if (!"1".equals(type)) {
-                    tvHD.setVisibility(View.GONE);
-                } else {
-                    tvHD.setVisibility(View.VISIBLE);
+
+                if (itemType==HD_PIC_FLAG){
+                    //类型 图片类型(0:缩略图;1:高清图;2:视频)
+                    TextView tvHD = helper.getView(R.id.tv_hd);
+                    if (!"1".equals(type)) {
+                        tvHD.setVisibility(View.GONE);
+                    } else {
+                        tvHD.setVisibility(View.VISIBLE);
+                    }
                 }
+
+
                 TextView tvTime = helper.getView(R.id.tv_time);
                 TextView tvDate = helper.getView(R.id.tv_date);
                 if ("0".equals(amPm)) {
@@ -97,12 +102,17 @@ public class CameraPicVedeoAdapter extends BaseMultiItemQuickAdapter<PictureBean
                     GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic1);
                 }
                 //类型 图片类型(0:缩略图;1:高清图;2:视频)
-                TextView tvHD1 = helper.getView(R.id.tv_hd);
-                if (!"1".equals(type)) {
-                    tvHD1.setVisibility(View.GONE);
-                } else {
-                    tvHD1.setVisibility(View.VISIBLE);
+                if (itemType==HD_PIC_FLAG_VIDEO_EDIT){
+                    //类型 图片类型(0:缩略图;1:高清图;2:视频)
+                    TextView tvHD = helper.getView(R.id.tv_hd);
+                    if (!"1".equals(type)) {
+                        tvHD.setVisibility(View.GONE);
+                    } else {
+                        tvHD.setVisibility(View.VISIBLE);
+                    }
                 }
+
+
                 TextView tvTime1 = helper.getView(R.id.tv_time);
                 TextView tvDate1 = helper.getView(R.id.tv_date);
                 if ("0".equals(amPm)) {
