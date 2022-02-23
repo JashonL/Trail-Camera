@@ -51,7 +51,13 @@ public class CameraStepPresenter extends BasePresenter<CameraStepView> {
                             newList.add(settingBean);
                         }
                         baseView.showSetting(newList);
-                    } else {
+                    }
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            cameraParamter( imei,  email);
+                        });
+                    }
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }
@@ -84,7 +90,14 @@ public class CameraStepPresenter extends BasePresenter<CameraStepView> {
                         baseView.cameraSetSuccess(operationType,operationValue);
                         String msg = jsonObject.optString("msg");
                         MyToastUtils.toast(msg);
-                    } else {
+                    }
+                    else if ("10000".equals(result)) {
+
+                        userReLogin(context, () -> {
+                            control( imei,  operationType,  operationValue);
+                        });
+                    }
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }
@@ -122,7 +135,16 @@ public class CameraStepPresenter extends BasePresenter<CameraStepView> {
                         EventBus.getDefault().post(new FreshCameraName(operationValue));
 
 
-                    } else {
+                    }
+
+                    else if ("10000".equals(result)){
+                        userReLogin(context, () -> {
+                            cameraOperation( imei,  operationType,  operationValue);
+                        });
+                    }
+
+
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }

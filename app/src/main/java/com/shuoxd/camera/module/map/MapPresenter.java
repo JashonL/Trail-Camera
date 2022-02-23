@@ -46,6 +46,10 @@ public class MapPresenter extends BasePresenter<IMapView> {
                             cameraList.add(cameraBean);
                         }
                         baseView.showCameraList(cameraList);
+                    }else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            getAlldevice();
+                        });
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -81,7 +85,16 @@ public class MapPresenter extends BasePresenter<IMapView> {
                     if ("0".equals(result)) {//请求成功
                         String msg = jsonObject.optString("msg");
                         MyToastUtils.toast(msg);
-                    } else {
+                    }
+
+
+                    else if ("10000".equals(result)){
+                        userReLogin(context, () -> {
+                            control( imei,  operationType,  operationValue);
+                        });
+                    }
+
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }

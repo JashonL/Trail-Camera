@@ -3,11 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/line_gradient_bg_shape.xml" value="0.28854166666666664" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/view_ripple_corner.xml" value="0.28854166666666664" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/acivity_camera_detail.xml" value="0.25" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_location.xml" value="0.1" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_login.xml" value="0.20833333333333334" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_map.xml" value="0.1802536231884058" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_message_list.xml" value="0.18795289855072464" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/content_message_list.xml" value="0.23550724637681159" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/gallery_fragment.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/home_frament.xml" value="0.20833333333333334" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/home_top2_listmenu.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/home_top_bigfic.xml" value="0.20833333333333334" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/toobar_title.xml" value="0.1" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/user_center.xml" value="0.1793478260869565" />

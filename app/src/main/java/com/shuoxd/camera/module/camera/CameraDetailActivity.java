@@ -31,6 +31,7 @@ import com.shuoxd.camera.utils.ViewUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import butterknife.BindView;
@@ -70,9 +71,14 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     Button btnDownLoad;
 
 
-
-
     private ViewPagerAdapter mAdapter;
+
+    private int currenPosition = 0;
+
+
+    //数据源
+    private List<PictureBean> picList;
+
 
     @Override
     protected CameraDetailPresenter createPresenter() {
@@ -90,7 +96,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         initToobar(toolbar);
         tvTitle.setText(R.string.m65_camera_of_garden);
         //初始化Viewpager
-        List<PictureBean> picList = CameraShowListManerge.getInstance().getPicList();
+        List<PictureBean> picList1 = CameraShowListManerge.getInstance().getPicList();
+        picList = new ArrayList<>(picList1);
+
         mAdapter = new ViewPagerAdapter(picList);
         vp.setAdapter(mAdapter);
         vp.addOnPageChangeListener(this);
@@ -101,12 +109,12 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         String alias = getIntent().getStringExtra("alias");
         tvTitle.setText(alias);
 
-        int position = getIntent().getIntExtra("position", 0);
+        currenPosition = getIntent().getIntExtra("position", 0);
         int count = mAdapter.getCount();
-        vp.setCurrentItem(position);
+        vp.setCurrentItem(currenPosition);
 
         List<PictureBean> viewLists = mAdapter.getViewLists();
-        PictureBean pictureBean = viewLists.get(position);
+        PictureBean pictureBean = viewLists.get(currenPosition);
         String uploadDate = pictureBean.getUploadDate();
         if (!TextUtils.isEmpty(uploadDate)) {
             tvDate.setText(uploadDate);
@@ -125,27 +133,19 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         String wrongPhoto = pictureBean.getWrongPhoto();
 
 
-        if ("5".equals(type)){
-            btnDownLoad.setText(R.string.m209_waiting_synchronization);
+        if ("5".equals(type)) {
+            btnDownLoad.setText(R.string.m216_cancel_hq);
             btnDownLoad.setEnabled(true);
-        }else if ("0".equals(type)&&"1".equals(wrongPhoto)){
+        } else if ("0".equals(type) && "1".equals(wrongPhoto)) {
             btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
             btnDownLoad.setEnabled(false);//不可点击
-        }else {
-            if ("1".equals(type)||"2".equals(type)){
-                btnDownLoad.setEnabled(false);//不可点击
-
-            }else {
-                btnDownLoad.setEnabled(true);//可点击
-            }
+        } else {
+            //可点击
+            btnDownLoad.setEnabled(!"1".equals(type) && !"2".equals(type));//不可点击
         }
 
 
-
-
-
-
-        String num = (position + 1) + "/" + count;
+        String num = (currenPosition + 1) + "/" + count;
         tvNum.setText(num);
     }
 
@@ -166,6 +166,8 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
     @Override
     public void onPageSelected(int position) {
+        currenPosition = position;
+
 
         List<PictureBean> viewLists = mAdapter.getViewLists();
 
@@ -191,24 +193,16 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         String type = pictureBean.getType();
         String wrongPhoto = pictureBean.getWrongPhoto();
 
-        if ("5".equals(type)){
+        if ("5".equals(type)) {
             btnDownLoad.setText(R.string.m209_waiting_synchronization);
             btnDownLoad.setEnabled(true);
-        }else if ("0".equals(type)&&"1".equals(wrongPhoto)){
+        } else if ("0".equals(type) && "1".equals(wrongPhoto)) {
             btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
             btnDownLoad.setEnabled(false);//不可点击
-        }else {
-            if ("1".equals(type)||"2".equals(type)){
-                btnDownLoad.setEnabled(false);//不可点击
-
-            }else {
-                btnDownLoad.setEnabled(true);//可点击
-            }
+        } else {
+            //可点击
+            btnDownLoad.setEnabled(!"1".equals(type) && !"2".equals(type));//不可点击
         }
-
-
-
-
 
 
     }
@@ -249,9 +243,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 PictureBean pictureBean = viewLists.get(position);
                 String id = pictureBean.getId();
                 String type = pictureBean.getType();
-                if ("5".equals(type)){
+                if ("5".equals(type)) {
                     presenter.operation(id, "resolution", "0");
-                }else {
+                } else {
                     presenter.operation(id, "resolution", "1");
                 }
 
@@ -272,24 +266,63 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         } else {
             ViewUtils.setTextViewDrawableTop(this, tvCollec, R.drawable.collection);
         }
+
+
+
     }
 
     @Override
     public void delete(String photoId) {
-        int currentItem = vp.getCurrentItem();
+  /*      int currentItem = vp.getCurrentItem();
         mAdapter.getViewLists().remove(currentItem);
-        mAdapter.notifyDataSetChanged();
+        mAdapter.notifyDataSetChanged();*/
+        int index=-1;
+        for (int i = 0; i < picList.size(); i++) {
+            String id = picList.get(i).getId();
+            if (id.equals(photoId)){
+                index=i;
+                break;
+            }
+        }
+
+        if (index!=-1){
+            picList.remove(index);
+            mAdapter = new ViewPagerAdapter(picList);
+            vp.setAdapter(mAdapter);
+
+
+            int count = mAdapter.getCount();
+            if (currenPosition>=count-1){
+                currenPosition--;
+            }
+            vp.setCurrentItem(currenPosition);
+
+            String num = (currenPosition + 1) + "/" + mAdapter.getCount();
+            tvNum.setText(num);
+        }
+
         //通知其他页面更新
         EventBus.getDefault().post(new FreshPhoto());
-        finish();
+//        finish();
     }
 
     @Override
-    public void dowload(String photoId,String msg) {
+    public void dowload(String photoId, String msg, String operationValue) {
         MyToastUtils.toast(msg);
+
+
+        int currentItem = vp.getCurrentItem();
+        PictureBean pictureBean = mAdapter.getViewLists().get(currentItem);
+        if ("1".equals(operationValue)) {
+            pictureBean.setType("5");
+            btnDownLoad.setText(R.string.m209_waiting_synchronization);
+        } else {
+            pictureBean.setType("0");
+            btnDownLoad.setText(R.string.m24_download);
+        }
+        mAdapter.notifyDataSetChanged();
         //通知其他页面更新
         EventBus.getDefault().post(new FreshPhoto());
-        finish();
     }
 
 
@@ -317,7 +350,6 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 }
 
 
-
                 String url = viewLists.get(i).getFullPath();
                 GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, url, ivCamera);
                 inflate.setOnClickListener(view -> {
@@ -332,6 +364,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 imageViews.add(inflate);
             }
         }
+
 
         @Override
         public int getCount() {

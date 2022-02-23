@@ -33,7 +33,15 @@ public class ChangePassWordPresenter extends BasePresenter<ChangePassWordView> {
                         ToastUtils.show(msg);
                         baseView.changePasswordSuccess();
 
-                    } else {
+                    }
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            modifyUserInfo( oldPassword,  newPassword,
+                                    confirmPassword);
+                        });
+                    }
+
+                    else {
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
                     }

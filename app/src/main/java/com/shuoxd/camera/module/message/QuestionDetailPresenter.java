@@ -84,7 +84,14 @@ public class QuestionDetailPresenter extends BasePresenter<QuestionDetailView> {
                         }
                         baseView.showReply(beans);
 
-                    } else {
+                    }
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            questionDetail(id,email);
+                        });
+                    }
+
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }
@@ -123,6 +130,10 @@ public class QuestionDetailPresenter extends BasePresenter<QuestionDetailView> {
                     String result = jsonObject.optString("result");
                     if ("0".equals(result)) {//请求成功
                         baseView.replySuccess();
+                    } else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            replyQuestion( content, fileList);
+                        });
                     }
 
                 } catch (Exception e) {
@@ -151,7 +162,14 @@ public class QuestionDetailPresenter extends BasePresenter<QuestionDetailView> {
                     String result = jsonObject.optString("result");
                     if ("0".equals(result)) {//请求成功
                         baseView.solved();
-                    } else {
+                    }
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            operation(operationType);
+                        });
+                    }
+
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }

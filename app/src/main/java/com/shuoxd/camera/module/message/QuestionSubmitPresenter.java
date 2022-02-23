@@ -156,6 +156,10 @@ public class QuestionSubmitPresenter extends BasePresenter<QuestionView> {
                         cameraBean.setSelected(true);
                         cameraList.add(0,cameraBean);*/
 
+                    }else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            getAlldevice();
+                        });
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -194,6 +198,10 @@ public class QuestionSubmitPresenter extends BasePresenter<QuestionView> {
                     String result = jsonObject.optString("result");
                     if ("0".equals(result)) {//请求成功
                         baseView.submitSuccess();
+                    }else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            replyQuestion(title, content, fileList);
+                        });
                     }
 
                 } catch (Exception e) {

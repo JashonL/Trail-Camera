@@ -117,10 +117,9 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 String day = split[2];
 
 
-
-                                String d=day+" "+ CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year;
+                                String d = day + " " + CommentUtils.getMonth().get(Integer.parseInt(month) - 1) + " " + year;
                                 baseView.upDate(d);
-                                String d2=CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year;
+                                String d2 = CommentUtils.getMonth().get(Integer.parseInt(month) - 1) + " " + year;
                                 baseView.upDateYear(d2);
 
                                 //设置图表
@@ -139,19 +138,19 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 String month = split[1];
                                 String day = split[2];
 
-                                String end = dateArray.optString(dateArray.length()-1);
+                                String end = dateArray.optString(dateArray.length() - 1);
 
                                 String[] e_split = end.split("[\\D]");
                                 String year_end = e_split[0];
                                 String month_end = e_split[1];
                                 String day_end = e_split[2];
 
-                                String d=day+" "+ CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year+
+                                String d = day + " " + CommentUtils.getMonth().get(Integer.parseInt(month) - 1) + " " + year +
 
-                                        "-"+day_end+" "+CommentUtils.getMonth().get(Integer.parseInt(month_end)-1)+" "+year_end;
+                                        "-" + day_end + " " + CommentUtils.getMonth().get(Integer.parseInt(month_end) - 1) + " " + year_end;
 
                                 baseView.upDate(d);
-                                String d2=CommentUtils.getMonth().get(Integer.parseInt(month)+1)+" "+year;
+                                String d2 = CommentUtils.getMonth().get(Integer.parseInt(month) + 1) + " " + year;
                                 baseView.upDateYear(d2);
 
 
@@ -168,8 +167,6 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 }
 
 
-
-
                                 JSONArray read = obj.optJSONArray("readNumList");
                                 List<Integer> readNumList = new ArrayList<>();
                                 for (int i = 0; i < read.length(); i++) {
@@ -184,7 +181,7 @@ public class ChartPresenter extends BasePresenter<ChartView> {
 
 
                                 //设置图表
-                                baseView.upWeekChart(weekList,readNumList,unReadNumList);
+                                baseView.upWeekChart(weekList, readNumList, unReadNumList);
                             }
 
 
@@ -196,15 +193,15 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 String[] split = start.split("[\\D]");
                                 String year = split[0];
                                 String month = split[1];
-                                String d= CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year;
+                                String d = CommentUtils.getMonth().get(Integer.parseInt(month) - 1) + " " + year;
                                 baseView.upDate(d);
-                                String d2=CommentUtils.getMonth().get(Integer.parseInt(month)-1)+" "+year;
+                                String d2 = CommentUtils.getMonth().get(Integer.parseInt(month) - 1) + " " + year;
                                 baseView.upDateYear(d2);
 
                                 List<String> monthList = new ArrayList<>();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     String s = jsonArray.optString(i);
-                                    String label = s.substring(s.lastIndexOf("-")+1, s.length());
+                                    String label = s.substring(s.lastIndexOf("-") + 1, s.length());
                                     monthList.add(label);
                                 }
 
@@ -228,7 +225,7 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 }
 
                                 //设置图表
-                                baseView.upMonthChart(monthList,readNumList,unReadNumList);
+                                baseView.upMonthChart(monthList, readNumList, unReadNumList);
                             }
 
 
@@ -240,9 +237,9 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 String start = jsonArray.optString(0);
                                 String[] split = start.split("[\\D]");
                                 String year = split[0];
-                                String d= year;
+                                String d = year;
                                 baseView.upDate(d);
-                                String d2=year;
+                                String d2 = year;
                                 baseView.upDateYear(d2);
 
                                 List<String> monthList = new ArrayList<>();
@@ -272,7 +269,7 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 }
 
                                 //设置图表
-                                baseView.upYearChart(monthList,readNumList,unReadNumList);
+                                baseView.upYearChart(monthList, readNumList, unReadNumList);
                             }
 
                         } else if ("total".equals(dateType)) {
@@ -280,11 +277,11 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                             if (obj != null) {
                                 JSONArray jsonArray = obj.optJSONArray("dateList");
                                 String start = jsonArray.optString(0);
-                                String end = jsonArray.optString(jsonArray.length()-1);
-                                String d= start+"-"+end;
+                                String end = jsonArray.optString(jsonArray.length() - 1);
+                                String d = start + "-" + end;
                                 baseView.upDate(d);
 
-                                String d2=end;
+                                String d2 = end;
                                 baseView.upDateYear(d2);
 
                                 List<String> monthList = new ArrayList<>();
@@ -312,12 +309,20 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                                 }
 
                                 //设置图表
-                                baseView.upTotalChart(monthList,readNumList,unReadNumList);
+                                baseView.upTotalChart(monthList, readNumList, unReadNumList);
                             }
                         }
 
 
-                    } else {
+                    }
+
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            getChartData();
+                        });
+                    }
+
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }
@@ -336,10 +341,9 @@ public class ChartPresenter extends BasePresenter<ChartView> {
     }
 
 
-
 //    public String[] dataTypes = {"day", "week", "month", "year", "total"};
 
-    public void dateNext(){
+    public void dateNext() {
         //声明日期格式化样式
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date dateNow = new Date();
@@ -354,54 +358,54 @@ public class ChartPresenter extends BasePresenter<ChartView> {
         //设置格式化的日期
         calendar.setTime(dateNow);
 
-        switch (dateType){
-             case "day"://加一天
-                 calendar.add(Calendar.DATE, 1);
-                 try {
-                     date = dateFormat.format(calendar.getTime());
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-                 break;
-             case "week"://加一周
-                 calendar.add(Calendar.DATE, 7);
-                 try {
-                     date = dateFormat.format(calendar.getTime());
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-                 break;
-             case "month"://往前一个月
-                 calendar.add(Calendar.MONTH, 1);
-                 try {
-                     date = dateFormat.format(calendar.getTime());
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-                 break;
-             case "year":
-                 calendar.add(Calendar.YEAR, 1);
-                 try {
-                     date = dateFormat.format(calendar.getTime());
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-                 break;
-             case "total":
-                 calendar.add(Calendar.YEAR, 5);
-                 try {
-                     date = dateFormat.format(calendar.getTime());
-                 } catch (Exception e) {
-                     e.printStackTrace();
-                 }
-                 break;
-         }
+        switch (dateType) {
+            case "day"://加一天
+                calendar.add(Calendar.DATE, 1);
+                try {
+                    date = dateFormat.format(calendar.getTime());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "week"://加一周
+                calendar.add(Calendar.DATE, 7);
+                try {
+                    date = dateFormat.format(calendar.getTime());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "month"://往前一个月
+                calendar.add(Calendar.MONTH, 1);
+                try {
+                    date = dateFormat.format(calendar.getTime());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "year":
+                calendar.add(Calendar.YEAR, 1);
+                try {
+                    date = dateFormat.format(calendar.getTime());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "total":
+                calendar.add(Calendar.YEAR, 5);
+                try {
+                    date = dateFormat.format(calendar.getTime());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+        }
 
-         getChartData();
+        getChartData();
     }
 
 
-    public void datePrevious(){
+    public void datePrevious() {
         //声明日期格式化样式
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         Date dateNow = new Date();
@@ -416,7 +420,7 @@ public class ChartPresenter extends BasePresenter<ChartView> {
         //设置格式化的日期
         calendar.setTime(dateNow);
 
-        switch (dateType){
+        switch (dateType) {
             case "day"://加一天
                 calendar.add(Calendar.DATE, -1);
                 try {
@@ -463,8 +467,6 @@ public class ChartPresenter extends BasePresenter<ChartView> {
     }
 
 
-
-
     public void getAlldevice() {
         String accountName = App.getUserBean().getAccountName();
         //获取设备
@@ -478,7 +480,7 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                     if ("0".equals(result)) {//请求成功
                         JSONArray obj = jsonObject.getJSONArray("obj");
                         //解析相机数据
-                        int totalNum=0;
+                        int totalNum = 0;
                         cameraList.clear();
                         List<String> ids = Arrays.asList(imeis.split("_"));
                         for (int i = 0; i < obj.length(); i++) {
@@ -491,15 +493,19 @@ public class ChartPresenter extends BasePresenter<ChartView> {
                             cameraList.add(cameraBean);
                         }
 
-                        CameraBean cameraBean =new CameraBean();
+                        CameraBean cameraBean = new CameraBean();
                         cameraBean.setTotalPhotoNum(String.valueOf(totalNum));
-                        CameraBean.CameraInfo info=new CameraBean.CameraInfo();
+                        CameraBean.CameraInfo info = new CameraBean.CameraInfo();
                         info.setAlias(context.getString(R.string.m77_all_camera));
                         cameraBean.setCamera(info);
                         //如果当前是选中全部
                         cameraBean.setSelected("-1".equals(imeis));
-                        cameraList.add(0,cameraBean);
+                        cameraList.add(0, cameraBean);
 
+                    } else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            getAlldevice();
+                        });
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

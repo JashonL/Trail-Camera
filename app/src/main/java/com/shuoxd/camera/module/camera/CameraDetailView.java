@@ -9,5 +9,5 @@ public interface CameraDetailView extends BaseView {
     //删除
     void delete(String photoId);
     //请求下载 或取消下载
-    void dowload(String photoId,String msg);
+    void dowload(String photoId,String msg,String resolution);
 }

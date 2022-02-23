@@ -12,6 +12,7 @@ import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
+import com.shuoxd.camera.base.ReLogListener;
 import com.shuoxd.camera.constants.GlobalConstant;
 import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.eventbus.FreshCameraList;
@@ -58,7 +59,13 @@ public class Addpresenter extends BasePresenter<AddCanmeraView> {
                         }else {
                             userLogin(accountName,password);
                         }
-                    }else {
+                    }
+                    else if ("10000".equals(result)){
+                        userReLogin(context, () -> {
+                            addCamera( imei, name);
+                        });
+                    }
+                    else {
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
                     }
@@ -100,11 +107,11 @@ public class Addpresenter extends BasePresenter<AddCanmeraView> {
                         userInfo.setPassword(password);
                         App.IS_LOGIN=true;
                         savaUserInfo(username, password, userInfo);
+                        loginSuccess();
                     }else {
                         String msg = jsonObject.optString("msg");
                         baseView.showLoginError(msg);
                     }
-                    loginSuccess();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

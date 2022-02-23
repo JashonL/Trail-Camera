@@ -51,7 +51,7 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
 
     @Override
     public void onNext(T o) {
-        String o1 = (String) o;
+     /*   String o1 = (String) o;
         try {
             JSONObject jsonObject=new JSONObject(o1);
             String result = jsonObject.optString("result");
@@ -65,7 +65,9 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        onSuccess(o);
     }
 
     @Override

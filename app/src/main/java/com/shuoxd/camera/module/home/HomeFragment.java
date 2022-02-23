@@ -268,6 +268,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
             public void onRefresh() {
                 try {
                     presenter.setPageNow(0);
+                    presenter.setTotalPage(1);
                     presenter.getAlldevice();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -278,6 +279,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
        // 获取列表设备列表
         try {
             presenter.setPageNow(0);
+            presenter.setTotalPage(1);
             presenter.getAlldevice();
         } catch (Exception e) {
             e.printStackTrace();
@@ -355,6 +357,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     public void showNoMoreData() {
+        srlPull.setRefreshing(false);
         if (mLayoutType == TYPE_BIG) {
             //数据加载完毕
             mBigAdapter.loadMoreEnd();
@@ -381,6 +384,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
        // 获取列表设备列表
         try {
             presenter.setPageNow(0);
+            presenter.setTotalPage(1);
             presenter.getAlldevice();
         } catch (Exception e) {
             e.printStackTrace();
@@ -443,6 +447,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         //获取相机列表
         try {
             presenter.setPageNow(0);
+            presenter.setTotalPage(1);
             presenter.getAlldevice();
         } catch (Exception e) {
             e.printStackTrace();
@@ -456,6 +461,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         //获取相机列表
         try {
             presenter.setPageNow(0);
+            presenter.setTotalPage(1);
             presenter.getAlldevice();
         } catch (Exception e) {
             e.printStackTrace();

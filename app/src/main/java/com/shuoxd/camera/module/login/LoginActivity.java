@@ -112,7 +112,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.getUserInfo();
     }
 
     @Override
@@ -141,7 +140,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initData() {
-
+        presenter.getUserInfo();
     }
 
     @Override

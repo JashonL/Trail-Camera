@@ -84,7 +84,18 @@ public class HomePresenter extends BasePresenter<HomeView> {
                                 cameraList.add(cameraBean);
                             }
                             baseView.setDeviceList(cameraList);
-                        } else {
+                        }
+                        else if ("10000".equals(result)) {
+                            userReLogin(context, () -> {
+                                try {
+                                    getAlldevice();
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                        }
+
+                        else {
                             String msg = jsonObject.optString("msg");
                             baseView.showResultError(msg);
                             refreshErrPage();
@@ -106,6 +117,10 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
     }
 
+
+    public void setTotalPage(int totalPage) {
+        this.totalPage = totalPage;
+    }
 
     private void refreshErrPage() {
         baseView.showMoreFail();
@@ -141,7 +156,17 @@ public class HomePresenter extends BasePresenter<HomeView> {
                         //通知刷新设备列表
                         baseView.deleteSuccess();
 
-                    } else {
+                    }
+
+                    else if ("10000".equals(result)){
+                        userReLogin(context, () -> {
+                            cameraOperation( imei,  operationType,  operationValue);
+                        });
+                    }
+
+
+
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }

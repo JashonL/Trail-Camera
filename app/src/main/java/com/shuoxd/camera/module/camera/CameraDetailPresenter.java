@@ -56,11 +56,17 @@ public class CameraDetailPresenter extends BasePresenter<CameraDetailView>   {
                                 break;
                             case "resolution":
                                 String msg = jsonObject.optString("msg");
-                                baseView.dowload(photoId,msg);
+                                baseView.dowload(photoId,msg,operationValue);
                                 break;
                         }
 
-                    } else {
+                    }
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            operation( photoId, operationType, operationValue);
+                        });
+                    }
+                    else {
                         String msg = jsonObject.optString("msg");
 
                         baseView.showResultError(msg);

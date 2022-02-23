@@ -69,7 +69,15 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
                                 messageBeans.add(msgBean);
                             }
                             baseView.showMessage(messageBeans);
-                        }else {
+                        }
+
+                        else if ("10000".equals(result)) {
+                            userReLogin(context, () -> {
+                                getMessage();
+                            });
+                        }
+
+                        else {
                             String msg = jsonObject.optString("msg");
                             baseView.showResultError(msg);
                             refreshErrPage();
@@ -159,7 +167,14 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
                                 questionBeans.add(info);
                             }
                             baseView.showQuestion(questionBeans);
-                        }else {
+                        }
+                        else if ("10000".equals(result)) {
+                            userReLogin(context, () -> {
+                                getQuestion();
+                            });
+                        }
+
+                        else {
                             String msg = jsonObject.optString("msg");
                             baseView.showResultError(msg);
                             refreshErrPage();
@@ -195,7 +210,14 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
                     String result = jsonObject.optString("result");
                     if ("0".equals(result)) {//请求成功
                         baseView.delete();
-                    } else {
+                    }
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            operation( questionId, operationType);
+                        });
+                    }
+
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }
@@ -233,7 +255,14 @@ public class MessagePresenter  extends BasePresenter<MessageView> {
                             getMessage();
                         }
 
-                    } else {
+                    }
+
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            operation_msg(questionId,operationType);
+                        });
+                    }
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }

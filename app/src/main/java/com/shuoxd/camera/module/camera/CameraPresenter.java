@@ -48,12 +48,11 @@ public class CameraPresenter extends BasePresenter<CameraView> {
     private List<PictureBean> pictureBeans = new ArrayList<>();
 
 
-
     //是否是编辑模式
-    private boolean isEditMode=false;
+    private boolean isEditMode = false;
 
     //是否全选
-    private boolean isAllSelected=false;
+    private boolean isAllSelected = false;
 
 
     public void setTotalPage(int totalPage) {
@@ -171,6 +170,10 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                         if (obj == null) return;
                         CameraBean.CameraInfo cameraInfo = new Gson().fromJson(obj.toString(), CameraBean.CameraInfo.class);
                         baseView.showCameraInfo(cameraInfo);
+                    } else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            cameraInfo(imei, email);
+                        });
                     } else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
@@ -246,16 +249,16 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                                         pictureBean.setChecked(false);
                                         //根据type设置布局样式
                                         String type = pictureBean.getType();
-                                        if ("2".equals(type)){//视频
-                                            if (isEditMode){
+                                        if ("2".equals(type)) {//视频
+                                            if (isEditMode) {
                                                 pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO_EDIT);
-                                            }else {
+                                            } else {
                                                 pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO);
                                             }
-                                        }else {//图片
-                                            if (isEditMode){
+                                        } else {//图片
+                                            if (isEditMode) {
                                                 pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_EDIT);
-                                            }else {
+                                            } else {
                                                 pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG);
                                             }
                                         }
@@ -263,7 +266,17 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                                         beans.add(pictureBean);
                                     }
                                     baseView.showCameraPic(beans);
-                                } else {
+                                }
+
+                                else if ("10000".equals(result)){
+                                    userReLogin(context, () -> {
+                                        getCameraPic();
+                                    });
+                                }
+
+
+
+                                else {
                                     String msg = jsonObject.optString("msg");
                                     baseView.showResultError(msg);
                                     refreshErrPage();
@@ -284,7 +297,6 @@ public class CameraPresenter extends BasePresenter<CameraView> {
 
 
     }
-
 
 
     private void refreshErrPage() {
@@ -321,7 +333,7 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                     if ("0".equals(result)) {//请求成功
                         JSONArray obj = jsonObject.getJSONArray("obj");
                         //解析相机数据
-                        int totalNum=0;
+                        int totalNum = 0;
                         cameraList.clear();
                         for (int i = 0; i < obj.length(); i++) {
                             JSONObject jsonObject1 = obj.getJSONObject(i);
@@ -329,7 +341,7 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                             String imei = cameraBean.getCamera().getImei();
                             cameraBean.setSelected(imeis.equals(imei));
                             String totalPhotoNum = cameraBean.getTotalPhotoNum();
-                             totalNum += Integer.parseInt(totalPhotoNum);
+                            totalNum += Integer.parseInt(totalPhotoNum);
                             cameraList.add(cameraBean);
                         }
 
@@ -342,6 +354,12 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                         cameraList.add(0,cameraBean);*/
 
                     }
+                    else if ("10000".equals(result)){
+                        userReLogin(context, () -> {
+                            getAlldevice();
+                        });
+                    }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                     refreshErrPage();
@@ -364,10 +382,9 @@ public class CameraPresenter extends BasePresenter<CameraView> {
     }
 
 
-
     public void cameraOperation(String imei, String operationType, String operationValue) {
         //修改别名
-        addDisposable(apiServer.operation_camera(imei, operationType,operationValue), new BaseObserver<String>(baseView, true) {
+        addDisposable(apiServer.operation_camera(imei, operationType, operationValue), new BaseObserver<String>(baseView, true) {
 
             @Override
             public void onSuccess(String bean) {
@@ -380,7 +397,14 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                         //通知刷新设备列表
                         baseView.showOperationSuccess();
 
-                    } else {
+                    }
+
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            cameraOperation( imei,  operationType,  operationValue);
+                        });
+                    }
+                    else {
                         String msg = jsonObject.optString("msg");
                         baseView.showResultError(msg);
                     }
@@ -396,9 +420,6 @@ public class CameraPresenter extends BasePresenter<CameraView> {
         });
 
     }
-
-
-
 
 
     public boolean isAllSelected() {
@@ -418,14 +439,9 @@ public class CameraPresenter extends BasePresenter<CameraView> {
     }
 
 
-
-
-
-
-
-    public void operation(String photoId,String operationType,String operationValue) {
+    public void operation(String photoId, String operationType, String operationValue) {
         //正式登录
-        addDisposable(apiServer.operation(photoId,operationType,operationValue), new BaseObserver<String>(baseView, true) {
+        addDisposable(apiServer.photoIds(photoId, operationType, operationValue), new BaseObserver<String>(baseView, true) {
 
             @Override
             public void onSuccess(String bean) {
@@ -433,7 +449,7 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                     JSONObject jsonObject = new JSONObject(bean);
                     String result = jsonObject.optString("result");
                     if ("0".equals(result)) {//请求成功
-                        switch (operationType){
+                        switch (operationType) {
                             case "favorites":
                                 baseView.showCollecMsg();
                                 break;
@@ -445,7 +461,14 @@ public class CameraPresenter extends BasePresenter<CameraView> {
                                 break;
                         }
 
-                    } else {
+                    }
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            operation( photoId,  operationType,  operationValue);
+                        });
+                    }
+
+                    else {
                         String msg = jsonObject.optString("msg");
 
                         baseView.showResultError(msg);

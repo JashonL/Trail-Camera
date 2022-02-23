@@ -225,7 +225,15 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
                                     Log.i("liaojinsha","解析的数量："+beans.size()+"");
                                     baseView.showCameraPic(beans);
 
-                                } else {
+                                }
+
+                                else if ("10000".equals(result)) {
+                                    userReLogin(context, () -> {
+                                        getCameraPic();
+                                    });
+                                }
+
+                                else {
                                     String msg = jsonObject.optString("msg");
                                     baseView.showResultError(msg);
                                     refreshErrPage();
@@ -303,6 +311,10 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
                         cameraBean.setSelected("-1".equals(imeis));
                         cameraList.add(0,cameraBean);
 
+                    }else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            getAlldevice();
+                        });
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -347,7 +359,7 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
 
     public void operation(String photoId,String operationType,String operationValue) {
         //正式登录
-        addDisposable(apiServer.operation(photoId,operationType,operationValue), new BaseObserver<String>(baseView, true) {
+        addDisposable(apiServer.photoIds(photoId,operationType,operationValue), new BaseObserver<String>(baseView, true) {
 
             @Override
             public void onSuccess(String bean) {
@@ -367,7 +379,14 @@ public class PhotoPresenter extends BasePresenter<PhotoView> {
                                 break;
                         }
 
-                    } else {
+                    }
+                    else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            operation( photoId,  operationType,  operationValue);
+                        });
+                    }
+
+                    else {
                         String msg = jsonObject.optString("msg");
 
                         baseView.showResultError(msg);

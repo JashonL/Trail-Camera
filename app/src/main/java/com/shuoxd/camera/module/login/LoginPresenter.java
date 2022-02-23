@@ -82,12 +82,14 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                         userInfo.setAccountName(email);
                         userInfo.setPassword(regPassword);
                         savaUserInfo(email, regPassword, userInfo);
-                    }else {
+                        baseView.registerSuccess();
+                    }else if ("10000".equals(result)){//调用登录接口
+
+                    } else {
                         String msg = jsonObject.optString("msg");
                         baseView.showLoginError(msg);
                     }
 
-                    baseView.registerSuccess();
 //                    registerSuccess();
                 } catch (Exception e) {
                     e.printStackTrace();

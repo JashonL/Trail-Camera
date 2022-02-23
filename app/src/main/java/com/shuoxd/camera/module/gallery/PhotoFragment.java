@@ -58,7 +58,9 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class PhotoFragment extends BaseFragment<PhotoPresenter> implements PhotoView,
-        BaseQuickAdapter.OnItemClickListener, Toolbar.OnMenuItemClickListener, HomeNavigationViewFragment.IMenuListeners, CameraPicVedeoAdapter.SelectedListener {
+        BaseQuickAdapter.OnItemClickListener, Toolbar.OnMenuItemClickListener,
+        HomeNavigationViewFragment.IMenuListeners,
+        CameraPicVedeoAdapter.SelectedListener, BaseQuickAdapter.OnItemLongClickListener {
 
 
     @BindView(R.id.status_bar_view)
@@ -234,6 +236,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
             }
         }, rlvDevice);
         mPicVideoAdapter.setOnItemClickListener(this);
+        mPicVideoAdapter.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -822,8 +825,27 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     }
 
 
+    @Override
+    public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
 
 
+        showEditPop();
 
+        List<PictureBean> data = mPicVideoAdapter.getData();
+        presenter.setEditMode(true);
+        for (int i = 0; i < data.size(); i++) {
+            PictureBean pictureBean = data.get(i);
+            String type = pictureBean.getType();
+            //全部设置为未选中
+            pictureBean.setChecked(false);
+            if ("2".equals(type)) {
+                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO_EDIT);
+            } else {
+                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_EDIT);
+            }
+        }
 
+        mPicVideoAdapter.notifyDataSetChanged();
+        return false;
+    }
 }

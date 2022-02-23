@@ -25,7 +25,7 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
                                String address, String addressDetail,
                                String country, String state,
                                String city, String zipCode, String mobileNum) {
-        addDisposable(apiServer.modifyUserInfo(firstName, lastName,address,addressDetail,country,state,city,zipCode,mobileNum), new BaseObserver<String>(baseView,
+        addDisposable(apiServer.modifyUserInfo(firstName, lastName, address, addressDetail, country, state, city, zipCode, mobileNum), new BaseObserver<String>(baseView,
                 true) {
             @Override
             public void onSuccess(String bean) {
@@ -37,7 +37,14 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
 //                        EventBus.getDefault().post(new FreshCameraList());
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
-                        baseView.modifyUserInfoSuccess(firstName,lastName,address,addressDetail,country,state,city,zipCode,mobileNum);
+                        baseView.modifyUserInfoSuccess(firstName, lastName, address, addressDetail, country, state, city, zipCode, mobileNum);
+                    } else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            modifyUserInfo(firstName, lastName,
+                                    address, addressDetail,
+                                    country, state,
+                                    city, zipCode, mobileNum);
+                        });
                     } else {
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
@@ -54,16 +61,13 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
             }
         });
     }
-
-
-
 
 
     public void modifyCreditCard(String cardName, String cardAddr,
-                               String cardCity, String cardCountry,
-                               String cardState, String cardZip,
-                               String cardNum, String cardYear, String cardMonth) {
-        addDisposable(apiServer.modifyCreditCard(cardName, cardAddr,cardCity,cardCountry,cardState,cardZip,cardNum,cardYear,cardMonth), new BaseObserver<String>(baseView,
+                                 String cardCity, String cardCountry,
+                                 String cardState, String cardZip,
+                                 String cardNum, String cardYear, String cardMonth) {
+        addDisposable(apiServer.modifyCreditCard(cardName, cardAddr, cardCity, cardCountry, cardState, cardZip, cardNum, cardYear, cardMonth), new BaseObserver<String>(baseView,
                 true) {
             @Override
             public void onSuccess(String bean) {
@@ -75,7 +79,14 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
 //                        EventBus.getDefault().post(new FreshCameraList());
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
-                        baseView.modifyCardSuccess(cardName,cardAddr,cardCity,cardCountry,cardState,cardZip,cardNum,cardYear,cardMonth);
+                        baseView.modifyCardSuccess(cardName, cardAddr, cardCity, cardCountry, cardState, cardZip, cardNum, cardYear, cardMonth);
+                    } else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            modifyCreditCard(cardName, cardAddr,
+                                    cardCity, cardCountry,
+                                    cardState, cardZip,
+                                    cardNum, cardYear, cardMonth);
+                        });
                     } else {
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
@@ -92,8 +103,6 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
             }
         });
     }
-
-
 
 
 }

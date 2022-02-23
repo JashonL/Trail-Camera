@@ -32,8 +32,8 @@
     <string name="m20_sliding">Left and right sliding</string>
 
     <string name="m21_collection">collection</string>
-    <string name="m22_delete">delete</string>
-    <string name="m23_share">share</string>
+    <string name="m22_delete">Delete</string>
+    <string name="m23_share">Share</string>
     <string name="m24_download">High Resolution Download</string>
     <string name="m25_day">Day</string>
     <string name="m26_week">Week</string>
@@ -256,12 +256,12 @@
     <string name="m210_hqphoto_is_not_available">HQ photo is not available</string>
 
     <string name="m211_selected">Selected</string>
-    <string name="m212_selected_all">Selected All</string>
-    <string name="m213_download">DownLoad</string>
+    <string name="m212_selected_all">Selected all</string>
+    <string name="m213_download">Download</string>
     <string name="m214_deselect_all">Deselect All</string>
     <string name="m215_not_choose">Not Choose</string>
 
 
-
+    <string name="m216_cancel_hq">HQ await sync.Click to cancel</string>
 
 </resources>
