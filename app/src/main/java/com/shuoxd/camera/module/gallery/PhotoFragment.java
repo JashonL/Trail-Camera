@@ -44,6 +44,7 @@ import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.camera.CameraDetailActivity;
 import com.shuoxd.camera.module.camera.CameraShowListManerge;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
+import com.shuoxd.camera.module.video.VideoPlayActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
@@ -246,6 +247,8 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         boolean checked = pictureBean.isChecked();
         int itemType = pictureBean.getItemType();
         String id = pictureBean.getId();
+        String fullPath = pictureBean.getFullPath();
+
         if (itemType == CameraPicVedeoAdapter.HD_PIC_FLAG_EDIT || itemType == CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO_EDIT) {
             boolean b = !checked;
             pictureBean.setChecked(b);
@@ -264,12 +267,22 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
             }
 
         } else {
-            CameraShowListManerge.getInstance().setPicList(picList);
-            Intent intent = new Intent(getContext(), CameraDetailActivity.class);
-            //当前选择的是哪一张
-            intent.putExtra("position", position);
-            intent.putExtra("alias", getString(R.string.m77_all_camera));
-            startActivity(intent);
+            if (itemType==CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO){
+                Intent intent = new Intent(getContext(), VideoPlayActivity.class);
+                //当前选择的是哪一张
+                intent.putExtra("fullPath", fullPath);
+                intent.putExtra("alias", getString(R.string.m77_all_camera));
+                startActivity(intent);
+            }else {
+                CameraShowListManerge.getInstance().setPicList(picList);
+                Intent intent = new Intent(getContext(), CameraDetailActivity.class);
+                //当前选择的是哪一张
+                intent.putExtra("position", position);
+                intent.putExtra("alias", getString(R.string.m77_all_camera));
+                startActivity(intent);
+            }
+
+
         }
 
 

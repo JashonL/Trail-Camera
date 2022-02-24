@@ -203,6 +203,13 @@
             android:screenOrientation="portrait"/>
 
 
+
+        <activity
+            android:name=".module.video.VideoPlayActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" /> <!-- or android:screenOrientation="landscape"-->
+
+
     </application>
 
 </manifest>

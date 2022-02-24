@@ -102,7 +102,7 @@ public class CameraPicVedeoAdapter extends BaseMultiItemQuickAdapter<PictureBean
                     GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic1);
                 }
                 //类型 图片类型(0:缩略图;1:高清图;2:视频)
-                if (itemType==HD_PIC_FLAG_VIDEO_EDIT){
+                if (itemType==HD_PIC_FLAG_EDIT){
                     //类型 图片类型(0:缩略图;1:高清图;2:视频)
                     TextView tvHD = helper.getView(R.id.tv_hd);
                     if (!"1".equals(type)) {
