@@ -248,6 +248,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         int itemType = pictureBean.getItemType();
         String id = pictureBean.getId();
         String fullPath = pictureBean.getFullPath();
+        String collection = pictureBean.getCollection();
 
         if (itemType == CameraPicVedeoAdapter.HD_PIC_FLAG_EDIT || itemType == CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO_EDIT) {
             boolean b = !checked;
@@ -271,6 +272,8 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
                 Intent intent = new Intent(getContext(), VideoPlayActivity.class);
                 //当前选择的是哪一张
                 intent.putExtra("fullPath", fullPath);
+                intent.putExtra("id",id);
+                intent.putExtra("collection",collection);
                 intent.putExtra("alias", getString(R.string.m77_all_camera));
                 startActivity(intent);
             }else {

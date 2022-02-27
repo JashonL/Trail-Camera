@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('D:\\workplace\\key\\sxd\\sxd.jks')
+            storeFile file('G:\\WorkPlace\\key\\sxd.jks')
             storePassword '123456'
             keyAlias = 'key'
             keyPassword '123456'
@@ -147,6 +147,8 @@ dependencies {
 
     /*视频播放框架*/
     implementation 'cn.jzvd:jiaozivideoplayer:7.7.0'
+
+    implementation 'com.danikula:videocache:2.7.0'
 
 
 }

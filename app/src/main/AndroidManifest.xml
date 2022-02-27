@@ -21,6 +21,9 @@
     <uses-permission android:name="com.shuoxd.camera.activity.permission.MAPS_RECEIVE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
+    <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
+
+
 
     <application
         android:name=".app.App"

@@ -1,8 +1,13 @@
 package com.shuoxd.camera.module.camera;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,28 +16,40 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.shuoxd.camera.R;
+import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.pictrue.BigImageActivty;
 import com.shuoxd.camera.utils.GlideUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
+import com.shuoxd.camera.utils.ShareUtils;
 import com.shuoxd.camera.utils.ViewUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -97,7 +114,16 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         tvTitle.setText(R.string.m65_camera_of_garden);
         //初始化Viewpager
         List<PictureBean> picList1 = CameraShowListManerge.getInstance().getPicList();
-        picList = new ArrayList<>(picList1);
+        picList = new ArrayList<>();
+
+
+        for (int i = 0; i < picList1.size(); i++) {
+            PictureBean pictureBean = picList1.get(i);
+            String type = pictureBean.getType();
+            if (!"2".equals(type)) {//过滤视频
+                picList.add(pictureBean);
+            }
+        }
 
         mAdapter = new ViewPagerAdapter(picList);
         vp.setAdapter(mAdapter);
@@ -234,8 +260,20 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 presenter.operation(id, "remove", "1");
             }
             break;
-            case R.id.tv_share:
-                break;
+            case R.id.tv_share: {
+                int position = vp.getCurrentItem();
+                String path = mAdapter.getImagePaths().get(position);
+                File file =new File(path);
+                Uri uri = Uri.fromFile(file);
+                try {
+                    ShareUtils.sharePic(this,uri);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
+            break;
 
             case R.id.btn_download: {
                 List<PictureBean> viewLists = mAdapter.getViewLists();
@@ -268,7 +306,6 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         }
 
 
-
     }
 
     @Override
@@ -276,23 +313,23 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
   /*      int currentItem = vp.getCurrentItem();
         mAdapter.getViewLists().remove(currentItem);
         mAdapter.notifyDataSetChanged();*/
-        int index=-1;
+        int index = -1;
         for (int i = 0; i < picList.size(); i++) {
             String id = picList.get(i).getId();
-            if (id.equals(photoId)){
-                index=i;
+            if (id.equals(photoId)) {
+                index = i;
                 break;
             }
         }
 
-        if (index!=-1){
+        if (index != -1) {
             picList.remove(index);
             mAdapter = new ViewPagerAdapter(picList);
             vp.setAdapter(mAdapter);
 
 
             int count = mAdapter.getCount();
-            if (currenPosition>=count-1){
+            if (currenPosition >= count - 1) {
                 currenPosition--;
             }
             vp.setCurrentItem(currenPosition);
@@ -330,11 +367,14 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
         private List<PictureBean> viewLists;
         private List<View> imageViews;
+        private List<String> imagePaths;
 
 
         public ViewPagerAdapter(List<PictureBean> viewLists) {
             this.viewLists = viewLists;
             imageViews = new ArrayList<>();
+            imagePaths = new ArrayList<>();
+
             for (int i = 0; i < viewLists.size(); i++) {
                 View inflate = LayoutInflater.from(CameraDetailActivity.this).inflate(R.layout.layout_vp_image, vp, false);
                 ImageView ivCamera = inflate.findViewById(R.id.iv_camera);
@@ -351,7 +391,27 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
 
                 String url = viewLists.get(i).getFullPath();
-                GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, url, ivCamera);
+                String id = viewLists.get(i).getId();
+//                GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, url, ivCamera);
+
+                Glide.with(mContext)
+                        .asBitmap()
+                        .load(url)
+                        .placeholder(R.drawable.kaola).error(R.drawable.kaola).dontAnimate()
+                        .into(new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                ivCamera.setImageBitmap(resource);
+                                String path = saveImage(resource, id);
+                                imagePaths.add(path);
+                            }
+
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
+                            }
+                        });
+
+
                 inflate.setOnClickListener(view -> {
                     Intent intent = new Intent(CameraDetailActivity.this, BigImageActivty.class);
                     int position = vp.getCurrentItem();
@@ -396,8 +456,49 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
             return viewLists;
         }
 
-
+        public List<String> getImagePaths() {
+            return imagePaths;
+        }
     }
+
+
+    private String saveImage(Bitmap image, String id) {
+        String saveImagePath = null;
+        String imageFileName = "JPEG_" + "down" + id + ".jpg";
+        String parentPath = App.getInstance().getFilesDir().getPath();
+
+
+        File storageDir = new File(parentPath);
+
+        boolean success = true;
+        if (!storageDir.exists()) {
+            success = storageDir.mkdirs();
+        }
+        if (success) {
+            File imageFile = new File(storageDir, imageFileName);
+            saveImagePath = imageFile.getAbsolutePath();
+            try {
+                OutputStream fout = new FileOutputStream(imageFile);
+                image.compress(Bitmap.CompressFormat.JPEG, 100, fout);
+                fout.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            // Add the image to the system gallery
+//            galleryAddPic(saveImagePath);
+        }
+        return saveImagePath;
+    }
+
+
+ /*   private void galleryAddPic(String imagePath) {
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        File f = new File(imagePath);
+        Uri contentUri = Uri.fromFile(f);
+        mediaScanIntent.setData(contentUri);
+        sendBroadcast(mediaScanIntent);
+    }*/
 
 
 }

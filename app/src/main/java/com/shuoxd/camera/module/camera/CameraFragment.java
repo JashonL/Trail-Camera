@@ -53,6 +53,7 @@ import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
 import com.shuoxd.camera.module.map.MapActivity;
+import com.shuoxd.camera.module.video.VideoPlayActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
@@ -529,6 +530,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             boolean checked = pictureBean.isChecked();
             int itemType = pictureBean.getItemType();
             String id = pictureBean.getId();
+            String fullPath = pictureBean.getFullPath();
+            String collection = pictureBean.getCollection();
+
             if (itemType == CameraPicVedeoAdapter.HD_PIC_FLAG_EDIT || itemType == CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO_EDIT) {
                 boolean b = !checked;
                 pictureBean.setChecked(b);
@@ -547,27 +551,30 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 }
 
             } else {
-                CameraShowListManerge.getInstance().setPicList(picList);
-                Intent intent = new Intent(getContext(), CameraDetailActivity.class);
-                intent.putExtra("position", position);
-                if (!TextUtils.isEmpty(alias)) {
-                    intent.putExtra("alias", alias);
-                } else {
-                    intent.putExtra("alias", cameraId);
+
+                if (itemType==CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO){
+                    Intent intent = new Intent(getContext(), VideoPlayActivity.class);
+                    //当前选择的是哪一张
+                    intent.putExtra("fullPath", fullPath);
+                    intent.putExtra("id",id);
+                    intent.putExtra("collection",collection);
+                    intent.putExtra("alias", getString(R.string.m77_all_camera));
+                    startActivity(intent);
+                }else {
+                    CameraShowListManerge.getInstance().setPicList(picList);
+                    Intent intent = new Intent(getContext(), CameraDetailActivity.class);
+                    intent.putExtra("position", position);
+                    if (!TextUtils.isEmpty(alias)) {
+                        intent.putExtra("alias", alias);
+                    } else {
+                        intent.putExtra("alias", cameraId);
+                    }
+                    startActivity(intent);
                 }
-                startActivity(intent);
+
+
+
             }
-
-
-
-
-
-
-
-
-
-
-
 
         }
 
