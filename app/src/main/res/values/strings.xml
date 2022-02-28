@@ -265,7 +265,6 @@
     <string name="m216_cancel_hq">HQ await sync.Click to cancel</string>
     <string name="m217_video_sharing">Video Sharing</string>
     <string name="m218_save_album">Save the screenshot to the photo album</string>
-
-
+    <string name="m219_video">Video</string>
 
 </resources>

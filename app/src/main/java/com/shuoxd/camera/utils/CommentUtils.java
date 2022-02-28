@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Outline;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -17,11 +18,14 @@ import android.view.ViewOutlineProvider;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.RequiresApi;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentActivity;
 
 
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -41,7 +45,6 @@ public class CommentUtils {
         if (networkInfo == null) return false;
         return networkInfo.isConnected();
     }
-
 
 
     /**
@@ -183,7 +186,6 @@ public class CommentUtils {
     }
 
 
-
     public static String getCurrentTimeZone() {
         TimeZone tz = TimeZone.getDefault();
         return createGmtOffsetString(true, true, tz.getRawOffset());
@@ -218,14 +220,13 @@ public class CommentUtils {
     }
 
 
-
     public static int getLocale() {
         Locale locale = App.getInstance().getResources().getConfiguration().locale;
         String language = locale.getLanguage().toLowerCase();
         int a;
         if (language.contains("cn") || language.contains("zh")) {
             a = 0;
-            if (!locale.getCountry().toLowerCase().equals("cn")){
+            if (!locale.getCountry().toLowerCase().equals("cn")) {
                 a = 2;
             }
         } else if (language.contains("en")) {
@@ -272,9 +273,6 @@ public class CommentUtils {
         zones.add("+12");
         return zones;
     }
-
-
-
 
 
     //隐藏虚拟键盘
@@ -363,38 +361,34 @@ public class CommentUtils {
     }
 
 
-
-
     /**
      * 获取12个月份的英文
      */
     public static List<String> getMonth() {
-        String [] month={"January","February","March","April","May","June","July","August","September","October","November","December"};
+        String[] month = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
         return Arrays.asList(month);
     }
-
 
 
     /**
      * 获取一周的英文
      */
     public static List<String> getWeeks() {
-        String [] month={"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+        String[] month = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         return Arrays.asList(month);
     }
-
 
 
     /**
      * 获取一周的英文
      */
     public static List<String> getWeeks2() {
-        String [] month={"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+        String[] month = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         return Arrays.asList(month);
     }
 
 
-    public static List<String> tempF(){
+    public static List<String> tempF() {
         List<String> temps = new ArrayList<>();
         for (int min = -50; min < 71; min++) {
             temps.add(String.valueOf(min));
@@ -403,14 +397,13 @@ public class CommentUtils {
     }
 
 
-    public static List<String> tempC(){
+    public static List<String> tempC() {
         List<String> temps = new ArrayList<>();
         for (int min = -50; min < 71; min++) {
             temps.add(String.valueOf(min));
         }
         return temps;
     }
-
 
 
     public static int dp2px(Context context, float dipValue) {
@@ -448,5 +441,26 @@ public class CommentUtils {
         }
         return flag;
     }
+
+
+    public static final String authority = CommentUtils.getPackageName(App.getInstance()) + ".fileProvider";
+
+    /**
+     * 返回安全的Uri
+     *
+     * @param act
+     * @param fileUri
+     * @return
+     */
+    public static Uri getImageUri(FragmentActivity act, File fileUri) {
+        Uri imageUri;
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            imageUri = Uri.fromFile(fileUri);
+        } else {
+            imageUri = FileProvider.getUriForFile(act, authority, fileUri);
+        }
+        return imageUri;
+    }
+
 
 }

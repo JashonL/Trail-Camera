@@ -14,6 +14,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.FileProvider;
 
@@ -36,6 +38,13 @@ import cn.jzvd.JzvdStd;
 
 public class VideoPlayActivity extends BaseActivity<ViDeoPlayPresenter> implements VideoPlayView {
 
+
+    @BindView(R.id.status_bar_view)
+    View statusBarView;
+    @BindView(R.id.tv_title)
+    AppCompatTextView tvTitle;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.tv_collec)
     TextView tvCollec;
     @BindView(R.id.tv_delete)
@@ -81,6 +90,9 @@ public class VideoPlayActivity extends BaseActivity<ViDeoPlayPresenter> implemen
 
         jzVideo = findViewById(R.id.jz_video);
 
+        //初始化toolbar
+        initToobar(toolbar);
+        tvTitle.setText(R.string.m219_video);
 
     }
 
@@ -113,6 +125,11 @@ public class VideoPlayActivity extends BaseActivity<ViDeoPlayPresenter> implemen
         } else {
             ViewUtils.setTextViewDrawableTop(this, tvCollec, R.drawable.collection);
         }
+
+
+
+        String name = fullPath.substring(fullPath.lastIndexOf("/")+1);
+        tvTitle.setText(name);
 
 
     }

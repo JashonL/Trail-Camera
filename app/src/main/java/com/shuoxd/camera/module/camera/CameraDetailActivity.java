@@ -36,6 +36,7 @@ import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.pictrue.BigImageActivty;
+import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.GlideUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.ShareUtils;
@@ -264,9 +265,10 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 int position = vp.getCurrentItem();
                 String path = mAdapter.getImagePaths().get(position);
                 File file =new File(path);
-                Uri uri = Uri.fromFile(file);
+//                Uri uri = Uri.fromFile(file);
+                Uri imageUri = CommentUtils.getImageUri(this, file);
                 try {
-                    ShareUtils.sharePic(this,uri);
+                    ShareUtils.sharePic(this,imageUri);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -6,6 +6,9 @@
     android:orientation="vertical">
 
 
+    <include layout="@layout/toobar_title" />
+
+
     <cn.jzvd.JzvdStd
         android:id="@+id/jz_video"
         android:layout_width="match_parent"
