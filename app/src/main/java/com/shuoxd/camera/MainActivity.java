@@ -247,6 +247,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
         }
 
         if (mPhotoFragment != null) {
+            mPhotoFragment.hideEdit();
             transaction.hide(mPhotoFragment);
         }
 
@@ -260,6 +261,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
 
 
         if (mCameraFragment != null) {
+            mCameraFragment.hideEdit();
             transaction.hide(mCameraFragment);
         }
 

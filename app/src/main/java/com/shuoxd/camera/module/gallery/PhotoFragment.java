@@ -564,7 +564,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         }
     }
 
-    private void cloaseEdit(List<PictureBean> data) {
+    public void cloaseEdit(List<PictureBean> data) {
         presenter.setEditMode(false);
         for (int i = 0; i < data.size(); i++) {
             PictureBean pictureBean = data.get(i);
@@ -864,4 +864,35 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
         mPicVideoAdapter.notifyDataSetChanged();
         return false;
     }
+
+
+
+
+
+    public void hideEdit() {
+        presenter.setEditMode(false);
+        List<PictureBean> data = mPicVideoAdapter.getData();
+        for (int i = 0; i < data.size(); i++) {
+            PictureBean pictureBean = data.get(i);
+            String type = pictureBean.getType();
+            //全部设置为未选中
+            pictureBean.setChecked(false);
+            //清除记录
+            mPicVideoAdapter.getSelectedImeis().clear();
+
+            if ("2".equals(type)) {
+                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO);
+            } else {
+                pictureBean.setItemType(CameraPicVedeoAdapter.HD_PIC_FLAG);
+            }
+        }
+        if (editPop != null) {
+            editPop.dismiss();
+        }
+        srlPull.setEnabled(true);
+        mPicVideoAdapter.notifyDataSetChanged();
+    }
+
+
+
 }
