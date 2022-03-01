@@ -137,10 +137,21 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         for (int i = 0; i < 24; i++) {
             if (i < 10) {
                 hours.add("0" + i);
-                minutes.add("0" + i);
                 ss.add("0" + i);
             } else {
                 hours.add(i + "");
+            }
+
+        }
+
+
+
+
+        for (int i = 0; i < 60; i++) {
+            if (i < 10) {
+                minutes.add("0" + i);
+                ss.add("0" + i);
+            } else {
                 minutes.add(i + "");
                 ss.add(i + "");
             }

@@ -262,8 +262,18 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
             }
             break;
             case R.id.tv_share: {
-                int position = vp.getCurrentItem();
-                String path = mAdapter.getImagePaths().get(position);
+//                int position = vp.getCurrentItem();
+//                String path = mAdapter.getImagePaths().get(position);
+
+
+                List<PictureBean> viewLists = mAdapter.getViewLists();
+                int position1 = vp.getCurrentItem();
+                PictureBean pictureBean = viewLists.get(position1);
+                String id = pictureBean.getId();
+                Bitmap bitmap = mAdapter.getBitmaps().get(position1);
+                String path = saveImage(bitmap, id);
+
+
                 File file =new File(path);
 //                Uri uri = Uri.fromFile(file);
                 Uri imageUri = CommentUtils.getImageUri(this, file);
@@ -370,12 +380,14 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         private List<PictureBean> viewLists;
         private List<View> imageViews;
         private List<String> imagePaths;
+        private List<Bitmap>bitmaps;
 
 
         public ViewPagerAdapter(List<PictureBean> viewLists) {
             this.viewLists = viewLists;
             imageViews = new ArrayList<>();
             imagePaths = new ArrayList<>();
+            bitmaps=new ArrayList<>();
 
             for (int i = 0; i < viewLists.size(); i++) {
                 View inflate = LayoutInflater.from(CameraDetailActivity.this).inflate(R.layout.layout_vp_image, vp, false);
@@ -404,8 +416,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                             @Override
                             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                                 ivCamera.setImageBitmap(resource);
-                                String path = saveImage(resource, id);
-                                imagePaths.add(path);
+//                                String path = saveImage(resource, id);
+//                                imagePaths.add(path);
+                                bitmaps.add(resource);
                             }
 
                             @Override
@@ -419,7 +432,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                     int position = vp.getCurrentItem();
                     PictureBean pictureBean = viewLists.get(position);
                     String fullPath = pictureBean.getFullPath();
+                    String name = pictureBean.getFileName();
                     intent.putExtra("path", fullPath);
+                    intent.putExtra("name",name);
                     startActivity(intent);
                 });
 
@@ -460,6 +475,15 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
         public List<String> getImagePaths() {
             return imagePaths;
+        }
+
+
+        public List<Bitmap> getBitmaps() {
+            return bitmaps;
+        }
+
+        public void setBitmaps(List<Bitmap> bitmaps) {
+            this.bitmaps = bitmaps;
         }
     }
 
