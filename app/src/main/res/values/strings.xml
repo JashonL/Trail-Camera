@@ -256,9 +256,9 @@
     <string name="m210_hqphoto_is_not_available">HQ photo is not available</string>
 
     <string name="m211_selected">Selected</string>
-    <string name="m212_selected_all">Selected all</string>
+    <string name="m212_selected_all">Select all</string>
     <string name="m213_download">Download</string>
-    <string name="m214_deselect_all">Deselect All</string>
+    <string name="m214_deselect_all">Unselect all</string>
     <string name="m215_not_choose">Not Choose</string>
 
 
@@ -266,5 +266,9 @@
     <string name="m217_video_sharing">Video Sharing</string>
     <string name="m218_save_album">Save the screenshot to the photo album</string>
     <string name="m219_video">Video</string>
+
+
+    <string name="m220_save_pic">保存到相册</string>
+    <string name="m221_save_error">保存失败</string>
 
 </resources>

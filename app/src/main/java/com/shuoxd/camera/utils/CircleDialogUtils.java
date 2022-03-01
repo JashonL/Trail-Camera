@@ -22,6 +22,8 @@ import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.contrarywind.view.WheelView;
 import com.mylhyl.circledialog.BaseCircleDialog;
 import com.mylhyl.circledialog.CircleDialog;
+import com.mylhyl.circledialog.callback.ConfigText;
+import com.mylhyl.circledialog.params.TextParams;
 import com.mylhyl.circledialog.res.drawable.CircleDrawable;
 import com.mylhyl.circledialog.res.values.CircleColor;
 import com.mylhyl.circledialog.res.values.CircleDimen;
@@ -269,6 +271,44 @@ public class CircleDialogUtils {
             show.dialogDismiss();
         });
     }
+
+
+
+
+    /**
+     * 公共提示框
+     *
+     * @param activity
+     * @return
+     */
+    public static DialogFragment showCommentDialog(FragmentActivity activity, String title, String text, String positive, String negative, int TextGravity,
+                                                   View.OnClickListener posiListener, View.OnClickListener negativeListener) {
+        CircleDialog.Builder builder = new CircleDialog.Builder();
+        if (!TextUtils.isEmpty(title)) {
+            builder.setTitle(title);
+        }
+        if (!TextUtils.isEmpty(text)) {
+            builder.setText(text);
+        }
+        builder.configText(new ConfigText() {
+            @Override
+            public void onConfig(TextParams params) {
+                params.gravity = TextGravity;
+            }
+        });
+
+        if (negativeListener != null) {
+            builder.setNegative(negative, negativeListener);
+        }
+
+        if (posiListener != null) {
+            builder.setPositive(positive, posiListener);
+        }
+
+        builder.setWidth(0.8f);
+        return builder.show(activity.getSupportFragmentManager());
+    }
+
 
 
     public interface OndialogComfirListener {

@@ -269,9 +269,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 List<PictureBean> viewLists = mAdapter.getViewLists();
                 int position1 = vp.getCurrentItem();
                 PictureBean pictureBean = viewLists.get(position1);
-                String id = pictureBean.getId();
+                String fileName = pictureBean.getFileName();
                 Bitmap bitmap = mAdapter.getBitmaps().get(position1);
-                String path = saveImage(bitmap, id);
+                String path = saveImage(bitmap, fileName);
 
 
                 File file =new File(path);

@@ -89,7 +89,7 @@ public class ShareUtils {
      * @param picName
      * @param pictureFile
      */
-    private static void insertAlbum(Activity activity, String picName, File pictureFile) throws Exception{
+    public static void insertAlbum(Activity activity, String picName, File pictureFile) throws Exception{
         new Thread() {
             @Override
             public void run() {
