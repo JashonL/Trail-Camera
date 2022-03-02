@@ -29,7 +29,7 @@
     <string name="m17_date">Date</string>
     <string name="m18_temp">Temperature</string>
     <string name="m19_temp">Lunar phase</string>
-    <string name="m20_sliding">Left and right sliding</string>
+    <string name="m20_sliding">Swipe for previous/next</string>
 
     <string name="m21_collection">collection</string>
     <string name="m22_delete">Delete</string>
@@ -207,9 +207,9 @@
     <string name="m173_modem_fireware_version">Modem Firmware Version</string>
     <string name="m174_last_update_time">Last Update Time</string>
     <string name="m175_modem_model">Modem Model</string>
-    <string name="m176_by_email">Find Password</string>
-    <string name="m177_by_imei">Find Password By Email</string>
-    <string name="m178_find_password">Find Password By Camera IMEI</string>
+    <string name="m176_by_email">Find Password By Email</string>
+    <string name="m177_by_imei">Find Password By Camera IMEI</string>
+    <string name="m178_find_password">Find Password</string>
     <string name="m179_first_name">First Name</string>
     <string name="m180_last_name">Last Name</string>
     <string name="m180_address">Address</string>
@@ -262,7 +262,7 @@
     <string name="m215_not_choose">Not Choose</string>
 
 
-    <string name="m216_cancel_hq">HQ await sync.Click to cancel</string>
+    <string name="m216_cancel_hq">HQ awaiting sync.Click to cancel</string>
     <string name="m217_video_sharing">Video Sharing</string>
     <string name="m218_save_album">Save the screenshot to the photo album</string>
     <string name="m219_video">Video</string>
@@ -270,5 +270,6 @@
 
     <string name="m220_save_pic">保存到相册</string>
     <string name="m221_save_error">保存失败</string>
+    <string name="m222_save_error">您的设备不支持谷歌地图</string>
 
 </resources>

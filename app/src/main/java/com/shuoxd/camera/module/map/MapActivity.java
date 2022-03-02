@@ -13,6 +13,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.text.TextUtils;
+import android.view.MenuItem;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,7 +23,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -38,6 +43,7 @@ import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.MapLoctionBean;
 import com.shuoxd.camera.eventbus.FreshCameraLocation;
+import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -51,14 +57,23 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
         OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener,GoogleMap.OnCameraIdleListener
+        GoogleMap.OnMyLocationClickListener, GoogleMap.OnCameraIdleListener, Toolbar.OnMenuItemClickListener {
 
-{
-
+    @BindView(R.id.status_bar_view)
+    View statusBarView;
+    @BindView(R.id.tv_title)
+    AppCompatTextView tvTitle;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.app_toolbar)
+    LinearLayout appToolbar;
 
     @BindView(R.id.tvMarker)
     TextView mTvMarker;
-
+    @BindView(R.id.tv_nogoogle_service)
+    TextView tvNoGoogle;
+    @BindView(R.id.map)
+    FrameLayout map;
 
     private String mLng = "0";
     private String mLat = "0";
@@ -70,7 +85,6 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
 
     private GoogleMap mMap;
     private Geocoder geocoder;
-
 
 
     private boolean permissionDenied = false;
@@ -88,6 +102,19 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
 
     @Override
     protected void initViews() {
+
+        //toolbar
+        initToobar(toolbar);
+        toolbar.setOnMenuItemClickListener(this);
+        tvTitle.setText(R.string.m73_map);
+
+
+        boolean googleService = CommentUtils.isGoogleService(this);
+        if (!googleService){
+            tvNoGoogle.setVisibility(View.VISIBLE);
+            map.setVisibility(View.GONE);
+        }
+
 
         //获取经纬度
         mLat = getIntent().getStringExtra("lat");
@@ -121,17 +148,20 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     @Override
     protected void initImmersionBar() {
         mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.keyboardEnable(true).init();
+        mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
+                .statusBarView(statusBarView)
+                .init();
     }
 
 
     @Override
     protected void initData() {
         //显示经纬度信息
-        if (!TextUtils.isEmpty(mLat)&&!TextUtils.isEmpty(mLng)){
+        if (!TextUtils.isEmpty(mLat) && !TextUtils.isEmpty(mLng)) {
             double vLat = Double.parseDouble(mLat);
             double vLng = Double.parseDouble(mLng);
-            LatLng location=new LatLng(vLat,vLng);
+            LatLng location = new LatLng(vLat, vLng);
             getAddress(location);
         }
     }
@@ -145,10 +175,6 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
         permissionDenied = true;
     }
-
-
-
-
 
 
     @SuppressLint("MissingPermission")
@@ -183,9 +209,6 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     }
 
 
-
-
-
     private void moveCenter(LatLng location) {
         if (location != null) {
             mCenterLatlng = location;
@@ -194,15 +217,11 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     }
 
 
-
-
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
         MyToastUtils.toast("点击了marker");
         return true;
     }
-
-
 
 
     /**
@@ -213,14 +232,14 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     private void getAddress(LatLng location) {
         try {
             List<Address> addresses;
-            if (geocoder == null){
+            if (geocoder == null) {
                 geocoder = new Geocoder(this, Locale.getDefault());
             }
             String addStr = null; //结果
             addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
             Address adds = addresses.get(0);
             String address = addresses.get(0).getAddressLine(0);
-            if (centerBean == null){
+            if (centerBean == null) {
                 centerBean = new MapLoctionBean();
             }
             String city = adds.getLocality();
@@ -255,7 +274,6 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     }
 
 
-
     /**
      * Enables the My Location layer if the fine location permission has been granted.
      */
@@ -274,7 +292,6 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     }
 
 
-
     /**
      * Displays a dialog with error message explaining that the location permission is missing.
      */
@@ -288,7 +305,7 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     }
 
     @Override
-    public void showLocationSuccess(String lat,String lng) {
+    public void showLocationSuccess(String lat, String lng) {
         FreshCameraLocation freshCameraLocation = new FreshCameraLocation();
         freshCameraLocation.setLat(lat);
         freshCameraLocation.setLng(lng);
@@ -296,4 +313,9 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     }
 
 
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+
+        return true;
+    }
 }

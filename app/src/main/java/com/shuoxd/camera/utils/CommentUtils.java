@@ -22,6 +22,8 @@ import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentActivity;
 
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 
@@ -462,5 +464,19 @@ public class CommentUtils {
         return imageUri;
     }
 
+
+    public static boolean isGoogleService(Context context) {
+        boolean googleserviceFlag = true;
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (googleApiAvailability.isUserResolvableError(resultCode)) {
+                googleApiAvailability.getErrorDialog((Activity) context, resultCode, 2404).show();
+            }
+            googleserviceFlag = false;
+        }
+        return googleserviceFlag;
+
+    }
 
 }

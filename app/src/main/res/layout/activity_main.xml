@@ -14,6 +14,7 @@
         android:layout_weight="1"
         android:background="@color/gray_f5"
         android:orientation="vertical" />
+    
 
 
     <com.ashokvarma.bottomnavigation.BottomNavigationBar

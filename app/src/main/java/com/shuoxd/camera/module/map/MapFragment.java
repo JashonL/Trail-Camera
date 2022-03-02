@@ -48,6 +48,7 @@ import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.MapLoctionBean;
 import com.shuoxd.camera.utils.CircleDialogUtils;
+import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.zxing.CustomScanActivity;
 
@@ -75,6 +76,10 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     TextView tvWifi;
     @BindView(R.id.tv_address)
     TextView tvAddress;
+
+    @BindView(R.id.tv_nogoogle_service)
+    TextView tvNoGoogle;
+
 
 
     private MapView mMap;
@@ -129,7 +134,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
             e.printStackTrace();
         }
 
-        int errorCode = GooglePlayServicesUtil
+   /*     int errorCode = GooglePlayServicesUtil
                 .isGooglePlayServicesAvailable(this.getActivity());
 
         if (ConnectionResult.SUCCESS != errorCode) {
@@ -137,7 +142,20 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
                     this.getActivity(), 0).show();
         } else {
             mMap.getMapAsync(this);
+        }*/
+
+
+        boolean googleService = CommentUtils.isGoogleService(getContext());
+        if (!googleService){
+            tvNoGoogle.setVisibility(View.VISIBLE);
+            mMap.setVisibility(View.GONE);
+        }else {
+            mMap.getMapAsync(this);
         }
+
+
+
+
         return view;
     }
 

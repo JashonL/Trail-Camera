@@ -110,7 +110,6 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
     Group gpTemp;
 
 
-
     /*设备部分*/
     private PhaseAdapter mAdapter;
 
@@ -213,7 +212,7 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
         mAdapter.setNowSelectPosition(position);
     }
 
-    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.ll_reset, R.id.ll_apply, R.id.iv_delete,R.id.iv_delete_unit})
+    @OnClick({R.id.tv_date_start, R.id.tv_date_end, R.id.ll_reset, R.id.ll_apply, R.id.iv_delete, R.id.iv_delete_unit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_date_start:
@@ -260,7 +259,7 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
             case R.id.iv_delete_unit:
                 cbF.setChecked(false);
                 cbC.setChecked(false);
-                temperatureUnit="-1";
+                temperatureUnit = "-1";
 
                 wheelEnd.setCurrentItem(50);
                 wheelStart.setCurrentItem(50);
@@ -324,14 +323,14 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                 List<String> tempF = CommentUtils.tempF();
                 List<String> tempC = CommentUtils.tempC();
 
-                startTemperature = "" +tempF.get(temp_start);
-                endTemperature = "" +tempC.get(temp_end);
+                startTemperature = "" + tempF.get(temp_start);
+                endTemperature = "" + tempC.get(temp_end);
 
 
                 int nowSelectPosition = mAdapter.getNowSelectPosition();
-                if (nowSelectPosition==-1){
-                    moonPhase=String.valueOf(-1);
-                }else {
+                if (nowSelectPosition == -1) {
+                    moonPhase = String.valueOf(-1);
+                } else {
                     moonPhase = String.valueOf(nowSelectPosition + 1);
                 }
 
@@ -355,16 +354,30 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
             if (b) cbPm.setChecked(false);
         } else if (compoundButton == cbPm) {
             if (b) cbAm.setChecked(false);
-        }else if (compoundButton==cbF){
+        } else if (compoundButton == cbF) {
             if (b) cbC.setChecked(false);
-            if (compoundButton.isPressed()&&b){
+            if (compoundButton.isPressed() && b) {
                 gpTemp.setVisibility(View.VISIBLE);
+            } else if (!b && !cbC.isChecked()) {
+                temperatureUnit = "-1";
+
+                wheelEnd.setCurrentItem(50);
+                wheelStart.setCurrentItem(50);
+
+                gpTemp.setVisibility(View.GONE);
             }
 
-        }else if (compoundButton==cbC){
+        } else if (compoundButton == cbC) {
             if (b) cbF.setChecked(false);
-            if (compoundButton.isPressed()&&b){
+            if (compoundButton.isPressed() && b) {
                 gpTemp.setVisibility(View.VISIBLE);
+            } else if (!b && !cbF.isChecked()) {
+                temperatureUnit = "-1";
+
+                wheelEnd.setCurrentItem(50);
+                wheelStart.setCurrentItem(50);
+
+                gpTemp.setVisibility(View.GONE);
             }
         }
     }

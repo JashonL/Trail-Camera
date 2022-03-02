@@ -1179,7 +1179,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
     public void hideEdit() {
-        presenter.setEditMode(false);
+        if (presenter!=null){
+            presenter.setEditMode(false);
+        }
         List<PictureBean> data = mPicVideoAdapter.getData();
         for (int i = 0; i < data.size(); i++) {
             PictureBean pictureBean = data.get(i);
@@ -1200,6 +1202,19 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         }
         srlPull.setEnabled(true);
         mPicVideoAdapter.notifyDataSetChanged();
+    }
+
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+
+
+        if (hidden){
+            hideEdit();
+        }
+
     }
 
 

@@ -870,7 +870,9 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
 
     public void hideEdit() {
-        presenter.setEditMode(false);
+        if (presenter!=null){
+            presenter.setEditMode(false);
+        }
         List<PictureBean> data = mPicVideoAdapter.getData();
         for (int i = 0; i < data.size(); i++) {
             PictureBean pictureBean = data.get(i);
@@ -894,5 +896,14 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
     }
 
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
 
+
+        if (hidden){
+            hideEdit();
+        }
+
+    }
 }

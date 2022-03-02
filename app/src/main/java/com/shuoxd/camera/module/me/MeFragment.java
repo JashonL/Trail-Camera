@@ -148,12 +148,12 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
 
 
         String[] titles = {getString(R.string.m79_plans), getString(R.string.m80_billing_history), getString(R.string.m81_Message),
-                getString(R.string.m82_account), getString(R.string.m83_Support), getString(R.string.m84_sign_out), "关于"
+                getString(R.string.m82_account), getString(R.string.m83_Support), getString(R.string.m84_sign_out)
         };
 
 
         int[] res = {R.drawable.plans, R.drawable.billing_hisory, R.drawable.messages,
-                R.drawable.account, R.drawable.support, R.drawable.sign_out, R.drawable.support
+                R.drawable.account, R.drawable.support, R.drawable.sign_out
         };
 
 
@@ -207,9 +207,6 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
                 //
                 String accountName = App.getUserBean().accountName;
                 presenter.userLogout(accountName);
-                break;
-            case 6:
-                startActivity(new Intent(getContext(), ActivityAbout.class));
                 break;
         }
     }

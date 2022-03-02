@@ -61,7 +61,7 @@
             android:layout_gravity="center"
             android:textColor="@color/color_text_66"
             android:textSize="@dimen/sp_14"
-            android:text="@string/m87_no_more_data"/>
+            />
 
     </FrameLayout>
 
