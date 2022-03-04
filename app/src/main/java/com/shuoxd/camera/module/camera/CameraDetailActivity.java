@@ -55,6 +55,7 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jzvd.JzvdStd;
 
 public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> implements CameraDetailView, ViewPager.OnPageChangeListener {
 
@@ -121,14 +122,16 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         for (int i = 0; i < picList1.size(); i++) {
             PictureBean pictureBean = picList1.get(i);
             String type = pictureBean.getType();
-            if (!"2".equals(type)) {//过滤视频
-                picList.add(pictureBean);
-            }
+        /*    if (!"2".equals(type)) {//过滤视频
+            }*/
+            picList.add(pictureBean);
+
         }
 
         mAdapter = new ViewPagerAdapter(picList);
         vp.setAdapter(mAdapter);
         vp.addOnPageChangeListener(this);
+        vp.setOffscreenPageLimit(0);
     }
 
     @Override
@@ -197,29 +200,21 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
 
         List<PictureBean> viewLists = mAdapter.getViewLists();
-
         String num = (position + 1) + "/" + viewLists.size();
         tvNum.setText(num);
-
-
         PictureBean pictureBean = viewLists.get(position);
-
-
         String collection = pictureBean.getCollection();
         if ("1".equals(collection)) {
             ViewUtils.setTextViewDrawableTop(this, tvCollec, R.drawable.collected);
         } else {
             ViewUtils.setTextViewDrawableTop(this, tvCollec, R.drawable.collection);
         }
-
         String uploadDate = pictureBean.getUploadDate();
         if (!TextUtils.isEmpty(uploadDate)) {
             tvDate.setText(uploadDate);
         }
-
         String type = pictureBean.getType();
         String wrongPhoto = pictureBean.getWrongPhoto();
-
         if ("5".equals(type)) {
             btnDownLoad.setText(R.string.m209_waiting_synchronization);
             btnDownLoad.setEnabled(true);
@@ -274,11 +269,11 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 String path = saveImage(bitmap, fileName);
 
 
-                File file =new File(path);
+                File file = new File(path);
 //                Uri uri = Uri.fromFile(file);
                 Uri imageUri = CommentUtils.getImageUri(this, file);
                 try {
-                    ShareUtils.sharePic(this,imageUri);
+                    ShareUtils.sharePic(this, imageUri);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -316,8 +311,6 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         } else {
             ViewUtils.setTextViewDrawableTop(this, tvCollec, R.drawable.collection);
         }
-
-
     }
 
     @Override
@@ -380,65 +373,75 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         private List<PictureBean> viewLists;
         private List<View> imageViews;
         private List<String> imagePaths;
-        private List<Bitmap>bitmaps;
+        private List<Bitmap> bitmaps;
 
 
         public ViewPagerAdapter(List<PictureBean> viewLists) {
             this.viewLists = viewLists;
             imageViews = new ArrayList<>();
             imagePaths = new ArrayList<>();
-            bitmaps=new ArrayList<>();
+            bitmaps = new ArrayList<>();
 
             for (int i = 0; i < viewLists.size(); i++) {
-                View inflate = LayoutInflater.from(CameraDetailActivity.this).inflate(R.layout.layout_vp_image, vp, false);
-                ImageView ivCamera = inflate.findViewById(R.id.iv_camera);
-                TextView tvHd = inflate.findViewById(R.id.tv_hd);
+
+                PictureBean pictureBean1 = viewLists.get(i);
+                String type = pictureBean1.getType();
+                String url = pictureBean1.getFullPath();
 
 
-                String type = viewLists.get(i).getType();
-                //类型 图片类型(0:缩略图;1:高清图;2:视频)
-                if (!"1".equals(type)) {
-                    tvHd.setVisibility(View.GONE);
+                if ("2".equals(type)) {
+                    View inflate = LayoutInflater.from(CameraDetailActivity.this).inflate(R.layout.layout_vp_video, vp, false);
+             /*       JzvdStd jzVideo = inflate.findViewById(R.id.jz_video);
+                    String proxyUrl = App.getProxy(CameraDetailActivity.this).getProxyUrl(url);
+                    jzVideo.setUp(proxyUrl, ""
+                            , JzvdStd.SCREEN_NORMAL);
+                    jzVideo.startPreloading(); //开始预加载，加载完等待播放
+                    jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
+                    imageViews.add(inflate);
+
                 } else {
-                    tvHd.setVisibility(View.VISIBLE);
+                    View inflate = LayoutInflater.from(CameraDetailActivity.this).inflate(R.layout.layout_vp_image, vp, false);
+                    ImageView ivCamera = inflate.findViewById(R.id.iv_camera);
+                    TextView tvHd = inflate.findViewById(R.id.tv_hd);
+
+                    //类型 图片类型(0:缩略图;1:高清图;2:视频)
+                    if (!"1".equals(type)) {
+                        tvHd.setVisibility(View.GONE);
+                    } else {
+                        tvHd.setVisibility(View.VISIBLE);
+                    }
+
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(url)
+                            .placeholder(R.drawable.kaola).error(R.drawable.kaola).dontAnimate()
+                            .into(new CustomTarget<Bitmap>() {
+                                @Override
+                                public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                    ivCamera.setImageBitmap(resource);
+                                    bitmaps.add(resource);
+                                }
+
+                                @Override
+                                public void onLoadCleared(@Nullable Drawable placeholder) {
+                                }
+                            });
+
+
+                    inflate.setOnClickListener(view -> {
+                        Intent intent = new Intent(CameraDetailActivity.this, BigImageActivty.class);
+                        int position = vp.getCurrentItem();
+                        PictureBean pictureBean = viewLists.get(position);
+                        String fullPath = pictureBean.getFullPath();
+                        String name = pictureBean.getFileName();
+                        intent.putExtra("path", fullPath);
+                        intent.putExtra("name", name);
+                        startActivity(intent);
+                    });
+
+                    imageViews.add(inflate);
                 }
 
-
-                String url = viewLists.get(i).getFullPath();
-                String id = viewLists.get(i).getId();
-//                GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, url, ivCamera);
-
-                Glide.with(mContext)
-                        .asBitmap()
-                        .load(url)
-                        .placeholder(R.drawable.kaola).error(R.drawable.kaola).dontAnimate()
-                        .into(new CustomTarget<Bitmap>() {
-                            @Override
-                            public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                                ivCamera.setImageBitmap(resource);
-//                                String path = saveImage(resource, id);
-//                                imagePaths.add(path);
-                                bitmaps.add(resource);
-                            }
-
-                            @Override
-                            public void onLoadCleared(@Nullable Drawable placeholder) {
-                            }
-                        });
-
-
-                inflate.setOnClickListener(view -> {
-                    Intent intent = new Intent(CameraDetailActivity.this, BigImageActivty.class);
-                    int position = vp.getCurrentItem();
-                    PictureBean pictureBean = viewLists.get(position);
-                    String fullPath = pictureBean.getFullPath();
-                    String name = pictureBean.getFileName();
-                    intent.putExtra("path", fullPath);
-                    intent.putExtra("name",name);
-                    startActivity(intent);
-                });
-
-                imageViews.add(inflate);
             }
         }
 
@@ -457,8 +460,22 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            container.addView(imageViews.get(position));//将image添加到容器中显示
-            return imageViews.get(position);//返回当前下标要显示的imageview
+            if ("2".equals(viewLists.get(position).getType())) {//视频
+                View view = imageViews.get(position);
+                JzvdStd jzVideo = view.findViewById(R.id.jz_video);
+                PictureBean pictureBean = viewLists.get(position);
+                String fullPath = pictureBean.getFullPath();
+                String proxyUrl = App.getProxy(CameraDetailActivity.this).getProxyUrl(fullPath);
+                jzVideo.setUp(proxyUrl, ""
+                        , JzvdStd.SCREEN_NORMAL);
+                jzVideo.startPreloading(); //开始预加载，加载完等待播放
+                jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载
+                container.addView(view);
+                return view;
+            } else {//图片
+                container.addView(imageViews.get(position));//将image添加到容器中显示
+                return imageViews.get(position);//返回当前下标要显示的imageview
+            }
         }
 
 
