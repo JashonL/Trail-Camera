@@ -55,6 +55,7 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jzvd.Jzvd;
 import cn.jzvd.JzvdStd;
 
 public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> implements CameraDetailView, ViewPager.OnPageChangeListener {
@@ -93,6 +94,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     private ViewPagerAdapter mAdapter;
 
     private int currenPosition = 0;
+    private int lastVideoIndex = -1;
 
 
     //数据源
@@ -226,6 +228,12 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
             btnDownLoad.setEnabled(!"1".equals(type) && !"2".equals(type));//不可点击
         }
 
+
+        if (lastVideoIndex!=-1){
+            View view = mAdapter.getImageViews().get(lastVideoIndex);
+            JzvdStd jzVideo = view.findViewById(R.id.jz_video);
+            jzVideo.reset();
+        }
 
     }
 
@@ -461,6 +469,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
             if ("2".equals(viewLists.get(position).getType())) {//视频
+                lastVideoIndex=position;
                 View view = imageViews.get(position);
                 JzvdStd jzVideo = view.findViewById(R.id.jz_video);
                 PictureBean pictureBean = viewLists.get(position);
@@ -482,6 +491,13 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         @Override
         public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
 //            super.destroyItem(container, position, object);
+
+            String type = viewLists.get(position).getType();
+            if ("2".equals(type)) {
+//                JzvdStd jzVideo = imageViews.get(position).findViewById(R.id.jz_video);
+                JzvdStd.releaseAllVideos();
+            }
+
             container.removeView(imageViews.get(position));//销毁的item
         }
 
@@ -501,6 +517,15 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
         public void setBitmaps(List<Bitmap> bitmaps) {
             this.bitmaps = bitmaps;
+        }
+
+
+        public List<View> getImageViews() {
+            return imageViews;
+        }
+
+        public void setImageViews(List<View> imageViews) {
+            this.imageViews = imageViews;
         }
     }
 
