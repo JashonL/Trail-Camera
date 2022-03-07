@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -198,6 +199,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
     @Override
     public void onPageSelected(int position) {
+
+        Log.i("Liaojins","onPageSelected方法执行"+position);
+
         currenPosition = position;
 
 
@@ -229,11 +233,15 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         }
 
 
-        if (lastVideoIndex!=-1){
+
+ /*       if (lastVideoIndex != -1) {
+            Log.i("Liaojins","onPageSelected方法执行"+lastVideoIndex);
             View view = mAdapter.getImageViews().get(lastVideoIndex);
             JzvdStd jzVideo = view.findViewById(R.id.jz_video);
             jzVideo.reset();
-        }
+        }*/
+
+
 
     }
 
@@ -468,8 +476,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
+            Log.i("Liaojins","instantiateItem方法执行"+position);
             if ("2".equals(viewLists.get(position).getType())) {//视频
-                lastVideoIndex=position;
+                lastVideoIndex = position;
                 View view = imageViews.get(position);
                 JzvdStd jzVideo = view.findViewById(R.id.jz_video);
                 PictureBean pictureBean = viewLists.get(position);
