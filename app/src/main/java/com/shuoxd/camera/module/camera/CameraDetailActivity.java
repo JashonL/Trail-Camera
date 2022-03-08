@@ -200,6 +200,8 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     @Override
     public void onPageSelected(int position) {
 
+
+
         lastVideoIndex = currenPosition;
         currenPosition = position;
 
@@ -232,15 +234,10 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         }
 
 
-        if ("2".equals(type)) {//自动播放视频
-            View view = mAdapter.getImageViews().get(currenPosition);
-            JzvdStd jzVideo = view.findViewById(R.id.jz_video);
-            jzVideo.startPreloading(); //开始预加载，加载完等待播放
-            jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
-        }
 
-
-        //上一个如果是视频的话就重置
+//
+//
+//        //上一个如果是视频的话就重置
         if (lastVideoIndex != -1) {
             PictureBean pictureBean1 = viewLists.get(lastVideoIndex);
             String type1 = pictureBean1.getType();
@@ -249,6 +246,18 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 JzvdStd jzVideo = view.findViewById(R.id.jz_video);
                 jzVideo.reset();
             }
+        }
+
+
+
+
+        if ("2".equals(type)) {//自动播放视频
+            View view = mAdapter.getImageViews().get(currenPosition);
+            JzvdStd jzVideo = view.findViewById(R.id.jz_video);
+            jzVideo.startPreloading(); //开始预加载，加载完等待播放
+            jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
+
+
         }
 
 
@@ -416,12 +425,16 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
                 if ("2".equals(type)) {
                     View inflate = LayoutInflater.from(CameraDetailActivity.this).inflate(R.layout.layout_vp_video, vp, false);
-             /*       JzvdStd jzVideo = inflate.findViewById(R.id.jz_video);
+/*                    JzvdStd jzVideo = inflate.findViewById(R.id.jz_video);
                     String proxyUrl = App.getProxy(CameraDetailActivity.this).getProxyUrl(url);
                     jzVideo.setUp(proxyUrl, ""
                             , JzvdStd.SCREEN_NORMAL);
                     jzVideo.startPreloading(); //开始预加载，加载完等待播放
                     jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
+                    JzvdStd jzVideo = inflate.findViewById(R.id.jz_video);
+                    String proxyUrl = App.getProxy(CameraDetailActivity.this).getProxyUrl(url);
+                    jzVideo.setUp(proxyUrl, ""
+                            , JzvdStd.SCREEN_NORMAL);
                     imageViews.add(inflate);
 
                 } else {
