@@ -200,8 +200,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     @Override
     public void onPageSelected(int position) {
 
-        Log.i("Liaojins","onPageSelected方法执行"+position);
-
+        lastVideoIndex = currenPosition;
         currenPosition = position;
 
 
@@ -233,14 +232,24 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         }
 
 
-
- /*       if (lastVideoIndex != -1) {
-            Log.i("Liaojins","onPageSelected方法执行"+lastVideoIndex);
-            View view = mAdapter.getImageViews().get(lastVideoIndex);
+        if ("2".equals(type)) {//自动播放视频
+            View view = mAdapter.getImageViews().get(currenPosition);
             JzvdStd jzVideo = view.findViewById(R.id.jz_video);
-            jzVideo.reset();
-        }*/
+            jzVideo.startPreloading(); //开始预加载，加载完等待播放
+            jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
+        }
 
+
+        //上一个如果是视频的话就重置
+        if (lastVideoIndex != -1) {
+            PictureBean pictureBean1 = viewLists.get(lastVideoIndex);
+            String type1 = pictureBean1.getType();
+            if ("2".equals(type1)) {
+                View view = mAdapter.getImageViews().get(lastVideoIndex);
+                JzvdStd jzVideo = view.findViewById(R.id.jz_video);
+                jzVideo.reset();
+            }
+        }
 
 
     }
@@ -476,9 +485,8 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         @NonNull
         @Override
         public Object instantiateItem(@NonNull ViewGroup container, int position) {
-            Log.i("Liaojins","instantiateItem方法执行"+position);
+            Log.i("Liaojins", "instantiateItem方法执行" + position);
             if ("2".equals(viewLists.get(position).getType())) {//视频
-                lastVideoIndex = position;
                 View view = imageViews.get(position);
                 JzvdStd jzVideo = view.findViewById(R.id.jz_video);
                 PictureBean pictureBean = viewLists.get(position);
@@ -486,8 +494,8 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 String proxyUrl = App.getProxy(CameraDetailActivity.this).getProxyUrl(fullPath);
                 jzVideo.setUp(proxyUrl, ""
                         , JzvdStd.SCREEN_NORMAL);
-                jzVideo.startPreloading(); //开始预加载，加载完等待播放
-                jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载
+      /*          jzVideo.startPreloading(); //开始预加载，加载完等待播放
+                jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
                 container.addView(view);
                 return view;
             } else {//图片

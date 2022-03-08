@@ -552,7 +552,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
             } else {
 
-                if (itemType==CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO){
+               /* if (itemType==CameraPicVedeoAdapter.HD_PIC_FLAG_VIDEO){
                     Intent intent = new Intent(getContext(), VideoPlayActivity.class);
                     //当前选择的是哪一张
                     intent.putExtra("fullPath", fullPath);
@@ -570,9 +570,17 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                         intent.putExtra("alias", cameraId);
                     }
                     startActivity(intent);
+                }*/
+
+                CameraShowListManerge.getInstance().setPicList(picList);
+                Intent intent = new Intent(getContext(), CameraDetailActivity.class);
+                intent.putExtra("position", position);
+                if (!TextUtils.isEmpty(alias)) {
+                    intent.putExtra("alias", alias);
+                } else {
+                    intent.putExtra("alias", cameraId);
                 }
-
-
+                startActivity(intent);
 
             }
 
