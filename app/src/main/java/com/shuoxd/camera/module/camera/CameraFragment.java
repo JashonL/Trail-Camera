@@ -306,6 +306,15 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     //从其他页面跳转进来
     public void refresh() {
+
+        if (TextUtils.isEmpty(alias)) {
+            alias = cameraId;
+        }
+        if (TextUtils.isEmpty(alias)) {
+            alias = "";
+        }
+        tvTitle.setText(alias);
+
         String accountName = App.getUserBean().getAccountName();
         presenter.setTotalPage(1);
         presenter.setPageNow(0);

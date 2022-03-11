@@ -179,7 +179,7 @@ public class ShareUtils {
 // 指定发送内容的类型 (MIME type)
         sendIntent.setType("image/jpeg");
 
-        context.startActivity(Intent.createChooser(sendIntent, "share too"));
+        context.startActivity(Intent.createChooser(sendIntent, "Share To"));
     }
 
 

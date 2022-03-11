@@ -1,10 +1,12 @@
 package com.shuoxd.camera.module.me;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
@@ -99,6 +101,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     View vServiceLine;
     @BindView(R.id.rv_set)
     RecyclerView rvSet;
+    @BindView(R.id.tv_date)
+    TextView tvDate;
+
 
     private MySetAdapter mAdapter;
 
@@ -165,6 +170,15 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
             list.add(setBean);
         }
         mAdapter.replaceData(list);
+
+
+        try {
+            String name=getContext().getPackageManager().getPackageInfo(getActivity().getPackageName(), 0).versionName;
+            name=getString(R.string.m224_version)+":"+name;
+            tvDate.setText(name);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
     }

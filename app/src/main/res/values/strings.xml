@@ -251,7 +251,7 @@
 
     <string name="m206_all_import">Please enter the content</string>
     <string name="m207_modify_position">Modify camera position</string>
-    <string name="m208_camera_positioning">camera positioning</string>
+    <string name="m208_camera_positioning">Location Settings</string>
     <string name="m209_waiting_synchronization">Waiting synchronization,Click to cancel.</string>
     <string name="m210_hqphoto_is_not_available">HQ photo is not available</string>
 
@@ -271,6 +271,9 @@
     <string name="m220_save_pic">保存到相册</string>
     <string name="m221_save_error">保存失败</string>
     <string name="m222_save_error">您的设备不支持谷歌地图</string>
-    <string name="m223_save_error">您的设备不支持谷歌地图</string>
+    <string name="m223_photo_video_type">Photo/Video type</string>
+    <string name="m224_version">Version</string>
+
+
 
 </resources>

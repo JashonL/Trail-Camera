@@ -161,7 +161,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         }
 
 
-        String type = pictureBean.getType();
+ /*       String type = pictureBean.getType();
 
         String wrongPhoto = pictureBean.getWrongPhoto();
 
@@ -176,7 +176,30 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
             //可点击
             btnDownLoad.setEnabled(!"1".equals(type) && !"2".equals(type));//不可点击
         }
+*/
 
+
+
+        String type = pictureBean.getType();
+        String wrongPhoto = pictureBean.getWrongPhoto();
+        if ("5".equals(type)) {
+            btnDownLoad.setText(R.string.m209_waiting_synchronization);
+            btnDownLoad.setEnabled(true);
+        } else if ("0".equals(type)) {
+            if ("1".equals(wrongPhoto)) {
+                btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
+                btnDownLoad.setEnabled(false);//不可点击
+            } else {
+                btnDownLoad.setEnabled(true);//可点击
+                btnDownLoad.setText(R.string.m24_download);
+            }
+        } else if ("1".equals(type)) {
+            btnDownLoad.setEnabled(false);//不可点击
+            btnDownLoad.setText(R.string.m24_download);
+        } else if ("2".equals(type)) {
+            btnDownLoad.setEnabled(false);//不可点击
+            btnDownLoad.setText(R.string.m24_download);
+        }
 
         String num = (currenPosition + 1) + "/" + count;
         tvNum.setText(num);
@@ -225,14 +248,21 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         if ("5".equals(type)) {
             btnDownLoad.setText(R.string.m209_waiting_synchronization);
             btnDownLoad.setEnabled(true);
-        } else if ("0".equals(type) && "1".equals(wrongPhoto)) {
-            btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
+        } else if ("0".equals(type)) {
+            if ("1".equals(wrongPhoto)) {
+                btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
+                btnDownLoad.setEnabled(false);//不可点击
+            } else {
+                btnDownLoad.setEnabled(true);//可点击
+                btnDownLoad.setText(R.string.m24_download);
+            }
+        } else if ("1".equals(type)) {
             btnDownLoad.setEnabled(false);//不可点击
-        } else {
-            //可点击
-            btnDownLoad.setEnabled(!"1".equals(type) && !"2".equals(type));//不可点击
+            btnDownLoad.setText(R.string.m24_download);
+        } else if ("2".equals(type)) {
+            btnDownLoad.setEnabled(false);//不可点击
+            btnDownLoad.setText(R.string.m24_download);
         }
-
 
 
 //
@@ -247,8 +277,6 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 jzVideo.reset();
             }
         }*/
-
-
 
 
         if ("2".equals(type)) {//自动播放视频
@@ -364,8 +392,11 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         if (index != -1) {
             picList.remove(index);
 
-            mAdapter = new ViewPagerAdapter(picList);
-            vp.setAdapter(mAdapter);
+            mAdapter.notifyDataSetChanged();
+
+//            mAdapter = new ViewPagerAdapter(picList);
+//            vp.setAdapter(mAdapter);
+
 
             int count = mAdapter.getCount();
             if (currenPosition >= count - 1) {
@@ -553,6 +584,8 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         public void setImageViews(List<View> imageViews) {
             this.imageViews = imageViews;
         }
+
+
     }
 
 
