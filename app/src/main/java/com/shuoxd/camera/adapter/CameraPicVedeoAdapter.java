@@ -57,6 +57,8 @@ public class CameraPicVedeoAdapter extends BaseMultiItemQuickAdapter<PictureBean
     protected void convert(@NonNull BaseViewHolder helper, PictureBean item) {
         //相机的最后一张图片
         String path = item.getFullPath();
+        String fullVideoImgPath = item.getFullVideoImgPath();
+
         String type = item.getType();
         String amPm = item.getAmPm();
         String uploadTime = item.getUploadTime();
@@ -69,9 +71,7 @@ public class CameraPicVedeoAdapter extends BaseMultiItemQuickAdapter<PictureBean
             case HD_PIC_FLAG_VIDEO:
             case HD_PIC_FLAG:
                 ImageView ivPic = helper.getView(R.id.iv_camera);
-                if (!TextUtils.isEmpty(path)) {
-                    GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
-                }
+
 
                 if (itemType==HD_PIC_FLAG){
                     //类型 图片类型(0:缩略图;1:高清图;2:视频)
@@ -81,6 +81,18 @@ public class CameraPicVedeoAdapter extends BaseMultiItemQuickAdapter<PictureBean
                     } else {
                         tvHD.setVisibility(View.VISIBLE);
                     }
+
+
+                    if (!TextUtils.isEmpty(path)) {
+                        GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
+                    }
+
+                }else {
+                    if (TextUtils.isEmpty(fullVideoImgPath)) {
+                        fullVideoImgPath=path;
+                    }
+                    GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, fullVideoImgPath, ivPic);
+
                 }
 
 

@@ -134,7 +134,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         mAdapter = new ViewPagerAdapter(picList);
         vp.setAdapter(mAdapter);
         vp.addOnPageChangeListener(this);
-        vp.setOffscreenPageLimit(0);
+//        vp.setOffscreenPageLimit(0);
     }
 
     @Override
@@ -256,7 +256,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
             JzvdStd jzVideo = view.findViewById(R.id.jz_video);
             jzVideo.startPreloading(); //开始预加载，加载完等待播放
             jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
-
+            jzVideo.startVideo();
 
         }
 
@@ -435,6 +435,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                     String proxyUrl = App.getProxy(CameraDetailActivity.this).getProxyUrl(url);
                     jzVideo.setUp(proxyUrl, ""
                             , JzvdStd.SCREEN_NORMAL);
+
                     imageViews.add(inflate);
 
                 } else {

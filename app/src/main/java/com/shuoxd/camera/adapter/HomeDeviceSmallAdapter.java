@@ -140,10 +140,10 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         //相机的最后一张图片
         CameraBean.LastPhoto lastPhoto = item.getLastPhoto();
         String path = lastPhoto.getFullPath();
-        ImageView ivPic = helper.getView(R.id.iv_camera);
-        if (!TextUtils.isEmpty(path)) {
-            GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
-        }
+        String fullVideoImgPath = lastPhoto.getFullVideoImgPath();
+
+
+
 
         //类型 图片类型(0:缩略图;1:高清图;2:视频)
         TextView tvHD = helper.getView(R.id.tv_hd);
@@ -153,6 +153,27 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         } else {
             tvHD.setVisibility(View.VISIBLE);
         }
+
+
+
+        ImageView ivPic = helper.getView(R.id.iv_camera);
+        ImageView ivVideoPlay = helper.getView(R.id.iv_video_play);
+        if (!"2".equals(type)) {
+            ivVideoPlay.setVisibility(View.GONE);
+
+            if (!TextUtils.isEmpty(path)) {
+                GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
+            }
+
+        } else {
+            ivVideoPlay.setVisibility(View.VISIBLE);
+            if (TextUtils.isEmpty(fullVideoImgPath)) {
+                fullVideoImgPath=path;
+            }
+            GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, fullVideoImgPath, ivPic);
+        }
+
+
 
         String amPm = lastPhoto.getAmPm();
         String uploadTime = lastPhoto.getUploadTime();

@@ -55,9 +55,11 @@ public class Addpresenter extends BasePresenter<AddCanmeraView> {
                         String accountName = App.getUserBean().getAccountName();
                         String password = App.getUserBean().getPassword();
                         if (App.IS_LOGIN){
-                            ((Activity) context).finish();
-                        }else {
                             userLogin(accountName,password);
+
+                        }else {
+                            ((Activity) context).finish();
+
                         }
                     }
                     else if ("10000".equals(result)){

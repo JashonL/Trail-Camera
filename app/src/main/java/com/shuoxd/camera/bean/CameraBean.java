@@ -247,7 +247,8 @@ public class CameraBean {
         private String uploadDay;
         private String amPm;
         private String fullPath;
-
+        private String videoImgPath;
+        private String fullVideoImgPath;
 
         public String getId() {
             return id;
@@ -368,6 +369,23 @@ public class CameraBean {
 
         public void setFullPath(String fullPath) {
             this.fullPath = fullPath;
+        }
+
+        public String getVideoImgPath() {
+            return videoImgPath;
+        }
+
+        public void setVideoImgPath(String videoImgPath) {
+            this.videoImgPath = videoImgPath;
+        }
+
+
+        public String getFullVideoImgPath() {
+            return fullVideoImgPath;
+        }
+
+        public void setFullVideoImgPath(String fullVideoImgPath) {
+            this.fullVideoImgPath = fullVideoImgPath;
         }
     }
 

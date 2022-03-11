@@ -2,6 +2,7 @@ package com.shuoxd.camera.zxing;
 
 import android.content.Intent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +19,6 @@ import com.king.zxing.ViewfinderView;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseBean;
-import com.shuoxd.camera.base.BaseView;
 import com.shuoxd.camera.constants.GlobalConstant;
 import com.shuoxd.camera.module.addcamera.ManulInputActivity;
 import com.shuoxd.camera.module.login.LoginActivity;
@@ -224,4 +224,12 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
+
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        mCaptureHelper.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
 }

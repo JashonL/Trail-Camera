@@ -22,7 +22,8 @@ public class PictureBean implements MultiItemEntity {
     private String wrongPhoto;
 
 
-
+    private String videoImgPath;
+    private String fullVideoImgPath;
 
 
     private boolean isChecked;
@@ -178,6 +179,23 @@ public class PictureBean implements MultiItemEntity {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+
+    public String getVideoImgPath() {
+        return videoImgPath;
+    }
+
+    public void setVideoImgPath(String videoImgPath) {
+        this.videoImgPath = videoImgPath;
+    }
+
+    public String getFullVideoImgPath() {
+        return fullVideoImgPath;
+    }
+
+    public void setFullVideoImgPath(String fullVideoImgPath) {
+        this.fullVideoImgPath = fullVideoImgPath;
     }
 
     @Override
