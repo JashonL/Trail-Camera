@@ -134,11 +134,12 @@ dependencies {
     implementation 'com.github.MikeOrtiz:TouchImageView:3.0.1'
 
     /*zxing第三方框架*/
-    implementation 'com.king.zxing:zxing-lite:1.1.9-androidx'
+//    implementation 'com.king.zxing:zxing-lite:1.1.9-androidx'
+    implementation 'com.github.jenly1314:zxing-lite:2.1.1'
 
     //加载框
     implementation 'com.wang.avi:library:2.1.3'
-    implementation files('libs/crasheye-2.2.5.jar')
+//    implementation files('libs/crasheye-2.2.5.jar')
 
     /*谷歌服务*/
     implementation 'com.google.android.gms:play-services-maps:17.0.1'

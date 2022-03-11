@@ -8,11 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.king.zxing.CameraScan;
 import com.shuoxd.camera.R;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseScanActivity extends AppCompatActivity {
+public abstract class BaseScanActivity extends AppCompatActivity implements CameraScan.OnScanResultCallback {
 
     protected abstract int getContentView();
 

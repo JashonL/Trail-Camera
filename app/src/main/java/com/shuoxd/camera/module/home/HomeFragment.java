@@ -24,17 +24,14 @@ import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
-import com.shuoxd.camera.bean.PictureBean;
-import com.shuoxd.camera.bean.QuestionBean;
 import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
 import com.shuoxd.camera.eventbus.FreshCameraList;
 import com.shuoxd.camera.eventbus.FreshCameraLocation;
-import com.shuoxd.camera.eventbus.FreshQuestion;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
-import com.shuoxd.camera.zxing.CustomScanActivity;
+import com.shuoxd.camera.zxing.ScanActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -424,7 +421,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
                 changeLayout();
                 break;
             case R.id.iv_add:
-                Intent intent = new Intent(getContext(), CustomScanActivity.class);
+                Intent intent = new Intent(getContext(), ScanActivity.class);
                 intent.putExtra("type",1);
                 startActivity(intent);
                 break;

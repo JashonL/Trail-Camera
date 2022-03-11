@@ -1,9 +1,7 @@
-/*
 package com.shuoxd.camera.zxing;
 
 import android.content.Intent;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,9 +11,11 @@ import android.widget.TextView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
+import androidx.camera.view.PreviewView;
 
-import com.king.zxing.CaptureHelper;
-import com.king.zxing.OnCaptureCallback;
+import com.google.zxing.Result;
+import com.king.zxing.CameraScan;
+import com.king.zxing.DefaultCameraScan;
 import com.king.zxing.ViewfinderView;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
@@ -31,12 +31,7 @@ import com.shuoxd.camera.utils.DialogUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-
-public class CustomScanActivity extends BaseScanActivity implements OnCaptureCallback, Toolbar.OnMenuItemClickListener, LoginView {
-
-
-    @BindView(R.id.surfaceView)
-    SurfaceView surfaceView;
+public class ScanActivity extends BaseScanActivity implements Toolbar.OnMenuItemClickListener, LoginView {
     @BindView(R.id.viewfinderView)
     ViewfinderView viewfinderView;
     @BindView(R.id.ivFlash)
@@ -63,10 +58,13 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
     LinearLayoutCompat bottomLayout;
     @BindView(R.id.tv_find_serialnum)
     AppCompatTextView tvFindSerialnum;
-    private CaptureHelper mCaptureHelper;
-    private String type;
+    @BindView(R.id.previewView)
+    PreviewView previewView;
 
+    private CameraScan mCameraScan;
+    private String type;
     private LoginManager manager;
+
 
     @Override
     protected int getContentView() {
@@ -77,7 +75,6 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
     protected void initViews() {
         initToobar(toolbar);
         tvTitle.setText(R.string.m7_add_camera);
-
     }
 
     @Override
@@ -91,13 +88,13 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
         toolbar.inflateMenu(R.menu.scan_menu);
         toolbar.setOnMenuItemClickListener(this);
 
-        if ("0".equals(type)){
+        if ("0".equals(type)) {
             tvStep1.setVisibility(View.VISIBLE);
             vStepCenter.setVisibility(View.VISIBLE);
             tvStep2.setVisibility(View.VISIBLE);
             tvStep1Text.setVisibility(View.VISIBLE);
             tvStep2Text.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             tvStep1.setVisibility(View.GONE);
             vStepCenter.setVisibility(View.GONE);
             tvStep2.setVisibility(View.GONE);
@@ -105,49 +102,12 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
             tvStep2Text.setVisibility(View.GONE);
         }
 
-        mCaptureHelper = new CaptureHelper(this, surfaceView, viewfinderView, ivFlash);
-        mCaptureHelper.setOnCaptureCallback(this);
-        mCaptureHelper.onCreate();
-        mCaptureHelper.vibrate(true)
-                .fullScreenScan(true)//全屏扫码
-                .supportVerticalCode(true)//支持扫垂直条码，建议有此需求时才使用。
-                .supportLuminanceInvert(true)//是否支持识别反色码（黑白反色的码），增加识别率
-                .continuousScan(true);
+        mCameraScan = new DefaultCameraScan(this, previewView);
+        mCameraScan.setOnScanResultCallback(this)
+                .setVibrate(true)
+                .startCamera();
+
         manager = new LoginManager(this);
-
-
-    }
-
-
-    @Override
-    public boolean onResultCallback(String result) {//扫码回调
-//        MyToastUtils.toast(result);
-        //扫码成功跳转到手动添加页面
-        Intent intent = new Intent(this, ManulInputActivity.class);
-        intent.putExtra(GlobalConstant.SCAN_RESULT, result);
-        startActivity(intent);
-        finish();
-        return false;
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        mCaptureHelper.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mCaptureHelper.onPause();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mCaptureHelper.onDestroy();
-        manager.detachView();
     }
 
 
@@ -178,22 +138,6 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
 
     }
 
-
-    @Override
-    public void showUserInfo(User user, String isAuto) {
-
-    }
-
-    @Override
-    public void showLoginError(String errorMsg) {
-
-    }
-
-    @Override
-    public void registerSuccess() {
-
-    }
-
     @Override
     public void showLoading() {
         DialogUtils.getInstance().showLoadingDialog(this);
@@ -221,18 +165,50 @@ public class CustomScanActivity extends BaseScanActivity implements OnCaptureCal
 
     @Override
     public void LoginException() {
-        Intent intent =new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 
+    @Override
+    public void showUserInfo(User user, String isAuto) {
+
+    }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        mCaptureHelper.onTouchEvent(event);
-        return super.onTouchEvent(event);
+    public void showLoginError(String errorMsg) {
+
+    }
+
+    @Override
+    public void registerSuccess() {
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mCameraScan.release();
+        manager.detachView();
+    }
+
+
+    /**
+     * 扫码结果回调
+     *
+     * @param result 扫码结果
+     * @return
+     */
+    @Override
+    public boolean onScanResultCallback(Result result) {
+        //        MyToastUtils.toast(result);
+        //扫码成功跳转到手动添加页面
+        Intent intent = new Intent(this, ManulInputActivity.class);
+        intent.putExtra(GlobalConstant.SCAN_RESULT, result.getText());
+        startActivity(intent);
+        finish();
+        return false;
     }
 
 }
-*/
-

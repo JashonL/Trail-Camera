@@ -15,7 +15,7 @@ import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
-import com.shuoxd.camera.zxing.CustomScanActivity;
+import com.shuoxd.camera.zxing.ScanActivity;
 
 import org.json.JSONObject;
 
@@ -156,10 +156,12 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
     public void registerSuccess(){
-        Intent intent = new Intent(context, CustomScanActivity.class);
+        Intent intent = new Intent(context, ScanActivity.class);
         intent.putExtra("type","0");
-        context. startActivity(intent,
-                ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
+        context.startActivity(intent);
+
+    /*    context. startActivity(intent,
+                ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());*/
 
     }
 

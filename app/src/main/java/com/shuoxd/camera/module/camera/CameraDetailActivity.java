@@ -200,7 +200,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     @Override
     public void onPageSelected(int position) {
 
-
+        Jzvd.releaseAllVideos();
 
         lastVideoIndex = currenPosition;
         currenPosition = position;
@@ -238,7 +238,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 //
 //
 //        //上一个如果是视频的话就重置
-        if (lastVideoIndex != -1) {
+   /*     if (lastVideoIndex != -1) {
             PictureBean pictureBean1 = viewLists.get(lastVideoIndex);
             String type1 = pictureBean1.getType();
             if ("2".equals(type1)) {
@@ -246,7 +246,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 JzvdStd jzVideo = view.findViewById(R.id.jz_video);
                 jzVideo.reset();
             }
-        }
+        }*/
 
 
 
@@ -524,11 +524,6 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 //            super.destroyItem(container, position, object);
 
             String type = viewLists.get(position).getType();
-            if ("2".equals(type)) {
-//                JzvdStd jzVideo = imageViews.get(position).findViewById(R.id.jz_video);
-                JzvdStd.releaseAllVideos();
-            }
-
             container.removeView(imageViews.get(position));//销毁的item
         }
 
@@ -598,6 +593,13 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         mediaScanIntent.setData(contentUri);
         sendBroadcast(mediaScanIntent);
     }*/
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Jzvd.releaseAllVideos();
+    }
 
 
 }
