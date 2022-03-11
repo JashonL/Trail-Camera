@@ -363,9 +363,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
         if (index != -1) {
             picList.remove(index);
+
             mAdapter = new ViewPagerAdapter(picList);
             vp.setAdapter(mAdapter);
-
 
             int count = mAdapter.getCount();
             if (currenPosition >= count - 1) {
