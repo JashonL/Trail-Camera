@@ -271,8 +271,16 @@
     <string name="m220_save_pic">保存到相册</string>
     <string name="m221_save_error">保存失败</string>
     <string name="m222_save_error">您的设备不支持谷歌地图</string>
-    <string name="m223_photo_video_type">Photo/Video type</string>
+    <string name="m223_photo_video_type">Photo/Video Type</string>
     <string name="m224_version">Version</string>
+    <string name="m225_code">Get Code</string>
+    <string name="m226_input_code">请输入验证码</string>
+    <string name="m227_enter_code">Enter  %s  Verification Code </string>
+
+
+    <string name="m228_input_email">请输入邮箱地址</string>
+    <string name="m229_input_imei">请输入IMEI</string>
+
 
 
 

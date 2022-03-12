@@ -37,8 +37,11 @@ import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.pictrue.BigImageActivty;
+import com.shuoxd.camera.module.video.VideoPlayActivity;
 import com.shuoxd.camera.utils.CommentUtils;
+import com.shuoxd.camera.utils.DownLoadUtils;
 import com.shuoxd.camera.utils.GlideUtils;
+import com.shuoxd.camera.utils.IntentUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.ShareUtils;
 import com.shuoxd.camera.utils.ViewUtils;
@@ -318,28 +321,22 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 presenter.operation(id, "remove", "1");
             }
             break;
-            case R.id.tv_share: {
-//                int position = vp.getCurrentItem();
-//                String path = mAdapter.getImagePaths().get(position);
-
-
-                List<PictureBean> viewLists = mAdapter.getViewLists();
+            case R.id.tv_share:{
                 int position1 = vp.getCurrentItem();
+                List<PictureBean> viewLists = mAdapter.getViewLists();
                 PictureBean pictureBean = viewLists.get(position1);
-                String fileName = pictureBean.getFileName();
-                Bitmap bitmap = mAdapter.getBitmaps().get(position1);
-                String path = saveImage(bitmap, fileName);
 
-
-                File file = new File(path);
-//                Uri uri = Uri.fromFile(file);
-                Uri imageUri = CommentUtils.getImageUri(this, file);
-                try {
-                    ShareUtils.sharePic(this, imageUri);
-                } catch (Exception e) {
-                    e.printStackTrace();
+                String type1 = pictureBean.getType();
+                if ("2".equals(type1)){
+                    shareVideo(pictureBean);
+                }else {
+                    sharePic(position1, pictureBean);
                 }
             }
+
+
+
+
 
 
             break;
@@ -359,6 +356,61 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
             }
             break;
 
+        }
+    }
+
+
+
+    private void shareVideo(PictureBean pictureBean){
+        String fullPath = pictureBean.getFullPath();
+        String parentPath = getExternalFilesDir(null).getPath() + "/video/";
+        File fileDir = new File(parentPath);
+        if (!fileDir.exists()) {
+            //不存在
+            fileDir.mkdirs();
+        }
+
+        String name = fullPath.substring(fullPath.lastIndexOf("/") + 1);
+        String filePath = parentPath + "/" + name;
+        File file = new File(filePath);
+        if (file.exists()) {//已经存在 直接分享
+            //获取File的Uri
+            IntentUtils.shareFile(CameraDetailActivity.this, file, IntentUtils.TYPE_VIDEO, getString(R.string.m217_video_sharing));
+        } else {//不存在就下载
+            Uri videoContentUri = Uri.fromFile(file);
+            DownLoadUtils.builder()
+                    .setContext(this)
+                    .setUrl(fullPath)
+                    .setFileName(name)
+                    .setFileUri(videoContentUri)
+                    .setFileUri(parentPath)
+                    .setLister(uri -> {
+                        IntentUtils.shareVideoByUri(CameraDetailActivity.this, uri, IntentUtils.TYPE_VIDEO, getString(R.string.m217_video_sharing));
+                    })
+                    .download();
+        }
+
+    }
+
+
+
+    private void sharePic(int position1, PictureBean pictureBean) {
+        //                int position = vp.getCurrentItem();
+//                String path = mAdapter.getImagePaths().get(position);
+
+
+        String fileName = pictureBean.getFileName();
+        Bitmap bitmap = mAdapter.getBitmaps().get(position1);
+        String path = saveImage(bitmap, fileName);
+
+
+        File file = new File(path);
+//                Uri uri = Uri.fromFile(file);
+        Uri imageUri = CommentUtils.getImageUri(this, file);
+        try {
+            ShareUtils.sharePic(this, imageUri);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

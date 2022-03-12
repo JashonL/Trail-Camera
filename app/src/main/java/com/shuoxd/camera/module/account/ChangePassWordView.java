@@ -9,4 +9,7 @@ public interface ChangePassWordView extends BaseView {
     void logout();
 
     void showLoginError(String errorMsg);
+
+    void getCodeSuccess(String code);
+
 }

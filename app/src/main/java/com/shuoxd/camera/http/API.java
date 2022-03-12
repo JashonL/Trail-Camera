@@ -63,10 +63,20 @@ public class API {
 
 
 
-        //登录
+        //找回密码
         @FormUrlEncoded
         @POST("/v1/user/findPassword")
-        Observable<String> findPassword(@Field("type") String type, @Field("value") String value);
+        Observable<String> findPassword(@Field("type") String type, @Field("value") String value,@Field("emailCode")String emailCode);
+
+
+
+
+        //获取验证码
+        @FormUrlEncoded
+        @POST("/v1/user/sendEmailCode")
+        Observable<String> sendEmailCode(@Field("type") String type,@Field("value") String value);
+
+
 
 
         //添加相机
@@ -104,7 +114,7 @@ public class API {
         //修改密码
         @FormUrlEncoded
         @POST("/v1/user/modifyPassword")
-        Observable<String> modifyPassword(@Field("oldPassword") String oldPassword,@Field("newPassword")String newPassword,@Field("confirmPassword")String confirmPassword);
+        Observable<String> modifyPassword(@Field("emailCode") String emailCode,@Field("newPassword")String newPassword,@Field("confirmPassword")String confirmPassword);
 
 
 

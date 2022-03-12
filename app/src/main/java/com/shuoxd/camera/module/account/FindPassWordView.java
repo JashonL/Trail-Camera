@@ -8,4 +8,7 @@ public interface FindPassWordView extends BaseView {
     void showSuccess(String success);
 
     void showError(String error);
+
+
+    void getCodeSuccess(String code);
 }

@@ -103,8 +103,6 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
     CheckBox cbF;
     @BindView(R.id.cb_c)
     CheckBox cbC;
-    @BindView(R.id.ll_temp)
-    LinearLayout llTemp;
     @BindView(R.id.gp_temp)
     Group gpTemp;
 

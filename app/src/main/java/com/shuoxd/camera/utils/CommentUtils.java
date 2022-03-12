@@ -384,6 +384,20 @@ public class CommentUtils {
     /**
      * 获取一周的英文
      */
+    public static List<String> getDays() {
+        String[] days = new String[31];
+
+        for (int i = 0; i < 31; i++) {
+            days[i]=i+1+"";
+        }
+
+        return Arrays.asList(days);
+    }
+
+
+    /**
+     * 获取一周的英文
+     */
     public static List<String> getWeeks2() {
         String[] month = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
         return Arrays.asList(month);
@@ -478,5 +492,15 @@ public class CommentUtils {
         return googleserviceFlag;
 
     }
+
+
+
+    public static String hideString(String s){
+        String hiddenEmail = s.replaceAll("(\\w?)(\\w+)(\\w)(@\\w+\\.[a-z]+(\\.[a-z]+)?)",
+                "$1****$3$4");
+
+        return hiddenEmail;
+    }
+
 
 }

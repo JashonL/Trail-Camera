@@ -16,10 +16,9 @@ public class ChangePassWordPresenter extends BasePresenter<ChangePassWordView> {
     }
 
 
-
-    public void modifyUserInfo(String oldPassword, String newPassword,
+    public void modifyUserInfo(String emailCode, String newPassword,
                                String confirmPassword) {
-        addDisposable(apiServer.modifyPassword(oldPassword, newPassword,confirmPassword), new BaseObserver<String>(baseView,
+        addDisposable(apiServer.modifyPassword(emailCode, newPassword, confirmPassword), new BaseObserver<String>(baseView,
                 true) {
             @Override
             public void onSuccess(String bean) {
@@ -33,15 +32,12 @@ public class ChangePassWordPresenter extends BasePresenter<ChangePassWordView> {
                         ToastUtils.show(msg);
                         baseView.changePasswordSuccess();
 
-                    }
-                    else if ("10000".equals(result)) {
+                    } else if ("10000".equals(result)) {
                         userReLogin(context, () -> {
-                            modifyUserInfo( oldPassword,  newPassword,
+                            modifyUserInfo(emailCode, newPassword,
                                     confirmPassword);
                         });
-                    }
-
-                    else {
+                    } else {
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
                     }
@@ -57,7 +53,6 @@ public class ChangePassWordPresenter extends BasePresenter<ChangePassWordView> {
             }
         });
     }
-
 
 
     /**
@@ -92,6 +87,43 @@ public class ChangePassWordPresenter extends BasePresenter<ChangePassWordView> {
             }
         });
 
+    }
+
+
+    public void sendEmailCode(String type, String value) {
+        addDisposable(apiServer.sendEmailCode(type, value), new BaseObserver<String>(baseView,
+                true) {
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        //通知刷新列表
+//                        EventBus.getDefault().post(new FreshCameraList());
+                        String msg = jsonObject.getString("msg");
+                        ToastUtils.show(msg);
+                        baseView.getCodeSuccess(msg);
+
+                    } else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            sendEmailCode(type, value);
+                        });
+                    } else {
+                        String msg = jsonObject.getString("msg");
+                        ToastUtils.show(msg);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+
+            }
+        });
     }
 
 

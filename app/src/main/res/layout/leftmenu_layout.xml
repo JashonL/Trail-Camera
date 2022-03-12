@@ -162,6 +162,7 @@
                 android:src="@drawable/delete"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_date_start"
                 app:layout_constraintLeft_toRightOf="@+id/tv_date_end"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/tv_date_end" />
 
 
@@ -254,7 +255,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cb_favorites" />
 
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ll_temp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_35"
@@ -275,7 +276,12 @@
                     android:gravity="center"
                     android:padding="@dimen/dp_3"
                     android:text="@string/m95_f"
-                    android:textColor="@color/rb_text_selector" />
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    android:textColor="@color/rb_text_selector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/cb_c"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <CheckBox
                     android:id="@+id/cb_c"
@@ -287,7 +293,11 @@
                     android:gravity="center"
                     android:padding="@dimen/dp_3"
                     android:text="@string/m96_c"
-                    android:textColor="@color/rb_text_selector" />
+                    android:textColor="@color/rb_text_selector"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/cb_f"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_delete_unit"
@@ -295,13 +305,13 @@
                     android:layout_height="@dimen/dp_35"
                     android:padding="@dimen/dp_7"
                     android:src="@drawable/delete"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_date_start"
-                    app:layout_constraintLeft_toRightOf="@+id/tv_date_end"
-                    app:layout_constraintTop_toTopOf="@+id/tv_date_end" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/cb_c"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
-            </LinearLayout>
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.constraintlayout.widget.Group

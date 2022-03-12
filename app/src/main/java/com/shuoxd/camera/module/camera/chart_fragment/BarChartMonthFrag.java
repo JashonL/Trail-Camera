@@ -81,7 +81,7 @@ public class BarChartMonthFrag extends ChartBaseFragment implements OnChartGestu
    /*     XAxis xAxis = chart.getXAxis();
         xAxis.setEnabled(false);*/
 
-        xDatas = CommentUtils.getWeeks();
+        xDatas = CommentUtils.getDays();
         XAxis xAxis = chart.getXAxis();
         xAxis.setAxisLineWidth(1.0f);
         xAxis.setGridLineWidth(0.5f);
@@ -109,7 +109,7 @@ public class BarChartMonthFrag extends ChartBaseFragment implements OnChartGestu
 
 
     public void setBarChart(List<String> xDatas, List<Integer> readlist, List<Integer> unReadlist) {
-        this.xDatas = xDatas;
+//        this.xDatas = xDatas;
         Log.i("barchart", "设置数据");
 
         if (chart.getData() != null && chart.getData().getDataSetCount() > 0) {
@@ -126,7 +126,6 @@ public class BarChartMonthFrag extends ChartBaseFragment implements OnChartGestu
             BarData barData = parserYearChart(xDatas, readlist, unReadlist);
             chart.setData(barData);
         }
-
 
         chart.getBarData().setBarWidth(0.75f);
         chart.animateY(1000);

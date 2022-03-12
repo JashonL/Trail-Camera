@@ -20,131 +20,82 @@
         app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
 
 
-    <EditText
-        android:id="@+id/et_olb_password"
-        android:layout_width="@dimen/dp_250"
+    <LinearLayout
+        android:id="@+id/ll_code"
+        android:layout_width="@dimen/dp_300"
         android:layout_height="@dimen/dp_45"
-        android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_30"
         android:background="@drawable/shape_green_stroke"
-        android:gravity="center_vertical"
-        android:hint="@string/m194_old_password"
-        android:paddingStart="@dimen/dp_10"
-        android:inputType="textPassword"
-        android:textSize="@dimen/size_content_sp_14"
+        android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_custom_service" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_custom_service">
+
+
+        <EditText
+            android:id="@+id/et_olb_password"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_45"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:background="@null"
+            android:paddingStart="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:hint="@string/m226_input_code"
+            android:textSize="@dimen/size_content_sp_12" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/btn_getcode"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/selector_code_corner"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="@dimen/dp_3"
+            android:text="@string/m225_code"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_content_sp_10"
+            app:autoSizeMaxTextSize="@dimen/size_content_sp_10"
+            app:autoSizeMinTextSize="6sp"
+            app:autoSizeTextType="uniform" />
+
+
+    </LinearLayout>
 
 
     <EditText
         android:id="@+id/et_new_password"
-        android:layout_width="@dimen/dp_250"
+        android:layout_width="@dimen/dp_300"
         android:layout_height="@dimen/dp_45"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_10"
         android:background="@drawable/shape_green_stroke"
         android:gravity="center_vertical"
         android:hint="@string/m195_new_password"
-        android:paddingStart="@dimen/dp_10"
         android:inputType="textPassword"
-        android:textSize="@dimen/size_content_sp_14"
+        android:paddingStart="@dimen/dp_10"
+        android:textSize="@dimen/size_content_sp_12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_olb_password" />
+        app:layout_constraintTop_toBottomOf="@+id/ll_code" />
 
     <EditText
         android:id="@+id/et_newpassword_comfir"
-        android:layout_width="@dimen/dp_250"
+        android:layout_width="@dimen/dp_300"
         android:layout_height="@dimen/dp_45"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dp_10"
         android:background="@drawable/shape_green_stroke"
         android:gravity="center_vertical"
         android:hint="@string/m196_new_password_comfir"
-        android:paddingStart="@dimen/dp_10"
         android:inputType="textPassword"
-        android:textSize="@dimen/size_content_sp_14"
+        android:paddingStart="@dimen/dp_10"
+        android:textSize="@dimen/size_content_sp_12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_new_password" />
-
-
- <!--   <EditText
-        android:id="@+id/et_address"
-        android:layout_width="@dimen/dp_250"
-        android:layout_height="@dimen/dp_45"
-        android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
-        android:background="@drawable/shape_green_stroke"
-        android:gravity="center_vertical"
-        android:hint="@string/m50_address2"
-        android:paddingStart="@dimen/dp_10"
-        android:textSize="@dimen/size_content_sp_14"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_newpassword_comfir" />
-
-    <TextView
-        android:id="@+id/tv_state"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_45"
-        android:layout_gravity="end"
-        android:layout_marginTop="@dimen/dp_10"
-        android:gravity="center_vertical"
-        android:paddingStart="@dimen/dp_10"
-        android:text="@string/m47_state"
-        android:textSize="@dimen/size_content_sp_14"
-        app:layout_constraintRight_toRightOf="@+id/et_address"
-        app:layout_constraintTop_toBottomOf="@+id/et_address" />
-
-
-    <LinearLayout
-        android:id="@+id/ll_hoolywood"
-        android:layout_width="@dimen/dp_250"
-        android:layout_height="@dimen/dp_45"
-        android:background="@drawable/shape_green_stroke"
-        android:orientation="horizontal"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_state">
-
-        <TextView
-            android:id="@+id/tv_hooly"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_45"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingStart="@dimen/dp_10"
-            android:text="@string/m51_Hoolywood"
-            android:textSize="@dimen/size_content_sp_14"
-            app:layout_constraintRight_toRightOf="@+id/et_address"
-            app:layout_constraintTop_toBottomOf="@+id/et_address" />
-
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
-
-        <TextView
-            android:id="@+id/tv_cali"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_45"
-            android:layout_gravity="end"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingStart="@dimen/dp_10"
-            android:text="@string/m52_cali"
-            android:textSize="@dimen/size_content_sp_14"
-            app:layout_constraintRight_toRightOf="@+id/et_address"
-            app:layout_constraintTop_toBottomOf="@+id/et_address" />
-
-
-    </LinearLayout>-->
 
 
     <Button
@@ -164,7 +115,6 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_newpassword_comfir"
         app:layout_constraintVertical_bias="0.2" />
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

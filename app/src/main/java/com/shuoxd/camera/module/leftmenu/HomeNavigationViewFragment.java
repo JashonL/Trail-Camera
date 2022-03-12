@@ -86,8 +86,6 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
     CheckBox cbF;
     @BindView(R.id.cb_c)
     CheckBox cbC;
-    @BindView(R.id.ll_temp)
-    LinearLayout llTemp;
     @BindView(R.id.wheel_start)
     WheelView wheelStart;
     @BindView(R.id.tv_to)
