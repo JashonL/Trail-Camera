@@ -54,7 +54,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
 
 
-    public void register(String email, String regPassword){
+    public void register(String timeZone,String email, String regPassword){
         if (TextUtils.isEmpty(email)){
             MyToastUtils.toast(R.string.m63_username_cannot_empty);
             return;
@@ -64,7 +64,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
             return;
         }
 
-        addDisposable(apiServer.register(email, regPassword), new BaseObserver<String>(baseView,
+        addDisposable(apiServer.register(timeZone,email, regPassword), new BaseObserver<String>(baseView,
                 true) {
             @Override
             public void onSuccess(String bean) {

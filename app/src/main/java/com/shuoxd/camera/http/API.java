@@ -59,7 +59,7 @@ public class API {
         //注册
         @FormUrlEncoded
         @POST("/v1/user/register")
-        Observable<String> register(@Field("email") String email, @Field("password") String password);
+        Observable<String> register(@Field("timeZone")String timeZone,@Field("email") String email, @Field("password") String password);
 
 
 

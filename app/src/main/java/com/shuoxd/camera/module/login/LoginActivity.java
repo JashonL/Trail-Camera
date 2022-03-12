@@ -26,6 +26,7 @@ import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.module.account.ForgetPassWordActivity;
+import com.shuoxd.camera.utils.CommentUtils;
 
 import java.util.List;
 
@@ -190,7 +191,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
             case R.id.btn_register:
                 String reUserName = etRegisterUsername.getText().toString();
                 String rePassword = etRegisterPassword.getText().toString();
-                presenter.register(reUserName, rePassword);
+
+                String timeZone = CommentUtils.getTimeZone();
+                presenter.register(timeZone,reUserName, rePassword);
                 break;
             case R.id.tv_forgot_pwd:
                 startActivity(new Intent(this, ForgetPassWordActivity.class));

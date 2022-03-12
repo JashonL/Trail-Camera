@@ -156,14 +156,14 @@
 
     <string name="m129_question_list">Question List</string>
     <string name="m130_system_notification">System Notification</string>
-    <string name="m131_question_wait">待回复</string>
-    <string name="m132_question_aleady">已回复</string>
-    <string name="m133_question_solved">已解决</string>
-    <string name="m134_send">发送</string>
-    <string name="m135_input_message">输入回复消息</string>
-    <string name="m136_input_title">请输入标题</string>
-    <string name="m137_choose_camera">请选择相机</string>
-    <string name="m138_input_conten">请输入详细描述问题</string>
+    <string name="m131_question_wait">Wait reply</string>
+    <string name="m132_question_aleady">Replied</string>
+    <string name="m133_question_solved">Resolved</string>
+    <string name="m134_send">Send</string>
+    <string name="m135_input_message">Enter Reply Content</string>
+    <string name="m136_input_title">Enter Title</string>
+    <string name="m137_choose_camera">Select a Camera</string>
+    <string name="m138_input_conten">Please Enter Detail Description</string>
     <string name="m139_question">Question</string>
     <string name="m140_selection">Selection</string>
 
@@ -186,14 +186,14 @@
     <string name="m156_operation_stop_time">Operation Stop Time</string>
     <string name="m157_time_lapse_start_interval">Time Lapse Interval</string>
     <string name="m158_message">Message</string>
-    <string name="m159_message_allread">已读所有消息</string>
-    <string name="m160_message_delete">删除这条消息</string>
+    <string name="m159_message_allread">All Messages Read</string>
+    <string name="m160_message_delete">Delete This Message</string>
 
     <string name="m161_camera_name">Camera Name</string>
     <string name="m162_requires_permission">App scan code requires shooting permission</string>
-    <string name="m163_cannot_zero">不设置为0~</string>
+    <string name="m163_cannot_zero">Can not set to 0~</string>
     <string name="m164_cooming_soon">Cooming Soon…</string>
-    <string name="m165_cannot_3s">不能小于3秒</string>
+    <string name="m165_cannot_3s">Not less than 3 seconds</string>
     <string name="m166_information">Info</string>
     <string name="m167_delete_camera">Delete This Camera?</string>
     <string name="m168_update">Update</string>
@@ -238,7 +238,7 @@
     <string name="m194_old_password">Old PassWord</string>
     <string name="m195_new_password">New PassWord</string>
     <string name="m196_new_password_comfir">Comfirm PassWord</string>
-    <string name="m197_password_error">两次输入的密码不一致</string>
+    <string name="m197_password_error">The passwords entered twice are inconsistent</string>
     <string name="m198_upgrade">Upgrade</string>
     <string name="m199_navigation">Navigation</string>
     <string name="m200_camera_map">Camera Map</string>
@@ -268,18 +268,18 @@
     <string name="m219_video">Video</string>
 
 
-    <string name="m220_save_pic">保存到相册</string>
-    <string name="m221_save_error">保存失败</string>
-    <string name="m222_save_error">您的设备不支持谷歌地图</string>
+    <string name="m220_save_pic">Save to album</string>
+    <string name="m221_save_error">Save failed</string>
+    <string name="m222_save_error">Your phone does not support Google maps</string>
     <string name="m223_photo_video_type">Photo/Video Type</string>
     <string name="m224_version">Version</string>
     <string name="m225_code">Get Code</string>
-    <string name="m226_input_code">请输入验证码</string>
+    <string name="m226_input_code">Enter the verification code</string>
     <string name="m227_enter_code">Enter  %s  Verification Code </string>
 
 
-    <string name="m228_input_email">请输入邮箱地址</string>
-    <string name="m229_input_imei">请输入IMEI</string>
+    <string name="m228_input_email">Please enter email address</string>
+    <string name="m229_input_imei">Please enter IMEI</string>
 
 
 

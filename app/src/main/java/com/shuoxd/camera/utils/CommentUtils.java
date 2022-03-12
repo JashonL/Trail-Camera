@@ -503,4 +503,12 @@ public class CommentUtils {
     }
 
 
+
+    public static String getTimeZone(){
+        TimeZone tz = TimeZone.getDefault();
+        return tz.getID();
+    }
+
+
+
 }
