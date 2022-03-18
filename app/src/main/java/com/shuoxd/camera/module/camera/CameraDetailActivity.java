@@ -204,6 +204,18 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
             btnDownLoad.setText(R.string.m24_download);
         }
 
+
+        Jzvd.releaseAllVideos();
+        if ("2".equals(type)) {//自动播放视频
+            View view = mAdapter.getImageViews().get(currenPosition);
+            JzvdStd jzVideo = view.findViewById(R.id.jz_video);
+            jzVideo.startPreloading(); //开始预加载，加载完等待播放
+            jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
+            jzVideo.startVideo();
+
+        }
+
+
         String num = (currenPosition + 1) + "/" + count;
         tvNum.setText(num);
     }
