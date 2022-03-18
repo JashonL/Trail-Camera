@@ -25,4 +25,9 @@ public class Mydialog {
         mDelayHandler.postDelayed(runnableDelay,delayMillis);
     }
 
+
+    public static void showNodissmiss(Context context) {
+        DialogUtils.getInstance().showLoadingDialog(context);
+    }
+
 }

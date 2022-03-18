@@ -53,33 +53,48 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         TextView tvWifi = helper.getView(R.id.tv_wifi);
         int wifiStrength = Integer.parseInt(signalStrength);
         String sWiff = mContext.getString(R.string.m70_Signal);
+
+
+
+        ImageView ivWifi = helper.getView(R.id.iv_wifi);
         if (wifiStrength == 0) {
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
+//            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
+            ivWifi.setImageResource(R.drawable.signal1);
         } else if (wifiStrength <= 25) {
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
+//            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal1);
+            ivWifi.setImageResource(R.drawable.signal1);
         } else if (wifiStrength <= 50) {
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal2);
+//            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal2);
+            ivWifi.setImageResource(R.drawable.signal2);
         } else if (wifiStrength <= 75) {
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal3);
+//            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal3);
+            ivWifi.setImageResource(R.drawable.signal3);
         } else {
-            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal4);
+//            setTextViewDrawableTop(mContext, tvWifi, R.drawable.signal4);
+            ivWifi.setImageResource(R.drawable.signal4);
         }
 
         tvWifi.setText(sWiff);
 
 
         TextView tvExt = helper.getView(R.id.tv_ext);
+        ImageView ivExt = helper.getView(R.id.iv_ext);
         int extDcl = Integer.parseInt(extDcLevel);
         if (extDcl == 0) {
-            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
+//            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
+            ivExt.setImageResource(R.drawable.ext1);
         } else if (extDcl <= 25) {
-            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
+//            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
+            ivExt.setImageResource(R.drawable.ext1);
         } else if (extDcl <= 50) {
-            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext2);
+//            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext2);
+            ivExt.setImageResource(R.drawable.ext2);
         } else if (extDcl <= 75) {
-            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext3);
+//            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext3);
+            ivExt.setImageResource(R.drawable.ext3);
         } else {
-            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext4);
+//            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext4);
+            ivExt.setImageResource(R.drawable.ext4);
         }
 
         tvExt.setText(extDcl + "%");
@@ -91,34 +106,46 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
 
 
         TextView tvBattery = helper.getView(R.id.tv_battery);
+        ImageView ivBattery = helper.getView(R.id.iv_battery);
         int batteryL = Integer.parseInt(batteryLevel);
         if (batteryL == 0) {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
+//            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
+            ivBattery.setImageResource(R.drawable.bat1);
         } else if (batteryL <= 25) {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
+//            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
+            ivBattery.setImageResource(R.drawable.bat1);
         } else if (batteryL <= 50) {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat2);
+//            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat2);
+            ivBattery.setImageResource(R.drawable.bat2);
         } else if (batteryL <= 75) {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat3);
+//            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat3);
+            ivBattery.setImageResource(R.drawable.bat3);
         } else {
-            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat4);
+//            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat4);
+            ivBattery.setImageResource(R.drawable.bat4);
         }
 
         tvBattery.setText(batteryL + "%");
 
 
         TextView tvSdcard = helper.getView(R.id.tv_sdcard);
+        ImageView ivsdcard = helper.getView(R.id.iv_sdcard);
         int sSpace = Integer.parseInt(cardSpace);
         if (sSpace == 0) {
-            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
+            ivsdcard.setImageResource(R.drawable.sdcard1);
         } else if (sSpace <= 25) {
-            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
+            ivsdcard.setImageResource(R.drawable.sdcard1);
         } else if (sSpace <= 50) {
-            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard2);
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard2);
+            ivsdcard.setImageResource(R.drawable.sdcard2);
         } else if (sSpace <= 75) {
-            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
+            ivsdcard.setImageResource(R.drawable.sdcard3);
         } else {
-            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
+            ivsdcard.setImageResource(R.drawable.sdcard4);
         }
 
         tvSdcard.setText(sSpace + "%");

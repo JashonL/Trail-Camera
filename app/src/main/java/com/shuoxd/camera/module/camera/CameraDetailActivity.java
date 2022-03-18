@@ -92,7 +92,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     @BindView(R.id.cl_menu)
     ConstraintLayout clMenu;
     @BindView(R.id.btn_download)
-    Button btnDownLoad;
+    TextView btnDownLoad;
 
 
     private ViewPagerAdapter mAdapter;
@@ -300,7 +300,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     }
 
 
-    @OnClick({R.id.tv_collec, R.id.tv_delete, R.id.tv_share, R.id.btn_download})
+    @OnClick({R.id.tv_collec, R.id.tv_delete, R.id.tv_share, R.id.cl_download})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_collec: {
@@ -341,7 +341,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
             break;
 
-            case R.id.btn_download: {
+            case R.id.cl_download: {
                 List<PictureBean> viewLists = mAdapter.getViewLists();
                 int position = vp.getCurrentItem();
                 PictureBean pictureBean = viewLists.get(position);

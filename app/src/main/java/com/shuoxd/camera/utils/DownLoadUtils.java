@@ -30,14 +30,14 @@ public class DownLoadUtils {
         //允许移动网络与WIFI下载
         request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
         //是否在通知栏显示下载进度
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
 
         //设置可见及可管理
         /*注意，Android Q之后不推荐使用*/
         request.setVisibleInDownloadsUi(true);
 
 
-        Mydialog.show(context);
+        Mydialog.showNodissmiss(context);
 
         //将任务加入下载队列
         assert downloadManager != null;

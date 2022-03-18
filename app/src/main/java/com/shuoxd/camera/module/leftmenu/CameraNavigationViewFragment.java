@@ -123,6 +123,8 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
     private String endTemperature = "0";
     private String temperatureUnit = "-1";
 
+    private boolean isReset = false;
+
 
     public CameraNavigationViewFragment(IMenuListeners listeners) {
         this.listeners = listeners;
@@ -162,11 +164,14 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
 
         mAdapter.setOnItemClickListener(this);
 
-        int[] res = {R.drawable.phase1, R.drawable.phase2, R.drawable.phase3, R.drawable.phase4,
-                R.drawable.phase5, R.drawable.phase6, R.drawable.phase7, R.drawable.phase8,};
+        int[] res = {
+                R.drawable.phase5, R.drawable.phase6, R.drawable.phase7, R.drawable.phase8,
+                R.drawable.phase1, R.drawable.phase2, R.drawable.phase3, R.drawable.phase4,
+        };
 
-        int[] res_selected = {R.drawable.phase1_selected, R.drawable.phase2_selected, R.drawable.phase3_selected, R.drawable.phase4_selected,
-                R.drawable.phase5_selected, R.drawable.phase6_selected, R.drawable.phase7_selected, R.drawable.phase8_selected};
+        int[] res_selected = {
+                R.drawable.phase5_selected, R.drawable.phase6_selected, R.drawable.phase7_selected, R.drawable.phase8_selected,
+                R.drawable.phase1_selected, R.drawable.phase2_selected, R.drawable.phase3_selected, R.drawable.phase4_selected,};
         List<PhaseBean> phaseBeans = new ArrayList<>();
         for (int i = 0; i < res.length; i++) {
             PhaseBean bean = new PhaseBean();
@@ -268,66 +273,72 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
 
             case R.id.ll_apply:
 
-                if (cbVideo.isChecked()) {
-                    photoType = "2";
-                } else if (cbHd.isChecked()) {
-                    photoType = "1";
-                } else {
-                    photoType = "-1";
+                if (!isReset){
+                    if (cbVideo.isChecked()) {
+                        photoType = "2";
+                    } else if (cbHd.isChecked()) {
+                        photoType = "1";
+                    } else {
+                        photoType = "-1";
+                    }
+
+
+                    String s = tvDateStart.getText().toString();
+                    String s1 = tvDateEnd.getText().toString();
+                    if (TextUtils.isEmpty(s) || TextUtils.isEmpty(s1)) {
+                        startDate = "-1";
+                        endDate = "-1";
+                    } else {
+                        startDate = s;
+                        endDate = s1;
+                    }
+
+
+                    if (cbAm.isChecked()) {
+                        amPm = "0";
+                    } else if (cbPm.isChecked()) {
+                        amPm = "1";
+                    } else {
+                        amPm = "-1";
+                    }
+
+                    favorites = cbFavorites.isChecked() ? "1" : "-1";
+
+
+                    if (cbC.isChecked()) {
+                        temperatureUnit = "0";
+                    }
+
+                    if (cbF.isChecked()) {
+                        temperatureUnit = "1";
+                    }
+
+                    if (!cbC.isChecked() && !cbF.isChecked()) {
+                        temperatureUnit = "-1";
+                    }
+
+
+                    int temp_start = wheelStart.getCurrentItem();
+                    int temp_end = wheelEnd.getCurrentItem();
+
+                    List<String> tempF = CommentUtils.tempF();
+                    List<String> tempC = CommentUtils.tempC();
+
+                    startTemperature = "" +tempF.get(temp_start);
+                    endTemperature = "" +tempC.get(temp_end);
+
+
+                    int nowSelectPosition = mAdapter.getNowSelectPosition();
+                    if (nowSelectPosition==-1){
+                        moonPhase=String.valueOf(-1);
+                    }else {
+                        moonPhase = String.valueOf(nowSelectPosition + 1);
+                    }
                 }
 
-
-                String s = tvDateStart.getText().toString();
-                String s1 = tvDateEnd.getText().toString();
-                if (TextUtils.isEmpty(s) || TextUtils.isEmpty(s1)) {
-                    startDate = "-1";
-                    endDate = "-1";
-                } else {
-                    startDate = s;
-                    endDate = s1;
-                }
+                isReset=false;
 
 
-                if (cbAm.isChecked()) {
-                    amPm = "0";
-                } else if (cbPm.isChecked()) {
-                    amPm = "1";
-                } else {
-                    amPm = "-1";
-                }
-
-                favorites = cbFavorites.isChecked() ? "1" : "-1";
-
-
-                if (cbC.isChecked()) {
-                    temperatureUnit = "0";
-                }
-
-                if (cbF.isChecked()) {
-                    temperatureUnit = "1";
-                }
-
-                if (!cbC.isChecked() && !cbF.isChecked()) {
-                    temperatureUnit = "-1";
-                }
-
-
-                int temp_start = wheelStart.getCurrentItem();
-                int temp_end = wheelEnd.getCurrentItem();
-
-                List<String> tempF = CommentUtils.tempF();
-                List<String> tempC = CommentUtils.tempC();
-
-                startTemperature = "" +tempF.get(temp_start);
-                endTemperature = "" +tempC.get(temp_end);
-
-
-                int nowSelectPosition = mAdapter.getNowSelectPosition();
-                if (nowSelectPosition==-1){
-                    moonPhase=String.valueOf(-1);
-                }else {
-                    moonPhase = String.valueOf(nowSelectPosition + 1);
-                }
 
                 listeners.apply(
                         startDate, endDate,
@@ -363,6 +374,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
 
 
     private void reset() {
+        isReset=true;
         startDate = "-1";
         endDate = "-1";
         amPm = "-1";

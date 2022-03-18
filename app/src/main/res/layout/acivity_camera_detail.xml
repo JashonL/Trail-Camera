@@ -36,11 +36,9 @@
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="h,16:9"
         android:background="@drawable/deer"
+        app:layout_constraintDimensionRatio="h,16:9"
         app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
-
-
 
 
     <LinearLayout
@@ -133,24 +131,47 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btn_download"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_download"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/dp_35"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@drawable/selector_button_corner"
-        android:drawableStart="@drawable/download"
         android:minWidth="@dimen/dp_250"
-        android:lines="1"
-        android:textAllCaps="false"
-        android:paddingStart="@dimen/dp_10"
-        android:paddingEnd="@dimen/dp_10"
-        android:text="@string/m24_download"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_content_sp_12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_menu"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.2">
+
+
+        <TextView
+            android:id="@+id/btn_download"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:lines="1"
+            android:paddingStart="@dimen/dp_10"
+            android:paddingEnd="@dimen/dp_10"
+            android:text="@string/m24_download"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_content_sp_12"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/download"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/btn_download"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

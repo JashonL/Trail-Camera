@@ -126,46 +126,82 @@
             app:layout_constraintTop_toTopOf="@+id/iv_camera" />
 
 
+
+        <ImageView
+            android:id="@+id/iv_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wifi4"
+            android:layout_marginBottom="@dimen/dp_5"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_wifi"
+            app:layout_constraintRight_toRightOf="@+id/tv_wifi"
+            app:layout_constraintBottom_toTopOf="@+id/tv_wifi" />
+
+
+
         <TextView
             android:id="@+id/tv_wifi"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="@string/m70_Signal"
             android:gravity="center|bottom"
             android:lines="1"
-            android:drawableTop="@drawable/wifi4"
             android:textColor="@color/color_text_33"
-            android:textSize="@dimen/size_content_sp_14"
+            android:textSize="@dimen/size_content_sp_12"
             app:layout_constraintBottom_toBottomOf="@+id/iv_camera"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintLeft_toLeftOf="@+id/tv_name"
             app:layout_constraintRight_toLeftOf="@+id/tv_battery" />
 
 
+
+        <ImageView
+            android:id="@+id/iv_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/battery_4"
+            android:layout_marginBottom="@dimen/dp_5"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_battery"
+            app:layout_constraintRight_toRightOf="@+id/tv_battery"
+            app:layout_constraintBottom_toTopOf="@+id/tv_battery" />
+
+
+
         <TextView
             android:id="@+id/tv_battery"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="99%"
             android:gravity="center|bottom"
-            android:drawableTop="@drawable/battery_4"
             android:textColor="@color/color_text_33"
-            android:textSize="@dimen/size_content_sp_14"
+            android:textSize="@dimen/size_content_sp_12"
             app:layout_constraintBottom_toBottomOf="@+id/tv_wifi"
             app:layout_constraintLeft_toRightOf="@+id/tv_wifi"
             app:layout_constraintRight_toLeftOf="@+id/tv_ext"
             app:layout_constraintTop_toTopOf="@+id/tv_wifi" />
 
 
+
+        <ImageView
+            android:id="@+id/iv_ext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ext1"
+            android:layout_marginBottom="@dimen/dp_5"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_ext"
+            app:layout_constraintRight_toRightOf="@+id/tv_ext"
+            app:layout_constraintBottom_toTopOf="@+id/tv_ext" />
+
+
+
         <TextView
             android:id="@+id/tv_ext"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="99%"
             android:gravity="center|bottom"
-            android:drawableTop="@drawable/ext1"
             android:textColor="@color/color_text_33"
-            android:textSize="@dimen/size_content_sp_14"
+            android:textSize="@dimen/size_content_sp_12"
             app:layout_constraintBottom_toBottomOf="@+id/tv_wifi"
             app:layout_constraintLeft_toRightOf="@+id/tv_battery"
             app:layout_constraintRight_toLeftOf="@+id/tv_sdcard"
@@ -173,15 +209,26 @@
 
 
 
+        <ImageView
+            android:id="@+id/iv_sdcard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sdcard1"
+            android:layout_marginBottom="@dimen/dp_5"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_sdcard"
+            app:layout_constraintRight_toRightOf="@+id/tv_sdcard"
+            app:layout_constraintBottom_toTopOf="@+id/tv_sdcard" />
+
+
+
         <TextView
             android:id="@+id/tv_sdcard"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="100%"
             android:gravity="center|bottom"
             android:textColor="@color/color_text_33"
-            android:textSize="@dimen/size_content_sp_14"
-            android:drawableTop="@drawable/sdcard1"
+            android:textSize="@dimen/size_content_sp_12"
             app:layout_constraintBottom_toBottomOf="@+id/tv_wifi"
             app:layout_constraintLeft_toRightOf="@+id/tv_ext"
             app:layout_constraintRight_toRightOf="@+id/tv_name"
