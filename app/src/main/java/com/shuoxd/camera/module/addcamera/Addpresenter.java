@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.hjq.toast.ToastUtils;
 import com.shuoxd.camera.MainActivity;
+import com.shuoxd.camera.MainActivity2;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
@@ -143,7 +144,7 @@ public class Addpresenter extends BasePresenter<AddCanmeraView> {
 
 
     private void loginSuccess(){
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, MainActivity2.class);
         context. startActivity(intent,
                 ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
         ((Activity) context).finish();

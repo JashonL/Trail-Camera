@@ -2,7 +2,6 @@ package com.shuoxd.camera.base;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 
 import com.gyf.immersionbar.ImmersionBar;
@@ -44,7 +42,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
 
     protected Toolbar mToolBar;
 
-    protected ImmersionBar mImmersionBar;
 
 
     @Override
@@ -52,18 +49,20 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
         super.onCreate(savedInstanceState);
         setContentView(LayoutInflater.from(this).inflate(getLayoutId(), null));
         ButterKnife.bind(this);
+        //初始化沉浸式
+        initImmersionBar();
+
         App.getInstance().addActivityList(new WeakReference<>(this));
         mContext=this;
         presenter = createPresenter();
         initViews();
-        //初始化沉浸式
-        initImmersionBar();
+
         initData();
     }
-    /**
+/*    *//**
      * 初始化沉浸式
      * Init immersion bar.
-     */
+     *//*
     protected void initImmersionBar() {
         //设置共同沉浸式样式
         mImmersionBar=  ImmersionBar.with(this);
@@ -71,7 +70,22 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
                 .fitsSystemWindows(true)
                 .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
                 .init();
+    }*/
+
+
+
+    /**
+     * 初始化沉浸式
+     * Init immersion bar.
+     */
+    protected void initImmersionBar() {
+        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .fitsSystemWindows(true)
+                .navigationBarColor(R.color.colorPrimary)
+                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
+                .init();
     }
+
 
     @Override
     protected void onResume() {

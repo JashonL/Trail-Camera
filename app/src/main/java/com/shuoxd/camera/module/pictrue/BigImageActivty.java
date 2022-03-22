@@ -18,7 +18,6 @@ import androidx.appcompat.app.AlertDialog;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
-import com.gyf.immersionbar.ImmersionBar;
 import com.ortiz.touchview.TouchImageView;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
@@ -89,11 +88,11 @@ public class BigImageActivty extends BaseActivity<BigImagePresenter> implements 
      * Init immersion bar.
      */
     protected void initImmersionBar() {
-        //设置共同沉浸式样式
+/*        //设置共同沉浸式样式
         mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
                 .statusBarColor(R.color.nocolor)//这里的颜色，你可以自定义。
-                .init();
+                .init();*/
     }
 
 

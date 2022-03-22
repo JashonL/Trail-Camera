@@ -8,6 +8,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.shuoxd.camera.MainActivity;
+import com.shuoxd.camera.MainActivity2;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
@@ -149,7 +150,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
 
     private void loginSuccess(){
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, MainActivity2.class);
         context. startActivity(intent,
                 ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
 

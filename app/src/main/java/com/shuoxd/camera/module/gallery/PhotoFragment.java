@@ -27,10 +27,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.CameraMulFiterAdapter;
-import com.shuoxd.camera.adapter.CameraPicAdapter;
 import com.shuoxd.camera.adapter.CameraPicVedeoAdapter;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseFragment;
@@ -301,11 +299,7 @@ public class PhotoFragment extends BaseFragment<PhotoPresenter> implements Photo
 
     @Override
     public void initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
-                .statusBarView(statusBarView)
-                .init();
+
     }
 
     @Override

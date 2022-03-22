@@ -7,7 +7,6 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 
-import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.module.login.LoginActivity;
@@ -22,7 +21,6 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements ISp
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
 
-    protected ImmersionBar mImmersionBar;
 
 
     private Handler handler = new Handler();
@@ -70,11 +68,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements ISp
      * Init immersion bar.
      */
     protected void initImmersionBar() {
-        //设置共同沉浸式样式
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                .statusBarColor(R.color.nocolor)//这里的颜色，你可以自定义。
-                .init();
+
     }
 
     @Override

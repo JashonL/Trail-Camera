@@ -30,11 +30,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.gyf.immersionbar.ImmersionBar;
-import com.mylhyl.circledialog.CircleDialog;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.MapSearchAdapter;
-import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.MapLoctionBean;
@@ -355,11 +352,11 @@ public class LocationActivity
 
     @Override
     public void initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this);
+      /*  mImmersionBar = ImmersionBar.with(this);
         mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
                 .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
                 .statusBarView(statusBarView)
-                .init();
+                .init();*/
 
     }
 

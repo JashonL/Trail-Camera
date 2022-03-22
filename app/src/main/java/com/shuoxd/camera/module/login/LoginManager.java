@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.google.gson.Gson;
 import com.shuoxd.camera.MainActivity;
+import com.shuoxd.camera.MainActivity2;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BaseView;
@@ -130,7 +131,7 @@ public class LoginManager {
 
 
     private void loginSuccess(){
-        Intent intent = new Intent(context, MainActivity.class);
+        Intent intent = new Intent(context, MainActivity2.class);
         context. startActivity(intent,
                 ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
 

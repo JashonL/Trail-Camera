@@ -20,9 +20,7 @@ import androidx.constraintlayout.widget.Group;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
-import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.toast.ToastUtils;
-import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.module.account.ForgetPassWordActivity;
@@ -117,8 +115,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
 
     @Override
     protected void initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.keyboardEnable(true).init();
+//        mImmersionBar = ImmersionBar.with(this);
+//        mImmersionBar.keyboardEnable(true).init();
     }
 
     @Override

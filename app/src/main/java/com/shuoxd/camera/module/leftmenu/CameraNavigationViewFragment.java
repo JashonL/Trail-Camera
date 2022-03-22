@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bigkoo.pickerview.adapter.ArrayWheelAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.contrarywind.view.WheelView;
-import com.gyf.immersionbar.ImmersionBar;
 import com.gyf.immersionbar.components.ImmersionFragment;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.PhaseAdapter;
@@ -41,7 +40,6 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         BaseQuickAdapter.OnItemClickListener, CompoundButton.OnCheckedChangeListener {
 
 
-    protected ImmersionBar mImmersionBar;
     @BindView(R.id.status_bar_view)
     View statusBarView;
     @BindView(R.id.tv_filter)
@@ -200,11 +198,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
 
     @Override
     public void initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                .statusBarView(statusBarView)
-                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
-                .init();
+
     }
 
     @Override

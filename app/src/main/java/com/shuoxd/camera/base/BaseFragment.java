@@ -13,8 +13,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.gyf.immersionbar.ImmersionBar;
-import com.gyf.immersionbar.components.ImmersionFragment;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
@@ -48,7 +46,6 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
 
     protected Toolbar mToolBar;
 
-    protected ImmersionBar mImmersionBar;
 
 
 
@@ -63,7 +60,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         mContext = getActivity();
         presenter = createPresenter();
         initView();
-        initImmersionBar();
+//        initImmersionBar();
         initData();
         return view;
     }
@@ -74,11 +71,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
      * Init immersion bar.
      */
     protected void initImmersionBar() {
-        //设置共同沉浸式样式
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                .statusBarColor(R.color.white)//这里的颜色，你可以自定义。
-                .init();
+
     }
 
     @Override
@@ -225,8 +218,7 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        if (!hidden && mImmersionBar != null)
-            mImmersionBar.init();
+
 
     }
 

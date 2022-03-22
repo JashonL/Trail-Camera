@@ -14,28 +14,19 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.Guideline;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.toast.ToastUtils;
-import com.shuoxd.camera.ActivityAbout;
 import com.shuoxd.camera.R;
-import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
 import com.shuoxd.camera.adapter.MySetAdapter;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseFragment;
-import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.bean.SetBean;
 import com.shuoxd.camera.customview.GridDivider;
-import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.module.account.ChangePassWordActivity;
 import com.shuoxd.camera.module.account.UserCenterActivity;
-import com.shuoxd.camera.module.gallery.PhotoPresenter;
-import com.shuoxd.camera.module.gallery.PhotoView;
 import com.shuoxd.camera.module.login.LoginActivity;
-import com.shuoxd.camera.module.message.MessageActivity;
 import com.shuoxd.camera.module.message.MessageListActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
 
@@ -187,10 +178,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     protected void initImmersionBar() {
         super.initImmersionBar();
-        mImmersionBar.reset().statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
-                .statusBarView(statusBarView)
-                .init();
+
     }
 
 

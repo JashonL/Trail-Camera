@@ -39,9 +39,6 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.gyf.immersionbar.ImmersionBar;
-import com.mylhyl.circledialog.CircleDialog;
-import com.mylhyl.circledialog.view.listener.OnLvItemClickListener;
 import com.shuoxd.camera.MainActivity;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseFragment;
@@ -205,9 +202,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
 
     @Override
     public void initImmersionBar() {
-        mImmersionBar = ImmersionBar.with(this);
-        mImmersionBar.statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                .init();
+
     }
 
     @Override
