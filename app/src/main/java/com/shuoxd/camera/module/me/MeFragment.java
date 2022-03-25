@@ -51,14 +51,6 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
 
     @BindView(R.id.v_background)
     View vBackground;
-    @BindView(R.id.status_bar_view)
-    View statusBarView;
-    @BindView(R.id.tv_title)
-    AppCompatTextView tvTitle;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.app_toolbar)
-    LinearLayout appToolbar;
     @BindView(R.id.guideline_begin)
     Guideline guidelineBegin;
     @BindView(R.id.guideline_end)
@@ -121,8 +113,8 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     protected void initView() {
         //设置toolbar
-        toolbar.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.nocolor));
-        tvTitle.setText("");
+/*        toolbar.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.nocolor));
+        tvTitle.setText("");*/
 
         //初始化RecyclerView
         setAdapter();
@@ -187,9 +179,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     protected void initImmersionBar() {
         super.initImmersionBar();
-        mImmersionBar.reset().statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+        mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .fitsSystemWindows(true)
                 .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
-                .statusBarView(statusBarView)
                 .init();
     }
 

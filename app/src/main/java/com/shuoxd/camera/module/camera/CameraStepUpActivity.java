@@ -604,7 +604,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 }
 
 
-                data.get(data.size() - 1).setValueStr(lat + "," + lng);
+                data.get(data.size() - 1).setValueStr(lat+"N" + "," + lng+"E");
 
 
             }
@@ -626,7 +626,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             if ("0".equals(value) || "2".equals(value) || "3".equals(value)) {
                 data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                 data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SWITCH_DISABLE);
             } else {
                 data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
                 data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_SELECT);
@@ -697,7 +697,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 if ("0".equals(value) || "2".equals(value) || "3".equals(value)) {
                     data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
                     data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                    data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                    data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SWITCH_DISABLE);
                 } else {
                     data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
                     data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_SELECT);

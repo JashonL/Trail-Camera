@@ -19,4 +19,8 @@ public class SettingConstants {
 
     //输入加单位加解释
     public final static int SETTING_TYPE_INPUT_UNIT_EXPLAIN = 9;
+
+
+    //开关型
+    public final static int SETTING_TYPE_SWITCH_DISABLE = 10;
 }

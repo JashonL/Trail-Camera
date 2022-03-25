@@ -82,7 +82,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         int extDcl = Integer.parseInt(extDcLevel);
         if (extDcl == 0) {
 //            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
-            ivExt.setImageResource(R.drawable.ext1);
+            ivExt.setImageResource(R.drawable.ext0);
         } else if (extDcl <= 25) {
 //            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
             ivExt.setImageResource(R.drawable.ext1);
@@ -110,7 +110,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         int batteryL = Integer.parseInt(batteryLevel);
         if (batteryL == 0) {
 //            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
-            ivBattery.setImageResource(R.drawable.bat1);
+            ivBattery.setImageResource(R.drawable.bat0);
         } else if (batteryL <= 25) {
 //            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
             ivBattery.setImageResource(R.drawable.bat1);
@@ -136,16 +136,16 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
             ivsdcard.setImageResource(R.drawable.sdcard1);
         } else if (sSpace <= 25) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
-            ivsdcard.setImageResource(R.drawable.sdcard1);
+            ivsdcard.setImageResource(R.drawable.sdcard2);
         } else if (sSpace <= 50) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard2);
-            ivsdcard.setImageResource(R.drawable.sdcard2);
+            ivsdcard.setImageResource(R.drawable.sdcard3);
         } else if (sSpace <= 75) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
-            ivsdcard.setImageResource(R.drawable.sdcard3);
+            ivsdcard.setImageResource(R.drawable.sdcard4);
         } else {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
-            ivsdcard.setImageResource(R.drawable.sdcard4);
+            ivsdcard.setImageResource(R.drawable.sdcard5);
         }
 
         tvSdcard.setText(sSpace + "%");

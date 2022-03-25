@@ -69,7 +69,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         TextView tvBattery = helper.getView(R.id.tv_battery);
         int batteryL = Integer.parseInt(batteryLevel);
         if (batteryL == 0) {
-            setTextViewDrawableLeft(mContext, tvBattery, R.drawable.bat1);
+            setTextViewDrawableLeft(mContext, tvBattery, R.drawable.bat0);
         } else if (batteryL <= 25) {
             setTextViewDrawableLeft(mContext, tvBattery, R.drawable.bat1);
         } else if (batteryL <= 50) {
@@ -86,7 +86,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         TextView tvExt = helper.getView(R.id.tv_ext);
         int extDcl = Integer.parseInt(extDcLevel);
         if (extDcl == 0) {
-            setTextViewDrawableLeft(mContext, tvExt, R.drawable.ext1);
+            setTextViewDrawableLeft(mContext, tvExt, R.drawable.ext0);
         } else if (extDcl <= 25) {
             setTextViewDrawableLeft(mContext, tvExt, R.drawable.ext1);
         } else if (extDcl <= 50) {
@@ -105,13 +105,13 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         if (sSpace == 0) {
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard1);
         } else if (sSpace > 0 && sSpace <= 25) {
-            setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard1);
-        } else if (sSpace > 25 && sSpace <= 50) {
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard2);
-        } else if (sSpace > 50 && sSpace <= 75) {
+        } else if (sSpace > 25 && sSpace <= 50) {
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard3);
-        } else {
+        } else if (sSpace > 50 && sSpace <= 75) {
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard4);
+        } else {
+            setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard5);
         }
         tvSdcard.setText(sSpace + "%");
 

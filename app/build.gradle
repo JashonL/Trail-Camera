@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     signingConfigs {
         debug {
-            storeFile file('G:\\WorkPlace\\key\\sxd.jks')
+            storeFile file('D:\\workplace\\key\\sxd\\sxd.jks')
             storePassword '123456'
             keyAlias = 'key'
             keyPassword '123456'
@@ -16,7 +16,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "2022.03.18"
+        versionName "2022.03.25"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

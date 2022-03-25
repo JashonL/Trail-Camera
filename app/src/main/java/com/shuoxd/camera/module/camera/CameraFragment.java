@@ -634,7 +634,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     int batteryL = Integer.parseInt(batteryLevel);
 
                     if (batteryL == 0) {
-                        bean.setIconRes(R.drawable.bat1);
+                        bean.setIconRes(R.drawable.bat0);
                     } else if (batteryL <= 25) {
                         bean.setIconRes(R.drawable.bat1);
                     } else if (batteryL <= 50) {
@@ -653,13 +653,13 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     String extDcLevel = cameraBean.getExtDcLevel();
                     int extDcl = Integer.parseInt(extDcLevel);
                     if (extDcl == 0) {
-                        bean.setIconRes(R.drawable.ext1);
+                        bean.setIconRes(R.drawable.ext0);
                     } else if (extDcl <= 25) {
-                        bean.setIconRes(R.drawable.ext2);
+                        bean.setIconRes(R.drawable.ext1);
                     } else if (extDcl <= 50) {
-                        bean.setIconRes(R.drawable.ext3);
+                        bean.setIconRes(R.drawable.ext2);
                     } else if (extDcl <= 75) {
-                        bean.setIconRes(R.drawable.ext4);
+                        bean.setIconRes(R.drawable.ext3);
                     } else {
                         bean.setIconRes(R.drawable.ext4);
                     }
@@ -673,13 +673,13 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     if (sSpace == 0) {
                         bean.setIconRes(R.drawable.sdcard1);
                     } else if (sSpace <= 25) {
-                        bean.setIconRes(R.drawable.sdcard1);
-                    } else if (sSpace <= 50) {
                         bean.setIconRes(R.drawable.sdcard2);
-                    } else if (sSpace <= 75) {
+                    } else if (sSpace <= 50) {
                         bean.setIconRes(R.drawable.sdcard3);
-                    } else {
+                    } else if (sSpace <= 75) {
                         bean.setIconRes(R.drawable.sdcard4);
+                    } else {
+                        bean.setIconRes(R.drawable.sdcard5);
                     }
                     bean.setTitle(cardSpace + "%");
 

@@ -56,7 +56,7 @@ public class App extends Application {
         initCirclerDialog();
 
 
-        LogUtil.setIsLog(false);
+        LogUtil.setIsLog(true);
 
 //        initSampleAssets();
 

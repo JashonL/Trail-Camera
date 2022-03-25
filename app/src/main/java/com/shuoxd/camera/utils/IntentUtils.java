@@ -85,7 +85,7 @@ public class IntentUtils {
         intent.putExtra(Intent.EXTRA_STREAM, fileUri);
         intent.setType(shareType);
         Intent chooser = Intent.createChooser(intent, title);
-
+        Mydialog.dissmiss();
         if (intent.resolveActivity(context.getPackageManager()) != null) {
             context.startActivity(chooser);
         }

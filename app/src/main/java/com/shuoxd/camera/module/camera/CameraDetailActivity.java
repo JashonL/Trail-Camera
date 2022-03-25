@@ -93,6 +93,8 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     ConstraintLayout clMenu;
     @BindView(R.id.btn_download)
     TextView btnDownLoad;
+    @BindView(R.id.cl_download)
+    ConstraintLayout clDownLoad;
 
 
     private ViewPagerAdapter mAdapter;
@@ -187,21 +189,21 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         String wrongPhoto = pictureBean.getWrongPhoto();
         if ("5".equals(type)) {
             btnDownLoad.setText(R.string.m209_waiting_synchronization);
-            btnDownLoad.setEnabled(true);
+            clDownLoad.setEnabled(true);
         } else if ("0".equals(type)) {
             if ("1".equals(wrongPhoto)) {
                 btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
-                btnDownLoad.setEnabled(false);//不可点击
+                clDownLoad.setEnabled(false);//不可点击
             } else {
-                btnDownLoad.setEnabled(true);//可点击
+                clDownLoad.setEnabled(true);//可点击
                 btnDownLoad.setText(R.string.m24_download);
             }
         } else if ("1".equals(type)) {
-            btnDownLoad.setEnabled(false);//不可点击
+            clDownLoad.setEnabled(false);//不可点击
             btnDownLoad.setText(R.string.m24_download);
         } else if ("2".equals(type)) {
-            btnDownLoad.setEnabled(false);//不可点击
-            btnDownLoad.setText(R.string.m24_download);
+            clDownLoad.setEnabled(true);//不可点击
+            btnDownLoad.setText(R.string.m213_download);
         }
 
 
@@ -262,21 +264,21 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         String wrongPhoto = pictureBean.getWrongPhoto();
         if ("5".equals(type)) {
             btnDownLoad.setText(R.string.m209_waiting_synchronization);
-            btnDownLoad.setEnabled(true);
+            clDownLoad.setEnabled(true);
         } else if ("0".equals(type)) {
             if ("1".equals(wrongPhoto)) {
                 btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
-                btnDownLoad.setEnabled(false);//不可点击
+                clDownLoad.setEnabled(false);//不可点击
             } else {
-                btnDownLoad.setEnabled(true);//可点击
+                clDownLoad.setEnabled(true);//可点击
                 btnDownLoad.setText(R.string.m24_download);
             }
         } else if ("1".equals(type)) {
-            btnDownLoad.setEnabled(false);//不可点击
+            clDownLoad.setEnabled(false);//不可点击
             btnDownLoad.setText(R.string.m24_download);
         } else if ("2".equals(type)) {
-            btnDownLoad.setEnabled(false);//不可点击
-            btnDownLoad.setText(R.string.m24_download);
+            clDownLoad.setEnabled(true);//不可点击
+            btnDownLoad.setText(R.string.m213_download);
         }
 
 
@@ -361,7 +363,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 String type = pictureBean.getType();
                 if ("5".equals(type)) {
                     presenter.operation(id, "resolution", "0");
-                } else {
+                } else if ("2".equals(type)){
+
+                }else {
                     presenter.operation(id, "resolution", "1");
                 }
 
@@ -385,7 +389,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         String name = fullPath.substring(fullPath.lastIndexOf("/") + 1);
         String filePath = parentPath + "/" + name;
         File file = new File(filePath);
-        if (file.exists()) {//已经存在 直接分享
+    /*    if (file.exists()) {//已经存在 直接分享
             //获取File的Uri
             IntentUtils.shareFile(CameraDetailActivity.this, file, IntentUtils.TYPE_VIDEO, getString(R.string.m217_video_sharing));
         } else {//不存在就下载
@@ -400,7 +404,18 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                         IntentUtils.shareVideoByUri(CameraDetailActivity.this, uri, IntentUtils.TYPE_VIDEO, getString(R.string.m217_video_sharing));
                     })
                     .download();
-        }
+        }*/
+        Uri videoContentUri = Uri.fromFile(file);
+        DownLoadUtils.builder()
+                .setContext(this)
+                .setUrl(fullPath)
+                .setFileName(name)
+                .setFileUri(videoContentUri)
+                .setFileUri(parentPath)
+                .setLister(uri -> {
+                    IntentUtils.shareVideoByUri(CameraDetailActivity.this, uri, IntentUtils.TYPE_VIDEO, getString(R.string.m217_video_sharing));
+                })
+                .download();
 
     }
 

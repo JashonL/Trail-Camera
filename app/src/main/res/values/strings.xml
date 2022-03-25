@@ -150,7 +150,7 @@
     <string name="m123_lcd_during_on">LCD During ON</string>
     <string name="m124_Server_Date">Server Date</string>
     <string name="m125_Server_Time">Server Time</string>
-    <string name="m126_Format_Card">Format Card</string>
+    <string name="m126_Format_Card">Format SD Card</string>
     <string name="m127_cancel">Cancel</string>
     <string name="m128_read">Refresh</string>
 

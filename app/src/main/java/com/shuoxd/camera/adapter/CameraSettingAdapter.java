@@ -26,6 +26,7 @@ public class CameraSettingAdapter extends BaseMultiItemQuickAdapter<DeviceSettin
         addItemType(SettingConstants.SETTING_TYPE_SWITCH, R.layout.item_setting_switch);
         addItemType(SettingConstants.SETTING_TYPE_NEXT, R.layout.item_setting_next);
         addItemType(SettingConstants.SETTING_TYPE_ONLYREAD, R.layout.item_setting_only);
+        addItemType(SettingConstants.SETTING_TYPE_SWITCH_DISABLE, R.layout.item_setting_switch_disable);
         this.onChildCheckLiseners=liseners;
     }
 
@@ -46,10 +47,13 @@ public class CameraSettingAdapter extends BaseMultiItemQuickAdapter<DeviceSettin
 
                 }
             });
+        }else if (item.getItemType()==SettingConstants.SETTING_TYPE_SWITCH_DISABLE){
+            helper.setText(R.id.tv_title,item.getTitle());
+            String value = item.getValue();
+            helper.setChecked(R.id.sw_switch,"1".equals(value));
+        }
 
-
-
-        }else if (item.getItemType()==SettingConstants.SETTING_TYPE_INPUT){
+        else if (item.getItemType()==SettingConstants.SETTING_TYPE_INPUT){
             helper.setText(R.id.tv_title,item.getTitle());
             helper.setText(R.id.tv_value,item.getValueStr());
             helper.setText(R.id.tv_unit,item.getUnit());
