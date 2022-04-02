@@ -305,7 +305,7 @@ public class CircleDialogUtils {
             builder.setPositive(positive, posiListener);
         }
 
-        builder.setWidth(0.8f);
+        builder.setWidth(0.75f);
         return builder.show(activity.getSupportFragmentManager());
     }
 

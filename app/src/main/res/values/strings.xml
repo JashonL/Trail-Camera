@@ -280,8 +280,9 @@
 
     <string name="m228_input_email">Please enter email address</string>
     <string name="m229_input_imei">Please enter IMEI</string>
-
-
-
+    <string name="m230_save_video">Whether to save the video to the phone?</string>
+    <string name="m231_video_saved">Video saved to album</string>
+    <string name="m232_video_downloading">Video Downloading…</string>
+    <string name="m233_pic_saved">The picture has been saved to the album</string>
 
 </resources>

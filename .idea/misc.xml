@@ -5,8 +5,9 @@
       <map>
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/layer_welcome.xml" value="0.2305" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/line_gradient_bg_shape.xml" value="0.28854166666666664" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/progress_style_04.xml" value="0.229" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/view_ripple_corner.xml" value="0.28854166666666664" />
-        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/acivity_camera_detail.xml" value="0.25" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/acivity_camera_detail.xml" value="0.18" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_account.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_big_pictrue.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_custom_scan.xml" value="0.23550724637681159" />
