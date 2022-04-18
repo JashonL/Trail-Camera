@@ -102,17 +102,26 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
 
         TextView tvSdcard = helper.getView(R.id.tv_sdcard);
         int sSpace = Integer.parseInt(cardSpace);
+
         if (sSpace == 0) {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard1);
-        } else if (sSpace > 0 && sSpace <= 25) {
+        } else if (sSpace <= 19) {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
+            setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard1);
+        } else if (sSpace <= 49) {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard2);
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard2);
-        } else if (sSpace > 25 && sSpace <= 50) {
+        } else if (sSpace <= 69) {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard3);
-        } else if (sSpace > 50 && sSpace <= 75) {
+        } else if (sSpace <= 94){
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard4);
-        } else {
+        }else {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard5);
         }
+
         tvSdcard.setText(sSpace + "%");
 
         String noReadPhotoNum = item.getNoReadPhotoNum();

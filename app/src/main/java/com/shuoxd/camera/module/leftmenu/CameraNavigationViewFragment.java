@@ -150,7 +150,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         wheelStart.setCyclic(true);
         wheelStart.isCenterLabel(true);
         wheelStart.setAdapter(new ArrayWheelAdapter<>(tempF));
-        wheelStart.setCurrentItem(50);
+        wheelStart.setCurrentItem(5);
         wheelStart.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
         wheelStart.setItemsVisibleCount(3);
         wheelStart.setNestedScrollingEnabled(false);
@@ -160,7 +160,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         wheelEnd.setCyclic(true);
         wheelEnd.isCenterLabel(true);
         wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempC));
-        wheelEnd.setCurrentItem(50);
+        wheelEnd.setCurrentItem(20);
         wheelEnd.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
         wheelEnd.setItemsVisibleCount(3);
 
@@ -269,8 +269,8 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                 cbF.setChecked(false);
                 cbC.setChecked(false);
 
-                wheelEnd.setCurrentItem(50);
-                wheelStart.setCurrentItem(50);
+                wheelEnd.setCurrentItem(20);
+                wheelStart.setCurrentItem(5);
 
                 temperatureUnit = "-1";
                 gpTemp.setVisibility(View.GONE);
@@ -411,8 +411,8 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
 
         cbFavorites.setChecked(false);
 
-        wheelEnd.setCurrentItem(50);
-        wheelStart.setCurrentItem(50);
+        wheelEnd.setCurrentItem(20);
+        wheelStart.setCurrentItem(5);
 
         List<PhaseBean> data = mAdapter.getData();
         for (int i = 0; i < data.size(); i++) {

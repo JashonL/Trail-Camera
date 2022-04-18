@@ -672,13 +672,15 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     int sSpace = Integer.parseInt(cardSpace);
                     if (sSpace == 0) {
                         bean.setIconRes(R.drawable.sdcard1);
-                    } else if (sSpace <= 25) {
+                    } else if (sSpace <= 19) {
+                        bean.setIconRes(R.drawable.sdcard1);
+                    } else if (sSpace <= 49) {
                         bean.setIconRes(R.drawable.sdcard2);
-                    } else if (sSpace <= 50) {
+                    } else if (sSpace <= 69) {
                         bean.setIconRes(R.drawable.sdcard3);
-                    } else if (sSpace <= 75) {
+                    } else if (sSpace <= 95){
                         bean.setIconRes(R.drawable.sdcard4);
-                    } else {
+                    }else {
                         bean.setIconRes(R.drawable.sdcard5);
                     }
                     bean.setTitle(cardSpace + "%");

@@ -130,6 +130,10 @@ public class BigImageActivty extends BaseActivity<BigImagePresenter> implements 
         });
 
 
+
+
+        ivTouch.setOnClickListener(view -> finish());
+
     }
 
 

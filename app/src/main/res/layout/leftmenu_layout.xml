@@ -57,11 +57,13 @@
 
                 <CheckBox
                     android:id="@+id/cb_hd"
-                    android:layout_width="@dimen/dp_60"
+                    android:layout_width="@dimen/dp_80"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
                     android:background="@drawable/selector_rb"
                     android:button="@null"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:gravity="center"
                     android:padding="@dimen/dp_3"
                     android:text="@string/m16_hd"
@@ -69,7 +71,7 @@
 
                 <CheckBox
                     android:id="@+id/cb_video"
-                    android:layout_width="@dimen/dp_60"
+                    android:layout_width="@dimen/dp_80"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_20"
                     android:background="@drawable/selector_rb"
@@ -190,23 +192,27 @@
 
                 <CheckBox
                     android:id="@+id/cb_am"
-                    android:layout_width="@dimen/dp_60"
+                    android:layout_width="@dimen/dp_80"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
                     android:background="@drawable/selector_rb"
                     android:button="@null"
                     android:gravity="center"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:padding="@dimen/dp_3"
                     android:text="@string/m92_am"
                     android:textColor="@color/rb_text_selector" />
 
                 <CheckBox
                     android:id="@+id/cb_pm"
-                    android:layout_width="@dimen/dp_60"
+                    android:layout_width="@dimen/dp_80"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_20"
                     android:background="@drawable/selector_rb"
                     android:button="@null"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:gravity="center"
                     android:padding="@dimen/dp_3"
                     android:text="@string/m93_pm"
@@ -235,6 +241,8 @@
                 android:background="@drawable/selector_rb"
                 android:button="@null"
                 android:gravity="center"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:padding="@dimen/dp_3"
                 android:text="@string/m94_favorites"
                 android:textColor="@color/rb_text_selector"
@@ -269,7 +277,7 @@
 
                 <CheckBox
                     android:id="@+id/cb_f"
-                    android:layout_width="@dimen/dp_60"
+                    android:layout_width="@dimen/dp_80"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_10"
                     android:background="@drawable/selector_rb"
@@ -277,6 +285,8 @@
                     android:gravity="center"
                     android:padding="@dimen/dp_3"
                     android:text="@string/m95_f"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     android:textColor="@color/rb_text_selector"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -286,7 +296,7 @@
 
                 <CheckBox
                     android:id="@+id/cb_c"
-                    android:layout_width="@dimen/dp_60"
+                    android:layout_width="@dimen/dp_80"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/dp_20"
                     android:background="@drawable/selector_rb"
@@ -294,6 +304,8 @@
                     android:gravity="center"
                     android:padding="@dimen/dp_3"
                     android:text="@string/m96_c"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/rb_text_selector"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@+id/cb_f"

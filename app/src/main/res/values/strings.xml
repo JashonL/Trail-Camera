@@ -101,7 +101,7 @@
     <string name="m81_Message">Message</string>
     <string name="m82_account">Account</string>
     <string name="m83_Support">Support</string>
-    <string name="m84_sign_out">Sign Out</string>
+    <string name="m84_sign_out">Log Out</string>
     <string name="m85_loading">Loading</string>
     <string name="m86_fail">Fail</string>
     <string name="m87_no_more_data">No more data</string>
@@ -284,5 +284,6 @@
     <string name="m231_video_saved">Video saved to album</string>
     <string name="m232_video_downloading">Video Downloading…</string>
     <string name="m233_pic_saved">The picture has been saved to the album</string>
+    <string name="m234_coming_soon">Cooming Soon</string>
 
 </resources>

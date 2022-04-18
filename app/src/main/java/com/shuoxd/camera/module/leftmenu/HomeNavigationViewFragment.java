@@ -146,14 +146,14 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
         wheelStart.setCyclic(true);
         wheelStart.isCenterLabel(true);
         wheelStart.setAdapter(new ArrayWheelAdapter<>(tempF));
-        wheelStart.setCurrentItem(50);
+        wheelStart.setCurrentItem(5);
         wheelStart.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
         wheelStart.setItemsVisibleCount(3);
 
         wheelEnd.setCyclic(true);
         wheelEnd.isCenterLabel(true);
         wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempC));
-        wheelEnd.setCurrentItem(50);
+        wheelEnd.setCurrentItem(20);
         wheelEnd.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
         wheelEnd.setItemsVisibleCount(3);
 
@@ -268,8 +268,8 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                 cbC.setChecked(false);
                 temperatureUnit = "-1";
 
-                wheelEnd.setCurrentItem(50);
-                wheelStart.setCurrentItem(50);
+                wheelEnd.setCurrentItem(20);
+                wheelStart.setCurrentItem(5);
 
                 gpTemp.setVisibility(View.GONE);
                 break;
@@ -373,8 +373,8 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
             } else if (!b && !cbC.isChecked()) {
                 temperatureUnit = "-1";
 
-                wheelEnd.setCurrentItem(50);
-                wheelStart.setCurrentItem(50);
+                wheelEnd.setCurrentItem(20);
+                wheelStart.setCurrentItem(5);
 
                 gpTemp.setVisibility(View.GONE);
             }
@@ -386,8 +386,8 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
             } else if (!b && !cbF.isChecked()) {
                 temperatureUnit = "-1";
 
-                wheelEnd.setCurrentItem(50);
-                wheelStart.setCurrentItem(50);
+                wheelEnd.setCurrentItem(20);
+                wheelStart.setCurrentItem(5);
 
                 gpTemp.setVisibility(View.GONE);
             }
@@ -424,8 +424,8 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
 
         cbFavorites.setChecked(false);
 
-        wheelEnd.setCurrentItem(50);
-        wheelStart.setCurrentItem(50);
+        wheelEnd.setCurrentItem(20);
+        wheelStart.setCurrentItem(5);
 
         List<PhaseBean> data = mAdapter.getData();
         for (int i = 0; i < data.size(); i++) {

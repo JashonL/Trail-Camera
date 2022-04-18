@@ -201,6 +201,8 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
         switch (position) {
             case 1:
             case 0:
+            case 4:
+                
                 MyToastUtils.toast(R.string.m164_cooming_soon);
                 break;
             case 2:

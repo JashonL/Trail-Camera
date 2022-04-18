@@ -134,16 +134,18 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         if (sSpace == 0) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
             ivsdcard.setImageResource(R.drawable.sdcard1);
-        } else if (sSpace <= 25) {
+        } else if (sSpace <= 19) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
-            ivsdcard.setImageResource(R.drawable.sdcard2);
-        } else if (sSpace <= 50) {
+            ivsdcard.setImageResource(R.drawable.sdcard1);
+        } else if (sSpace <= 49) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard2);
-            ivsdcard.setImageResource(R.drawable.sdcard3);
-        } else if (sSpace <= 75) {
+            ivsdcard.setImageResource(R.drawable.sdcard2);
+        } else if (sSpace <= 69) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
-            ivsdcard.setImageResource(R.drawable.sdcard4);
-        } else {
+            ivsdcard.setImageResource(R.drawable.sdcard3);
+        } else if (sSpace <= 94){
+            ivsdcard.setImageResource(R.drawable.sdcard3);
+        }else {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
             ivsdcard.setImageResource(R.drawable.sdcard5);
         }

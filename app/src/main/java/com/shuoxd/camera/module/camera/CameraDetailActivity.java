@@ -37,6 +37,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.common.util.CollectionUtils;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
@@ -545,8 +546,10 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
             mAdapter.notifyDataSetChanged();
 
-//            mAdapter = new ViewPagerAdapter(picList);
-//            vp.setAdapter(mAdapter);
+            List<PictureBean> newList = new ArrayList<>(picList);
+
+            mAdapter = new ViewPagerAdapter(newList);
+            vp.setAdapter(mAdapter);
 
 
             int count = mAdapter.getCount();
