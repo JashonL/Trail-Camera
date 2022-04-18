@@ -146,13 +146,13 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
         wheelStart.setCyclic(true);
         wheelStart.isCenterLabel(true);
         wheelStart.setAdapter(new ArrayWheelAdapter<>(tempF));
-        wheelStart.setCurrentItem(5);
+        wheelStart.setCurrentItem(20);
         wheelStart.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
         wheelStart.setItemsVisibleCount(3);
 
         wheelEnd.setCyclic(true);
         wheelEnd.isCenterLabel(true);
-        wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempC));
+        wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempF));
         wheelEnd.setCurrentItem(20);
         wheelEnd.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
         wheelEnd.setItemsVisibleCount(3);
@@ -268,8 +268,15 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                 cbC.setChecked(false);
                 temperatureUnit = "-1";
 
-                wheelEnd.setCurrentItem(20);
-                wheelStart.setCurrentItem(5);
+
+                if (cbF.isChecked()){
+                    wheelEnd.setCurrentItem(20);
+                    wheelStart.setCurrentItem(20);
+                }else {
+
+                    wheelEnd.setCurrentItem(5);
+                    wheelStart.setCurrentItem(5);
+                }
 
                 gpTemp.setVisibility(View.GONE);
                 break;
@@ -332,8 +339,14 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
                     List<String> tempF = CommentUtils.tempF();
                     List<String> tempC = CommentUtils.tempC();
 
-                    startTemperature = "" + tempF.get(temp_start);
-                    endTemperature = "" + tempC.get(temp_end);
+
+                    if (cbF.isChecked()){
+                        startTemperature = "" +tempF.get(temp_start);
+                        endTemperature = "" +tempF.get(temp_end);
+                    }else {
+                        startTemperature = "" +tempC.get(temp_start);
+                        endTemperature = "" +tempC.get(temp_end);
+                    }
 
 
                     int nowSelectPosition = mAdapter.getNowSelectPosition();
@@ -370,12 +383,15 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
             if (b) cbC.setChecked(false);
             if (compoundButton.isPressed() && b) {
                 gpTemp.setVisibility(View.VISIBLE);
+
+                List<String> tempF = CommentUtils.tempF();
+                wheelStart.setAdapter(new ArrayWheelAdapter<>(tempF));
+                wheelStart.setCurrentItem(5);
+                wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempF));
+                wheelEnd.setCurrentItem(5);
+
             } else if (!b && !cbC.isChecked()) {
                 temperatureUnit = "-1";
-
-                wheelEnd.setCurrentItem(20);
-                wheelStart.setCurrentItem(5);
-
                 gpTemp.setVisibility(View.GONE);
             }
 
@@ -383,12 +399,13 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
             if (b) cbF.setChecked(false);
             if (compoundButton.isPressed() && b) {
                 gpTemp.setVisibility(View.VISIBLE);
+                List<String> tempC = CommentUtils.tempC();
+                wheelStart.setAdapter(new ArrayWheelAdapter<>(tempC));
+                wheelStart.setCurrentItem(20);
+                wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempC));
+                wheelEnd.setCurrentItem(20);
             } else if (!b && !cbF.isChecked()) {
                 temperatureUnit = "-1";
-
-                wheelEnd.setCurrentItem(20);
-                wheelStart.setCurrentItem(5);
-
                 gpTemp.setVisibility(View.GONE);
             }
         }
@@ -424,8 +441,13 @@ public class HomeNavigationViewFragment extends ImmersionFragment implements
 
         cbFavorites.setChecked(false);
 
-        wheelEnd.setCurrentItem(20);
-        wheelStart.setCurrentItem(5);
+        if (cbF.isChecked()){
+            wheelEnd.setCurrentItem(5);
+            wheelStart.setCurrentItem(5);
+        }else {
+            wheelEnd.setCurrentItem(20);
+            wheelStart.setCurrentItem(20);
+        }
 
         List<PhaseBean> data = mAdapter.getData();
         for (int i = 0; i < data.size(); i++) {
