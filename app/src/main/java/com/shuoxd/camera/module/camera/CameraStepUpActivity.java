@@ -32,7 +32,6 @@ import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.eventbus.FreshCameraLocation;
 import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.module.map.LocationActivity;
-import com.shuoxd.camera.module.map.MapActivity;
 import com.shuoxd.camera.utils.CameraSetUtils;
 import com.shuoxd.camera.utils.CircleDialogUtils;
 import com.shuoxd.camera.utils.CommentUtils;
@@ -330,7 +329,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
             } else if ("longitude_latitude".equals(key)) {
                 Intent intent1 = new Intent(this, LocationActivity.class);
-
+                intent1.putExtra("imei",imei);
                 startActivity(intent1);
             } else {
                 try {

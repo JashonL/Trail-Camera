@@ -48,6 +48,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.shuoxd.camera.constants.PermissionConstant.RC_LOCATION;
@@ -91,8 +92,49 @@ public class LocationActivity
 
     public static final String MAP_LOCATION = "map_location";
 
-    private String mLng = "0";
-    private String mLat = "0";
+    private String mLng = "-74.006363";
+    private String mLat = "40.68399";
+
+
+
+
+
+    @OnClick({R.id.flSearch})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.flSearch:
+                try {
+                    String search2 = mEtContent.getText().toString().trim();
+                    if (geocoder == null){
+                        geocoder = new Geocoder(this, Locale.getDefault());
+                    }
+                    List<Address> list = geocoder.getFromLocationName(search2, 10);
+                    if (list != null && list.size() > 0){
+                        List<MapSearchBean> newList = new ArrayList<>();
+                        for (Address info : list) {
+                            MapSearchBean bean = new MapSearchBean();
+                            bean.setAddress(info.getAddressLine(0));
+                            String city = info.getLocality();
+                            if (TextUtils.isEmpty(city)) city = "";
+                            bean.setCity(city);
+                            bean.setCountry(info.getCountryName());
+                            bean.setDistrict(info.getAdminArea());
+                            bean.setPt(new com.amap.api.maps.model.LatLng(info.getLatitude(),info.getLongitude()));
+                            newList.add(bean);
+                        }
+                        mAdapter.replaceData(newList);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
+            case R.id.ivReset:
+                moveMyLocation(mLocation);
+                break;
+        }
+    }
+
+
 
     @Override
     public void onCameraIdle() {
@@ -170,8 +212,8 @@ public class LocationActivity
                 getBaseContext().getResources().getDisplayMetrics());
         ButterKnife.bind(this);
 
-
-        toolbar.inflateMenu(R.menu.menu_text);
+        initToobar(toolbar);
+        toolbar.inflateMenu(R.menu.menu_submit);
         toolbar.setOnMenuItemClickListener(this);
         tvTitle.setText(R.string.m207_modify_position);
 
@@ -368,12 +410,13 @@ public class LocationActivity
         if (centerBean == null){
             centerBean = new MapLoctionBean();
         }
-        if (mCenterLatlng !=null) {
-            centerBean.setLatitude(mCenterLatlng.latitude);
-            centerBean.setLongitude(mCenterLatlng.longitude);
+        if (mCenterLatlng ==null) {
+           return true;
         }
 
 
+        centerBean.setLatitude(mCenterLatlng.latitude);
+        centerBean.setLongitude(mCenterLatlng.longitude);
         String operationValue=mCenterLatlng.longitude+"_"+mCenterLatlng.latitude;
         presenter.control(imei, "longitude_latitude", operationValue);
 
