@@ -518,7 +518,11 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                 for (int k = 0; k < items_value.length; k++) {
                                     int i1 = items_value[k];
                                     if (i1 == pos) {
-                                        valueS = items[k];
+                                        if (k<items.length){
+                                            valueS = items[k];
+                                        }else {
+                                            valueS = String.valueOf(k);
+                                        }
                                         break;
                                     }
                                 }
