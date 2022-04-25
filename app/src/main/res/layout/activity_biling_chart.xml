@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <include layout="@layout/toobar_title" />
+
+    <TextView
+        android:id="@+id/tv_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_42"
+        android:background="@color/white"
+        android:drawableRight="@drawable/selector_chart_rb"
+        android:gravity="center"
+        android:text="September 2021"
+        android:textColor="@color/color_text_66"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintTop_toBottomOf="@+id/app_toolbar" />
+
+
+    <ImageView
+        android:id="@+id/iv_previous"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/rlv_year"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rlv_year" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rlv_year"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_60"
+        app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
+
+
+    <ImageView
+        android:id="@+id/iv_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/rlv_year"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/rlv_year" />
+
+
+    <FrameLayout
+        android:id="@+id/vp_chart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_300"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -215,6 +215,10 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" /> <!-- or android:screenOrientation="landscape"-->
 
+        <activity android:name=".module.plans.PlansActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+
 
     </application>
 

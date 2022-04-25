@@ -37,6 +37,7 @@ import com.shuoxd.camera.module.gallery.PhotoView;
 import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.module.message.MessageActivity;
 import com.shuoxd.camera.module.message.MessageListActivity;
+import com.shuoxd.camera.module.plans.PlansActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
 
 import java.util.ArrayList;
@@ -199,8 +200,11 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         switch (position) {
-            case 1:
             case 0:
+                startActivity(new Intent(getContext(), PlansActivity.class));
+                break;
+            case 1:
+
             case 4:
                 
                 MyToastUtils.toast(R.string.m164_cooming_soon);
