@@ -243,6 +243,16 @@ public class API {
         Observable<String> cameraList(@Path("toPageNum")int toPageNum,@Field("email") String email);
 
 
+
+
+        //获取plans详情
+        @FormUrlEncoded
+        @POST("/v1/plan/getPlan/")
+        Observable<String> getPlan(@Field("imei") String imei);
+
+
+
+
     }
 
 }

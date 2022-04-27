@@ -1,14 +1,13 @@
 package com.shuoxd.camera.bean;
 
-public class PlansBean {
+import com.chad.library.adapter.base.entity.MultiItemEntity;
 
-    private String cameraName;
-    private String status;
-    private String imei;
-    private String iccid;
-    private String planDescription;
-    private String dayRemain;
-    private String billDate;
+public class PlansInfoBean implements MultiItemEntity {
+
+    private int itemType;
+
+    private String title;
+    private String value;
     private String usedPhoto;
     private String usedHDPhoto;
     private String usedVideo;
@@ -16,60 +15,25 @@ public class PlansBean {
     private String packageHDPhoto;
     private String packageVideo;
 
-    public String getCameraName() {
-        return cameraName;
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 
-    public void setCameraName(String cameraName) {
-        this.cameraName = cameraName;
+    public String getTitle() {
+        return title;
     }
 
-    public String getStatus() {
-        return status;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String getValue() {
+        return value;
     }
 
-    public String getImei() {
-        return imei;
-    }
-
-    public void setImei(String imei) {
-        this.imei = imei;
-    }
-
-    public String getIccid() {
-        return iccid;
-    }
-
-    public void setIccid(String iccid) {
-        this.iccid = iccid;
-    }
-
-    public String getPlanDescription() {
-        return planDescription;
-    }
-
-    public void setPlanDescription(String planDescription) {
-        this.planDescription = planDescription;
-    }
-
-    public String getDayRemain() {
-        return dayRemain;
-    }
-
-    public void setDayRemain(String dayRemain) {
-        this.dayRemain = dayRemain;
-    }
-
-    public String getBillDate() {
-        return billDate;
-    }
-
-    public void setBillDate(String billDate) {
-        this.billDate = billDate;
+    public void setValue(String value) {
+        this.value = value;
     }
 
     public String getUsedPhoto() {
@@ -118,5 +82,10 @@ public class PlansBean {
 
     public void setPackageVideo(String packageVideo) {
         this.packageVideo = packageVideo;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
     }
 }

@@ -6,12 +6,16 @@
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/layer_welcome.xml" value="0.2305" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/line_gradient_bg_shape.xml" value="0.28854166666666664" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/progress_style_04.xml" value="0.229" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/shape_gray_stroke.xml" value="0.229" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/drawable/view_ripple_corner.xml" value="0.28854166666666664" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/acivity_camera_detail.xml" value="0.18" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_account.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_big_pictrue.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_biling_chart.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_billing_history.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_camera_steup.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_change_password.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_choose_plans.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_custom_scan.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_forget_password.xml" value="0.25" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/activity_location.xml" value="0.18" />
@@ -42,20 +46,29 @@
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_billing_history.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_big.xml" value="0.23550724637681159" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_info.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_pic.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_video.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_history_detail.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_image.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_phase.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_plan_info.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_plans.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_plans_detail.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_setting_only.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_setting_switch_disable.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_table_layout.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/layout_plans_annual.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/layout_plans_monthly.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/layout_vp_video.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/leftmenu_layout.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/list_empty_view.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/map_fragment.xml" value="0.18795289855072464" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/plans_table_layout.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/toobar_title.xml" value="0.1" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/user_center.xml" value="0.1793478260869565" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/view_load_more.xml" value="0.23550724637681159" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/menu/menu_camera.xml" value="0.27239583333333334" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/menu/menu_submit.xml" value="0.27239583333333334" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/menu/menu_text.xml" value="0.27239583333333334" />
       </map>

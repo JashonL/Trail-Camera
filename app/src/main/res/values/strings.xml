@@ -285,5 +285,15 @@
     <string name="m232_video_downloading">Video Downloading…</string>
     <string name="m233_pic_saved">The picture has been saved to the album</string>
     <string name="m234_coming_soon">Cooming Soon</string>
+    <string name="m235_imei">imei</string>
+    <string name="m236_iccid">ICCID</string>
+    <string name="m237_high_photo">High Resolution Photo</string>
 
+
+    <string name="m238_used">Used</string>
+    <string name="m239_package">package</string>
+    <string name="m240_status">Status</string>
+    <string name="m241_current_plans">Current plans</string>
+    <string name="m242_days_remaining">Days Remaining</string>
+    <string name="m243_next_bill_date">Next Bill Date</string>
 </resources>

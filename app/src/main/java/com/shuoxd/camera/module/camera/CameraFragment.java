@@ -332,51 +332,58 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     R.layout.pop_layout, null);
 
             List<CameraBean> cameraList = presenter.getCameraList();
-            RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
-            rvCamera.setLayoutManager(new LinearLayoutManager(getContext()));
-            CameraFiterAdapter camerAdapter = new CameraFiterAdapter(R.layout.item_camera_menu, cameraList);
-            rvCamera.setAdapter(camerAdapter);
-            camerAdapter.setOnItemClickListener((adapter, view, position) -> {
-                camerAdapter.setNowSelectPosition(position);
-                CameraBean cameraBean = cameraList.get(position);
-                cameraId = cameraBean.getCamera().getImei();
-                presenter.setImeis(cameraId);
-                presenter.setTotalPage(1);
-                presenter.setPageNow(0);
-                String accountName = App.getUserBean().getAccountName();
-                presenter.cameraInfo(cameraId, accountName);
-                presenter.getCameraPic();
-            });
+
+            if (cameraList==null||cameraList.size()==0){
+                presenter.getAlldevice();
+            }else {
+                RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
+                rvCamera.setLayoutManager(new LinearLayoutManager(getContext()));
+                CameraFiterAdapter camerAdapter = new CameraFiterAdapter(R.layout.item_camera_menu, cameraList);
+                rvCamera.setAdapter(camerAdapter);
+                camerAdapter.setOnItemClickListener((adapter, view, position) -> {
+                    camerAdapter.setNowSelectPosition(position);
+                    CameraBean cameraBean = cameraList.get(position);
+                    cameraId = cameraBean.getCamera().getImei();
+                    presenter.setImeis(cameraId);
+                    presenter.setTotalPage(1);
+                    presenter.setPageNow(0);
+                    String accountName = App.getUserBean().getAccountName();
+                    presenter.cameraInfo(cameraId, accountName);
+                    presenter.getCameraPic();
+                });
 
 
-            int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
-            int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
-            int itemHight = getResources().getDimensionPixelOffset(R.dimen.dp_40);
+                int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
+                int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+                int itemHight = getResources().getDimensionPixelOffset(R.dimen.dp_40);
 
 
-            if (itemHight * cameraList.size() > hight) {
-                hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
-            } else {
-                hight = LinearLayout.LayoutParams.WRAP_CONTENT;
+                if (itemHight * cameraList.size() > hight) {
+                    hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+                } else {
+                    hight = LinearLayout.LayoutParams.WRAP_CONTENT;
+                }
+
+
+                final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
+                popupWindow.setTouchable(true);
+
+
+                popupWindow.setTouchInterceptor((v, event) -> false);
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getActivity().getWindow().setAttributes(lp);
+                popupWindow.setOnDismissListener(() -> {
+                    WindowManager.LayoutParams lp1 = getActivity().getWindow().getAttributes();
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    getActivity().getWindow().setAttributes(lp1);
+                });
+                popupWindow.setBackgroundDrawable(new ColorDrawable(0));
+                popupWindow.setAnimationStyle(R.style.Popup_Anim);
+                popupWindow.showAsDropDown(vPop);
             }
 
 
-            final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
-            popupWindow.setTouchable(true);
-
-
-            popupWindow.setTouchInterceptor((v, event) -> false);
-            WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            getActivity().getWindow().setAttributes(lp);
-            popupWindow.setOnDismissListener(() -> {
-                WindowManager.LayoutParams lp1 = getActivity().getWindow().getAttributes();
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                getActivity().getWindow().setAttributes(lp1);
-            });
-            popupWindow.setBackgroundDrawable(new ColorDrawable(0));
-            popupWindow.setAnimationStyle(R.style.Popup_Anim);
-            popupWindow.showAsDropDown(vPop);
         }
         return true;
     }
