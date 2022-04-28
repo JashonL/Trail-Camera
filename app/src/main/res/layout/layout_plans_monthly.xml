@@ -39,6 +39,22 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_tips" />
 
 
+
+    <TextView
+        android:id="@+id/tv_start_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dp_20"
+        android:text="*"
+        android:textColor="@color/red"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintRight_toLeftOf="@+id/tv_tips2"
+        app:layout_constraintTop_toTopOf="@+id/tv_tips2"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tips2"
+        />
+
+
     <TextView
         android:id="@+id/tv_tips2"
         android:layout_width="match_parent"
@@ -46,10 +62,41 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="@dimen/dp_20"
         android:padding="@dimen/dp_10"
-        android:text="@string/m37_select_camera"
+        android:text="@string/m261_number_photos"
         android:textColor="@color/color_text_33"
         android:textSize="@dimen/size_content_sp_12"
         app:layout_constraintTop_toBottomOf="@+id/v_div" />
+
+
+
+
+    <TextView
+        android:id="@+id/tv_start_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dp_20"
+        android:text="*"
+        android:textColor="@color/red"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintRight_toLeftOf="@+id/tv_tips3"
+        app:layout_constraintTop_toTopOf="@+id/tv_tips3"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_tips3"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tv_tips3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dp_20"
+        android:padding="@dimen/dp_10"
+        android:text="@string/m262_all_plans"
+        android:textColor="@color/color_text_33"
+        android:textSize="@dimen/size_content_sp_12"
+        app:layout_constraintTop_toBottomOf="@+id/tv_tips2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

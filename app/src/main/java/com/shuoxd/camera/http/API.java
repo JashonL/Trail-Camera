@@ -275,6 +275,22 @@ public class API {
         Observable<String> faqList(@Field("email") String email);
 
 
+
+        //账单详情
+        @FormUrlEncoded
+        @POST("/v1/bill/billLogList/{toPageNum}")
+        Observable<String> billLogList(@Path("toPageNum")int toPageNum, @Field("imei")String imei,
+                                       @Field("isAllCamera")String isAllCamera);
+
+
+        //账单详情
+        @FormUrlEncoded
+        @POST("/v1/bill/billLogChart/")
+        Observable<String> billLogChart(@Field("imei")String imei,@Field("isAllCamera")String isAllCamera
+        ,@Field("date")String date);
+
+
+
     }
 
 }

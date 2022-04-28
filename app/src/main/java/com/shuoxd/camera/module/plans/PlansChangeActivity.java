@@ -1,10 +1,12 @@
 package com.shuoxd.camera.module.plans;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
@@ -69,6 +71,10 @@ public class PlansChangeActivity extends BaseActivity<PlansChangePresenter>
 
     private String imei;
 
+    private TextView tvAnnualTips1;
+    private TextView tvMonthlyTips1;
+
+
 
     @Override
     protected int getLayoutId() {
@@ -95,10 +101,21 @@ public class PlansChangeActivity extends BaseActivity<PlansChangePresenter>
         if (position == 0) return;
         if (adapter == mAnnualAdapter) {
             mAnnualAdapter.setNowSelectPosition(position);
-            mMonthlyAdapter.clearSelected();
+//            mMonthlyAdapter.clearSelected();
+            ProgramBean programBean = mAnnualAdapter.getData().get(position);
+            String introduce = programBean.getIntroduce();
+            if (!TextUtils.isEmpty(introduce)){
+                tvAnnualTips1.setText(introduce);
+            }
+
         } else {
             mMonthlyAdapter.setNowSelectPosition(position);
-            mAnnualAdapter.clearSelected();
+//            mAnnualAdapter.clearSelected();
+            ProgramBean programBean = mMonthlyAdapter.getData().get(position);
+            String introduce = programBean.getIntroduce();
+            if (!TextUtils.isEmpty(introduce)){
+                tvMonthlyTips1.setText(introduce);
+            }
         }
     }
 
@@ -120,6 +137,7 @@ public class PlansChangeActivity extends BaseActivity<PlansChangePresenter>
 
 
         //一键执行
+        tvAnnualTips1=annualView.findViewById(R.id.tv_tips);
         mRlvAnnual = annualView.findViewById(R.id.rlv_plans_annual);
         mRlvAnnual.setLayoutManager(new LinearLayoutManager(this));
         int div = getResources().getDimensionPixelSize(R.dimen.dp_10);
@@ -132,6 +150,7 @@ public class PlansChangeActivity extends BaseActivity<PlansChangePresenter>
         mAnnualAdapter.setOnItemClickListener(this);
 
         //条件执行
+        tvMonthlyTips1=monthView.findViewById(R.id.tv_tips);
         mRlvMonthly = monthView.findViewById(R.id.rlv_plans_monthly);
         mRlvMonthly.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRlvMonthly.addItemDecoration(new LinearDivider(this, LinearLayoutManager.VERTICAL,

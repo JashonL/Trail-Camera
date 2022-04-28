@@ -23,6 +23,12 @@ public class ProgramBean implements MultiItemEntity {
     private String datas;
 
 
+    private String status;
+    private String hdCount;
+    private String introduce;
+    private String planDescription;
+
+
     public String getCosts() {
         return costs;
     }
@@ -129,6 +135,39 @@ public class ProgramBean implements MultiItemEntity {
 
     public void setItemType(int itemType) {
         this.itemType = itemType;
+    }
+
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getHdCount() {
+        return hdCount;
+    }
+
+    public void setHdCount(String hdCount) {
+        this.hdCount = hdCount;
+    }
+
+    public String getIntroduce() {
+        return introduce;
+    }
+
+    public void setIntroduce(String introduce) {
+        this.introduce = introduce;
+    }
+
+    public String getPlanDescription() {
+        return planDescription;
+    }
+
+    public void setPlanDescription(String planDescription) {
+        this.planDescription = planDescription;
     }
 
     @Override

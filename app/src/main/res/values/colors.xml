@@ -78,6 +78,8 @@
 
     <color name="color_navigation">#00AF50</color>
     <color name="color_navigation_press">#00AF99</color>
+    <color name="color_bill_chart">#55BFBF</color>
+
 
 
 </resources>

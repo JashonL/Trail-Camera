@@ -3,6 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_70"
+    android:layout_marginStart="@dimen/dp_10"
+    android:layout_marginEnd="@dimen/dp_10"
+    android:background="@drawable/shape_white_rect"
     android:orientation="vertical">
 
     <TextView
@@ -11,8 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_20"
         android:gravity="center"
-        android:text="@string/m41_back"
-        android:textColor="@color/color_text_66"
+        android:text="$20.00"
+        android:textColor="@color/forgot_color"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -24,8 +27,8 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/dp_20"
-        android:text="@string/m41_back"
         android:padding="@dimen/dp_5"
+        android:text="@string/m41_back"
         android:textColor="@color/color_text_66"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintBottom_toTopOf="@+id/tv_date"
@@ -39,12 +42,22 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginBottom="@dimen/dp_10"
         android:gravity="center"
         android:text="2021/12/19 22:00"
         android:textColor="@color/color_text_99"
         android:textSize="@dimen/size_content_sp_10"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:background="@color/gray_eeeeeee"
+
+
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

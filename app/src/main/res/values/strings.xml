@@ -292,13 +292,22 @@
     <string name="m248_photos">Photos</string>
     <string name="m249_VidecPreview">VidecPreview</string>
     <string name="m250_data">Data</string>
-    <string name="m251_choose_plans">请选择一个套餐</string>
-    <string name="m252_plan_change">套餐修改成功</string>
+    <string name="m251_choose_plans">Please Selete A Plan</string>
+    <string name="m252_plan_change">Plan Modify Success</string>
 
     <string name="m253_plan_suspend">Are you sure want to suspend this plan? Your camera will remain inactive until data plan is resumed.</string>
     <string name="m254_plan_ative">Are you sure want to Ative this plan? Your camera will remain inactive until data plan is resumed.</string>
     <string name="m255_suspend_plan">Suspend Plan</string>
     <string name="m256_ative_plan">Ative plan</string>
     <string name="m257_question_title">Frequentiy Asked Questions</string>
+
+    <string name="m258_amount">Amount</string>
+    <string name="m259_transaction_memo">Transaction Memo</string>
+    <string name="m260_statistical_graph">Statistical Graph</string>
+
+
+    <string name="m261_number_photos">Number of Photos may vary.$0.10 per MB overage</string>
+    <string name="m262_all_plans">All plans include 1 year of photo storage.</string>
+
 
 </resources>

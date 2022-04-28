@@ -32,6 +32,7 @@ import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.module.account.ChangePassWordActivity;
 import com.shuoxd.camera.module.account.UserCenterActivity;
+import com.shuoxd.camera.module.bill.BillingHistoryActivity;
 import com.shuoxd.camera.module.gallery.PhotoPresenter;
 import com.shuoxd.camera.module.gallery.PhotoView;
 import com.shuoxd.camera.module.login.LoginActivity;
@@ -205,7 +206,8 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
                 startActivity(new Intent(getContext(), PlansActivity.class));
                 break;
             case 1:
-
+                startActivity(new Intent(getContext(), BillingHistoryActivity.class));
+                break;
             case 4:
                 startActivity(new Intent(getContext(), SupportActivity.class));
                 break;
