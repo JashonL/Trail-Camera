@@ -268,6 +268,13 @@ public class API {
         @POST("/v1/plan/changePlanStatus/{imei}")
         Observable<String> changePlanStatus(@Path("imei") String imei);
 
+
+        //
+        @FormUrlEncoded
+        @POST("/v1/message/faqList/")
+        Observable<String> faqList(@Field("email") String email);
+
+
     }
 
 }

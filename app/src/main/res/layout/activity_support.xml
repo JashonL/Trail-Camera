@@ -1,55 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <include layout="@layout/toobar_title"/>
+    <include layout="@layout/toobar_title" />
 
-    <TextView
-        android:id="@+id/tv_custom_service"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="@color/white"
-        android:padding="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="@string/m43_custom_service"
-        android:textColor="@color/color_text_66"
-        android:textSize="@dimen/size_content_sp_12" />
+
+    <View
+        android:id="@+id/v_pop"
+        android:layout_width="@dimen/dp_10"
+        android:layout_height="1dp"
+        android:layout_gravity="end" />
 
 
     <TextView
-        android:id="@+id/tv_support_1"
+        android:id="@+id/tv_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:gravity="center"
         android:padding="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:textColor="@color/color_text_66"
+        android:text="@string/m257_question_title"
+        android:textColor="@color/color_text_33"
         android:textSize="@dimen/size_content_sp_12" />
 
 
-    <TextView
-        android:id="@+id/tv_"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rlv_support"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:background="@color/white"
-        android:padding="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:text="@string/m44_ask_questions"
-        android:textColor="@color/color_text_66"
-        android:textSize="@dimen/size_content_sp_12" />
+        android:layout_margin="@dimen/dp_10" />
 
-
-    <TextView
-        android:id="@+id/tv_support_2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:padding="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"
-        android:textColor="@color/color_text_66"
-        android:textSize="@dimen/size_content_sp_12" />
 
 </LinearLayout>

@@ -299,5 +299,6 @@
     <string name="m254_plan_ative">Are you sure want to Ative this plan? Your camera will remain inactive until data plan is resumed.</string>
     <string name="m255_suspend_plan">Suspend Plan</string>
     <string name="m256_ative_plan">Ative plan</string>
+    <string name="m257_question_title">Frequentiy Asked Questions</string>
 
 </resources>

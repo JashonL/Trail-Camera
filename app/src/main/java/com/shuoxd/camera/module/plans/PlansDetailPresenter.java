@@ -179,7 +179,7 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
 
     public void changePlanStatus(String imei) {
         //获取设备
-        addDisposable(apiServer.allCameraList(imei), new BaseObserver<String>(baseView, true) {
+        addDisposable(apiServer.changePlanStatus(imei), new BaseObserver<String>(baseView, true) {
 
             @Override
             public void onSuccess(String bean) {

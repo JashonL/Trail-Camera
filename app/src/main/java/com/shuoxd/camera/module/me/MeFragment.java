@@ -38,6 +38,7 @@ import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.module.message.MessageActivity;
 import com.shuoxd.camera.module.message.MessageListActivity;
 import com.shuoxd.camera.module.plans.PlansActivity;
+import com.shuoxd.camera.module.support.SupportActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
 
 import java.util.ArrayList;
@@ -206,8 +207,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
             case 1:
 
             case 4:
-                
-                MyToastUtils.toast(R.string.m164_cooming_soon);
+                startActivity(new Intent(getContext(), SupportActivity.class));
                 break;
             case 2:
                 startActivity(new Intent(getContext(), MessageListActivity.class));
