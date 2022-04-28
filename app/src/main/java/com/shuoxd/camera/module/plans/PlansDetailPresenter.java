@@ -10,6 +10,7 @@ import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.PlansBean;
 import com.shuoxd.camera.bean.PlansInfoBean;
+import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.Mydialog;
 
 import org.json.JSONArray;
@@ -171,6 +172,50 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
 
 
     }
+
+
+
+
+
+    public void changePlanStatus(String imei) {
+        //获取设备
+        addDisposable(apiServer.allCameraList(imei), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        MyToastUtils.toast(R.string.m252_plan_change);
+                        JSONObject obj = jsonObject.getJSONObject("obj");
+                        String status = obj.optString("status");
+                        baseView.status(status);
+                    }
+                    else if ("10000".equals(result)){
+                        userReLogin(context, () -> {
+                            changePlanStatus(imei);
+                        });
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    refreshErrPage();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                refreshErrPage();
+                baseView.showServerError(msg);
+            }
+        });
+
+
+    }
+
+
+
 
 
 

@@ -251,7 +251,22 @@ public class API {
         Observable<String> getPlan(@Field("imei") String imei);
 
 
+        //获取套餐列表
+        @FormUrlEncoded
+        @POST("/v1/plan/getPlanTemplateList/")
+        Observable<String> getPlanTemplateList(@Field("imei") String imei);
 
+
+        //修改套餐
+        @FormUrlEncoded
+        @POST("/v1/plan/modifyCameraPlan/{imei}")
+        Observable<String> modifyCameraPlan(@Path("imei") String imei,@Field("planTemplateId")String planTemplateId);
+
+
+        //启用套餐
+        @FormUrlEncoded
+        @POST("/v1/plan/changePlanStatus/{imei}")
+        Observable<String> changePlanStatus(@Path("imei") String imei);
 
     }
 

@@ -225,6 +225,11 @@
 
 
 
+        <activity android:name=".module.plans.PlansChangeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+
+
     </application>
 
 </manifest>

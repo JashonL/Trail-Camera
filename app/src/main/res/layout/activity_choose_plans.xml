@@ -14,9 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:gravity="center_vertical"
+        android:gravity="center"
         android:padding="@dimen/dp_10"
-        android:text="@string/m37_select_camera"
+        android:text="@string/m244_choose_plans"
         android:textColor="@color/color_text_33"
         android:textSize="@dimen/size_content_sp_12" />
 
@@ -27,20 +27,20 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginRight="@dimen/dp_10"
-        android:background="@color/white"
+        app:tabBackground="@drawable/tab_background"
         app:tabIndicatorColor="@color/nocolor"
-        app:tabSelectedTextColor="@color/color_app_main"
+        app:tabSelectedTextColor="@color/forgot_color"
         app:tabTextAppearance="@style/style_tab_layout">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/m1_login" />
+            android:text="@string/m245_monthly" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/m2_register" />
+            android:text="@string/m246_annual" />
 
     </com.google.android.material.tabs.TabLayout>
 
@@ -49,7 +49,7 @@
     <com.shuoxd.camera.customview.MySwipeRefreshLayout
         android:id="@+id/srl_pull"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_0"
+        android:layout_height="@dimen/dp_400"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tab_title">
 
@@ -59,6 +59,42 @@
             android:layout_height="@dimen/dp_0" />
 
     </com.shuoxd.camera.customview.MySwipeRefreshLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="@drawable/selector_button_white"
+            android:padding="@dimen/dp_5"
+            android:text="@string/m182_save"
+            android:textColor="@color/forgot_color"
+            android:textSize="@dimen/size_title_sp_14" />
+
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="@dimen/dp_150"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/dp_20"
+            android:background="@drawable/selector_button_white"
+            android:padding="@dimen/dp_5"
+            android:text="@string/m127_cancel"
+            android:textColor="@color/color_text_66"
+            android:textSize="@dimen/size_title_sp_14" />
+
+    </LinearLayout>
 
 
 </LinearLayout>

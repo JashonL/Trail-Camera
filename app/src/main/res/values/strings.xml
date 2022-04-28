@@ -224,17 +224,12 @@
     <string name="m187_selected_state">select state</string>
     <string name="m188_country">Country</string>
     <string name="m189_mobile_number">Mobile Number</string>
-
-
-
     <string name="m190_same_as_mailing_address">Same as Mailing Address</string>
 
 
     <string name="m191_name_onhte_card">Name On The Card</string>
     <string name="m192_billing_address">Billing Address</string>
     <string name="m193_card_number">Card Number</string>
-
-
     <string name="m194_old_password">Old PassWord</string>
     <string name="m195_new_password">New PassWord</string>
     <string name="m196_new_password_comfir">Comfirm PassWord</string>
@@ -242,13 +237,12 @@
     <string name="m198_upgrade">Upgrade</string>
     <string name="m199_navigation">Navigation</string>
     <string name="m200_camera_map">Camera Map</string>
+
     <string name="m201_location">Need to get your location</string>
     <string name="m202_longitude">Longitude</string>
-
     <string name="m203_Latitude">Latitude</string>
     <string name="m204_detail">Detail</string>
     <string name="m205_app_not_installed">App not installed</string>
-
     <string name="m206_all_import">Please enter the content</string>
     <string name="m207_modify_position">Modify camera position</string>
     <string name="m208_camera_positioning">Location Settings</string>
@@ -260,15 +254,12 @@
     <string name="m213_download">Download</string>
     <string name="m214_deselect_all">Unselect all</string>
     <string name="m215_not_choose">Not Choose</string>
-
-
     <string name="m216_cancel_hq">HQ awaiting sync.Click to cancel</string>
     <string name="m217_video_sharing">Video Sharing</string>
     <string name="m218_save_album">Save the screenshot to the photo album</string>
     <string name="m219_video">Video</string>
-
-
     <string name="m220_save_pic">Save to album</string>
+
     <string name="m221_save_error">Save failed</string>
     <string name="m222_save_error">Your phone does not support Google maps</string>
     <string name="m223_photo_video_type">Photo/Video Type</string>
@@ -276,11 +267,10 @@
     <string name="m225_code">Get Code</string>
     <string name="m226_input_code">Enter the verification code</string>
     <string name="m227_enter_code">Enter  %s  Verification Code </string>
-
-
     <string name="m228_input_email">Please enter email address</string>
     <string name="m229_input_imei">Please enter IMEI</string>
     <string name="m230_save_video">Whether to save the video to the phone?</string>
+
     <string name="m231_video_saved">Video saved to album</string>
     <string name="m232_video_downloading">Video Downloading…</string>
     <string name="m233_pic_saved">The picture has been saved to the album</string>
@@ -288,12 +278,26 @@
     <string name="m235_imei">imei</string>
     <string name="m236_iccid">ICCID</string>
     <string name="m237_high_photo">High Resolution Photo</string>
-
-
     <string name="m238_used">Used</string>
     <string name="m239_package">package</string>
     <string name="m240_status">Status</string>
+
     <string name="m241_current_plans">Current plans</string>
     <string name="m242_days_remaining">Days Remaining</string>
     <string name="m243_next_bill_date">Next Bill Date</string>
+    <string name="m244_choose_plans">Choose Plans</string>
+    <string name="m245_monthly">Monthly</string>
+    <string name="m246_annual">Annual</string>
+    <string name="m247_cost">Cost</string>
+    <string name="m248_photos">Photos</string>
+    <string name="m249_VidecPreview">VidecPreview</string>
+    <string name="m250_data">Data</string>
+    <string name="m251_choose_plans">请选择一个套餐</string>
+    <string name="m252_plan_change">套餐修改成功</string>
+
+    <string name="m253_plan_suspend">Are you sure want to suspend this plan? Your camera will remain inactive until data plan is resumed.</string>
+    <string name="m254_plan_ative">Are you sure want to Ative this plan? Your camera will remain inactive until data plan is resumed.</string>
+    <string name="m255_suspend_plan">Suspend Plan</string>
+    <string name="m256_ative_plan">Ative plan</string>
+
 </resources>

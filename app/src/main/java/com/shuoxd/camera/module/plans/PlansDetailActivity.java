@@ -1,7 +1,9 @@
 package com.shuoxd.camera.module.plans;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,24 +22,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.CameraFiterAdapter;
+import com.shuoxd.camera.adapter.CameraPicVedeoAdapter;
 import com.shuoxd.camera.adapter.PlansInfoAdapter;
 import com.shuoxd.camera.adapter.PlansListAdapter;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.CameraBean;
+import com.shuoxd.camera.bean.PictureBean;
 import com.shuoxd.camera.bean.PlansInfoBean;
 import com.shuoxd.camera.customview.LinearDivider;
+import com.shuoxd.camera.download.CheckDownloadUtils;
+import com.shuoxd.camera.download.FileDownLoadManager;
+import com.shuoxd.camera.module.camera.CameraDetailActivity;
+import com.shuoxd.camera.utils.CircleDialogUtils;
+import com.shuoxd.camera.utils.FileUtils;
+import com.shuoxd.camera.utils.MyToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
         implements PlansDetailView, BaseQuickAdapter.OnItemChildClickListener,
-        BaseQuickAdapter.OnItemClickListener ,
+        BaseQuickAdapter.OnItemClickListener,
         BaseQuickAdapter.OnItemLongClickListener,
-        Toolbar.OnMenuItemClickListener{
+        Toolbar.OnMenuItemClickListener {
 
     @BindView(R.id.status_bar_view)
     View statusBarView;
@@ -53,12 +64,15 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
     TextView tvName;
     @BindView(R.id.v_pop)
     View vPop;
+    @BindView(R.id.suspend)
+    TextView suspend;
 
     private PlansInfoAdapter mAdapter;
+    private String status;
 
     @Override
     protected PlansDetailPresenter createPresenter() {
-        return new PlansDetailPresenter(this,this);
+        return new PlansDetailPresenter(this, this);
     }
 
     @Override
@@ -78,7 +92,7 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvPlansInfo.setLayoutManager(layoutManager);
-        mAdapter=new PlansInfoAdapter(new ArrayList<>());
+        mAdapter = new PlansInfoAdapter(new ArrayList<>());
         rlvPlansInfo.setAdapter(mAdapter);
         rlvPlansInfo.addItemDecoration(new LinearDivider(this, LinearLayoutManager.VERTICAL,
                 1, ContextCompat.getColor(this, R.color.gray_d2d2d)));
@@ -90,13 +104,51 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
 
     }
 
+
+    @OnClick({R.id.change, R.id.suspend, R.id.remove, R.id.back})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.change:
+                String imeis = presenter.getImeis();
+                Intent intent = new Intent(this, PlansChangeActivity.class);
+                intent.putExtra("imei", imeis);
+                startActivity(intent);
+                break;
+            case R.id.suspend:
+                String imei = presenter.getImeis();
+                String s;
+                String content;
+                if ("suspend".equalsIgnoreCase(status)) {
+                    s = getString(R.string.m256_ative_plan);
+                    content=getString(R.string.m254_plan_ative);
+                } else {
+                    s = getString(R.string.m255_suspend_plan);
+                    content=getString(R.string.m253_plan_suspend);
+                }
+                CircleDialogUtils.showCommentDialog(PlansDetailActivity.this, s,
+                        content,
+                        getString(R.string.m152_ok),
+                        getString(R.string.m127_cancel), Gravity.CENTER, view1 -> {
+                            presenter.changePlanStatus(imei);
+                        }, view12 -> {
+                        });
+                break;
+            case R.id.remove:
+                break;
+            case R.id.back:
+                finish();
+                break;
+        }
+    }
+
+
     @Override
     protected void initData() {
         String imei = getIntent().getStringExtra("imei");
         String alias = getIntent().getStringExtra("alias");
 
-        if (TextUtils.isEmpty(alias)){
-            alias=imei;
+        if (TextUtils.isEmpty(alias)) {
+            alias = imei;
         }
 
 
@@ -104,7 +156,6 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
         presenter.getAlldevice();
         presenter.setImeis(imei);
         presenter.getPlansInfo(imei);
-
 
 
     }
@@ -141,7 +192,13 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
 
     @Override
     public void status(String status) {
+        this.status = status;
+        if ("suspend".equalsIgnoreCase(status)) {
+            suspend.setText("Ative");
+        } else {
+            suspend.setText("suspend");
 
+        }
     }
 
     @Override
@@ -151,9 +208,9 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
                     R.layout.pop_layout, null);
             List<CameraBean> cameraList = presenter.getCameraList();
 
-            if (cameraList==null||cameraList.size()==0){
+            if (cameraList == null || cameraList.size() == 0) {
                 presenter.getAlldevice();
-            }else {
+            } else {
                 int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
                 int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
                 int itemHight = getResources().getDimensionPixelOffset(R.dimen.dp_40);
