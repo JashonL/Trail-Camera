@@ -33,6 +33,8 @@ public class SupportAdapter extends BaseQuickAdapter<SupportBean, BaseViewHolder
         View view = helper.getView(R.id.cl_answer);
         view.setVisibility(expand?View.VISIBLE:View.GONE);
 
+        helper.setImageResource(R.id.iv_pull, expand?R.drawable.support_fold:R.drawable.support_pull);
+
     }
 
     /**
