@@ -191,7 +191,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
             ivVideoPlay.setVisibility(View.GONE);
 
             if (!TextUtils.isEmpty(path)) {
-                GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
+                GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, path, ivPic);
             }
 
         } else {
@@ -199,7 +199,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
             if (TextUtils.isEmpty(fullVideoImgPath)) {
                 fullVideoImgPath=path;
             }
-            GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, fullVideoImgPath, ivPic);
+            GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, fullVideoImgPath, ivPic);
         }
 
 

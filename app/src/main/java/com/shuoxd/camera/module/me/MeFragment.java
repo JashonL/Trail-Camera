@@ -2,6 +2,7 @@ package com.shuoxd.camera.module.me;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -176,6 +177,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
         }
 
 
+
+        presenter.userCenter(accountName);
+
     }
 
 
@@ -238,5 +242,26 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    @Override
+    public void photoCount(String photos) {
+        if (!TextUtils.isEmpty(photos)){
+            tvBankCard.setText(photos);
+        }
+    }
+
+    @Override
+    public void cameraCount(String cameras) {
+        if (!TextUtils.isEmpty(cameras)){
+            tvIntegration.setText(cameras);
+        }
+    }
+
+    @Override
+    public void videoCount(String videos) {
+        if (!TextUtils.isEmpty(videos)){
+            tvCoupon.setText(videos);
+        }
     }
 }

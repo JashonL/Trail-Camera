@@ -17,6 +17,7 @@ import com.shuoxd.camera.http.RetrofitService;
 import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.module.login.User;
 import com.shuoxd.camera.noleakHandler.NoLeakHandler;
+import com.shuoxd.camera.utils.CommentUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -111,8 +112,12 @@ public class BasePresenter<V extends BaseView> implements Handler.Callback {
     public void userReLogin(Context context,ReLogListener logListener) {
         String username = App.getUserBean().getAccountName();
         String password = App.getUserBean().getPassword();
+
+        String systemModel = CommentUtils.getSystemModel();
+        String verSionName = CommentUtils.getVerSionName(context);
         //正式登录
-        addDisposable(apiServer.login(username, password), new BaseObserver<String>(baseView,true) {
+        addDisposable(apiServer.login(username, password, String.valueOf(1),systemModel,verSionName),
+                new BaseObserver<String>(baseView,true) {
 
             @Override
             public void onSuccess(String bean) {

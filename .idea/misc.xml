@@ -74,7 +74,9 @@
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_big.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_info.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_pic.xml" value="0.23550724637681159" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_pic_edit.xml" value="0.12552083333333333" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_video.xml" value="0.23550724637681159" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_camera_video_edit.xml" value="0.12552083333333333" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_history_detail.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_image.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_phase.xml" value="0.23324275362318841" />
@@ -91,6 +93,7 @@
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/item_year.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/layout_plans_annual.xml" value="0.23324275362318841" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/layout_plans_monthly.xml" value="0.23324275362318841" />
+        <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/layout_vp_image.xml" value="0.12552083333333333" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/layout_vp_video.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/leftmenu_layout.xml" value="0.23550724637681159" />
         <entry key="..\:/workplace/Trail-Camera/app/src/main/res/layout/list_empty_view.xml" value="0.23550724637681159" />

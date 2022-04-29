@@ -56,7 +56,7 @@
             android:layout_width="@dimen/dp_330"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/kaola"
+            android:src="@drawable/default_pic"
             app:layout_constraintDimensionRatio="h,16:9"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

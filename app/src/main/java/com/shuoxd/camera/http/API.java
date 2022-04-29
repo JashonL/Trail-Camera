@@ -46,7 +46,10 @@ public class API {
         //登录
         @FormUrlEncoded
         @POST("v1/user/login")
-        Observable<String> login(@Field("email") String username, @Field("password") String password);
+        Observable<String> login(@Field("email") String username, @Field("password") String password,
+                                 @Field("phoneOs") String phoneOs, @Field("phoneModel") String phoneModel,
+                                 @Field("appVersion") String appVersion
+        );
 
         //登出
         @FormUrlEncoded
@@ -289,7 +292,10 @@ public class API {
         Observable<String> billLogChart(@Field("imei")String imei,@Field("isAllCamera")String isAllCamera
         ,@Field("date")String date);
 
-
+        //账单详情
+        @FormUrlEncoded
+        @POST("/v1/user/userCenter/")
+        Observable<String> userCenter(@Field("imei")String imei);
 
     }
 

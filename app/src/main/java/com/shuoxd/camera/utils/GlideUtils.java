@@ -32,16 +32,16 @@ public class GlideUtils {
         return inst;
     }
     public  void showImageContext(Context context, String path, ImageView iv){
-        showImageContext(context, R.drawable.kaola,R.drawable.kaola,path,iv);
+        showImageContext(context, R.drawable.default_pic,R.drawable.default_pic,path,iv);
     }
     public  void showImageContext(Context context, int placeholderRes, int errorRes, String path, ImageView iv){
         Glide.with(context).load(path).placeholder(placeholderRes).error(errorRes).dontAnimate().into(iv);
     }
     public  void showImageAct(Activity act, String path , ImageView iv){
-        showImageAct(act,R.drawable.kaola,R.drawable.kaola,path,iv);
+        showImageAct(act,R.drawable.default_pic,R.drawable.default_pic,path,iv);
     }
     public  void showImageAct(Activity act, int resId , ImageView iv){
-        showImageAct(act,R.drawable.kaola,R.drawable.kaola,resId,iv);
+        showImageAct(act,R.drawable.default_pic,R.drawable.default_pic,resId,iv);
     }
     public  void showImageAct(Activity act, int placeholderRes, int errorRes, String path , ImageView iv){
         Glide.with(act).load(path).placeholder(placeholderRes).error(errorRes).dontAnimate().into(iv);
@@ -90,13 +90,13 @@ public class GlideUtils {
     public  void showImageAct(Activity act, int resId , ImageView iv, int type){
         switch (type){
             case 0:
-                Glide.with(act).load(resId).error(R.drawable.kaola).dontAnimate().into(iv);
+                Glide.with(act).load(resId).error(R.drawable.default_pic).dontAnimate().into(iv);
                 break;
             case 1:
-                Glide.with(act).load(resId).placeholder(R.drawable.kaola).error(R.drawable.kaola).dontAnimate().into(iv);
+                Glide.with(act).load(resId).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).dontAnimate().into(iv);
                 break;
             default:
-                Glide.with(act).load(resId).placeholder(type).error(R.drawable.kaola).dontAnimate().into(iv);
+                Glide.with(act).load(resId).placeholder(type).error(R.drawable.default_pic).dontAnimate().into(iv);
                 break;
         }
     }

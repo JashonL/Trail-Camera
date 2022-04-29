@@ -6,12 +6,21 @@ import com.google.gson.Gson;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
+import com.shuoxd.camera.bean.YearBean;
 import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.module.home.HomeView;
 import com.shuoxd.camera.module.login.User;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
 
 public class MePresenter extends BasePresenter<MeView> {
 
@@ -53,5 +62,48 @@ public class MePresenter extends BasePresenter<MeView> {
         });
 
     }
+
+
+
+
+    public void userCenter(String userName) {
+        //获取设备
+        addDisposable(apiServer.userCenter(userName), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        JSONObject obj = jsonObject.optJSONObject("obj");
+                        String totalUploadCount = obj.optString("totalUploadCount");
+                        String totalCamreaCount = obj.optString("totalCamreaCount");
+                        String totalVideoCount = obj.optString("totalVideoCount");
+
+                        baseView.photoCount(totalUploadCount);
+                        baseView.cameraCount(totalCamreaCount);
+                        baseView.videoCount(totalVideoCount);
+
+                    } else if ("10000".equals(result)) {
+                        userReLogin(context, () -> {
+                            userCenter(userName);
+                        });
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showServerError(msg);
+            }
+        });
+
+
+    }
+
 
 }

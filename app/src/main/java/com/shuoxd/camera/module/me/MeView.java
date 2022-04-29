@@ -11,4 +11,11 @@ public interface MeView extends BaseView {
     void logout();
 
 
+    void photoCount(String photos);
+
+    void cameraCount(String cameras);
+
+    void videoCount(String videos);
+
+
 }

@@ -638,7 +638,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                     Glide.with(mContext)
                             .asBitmap()
                             .load(url)
-                            .placeholder(R.drawable.kaola).error(R.drawable.kaola).dontAnimate()
+                            .placeholder(R.drawable.default_pic).error(R.drawable.default_pic).dontAnimate()
                             .into(new CustomTarget<Bitmap>() {
                                 @Override
                                 public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

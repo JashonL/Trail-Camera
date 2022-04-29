@@ -29,7 +29,7 @@ public class CameraPicAdapter extends BaseQuickAdapter<PictureBean, BaseViewHold
         String path = item.getFullPath();
         ImageView ivPic=helper.getView(R.id.iv_camera);
         if (!TextUtils.isEmpty(path)){
-            GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
+            GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, path, ivPic);
         }
 
         //类型 图片类型(0:缩略图;1:高清图;2:视频)

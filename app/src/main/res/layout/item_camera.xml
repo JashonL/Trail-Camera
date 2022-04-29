@@ -22,7 +22,7 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/kaola"
+            android:src="@drawable/default_pic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintDimensionRatio="h,16:9"
             app:layout_constraintLeft_toLeftOf="parent"
