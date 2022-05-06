@@ -40,8 +40,8 @@ public class Addpresenter extends BasePresenter<AddCanmeraView> {
     }
 
 
-    public void addCamera(String imei,String name){
-        addDisposable(apiServer.addCamera(imei,name),  new BaseObserver<String>(baseView,
+    public void addCamera(String imei,String name,String lng,String lat){
+        addDisposable(apiServer.addCamera(imei,name,lng,lat),  new BaseObserver<String>(baseView,
                 true) {
             @Override
             public void onSuccess(String bean) {
@@ -65,7 +65,7 @@ public class Addpresenter extends BasePresenter<AddCanmeraView> {
                     }
                     else if ("10000".equals(result)){
                         userReLogin(context, () -> {
-                            addCamera( imei, name);
+                            addCamera( imei, name,lng,lat);
                         });
                     }
                     else {

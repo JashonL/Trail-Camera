@@ -61,8 +61,8 @@ public class PlansChangePresenter extends BasePresenter<PlansChangeView> {
                         String[]titles={
                                 context.getString(R.string.m247_cost),
                                 context.getString(R.string.m248_photos),
-                                context.getString(R.string.m249_VidecPreview),
-                                context.getString(R.string.m250_data)
+                                context.getString(R.string.m219_video),
+                                context.getString(R.string.m266_hq_photos)
                         };
 
                         ProgramBean programBean=new ProgramBean();

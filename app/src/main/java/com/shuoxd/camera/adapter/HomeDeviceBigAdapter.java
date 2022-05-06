@@ -105,7 +105,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
 
         if (sSpace == 0) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
-            setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard1);
+            setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard0);
         } else if (sSpace <= 19) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard1);

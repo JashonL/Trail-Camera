@@ -70,26 +70,28 @@
         android:orientation="horizontal">
 
 
-        <Button
+        <TextView
             android:id="@+id/btn_save"
             android:layout_width="@dimen/dp_150"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_45"
             android:layout_gravity="start"
             android:background="@drawable/selector_button_white"
             android:padding="@dimen/dp_5"
+            android:gravity="center"
             android:text="@string/m182_save"
             android:textColor="@color/forgot_color"
             android:textSize="@dimen/size_title_sp_14" />
 
 
-        <Button
+        <TextView
             android:id="@+id/btn_cancel"
             android:layout_width="@dimen/dp_150"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_45"
             android:layout_gravity="start"
             android:layout_marginStart="@dimen/dp_20"
             android:background="@drawable/selector_button_white"
             android:padding="@dimen/dp_5"
+            android:gravity="center"
             android:text="@string/m127_cancel"
             android:textColor="@color/color_text_66"
             android:textSize="@dimen/size_title_sp_14" />

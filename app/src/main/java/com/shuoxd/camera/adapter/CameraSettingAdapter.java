@@ -1,5 +1,7 @@
 package com.shuoxd.camera.adapter;
 
+import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_SELECT_DISABLE;
+
 import androidx.annotation.NonNull;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
@@ -22,6 +24,7 @@ public class CameraSettingAdapter extends BaseMultiItemQuickAdapter<DeviceSettin
     public CameraSettingAdapter(List<DeviceSettingBean> data, OnChildCheckLiseners liseners){
         super(data);
         addItemType(SettingConstants.SETTING_TYPE_SELECT, R.layout.item_setting_next);
+        addItemType(SETTING_TYPE_SELECT_DISABLE, R.layout.item_selected_disable);
         addItemType(SettingConstants.SETTING_TYPE_INPUT, R.layout.item_setting_input);
         addItemType(SettingConstants.SETTING_TYPE_SWITCH, R.layout.item_setting_switch);
         addItemType(SettingConstants.SETTING_TYPE_NEXT, R.layout.item_setting_next);
@@ -34,7 +37,7 @@ public class CameraSettingAdapter extends BaseMultiItemQuickAdapter<DeviceSettin
 
     @Override
     protected void convert(@NonNull BaseViewHolder helper, DeviceSettingBean item) {
-        if (item.getItemType()==SettingConstants.SETTING_TYPE_SELECT){
+        if (item.getItemType()==SettingConstants.SETTING_TYPE_SELECT||item.getItemType()==SETTING_TYPE_SELECT_DISABLE){
             helper.setText(R.id.tv_title,item.getTitle());
             helper.setText(R.id.tv_value,item.getValueStr());
         }else if (item.getItemType()==SettingConstants.SETTING_TYPE_SWITCH){

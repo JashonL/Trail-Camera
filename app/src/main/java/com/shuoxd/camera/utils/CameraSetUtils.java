@@ -172,7 +172,7 @@ public class CameraSetUtils {
                 {""},
                 {"After Trigger", "Hourly","Twice a Day", "Once a Day"},
                 {""},
-                {"Photo/HQ/Video", "Photo/HQ", "Daily Sync Only"},
+                {"Photo/HQ/Video", "Photo/HQ", "Sync Only"},
                 {"OFF", "ON"},
                 {"OFF", "ON"},
                 {"12-hour", "24-hour"},

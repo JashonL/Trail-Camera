@@ -106,11 +106,11 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
         //toolbar
         initToobar(toolbar);
         toolbar.setOnMenuItemClickListener(this);
-        tvTitle.setText(R.string.m73_map);
+        tvTitle.setText(R.string.m270_Location);
 
 
         boolean googleService = CommentUtils.isGoogleService(this);
-        if (!googleService){
+        if (!googleService) {
             tvNoGoogle.setVisibility(View.VISIBLE);
             map.setVisibility(View.GONE);
         }
@@ -118,8 +118,9 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
 
         //获取经纬度
         mLat = getIntent().getStringExtra("lat");
+        mLat = mLat.substring(0, mLat.length()-1);
         mLng = getIntent().getStringExtra("lng");
-
+        mLng = mLng.substring(0, mLng.length()-1);
         //加载地图
         Locale locale = getResources().getConfiguration().locale;
         Locale.setDefault(locale);

@@ -133,7 +133,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         int sSpace = Integer.parseInt(cardSpace);
         if (sSpace == 0) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
-            ivsdcard.setImageResource(R.drawable.sdcard1);
+            ivsdcard.setImageResource(R.drawable.sdcard0);
         } else if (sSpace <= 19) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
             ivsdcard.setImageResource(R.drawable.sdcard1);

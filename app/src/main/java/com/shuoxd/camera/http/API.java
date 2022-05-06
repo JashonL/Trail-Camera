@@ -85,7 +85,8 @@ public class API {
         //添加相机
         @FormUrlEncoded
         @POST("/v1/camera/addCamera")
-        Observable<String> addCamera(@Field("imei") String imei,@Field("careamName")String careamName);
+        Observable<String> addCamera(@Field("imei") String imei,@Field("careamName")String careamName,
+                                     @Field("longitude")String lng,@Field("latitude")String latitude);
 
 
 

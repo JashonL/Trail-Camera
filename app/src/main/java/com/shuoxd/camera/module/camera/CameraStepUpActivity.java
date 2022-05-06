@@ -54,6 +54,7 @@ import butterknife.ButterKnife;
 import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_INPUT;
 import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_NEXT;
 import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_ONLYREAD;
+import static com.shuoxd.camera.module.camera.SettingConstants.SETTING_TYPE_SELECT_DISABLE;
 
 public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> implements CameraStepView,
         BaseQuickAdapter.OnItemClickListener,
@@ -184,7 +185,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         String value1 = settingBean.getValue();
         String valueStr = settingBean.getValueStr();
 
-        if (itemType == SettingConstants.SETTING_TYPE_SELECT) {
+        if (itemType == SettingConstants.SETTING_TYPE_SELECT||itemType==SETTING_TYPE_SELECT_DISABLE) {
             if ("shotLag".equals(key)) {
                 int time = 0;
                 if (!TextUtils.isEmpty(value1)) {
@@ -497,7 +498,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                     if (key1.equals(key)) {
                         int itemType = settingBean.getItemType();
                         settingBean.setValue(value);
-                        if (itemType == SettingConstants.SETTING_TYPE_SELECT) {
+                        if (itemType == SettingConstants.SETTING_TYPE_SELECT||itemType==SETTING_TYPE_SELECT_DISABLE) {
                             if ("shotLag".equals(key1)) {
                                 if (!TextUtils.isEmpty(value)) {
                                     int time = Integer.parseInt(value);
@@ -607,7 +608,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 }
 
 
-                data.get(data.size() - 1).setValueStr(lat+"N" + "," + lng+"E");
+                data.get(data.size() - 1).setValueStr(lat+ "," + lng);
 
 
             }
@@ -627,8 +628,8 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
 
             if ("0".equals(value) || "2".equals(value) || "3".equals(value)) {
-                data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
+                data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
                 data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SWITCH_DISABLE);
             } else {
                 data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
@@ -698,8 +699,8 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 }
 
                 if ("0".equals(value) || "2".equals(value) || "3".equals(value)) {
-                    data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                    data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                    data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
+                    data.get(index_video_length).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
                     data.get(index_audio_recording).setItemType(SettingConstants.SETTING_TYPE_SWITCH_DISABLE);
                 } else {
                     data.get(index_video_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);

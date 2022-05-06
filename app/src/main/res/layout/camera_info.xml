@@ -143,6 +143,22 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_fire_version" />
 
 
+
+        <TextView
+            android:id="@+id/tv_upgraded_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="@dimen/dp_5"
+            android:text="@string/m268_upgraded_next"
+            android:textColor="@color/color_text_99"
+            android:textSize="@dimen/size_content_sp_8"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_version_value" />
+
+
+
+
         <TextView
             android:id="@+id/tv_version_point"
             android:layout_width="@dimen/dp_4"
@@ -160,12 +176,13 @@
 
         <TextView
             android:id="@+id/tv_to_update"
-            android:layout_width="@dimen/dp_75"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_red_corner"
             android:gravity="center"
             android:padding="@dimen/dp_5"
-            android:text="@string/m168_update"
+            android:text="@string/m198_upgrade"
+            android:singleLine="true"
             android:textColor="@color/white"
             android:textSize="@dimen/size_content_sp_14"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -249,7 +266,7 @@
 
         <TextView
             android:id="@+id/tv_last"
-            android:layout_width="@dimen/dp_75"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/selector_red_corner"
             android:gravity="center"

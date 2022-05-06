@@ -429,7 +429,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         moonPhase = "-1";
         startTemperature = "0";
         endTemperature = "0";
-        temperatureUnit = "0";
+        temperatureUnit = "-1";
 
         cbHd.setChecked(false);
         cbVideo.setChecked(false);
