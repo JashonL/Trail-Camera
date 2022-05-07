@@ -49,6 +49,7 @@ import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.eventbus.FreshCameraLocation;
 import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
@@ -1252,5 +1253,15 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     @Override
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 
+
+
+
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdata(FreshCameraLocation bean) {
+        String accountName = App.getUserBean().getAccountName();
+        presenter.cameraInfo(cameraId, accountName);
+    }
+
 }

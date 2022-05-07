@@ -31,6 +31,7 @@
 
     <!--其他尺寸-->
     <dimen name="size_title_sp_24">@dimen/sp_24</dimen><!--小号标题大小-->
+    <dimen name="size_title_sp_20">@dimen/sp_20</dimen><!--小号标题大小-->
 
 
 
