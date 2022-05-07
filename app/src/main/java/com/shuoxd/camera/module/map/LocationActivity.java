@@ -204,6 +204,10 @@ public class LocationActivity
         mLat = getIntent().getStringExtra("lat");
         mLng = getIntent().getStringExtra("lng");
 
+
+        mLat = mLat.substring(0, mLat.length()-1);
+        mLng = mLng.substring(0, mLng.length()-1);
+
         Locale locale = getResources().getConfiguration().locale;
         Locale.setDefault(locale);
         Configuration config = new Configuration();
