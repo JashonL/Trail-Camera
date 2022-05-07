@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -71,22 +72,16 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     ImageView ivEdit;
     @BindView(R.id.v_top_bottom)
     View vTopBottom;
-    @BindView(R.id.tv_bank_card)
-    AppCompatTextView tvBankCard;
-    @BindView(R.id.tv_bank_card_title)
-    AppCompatTextView tvBankCardTitle;
+    @BindView(R.id.tv_photo_count)
+    AppCompatTextView tvPhotoCount;
     @BindView(R.id.v_line1)
     View vLine1;
-    @BindView(R.id.tv_integration)
-    AppCompatTextView tvIntegration;
-    @BindView(R.id.tv_integration_title)
-    AppCompatTextView tvIntegrationTitle;
+    @BindView(R.id.tv_camera_count)
+    AppCompatTextView tvCameraCount;
     @BindView(R.id.v_line2)
     View vLine2;
-    @BindView(R.id.tv_coupon)
-    AppCompatTextView tvCoupon;
-    @BindView(R.id.tv_coupon_title)
-    AppCompatTextView tvCouponTitle;
+    @BindView(R.id.tv_video)
+    AppCompatTextView tvVideo;
     @BindView(R.id.cl_num)
     ConstraintLayout clNum;
     @BindView(R.id.iv_ad)
@@ -247,21 +242,31 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     public void photoCount(String photos) {
         if (!TextUtils.isEmpty(photos)){
-            tvBankCard.setText(photos);
+            tvPhotoCount.setText(photos);
         }
     }
 
     @Override
     public void cameraCount(String cameras) {
         if (!TextUtils.isEmpty(cameras)){
-            tvIntegration.setText(cameras);
+            tvCameraCount.setText(cameras);
         }
     }
 
     @Override
     public void videoCount(String videos) {
         if (!TextUtils.isEmpty(videos)){
-            tvCoupon.setText(videos);
+            tvVideo.setText(videos);
         }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
     }
 }

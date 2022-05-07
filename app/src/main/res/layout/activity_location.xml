@@ -50,7 +50,7 @@
                     android:background="@null"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
-                    android:hint="@string/m206_all_import"
+                    android:hint="@string/m271_please_enter_location"
                     android:lines="1"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingRight="@dimen/dp_40"
@@ -75,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/llSearch"
+            android:background="@drawable/shape_white_rect"
             android:layout_alignLeft="@+id/llSearch"
             android:layout_alignRight="@+id/llSearch"
             />

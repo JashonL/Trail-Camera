@@ -617,9 +617,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
             //判断capture mode是否为1
             String value = data.get(index_capture_mode).getValue();
             if ("1".equals(value)) {
-                data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                data.get(index_burst_interval).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
+                data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
+                data.get(index_burst_interval).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
             } else {
                 data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
                 data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_SELECT);
@@ -689,9 +689,9 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                 String value = data.get(index_capture_mode).getValue();
 
                 if ("1".equals(value)) {
-                    data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                    data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
-                    data.get(index_burst_interval).setItemType(SettingConstants.SETTING_TYPE_ONLYREAD);
+                    data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
+                    data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
+                    data.get(index_burst_interval).setItemType(SettingConstants.SETTING_TYPE_SELECT_DISABLE);
                 } else {
                     data.get(index_photo_resolution).setItemType(SettingConstants.SETTING_TYPE_SELECT);
                     data.get(index_burst_sshot).setItemType(SettingConstants.SETTING_TYPE_SELECT);

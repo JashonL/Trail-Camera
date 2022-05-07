@@ -87,6 +87,8 @@ public class ManulInputActivity extends BaseActivity<Addpresenter> implements Ad
 // 调用getSystemService()方法来获取LocationManager对象
 
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager==null)return;
+
 // 指定LocationManager的定位方法
 
         provider = LocationManager.GPS_PROVIDER;

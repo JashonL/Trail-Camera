@@ -29,6 +29,7 @@ import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.module.home.HomeView;
 import com.shuoxd.camera.module.login.User;
 import com.shuoxd.camera.utils.MyToastUtils;
+import com.shuoxd.camera.zxing.ScanActivity;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -183,5 +184,16 @@ public class HomePresenter extends BasePresenter<HomeView> {
 
     }
 
+
+
+    public void addCamera(){
+        Intent intent = new Intent(context, ScanActivity.class);
+        intent.putExtra("type",1);
+        context.startActivity(intent);
+
+    /*    context. startActivity(intent,
+                ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());*/
+
+    }
 
 }

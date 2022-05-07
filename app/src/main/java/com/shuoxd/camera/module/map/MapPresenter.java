@@ -7,8 +7,10 @@ import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.bean.CameraBean;
+import com.shuoxd.camera.eventbus.FreshCameraLocation;
 import com.shuoxd.camera.utils.MyToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -85,6 +87,14 @@ public class MapPresenter extends BasePresenter<IMapView> {
                     if ("0".equals(result)) {//请求成功
                         String msg = jsonObject.optString("msg");
                         MyToastUtils.toast(msg);
+                        String[] location = operationValue.split("_");
+
+                        FreshCameraLocation freshCameraLocation = new FreshCameraLocation();
+                        freshCameraLocation.setLat(location[1]);
+                        freshCameraLocation.setLng(location[0]);
+                        EventBus.getDefault().post(freshCameraLocation);
+
+
                     }
 
 

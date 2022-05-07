@@ -1,11 +1,15 @@
 package com.shuoxd.camera.module.home;
 
+import static com.shuoxd.camera.constants.PermissionConstant.RC_CAMERA;
+
+import android.Manifest;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,6 +46,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.AfterPermissionGranted;
+import pub.devrel.easypermissions.EasyPermissions;
 
 public class HomeFragment extends BaseFragment<HomePresenter> implements HomeView,
         Toolbar.OnMenuItemClickListener, BaseQuickAdapter.OnItemChildClickListener,
@@ -421,12 +427,35 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
                 changeLayout();
                 break;
             case R.id.iv_add:
-                Intent intent = new Intent(getContext(), ScanActivity.class);
-                intent.putExtra("type",1);
-                startActivity(intent);
+                checkCameraPermissions();
                 break;
         }
     }
+
+
+
+
+
+
+
+
+
+    /**
+     * 检测拍摄权限
+     */
+    @AfterPermissionGranted(RC_CAMERA)
+    private void checkCameraPermissions() {
+        String[] perms = {Manifest.permission.CAMERA};
+        if (EasyPermissions.hasPermissions(getActivity(), perms)) {//有权限
+            presenter.addCamera();
+        } else {
+            // Do not have permissions, request them now
+            EasyPermissions.requestPermissions(this, getString(R.string.m162_requires_permission),
+                    RC_CAMERA, perms);
+        }
+    }
+
+
 
 
     @Override
@@ -507,5 +536,15 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
 
         return true;
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
     }
 }

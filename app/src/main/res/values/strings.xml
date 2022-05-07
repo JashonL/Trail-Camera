@@ -4,7 +4,7 @@
     <string name="m2_parse_error_msg">Failed to parse data</string>
     <string name="m3_bad_network_msg">Internet problem</string>
     <string name="m4_connect_error_msg">Connection error</string>
-    <string name="m5_connect_timeout_msg">Connection timed out</string>
+    <string name="m5_connect_timeout_msg">Connection time out</string>
     <string name="m6_other_msg">Unknown mistake</string>
 
 
@@ -317,5 +317,6 @@
     <string name="m268_upgraded_next">Firmware will be upgraded in next sync</string>
     <string name="m269_submit">Submit</string>
     <string name="m270_Location">Location</string>
+    <string name="m271_please_enter_location">Please enter a address</string>
 
 </resources>
