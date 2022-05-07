@@ -12,7 +12,7 @@
        android:layout_height="wrap_content"
        android:paddingLeft="@dimen/dp_10"
        android:paddingRight="@dimen/dp_10"
-       android:maxLines="2"
+       android:maxLines="3"
        android:ellipsize="end"
        android:background="@color/gray_eeeeeee"
        android:textColor="@color/color_text_66"

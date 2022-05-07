@@ -70,15 +70,15 @@
                     />
             </FrameLayout>
         </LinearLayout>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/poiSugRV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/llSearch"
-            android:background="@drawable/shape_white_rect"
             android:layout_alignLeft="@+id/llSearch"
             android:layout_alignRight="@+id/llSearch"
-            />
+            android:background="@drawable/shape_white_rect" />
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"

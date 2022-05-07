@@ -330,6 +330,8 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
             } else if ("longitude_latitude".equals(key)) {
                 Intent intent1 = new Intent(this, LocationActivity.class);
+                intent1.putExtra("lat",lat);
+                intent1.putExtra("lng",lng);
                 intent1.putExtra("imei",imei);
                 startActivity(intent1);
             } else {
