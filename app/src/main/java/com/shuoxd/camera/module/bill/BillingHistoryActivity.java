@@ -26,6 +26,7 @@ import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.HistoryBean;
+import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.LinearDivider;
 
 import java.util.ArrayList;
@@ -89,6 +90,7 @@ public class BillingHistoryActivity extends BaseActivity<BillingHistoryPresenter
 
         View view = LayoutInflater.from(this).inflate(R.layout.list_empty_view, null);
         mAdapter.setEmptyView(view);
+        mAdapter.setLoadMoreView(new CustomLoadMoreView());
         mAdapter.setOnItemClickListener(this);
         mAdapter.disableLoadMoreIfNotFullPage(billHistory);
         mAdapter.setOnItemLongClickListener(this);

@@ -12,6 +12,7 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.hjq.toast.ToastUtils;
 import com.mylhyl.circledialog.res.values.CircleColor;
+import com.shuoxd.camera.bean.AppSystemDto;
 import com.shuoxd.camera.module.login.User;
 import com.shuoxd.camera.okhttp.OkHttpUtils;
 import com.shuoxd.camera.okhttp.https.HttpsUtils;
@@ -175,4 +176,15 @@ public class App extends Application {
     public static boolean IS_LOGIN = false;
 
 
+    //升级
+
+    public static AppSystemDto systemDto;
+
+    public static AppSystemDto getSystemDto() {
+        return systemDto;
+    }
+
+    public static void setSystemDto(AppSystemDto systemDto) {
+        App.systemDto = systemDto;
+    }
 }

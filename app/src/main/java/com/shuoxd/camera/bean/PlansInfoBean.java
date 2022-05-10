@@ -15,6 +15,8 @@ public class PlansInfoBean implements MultiItemEntity {
     private String packageHDPhoto;
     private String packageVideo;
 
+    private String status;
+
 
     public void setItemType(int itemType) {
         this.itemType = itemType;
@@ -82,6 +84,14 @@ public class PlansInfoBean implements MultiItemEntity {
 
     public void setPackageVideo(String packageVideo) {
         this.packageVideo = packageVideo;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override

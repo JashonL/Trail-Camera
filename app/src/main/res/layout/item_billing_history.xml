@@ -28,6 +28,7 @@
         android:layout_height="0dp"
         android:layout_marginStart="@dimen/dp_20"
         android:padding="@dimen/dp_5"
+        android:gravity="end"
         android:text="@string/m41_back"
         android:textColor="@color/color_text_66"
         android:textSize="@dimen/size_content_sp_14"

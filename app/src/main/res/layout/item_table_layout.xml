@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center"
-            android:text="@string/m237_high_photo"
+            android:text="@string/m272_hq_photo"
             android:textColor="@color/color_text_99"
             android:textSize="@dimen/size_content_note" />
 
@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/m88_video"
+            android:text="@string/m219_video"
             android:textColor="@color/color_text_99"
             android:textSize="@dimen/size_content_note" />
 

@@ -279,10 +279,10 @@
     <string name="m236_iccid">ICCID</string>
     <string name="m237_high_photo">High Resolution Photo</string>
     <string name="m238_used">Used</string>
-    <string name="m239_package">package</string>
+    <string name="m239_package">Package</string>
     <string name="m240_status">Status</string>
 
-    <string name="m241_current_plans">Current plans</string>
+    <string name="m241_current_plans">Current Plan</string>
     <string name="m242_days_remaining">Days Remaining</string>
     <string name="m243_next_bill_date">Next Bill Date</string>
     <string name="m244_choose_plans">Choose Plans</string>
@@ -318,5 +318,13 @@
     <string name="m269_submit">Submit</string>
     <string name="m270_Location">Location</string>
     <string name="m271_please_enter_location">Please enter a address</string>
+    <string name="m272_plan_management">Plan Management</string>
+    <string name="m272_hq_photo">HQ Photo</string>
+    <string name="m273_version_upgrade">Version Upgrade</string>
+    <string name="m274_dear_user">Dear User</string>
+    <string name="m275_version_upgrade">It is detected that there is a new firmware version. To provide a better experience, please upgrade to the latest firmware version.</string>
+    <string name="m276_latest_version">Latest version</string>
+    <string name="m277_upgrade_log">Update log</string>
+    <string name="m278_update_now">Update now</string>
 
 </resources>

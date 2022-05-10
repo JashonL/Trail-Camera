@@ -12,6 +12,7 @@ import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
+import com.shuoxd.camera.bean.AppSystemDto;
 import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
@@ -26,7 +27,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     public LoginPresenter(Context context, LoginView baseView) {
         super(context, baseView);
-        this.context=context;
+        this.context = context;
     }
 
 
@@ -42,41 +43,38 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
 
     public void getUserInfo() {
-        User user=new User();
+        User user = new User();
         String username = SharedPreferencesUnit.getInstance(context).get(SharePreferenConstants.SP_USER_NAME);
         String password = SharedPreferencesUnit.getInstance(context).get(SharePreferenConstants.SP_USER_PASSWORD);
         String auto = SharedPreferencesUnit.getInstance(context).get(SharePreferenConstants.SP_AUTO_LOGIN);
         user.setAccountName(username);
         user.setPassword(password);
-        baseView.showUserInfo(user,auto);
+        baseView.showUserInfo(user, auto);
     }
 
 
-
-
-
-    public void register(String timeZone,String email, String regPassword){
-        if (TextUtils.isEmpty(email)){
+    public void register(String timeZone, String email, String regPassword) {
+        if (TextUtils.isEmpty(email)) {
             MyToastUtils.toast(R.string.m63_username_cannot_empty);
             return;
         }
-        if (TextUtils.isEmpty(regPassword)){
+        if (TextUtils.isEmpty(regPassword)) {
             MyToastUtils.toast(R.string.m63_password_cannot_empty);
             return;
         }
 
-        addDisposable(apiServer.register(timeZone,email, regPassword), new BaseObserver<String>(baseView,
+        addDisposable(apiServer.register(timeZone, email, regPassword), new BaseObserver<String>(baseView,
                 true) {
             @Override
             public void onSuccess(String bean) {
                 try {
                     JSONObject jsonObject = new JSONObject(bean);
                     String result = jsonObject.optString("result");
-                    if ("0".equals(result)){//请求成功
+                    if ("0".equals(result)) {//请求成功
                         JSONObject obj = jsonObject.optJSONObject("obj");
-                        if (obj==null)return;
+                        if (obj == null) return;
                         JSONObject user1 = obj.optJSONObject("user");
-                        if (user1==null)return;
+                        if (user1 == null) return;
                         //注册成功
                         //用户解析
                         User userInfo = new Gson().fromJson(user1.toString(), User.class);
@@ -84,7 +82,7 @@ public class LoginPresenter extends BasePresenter<LoginView> {
                         userInfo.setPassword(regPassword);
                         savaUserInfo(email, regPassword, userInfo);
                         baseView.registerSuccess();
-                    }else if ("10000".equals(result)){//调用登录接口
+                    } else if ("10000".equals(result)) {//调用登录接口
 
                     } else {
                         String msg = jsonObject.optString("msg");
@@ -105,7 +103,6 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
 
-
     /**
      * 登录
      */
@@ -114,26 +111,32 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         String systemModel = CommentUtils.getSystemModel();
         String verSionName = CommentUtils.getVerSionName(context);
         //正式登录
-        addDisposable(apiServer.login(username, password, String.valueOf(1),systemModel,verSionName), new BaseObserver<String>(baseView,true) {
+        addDisposable(apiServer.login(username, password, String.valueOf(1), systemModel, verSionName), new BaseObserver<String>(baseView, true) {
 
             @Override
             public void onSuccess(String bean) {
                 try {
                     JSONObject jsonObject = new JSONObject(bean);
                     String result = jsonObject.optString("result");
-                    if ("0".equals(result)){//请求成功
+                    if ("0".equals(result)) {//请求成功
                         JSONObject obj = jsonObject.optJSONObject("obj");
-                        if (obj==null)return;
+                        if (obj == null) return;
+                        JSONObject appSystemDto = obj.optJSONObject("appSystemDto");
+                        if (appSystemDto != null) {
+                            AppSystemDto appSystemDto1 = new Gson().fromJson(appSystemDto.toString(), AppSystemDto.class);
+                            App.setSystemDto(appSystemDto1);
+                        }
                         JSONObject user1 = obj.optJSONObject("user");
-                        if (user1==null)return;
-                        //用户解析
-                        User userInfo = new Gson().fromJson(user1.toString(), User.class);
-                        userInfo.setAccountName(username);
-                        userInfo.setPassword(password);
-                        App.IS_LOGIN=true;
-                        savaUserInfo(username, password, userInfo);
+                        if (user1 != null) {
+                            //用户解析
+                            User userInfo = new Gson().fromJson(user1.toString(), User.class);
+                            userInfo.setAccountName(username);
+                            userInfo.setPassword(password);
+                            App.IS_LOGIN = true;
+                            savaUserInfo(username, password, userInfo);
+                        }
                         loginSuccess();
-                    }else {
+                    } else {
                         String msg = jsonObject.optString("msg");
                         baseView.showLoginError(msg);
                     }
@@ -151,17 +154,16 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
 
-
-    private void loginSuccess(){
+    private void loginSuccess() {
         Intent intent = new Intent(context, MainActivity.class);
-        context. startActivity(intent,
+        context.startActivity(intent,
                 ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
 
     }
 
-    public void registerSuccess(){
+    public void registerSuccess() {
         Intent intent = new Intent(context, ScanActivity.class);
-        intent.putExtra("type","0");
+        intent.putExtra("type", "0");
         context.startActivity(intent);
 
     /*    context. startActivity(intent,

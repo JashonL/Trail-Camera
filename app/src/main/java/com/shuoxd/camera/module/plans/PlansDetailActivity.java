@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -66,6 +67,8 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
     View vPop;
     @BindView(R.id.suspend)
     TextView suspend;
+    @BindView(R.id.iv_status)
+    ImageView ivStatus;
 
     private PlansInfoAdapter mAdapter;
     private String status;
@@ -105,25 +108,25 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
     }
 
 
-    @OnClick({R.id.change, R.id.suspend, R.id.remove, R.id.back})
+    @OnClick({R.id.ll_change, R.id.ll_suspend, R.id.ll_remove, R.id.ll_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.change:
+            case R.id.ll_change:
                 String imeis = presenter.getImeis();
                 Intent intent = new Intent(this, PlansChangeActivity.class);
                 intent.putExtra("imei", imeis);
                 startActivity(intent);
                 break;
-            case R.id.suspend:
+            case R.id.ll_suspend:
                 String imei = presenter.getImeis();
                 String s;
                 String content;
                 if ("suspend".equalsIgnoreCase(status)) {
                     s = getString(R.string.m256_ative_plan);
-                    content=getString(R.string.m254_plan_ative);
+                    content = getString(R.string.m254_plan_ative);
                 } else {
                     s = getString(R.string.m255_suspend_plan);
-                    content=getString(R.string.m253_plan_suspend);
+                    content = getString(R.string.m253_plan_suspend);
                 }
                 CircleDialogUtils.showCommentDialog(PlansDetailActivity.this, s,
                         content,
@@ -133,9 +136,9 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
                         }, view12 -> {
                         });
                 break;
-            case R.id.remove:
+            case R.id.ll_remove:
                 break;
-            case R.id.back:
+            case R.id.ll_back:
                 finish();
                 break;
         }
@@ -193,11 +196,19 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
     @Override
     public void status(String status) {
         this.status = status;
+        if (mAdapter.getData().size() > 0) {
+            PlansInfoBean plansInfoBean = mAdapter.getData().get(1);
+            plansInfoBean.setStatus(status);
+            plansInfoBean.setValue(status);
+            mAdapter.notifyDataSetChanged();
+        }
+
         if ("suspend".equalsIgnoreCase(status)) {
             suspend.setText("Ative");
+            ivStatus.setImageResource(R.drawable.plan_active);
         } else {
             suspend.setText("suspend");
-
+            ivStatus.setImageResource(R.drawable.plan_suspend);
         }
     }
 

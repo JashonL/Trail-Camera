@@ -270,7 +270,7 @@ public class API {
         //启用套餐
         @FormUrlEncoded
         @POST("/v1/plan/changePlanStatus/{imei}")
-        Observable<String> changePlanStatus(@Path("imei") String imei);
+        Observable<String> changePlanStatus(@Path("imei") String imei,@Field("email")String email);
 
 
         //

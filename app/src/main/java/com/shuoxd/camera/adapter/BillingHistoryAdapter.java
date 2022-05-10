@@ -24,7 +24,7 @@ public class BillingHistoryAdapter extends BaseQuickAdapter<HistoryBean, BaseVie
 
         helper.setText(R.id.tv_content,item.getDescription());
         helper.setText(R.id.tv_date,item.getTime());
-        helper.setText(R.id.tv_cost,item.getAmount());
+        helper.setText(R.id.tv_cost,"$"+item.getAmount());
 
 
     }

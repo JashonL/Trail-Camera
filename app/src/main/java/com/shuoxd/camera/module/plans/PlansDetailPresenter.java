@@ -71,8 +71,8 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
                                 ""
                         };
 
-
-                        baseView.status(cameraBean.getStatus());
+                        String status = cameraBean.getStatus();
+                        baseView.status(status);
 
                         List<PlansInfoBean>list=new ArrayList<>();
 
@@ -91,6 +91,11 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
                             bean1.setPackagePhoto(cameraBean.getPackagePhoto());
                             bean1.setPackageHDPhoto(cameraBean.getPackageHDPhoto());
                             bean1.setPackageVideo(cameraBean.getPackageVideo());
+                            if (i==1){
+                                bean1.setStatus(status);
+                            }else {
+                                bean1.setStatus("1");
+                            }
                             list.add(bean1);
                         }
 
@@ -178,8 +183,9 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
 
 
     public void changePlanStatus(String imei) {
+        String accountName = App.getUserBean().getAccountName();
         //获取设备
-        addDisposable(apiServer.changePlanStatus(imei), new BaseObserver<String>(baseView, true) {
+        addDisposable(apiServer.changePlanStatus(imei,accountName), new BaseObserver<String>(baseView, true) {
 
             @Override
             public void onSuccess(String bean) {

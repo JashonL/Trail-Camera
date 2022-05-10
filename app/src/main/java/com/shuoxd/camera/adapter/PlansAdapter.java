@@ -36,10 +36,25 @@ public class PlansAdapter extends BaseMultiItemQuickAdapter<ProgramBean, BaseVie
             helper.setText(R.id.tv_videcprview, item.getVidecPreviews());
             helper.setText(R.id.tv_data, item.getDatas());
         } else {
-            helper.setText(R.id.tv_cost, item.getCost());
-            helper.setText(R.id.tv_photos, item.getPhotoCount());
-            helper.setText(R.id.tv_videcprview, item.getVideoCount());
-            helper.setText(R.id.tv_data, item.getHdCount());
+            helper.setText(R.id.tv_cost, "$"+item.getCost());
+
+            String photoCount = item.getPhotoCount();
+            String videoCount = item.getVideoCount();
+            String hdCount = item.getHdCount();
+
+            if ("-1".equals(photoCount)){
+                photoCount="unlimit";
+            }
+            if ("-1".equals(videoCount)){
+                videoCount="unlimit";
+            }
+
+            if ("-1".equals(hdCount)){
+                hdCount="unlimit";
+            }
+            helper.setText(R.id.tv_photos, photoCount);
+            helper.setText(R.id.tv_videcprview, videoCount);
+            helper.setText(R.id.tv_data, hdCount);
 
 
             helper.setChecked(R.id.cb_select, "1".equals(item.getSelected()));

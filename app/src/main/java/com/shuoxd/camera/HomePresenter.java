@@ -23,6 +23,7 @@ import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseBean;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
+import com.shuoxd.camera.bean.AppSystemDto;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.eventbus.FreshCameraList;
 import com.shuoxd.camera.eventbus.FreshCameraName;
@@ -195,5 +196,9 @@ public class HomePresenter extends BasePresenter<HomeView> {
                 ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());*/
 
     }
+
+
+
+
 
 }

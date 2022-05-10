@@ -1,8 +1,12 @@
 package com.shuoxd.camera.adapter;
 
+import android.annotation.SuppressLint;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -31,16 +35,26 @@ public class PlansInfoAdapter extends BaseMultiItemQuickAdapter<PlansInfoBean, B
     @Override
     protected void convert(@NonNull BaseViewHolder helper, PlansInfoBean item) {
         int itemType = item.getItemType();
-        if (itemType==0){
-            helper.setText(R.id.tv_title,item.getTitle());
-            helper.setText(R.id.tv_value,item.getValue());
-        }else {
-            helper.setText(R.id.tv_used_photo,item.getUsedPhoto());
-            helper.setText(R.id.tv_used_hd,item.getUsedHDPhoto());
-            helper.setText(R.id.tv_used_video,item.getUsedVideo());
-            helper.setText(R.id.tv_package_photo,item.getPackagePhoto());
-            helper.setText(R.id.tv_package_hd,item.getPackageHDPhoto());
-            helper.setText(R.id.tv_package_video,item.getPackageVideo());
+        if (itemType == 0) {
+            helper.setText(R.id.tv_title, item.getTitle());
+            helper.setText(R.id.tv_value, item.getValue());
+            TextView tvValue = helper.getView(R.id.tv_value);
+
+            String status = item.getStatus();
+            if ("suspend".equalsIgnoreCase(status)) {
+                tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.red));
+            } else if ("active".equalsIgnoreCase(status)) {
+                tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.orangle));
+            } else {
+                tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.color_text_33));
+            }
+        } else {
+            helper.setText(R.id.tv_used_photo, item.getUsedPhoto());
+            helper.setText(R.id.tv_used_hd, item.getUsedHDPhoto());
+            helper.setText(R.id.tv_used_video, item.getUsedVideo());
+            helper.setText(R.id.tv_package_photo, item.getPackagePhoto());
+            helper.setText(R.id.tv_package_hd, item.getPackageHDPhoto());
+            helper.setText(R.id.tv_package_video, item.getPackageVideo());
         }
     }
 }

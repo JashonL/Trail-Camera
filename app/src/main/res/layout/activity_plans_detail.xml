@@ -22,7 +22,7 @@
         android:layout_gravity="center_vertical"
         android:gravity="center"
         android:padding="@dimen/dp_10"
-        android:text="@string/m37_select_camera"
+        android:text="@string/m272_plan_management"
         android:textColor="@color/color_text_33"
         android:textSize="@dimen/size_content_sp_12" />
 
@@ -31,11 +31,9 @@
         android:id="@+id/rlv_plans_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
-        android:background="@drawable/shape_white_rect"
-        />
-
-
+        android:layout_marginStart="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_10"
+        android:background="@drawable/shape_white_rect" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,64 +43,138 @@
         android:layout_marginTop="@dimen/dp_20"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/change"
+        <LinearLayout
+            android:id="@+id/ll_change"
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_75"
-            android:layout_margin="@dimen/dp_5"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
             android:background="@drawable/view_ripple"
-            android:drawableTop="@drawable/plan_edit"
             android:gravity="center"
-            android:padding="@dimen/dp_5"
-            android:text="@string/m38_change"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@+id/suspend"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintRight_toLeftOf="@+id/ll_suspend"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/suspend"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plan_edit" />
+
+
+            <TextView
+                android:id="@+id/change"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center"
+                android:text="@string/m38_change" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_suspend"
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_75"
-            android:layout_margin="@dimen/dp_5"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
             android:background="@drawable/view_ripple"
-            android:drawableTop="@drawable/plan_suspend"
             android:gravity="center"
-            android:padding="@dimen/dp_5"
-            android:text="@string/m39_suspend"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/change"
-            app:layout_constraintRight_toLeftOf="@+id/remove"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintLeft_toRightOf="@+id/ll_change"
+            app:layout_constraintRight_toLeftOf="@+id/ll_remove"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/remove"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_75"
-            android:layout_margin="@dimen/dp_5"
-            android:background="@drawable/view_ripple"
-            android:drawableTop="@drawable/plan_detele"
-            android:gravity="center"
-            android:padding="@dimen/dp_5"
-            android:text="@string/m40_remove"
-            app:layout_constraintLeft_toRightOf="@+id/suspend"
-            app:layout_constraintRight_toLeftOf="@+id/back"
-            app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/iv_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plan_suspend" />
 
-        <TextView
-            android:id="@+id/back"
+
+            <TextView
+                android:id="@+id/suspend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center"
+                android:text="@string/m39_suspend" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_remove"
             android:layout_width="0dp"
-            android:layout_height="@dimen/dp_75"
-            android:layout_margin="@dimen/dp_5"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
             android:background="@drawable/view_ripple"
-            android:drawableTop="@drawable/plan_cancel"
             android:gravity="center"
-            android:padding="@dimen/dp_5"
-            android:text="@string/m41_back"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/remove"
+            app:layout_constraintLeft_toRightOf="@+id/ll_suspend"
+            app:layout_constraintRight_toLeftOf="@+id/ll_back"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plan_edit" />
+
+
+            <TextView
+                android:id="@+id/remove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="@string/m40_remove" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:background="@drawable/view_ripple"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:orientation="vertical"
+            android:padding="@dimen/dp_10"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/ll_remove"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/plan_cancel" />
+
+
+            <TextView
+                android:id="@+id/back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center"
+                android:padding="@dimen/dp_5"
+                android:text="@string/m41_back" />
+
+
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
