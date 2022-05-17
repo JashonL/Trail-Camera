@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.module.camera.CameraFragment;
 import com.shuoxd.camera.module.gallery.PhotoFragment;
@@ -216,7 +217,7 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
 
     @Override
     public void onPageSelected(int position) {
-   /*     switch (position) {
+        switch (position) {
             case 0:
                 //设置共同沉浸式样式
                 ImmersionBar.with(this)
@@ -236,7 +237,7 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
                 break;
             default:
                 break;
-        }*/
+        }
     }
 
     @Override

@@ -20,6 +20,8 @@ import androidx.constraintlayout.widget.Group;
 
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
+import com.gyf.immersionbar.BarParams;
+import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.toast.ToastUtils;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
@@ -117,6 +119,12 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     protected void initImmersionBar() {
 //        mImmersionBar = ImmersionBar.with(this);
 //        mImmersionBar.keyboardEnable(true).init();
+
+        ImmersionBar immersionBar = ImmersionBar.with(this).statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .transparentNavigationBar()
+                .keyboardEnable(true);
+        immersionBar.init();
+
     }
 
     @Override
