@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -20,6 +21,7 @@ import com.shuoxd.camera.utils.Mydialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import pub.devrel.easypermissions.EasyPermissions;
 
 /**
  * Description : BaseFragment
@@ -29,7 +31,7 @@ import butterknife.Unbinder;
  */
 
 
-public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView {
+public abstract class BaseFragment<P extends BasePresenter> extends Fragment implements BaseView, EasyPermissions.PermissionCallbacks {
 
     private Unbinder unbinder;
     protected Context mContext;
@@ -220,6 +222,16 @@ public abstract class BaseFragment<P extends BasePresenter> extends Fragment imp
         super.onHiddenChanged(hidden);
 
 
+    }
+
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Forward results to EasyPermissions
+        //将权限交给EasyPermissions处理
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
 }

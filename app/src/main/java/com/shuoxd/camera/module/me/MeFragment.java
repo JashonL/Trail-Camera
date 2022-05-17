@@ -2,12 +2,14 @@ package com.shuoxd.camera.module.me;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -26,8 +28,13 @@ import com.shuoxd.camera.bean.SetBean;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.module.account.ChangePassWordActivity;
 import com.shuoxd.camera.module.account.UserCenterActivity;
+import com.shuoxd.camera.module.bill.BillingHistoryActivity;
+import com.shuoxd.camera.module.gallery.PhotoPresenter;
+import com.shuoxd.camera.module.gallery.PhotoView;
 import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.module.message.MessageListActivity;
+import com.shuoxd.camera.module.plans.PlansActivity;
+import com.shuoxd.camera.module.support.SupportActivity;
 import com.shuoxd.camera.utils.MyToastUtils;
 
 import java.util.ArrayList;
@@ -42,14 +49,6 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
 
     @BindView(R.id.v_background)
     View vBackground;
-    @BindView(R.id.status_bar_view)
-    View statusBarView;
-    @BindView(R.id.tv_title)
-    AppCompatTextView tvTitle;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.app_toolbar)
-    LinearLayout appToolbar;
     @BindView(R.id.guideline_begin)
     Guideline guidelineBegin;
     @BindView(R.id.guideline_end)
@@ -66,22 +65,16 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     ImageView ivEdit;
     @BindView(R.id.v_top_bottom)
     View vTopBottom;
-    @BindView(R.id.tv_bank_card)
-    AppCompatTextView tvBankCard;
-    @BindView(R.id.tv_bank_card_title)
-    AppCompatTextView tvBankCardTitle;
+    @BindView(R.id.tv_photo_count)
+    AppCompatTextView tvPhotoCount;
     @BindView(R.id.v_line1)
     View vLine1;
-    @BindView(R.id.tv_integration)
-    AppCompatTextView tvIntegration;
-    @BindView(R.id.tv_integration_title)
-    AppCompatTextView tvIntegrationTitle;
+    @BindView(R.id.tv_camera_count)
+    AppCompatTextView tvCameraCount;
     @BindView(R.id.v_line2)
     View vLine2;
-    @BindView(R.id.tv_coupon)
-    AppCompatTextView tvCoupon;
-    @BindView(R.id.tv_coupon_title)
-    AppCompatTextView tvCouponTitle;
+    @BindView(R.id.tv_video)
+    AppCompatTextView tvVideo;
     @BindView(R.id.cl_num)
     ConstraintLayout clNum;
     @BindView(R.id.iv_ad)
@@ -112,8 +105,8 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     protected void initView() {
         //设置toolbar
-        toolbar.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.nocolor));
-        tvTitle.setText("");
+/*        toolbar.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.nocolor));
+        tvTitle.setText("");*/
 
         //初始化RecyclerView
         setAdapter();
@@ -172,13 +165,19 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
         }
 
 
+
+        presenter.userCenter(accountName);
+
     }
 
 
     @Override
     protected void initImmersionBar() {
         super.initImmersionBar();
-
+        mImmersionBar.statusBarDarkFont(false, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .fitsSystemWindows(true)
+                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
+                .init();
     }
 
 
@@ -195,9 +194,14 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         switch (position) {
-            case 1:
             case 0:
-                MyToastUtils.toast(R.string.m164_cooming_soon);
+                startActivity(new Intent(getContext(), PlansActivity.class));
+                break;
+            case 1:
+                startActivity(new Intent(getContext(), BillingHistoryActivity.class));
+                break;
+            case 4:
+                startActivity(new Intent(getContext(), SupportActivity.class));
                 break;
             case 2:
                 startActivity(new Intent(getContext(), MessageListActivity.class));
@@ -226,5 +230,36 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().finish();
+    }
+
+    @Override
+    public void photoCount(String photos) {
+        if (!TextUtils.isEmpty(photos)){
+            tvPhotoCount.setText(photos);
+        }
+    }
+
+    @Override
+    public void cameraCount(String cameras) {
+        if (!TextUtils.isEmpty(cameras)){
+            tvCameraCount.setText(cameras);
+        }
+    }
+
+    @Override
+    public void videoCount(String videos) {
+        if (!TextUtils.isEmpty(videos)){
+            tvVideo.setText(videos);
+        }
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
     }
 }

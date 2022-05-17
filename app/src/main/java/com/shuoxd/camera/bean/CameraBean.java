@@ -7,7 +7,6 @@ public class CameraBean {
     public LastPhoto lastPhoto;
 
 
-
     public String totalPhotoNum;
     public String noReadPhotoNum;
 
@@ -76,6 +75,8 @@ public class CameraBean {
         private String newFwVersion;
 
         private String newModemFwVersion;
+
+        private CameraParamter cameraParamter;
 
 
         public String getNewModemFwVersion() {
@@ -229,6 +230,335 @@ public class CameraBean {
         public void setLatitude(String latitude) {
             this.latitude = latitude;
         }
+
+
+        public CameraParamter getCameraParamter() {
+            return cameraParamter;
+        }
+
+        public void setCameraParamter(CameraParamter cameraParamter) {
+            this.cameraParamter = cameraParamter;
+        }
+
+        public static class CameraParamter {
+            private String id;
+            private String imei;
+            private String alias;
+            private String captureMode;
+            private String photoResolution;
+            private String burstShot;
+            private String photoBurstInterval;
+            private String videoResolution;
+            private String videoLength;
+            private String audioRecording;
+            private String shotLag;
+            private String pirSensitivity;
+            private String operationTime;
+            private String operationDay;
+            private String operationDayText;
+            private String operationStart;
+            private String operationStop;
+            private String timelapseStart;
+            private String timelapseStop;
+            private String timelapseInterval;
+            private String uploadFrequency;
+            private String dailySyncTime;
+            private String transmitType;
+            private String loopRecording;
+            private String infoStamp;
+            private String timeFormat;
+            private String timeZone;
+            private String temperatureFormat;
+            private String lcdDuringON;
+            private String formatCard;
+            private String fota;
+            private String mcuFOTAPath;
+            private String modemFOTAPath;
+            private String longitude;
+            private String latitude;
+
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public String getImei() {
+                return imei;
+            }
+
+            public void setImei(String imei) {
+                this.imei = imei;
+            }
+
+            public String getAlias() {
+                return alias;
+            }
+
+            public void setAlias(String alias) {
+                this.alias = alias;
+            }
+
+            public String getCaptureMode() {
+                return captureMode;
+            }
+
+            public void setCaptureMode(String captureMode) {
+                this.captureMode = captureMode;
+            }
+
+            public String getPhotoResolution() {
+                return photoResolution;
+            }
+
+            public void setPhotoResolution(String photoResolution) {
+                this.photoResolution = photoResolution;
+            }
+
+            public String getBurstShot() {
+                return burstShot;
+            }
+
+            public void setBurstShot(String burstShot) {
+                this.burstShot = burstShot;
+            }
+
+            public String getPhotoBurstInterval() {
+                return photoBurstInterval;
+            }
+
+            public void setPhotoBurstInterval(String photoBurstInterval) {
+                this.photoBurstInterval = photoBurstInterval;
+            }
+
+            public String getVideoResolution() {
+                return videoResolution;
+            }
+
+            public void setVideoResolution(String videoResolution) {
+                this.videoResolution = videoResolution;
+            }
+
+            public String getVideoLength() {
+                return videoLength;
+            }
+
+            public void setVideoLength(String videoLength) {
+                this.videoLength = videoLength;
+            }
+
+            public String getAudioRecording() {
+                return audioRecording;
+            }
+
+            public void setAudioRecording(String audioRecording) {
+                this.audioRecording = audioRecording;
+            }
+
+            public String getShotLag() {
+                return shotLag;
+            }
+
+            public void setShotLag(String shotLag) {
+                this.shotLag = shotLag;
+            }
+
+            public String getPirSensitivity() {
+                return pirSensitivity;
+            }
+
+            public void setPirSensitivity(String pirSensitivity) {
+                this.pirSensitivity = pirSensitivity;
+            }
+
+            public String getOperationTime() {
+                return operationTime;
+            }
+
+            public void setOperationTime(String operationTime) {
+                this.operationTime = operationTime;
+            }
+
+            public String getOperationDay() {
+                return operationDay;
+            }
+
+            public void setOperationDay(String operationDay) {
+                this.operationDay = operationDay;
+            }
+
+            public String getOperationDayText() {
+                return operationDayText;
+            }
+
+            public void setOperationDayText(String operationDayText) {
+                this.operationDayText = operationDayText;
+            }
+
+            public String getOperationStart() {
+                return operationStart;
+            }
+
+            public void setOperationStart(String operationStart) {
+                this.operationStart = operationStart;
+            }
+
+            public String getOperationStop() {
+                return operationStop;
+            }
+
+            public void setOperationStop(String operationStop) {
+                this.operationStop = operationStop;
+            }
+
+            public String getTimelapseStart() {
+                return timelapseStart;
+            }
+
+            public void setTimelapseStart(String timelapseStart) {
+                this.timelapseStart = timelapseStart;
+            }
+
+            public String getTimelapseStop() {
+                return timelapseStop;
+            }
+
+            public void setTimelapseStop(String timelapseStop) {
+                this.timelapseStop = timelapseStop;
+            }
+
+            public String getTimelapseInterval() {
+                return timelapseInterval;
+            }
+
+            public void setTimelapseInterval(String timelapseInterval) {
+                this.timelapseInterval = timelapseInterval;
+            }
+
+            public String getUploadFrequency() {
+                return uploadFrequency;
+            }
+
+            public void setUploadFrequency(String uploadFrequency) {
+                this.uploadFrequency = uploadFrequency;
+            }
+
+            public String getDailySyncTime() {
+                return dailySyncTime;
+            }
+
+            public void setDailySyncTime(String dailySyncTime) {
+                this.dailySyncTime = dailySyncTime;
+            }
+
+            public String getTransmitType() {
+                return transmitType;
+            }
+
+            public void setTransmitType(String transmitType) {
+                this.transmitType = transmitType;
+            }
+
+            public String getLoopRecording() {
+                return loopRecording;
+            }
+
+            public void setLoopRecording(String loopRecording) {
+                this.loopRecording = loopRecording;
+            }
+
+            public String getInfoStamp() {
+                return infoStamp;
+            }
+
+            public void setInfoStamp(String infoStamp) {
+                this.infoStamp = infoStamp;
+            }
+
+            public String getTimeFormat() {
+                return timeFormat;
+            }
+
+            public void setTimeFormat(String timeFormat) {
+                this.timeFormat = timeFormat;
+            }
+
+            public String getTimeZone() {
+                return timeZone;
+            }
+
+            public void setTimeZone(String timeZone) {
+                this.timeZone = timeZone;
+            }
+
+            public String getTemperatureFormat() {
+                return temperatureFormat;
+            }
+
+            public void setTemperatureFormat(String temperatureFormat) {
+                this.temperatureFormat = temperatureFormat;
+            }
+
+            public String getLcdDuringON() {
+                return lcdDuringON;
+            }
+
+            public void setLcdDuringON(String lcdDuringON) {
+                this.lcdDuringON = lcdDuringON;
+            }
+
+            public String getFormatCard() {
+                return formatCard;
+            }
+
+            public void setFormatCard(String formatCard) {
+                this.formatCard = formatCard;
+            }
+
+            public String getFota() {
+                return fota;
+            }
+
+            public void setFota(String fota) {
+                this.fota = fota;
+            }
+
+            public String getMcuFOTAPath() {
+                return mcuFOTAPath;
+            }
+
+            public void setMcuFOTAPath(String mcuFOTAPath) {
+                this.mcuFOTAPath = mcuFOTAPath;
+            }
+
+            public String getModemFOTAPath() {
+                return modemFOTAPath;
+            }
+
+            public void setModemFOTAPath(String modemFOTAPath) {
+                this.modemFOTAPath = modemFOTAPath;
+            }
+
+            public String getLongitude() {
+                return longitude;
+            }
+
+            public void setLongitude(String longitude) {
+                this.longitude = longitude;
+            }
+
+            public String getLatitude() {
+                return latitude;
+            }
+
+            public void setLatitude(String latitude) {
+                this.latitude = latitude;
+            }
+        }
+
     }
 
     public static class LastPhoto {

@@ -46,7 +46,10 @@ public class API {
         //登录
         @FormUrlEncoded
         @POST("v1/user/login")
-        Observable<String> login(@Field("email") String username, @Field("password") String password);
+        Observable<String> login(@Field("email") String username, @Field("password") String password,
+                                 @Field("phoneOs") String phoneOs, @Field("phoneModel") String phoneModel,
+                                 @Field("appVersion") String appVersion
+        );
 
         //登出
         @FormUrlEncoded
@@ -82,7 +85,8 @@ public class API {
         //添加相机
         @FormUrlEncoded
         @POST("/v1/camera/addCamera")
-        Observable<String> addCamera(@Field("imei") String imei,@Field("careamName")String careamName);
+        Observable<String> addCamera(@Field("imei") String imei,@Field("careamName")String careamName,
+                                     @Field("longitude")String lng,@Field("latitude")String latitude);
 
 
 
@@ -242,6 +246,57 @@ public class API {
         @POST("/v1/camera/cameraList/{toPageNum}/")
         Observable<String> cameraList(@Path("toPageNum")int toPageNum,@Field("email") String email);
 
+
+
+
+        //获取plans详情
+        @FormUrlEncoded
+        @POST("/v1/plan/getPlan/")
+        Observable<String> getPlan(@Field("imei") String imei);
+
+
+        //获取套餐列表
+        @FormUrlEncoded
+        @POST("/v1/plan/getPlanTemplateList/")
+        Observable<String> getPlanTemplateList(@Field("imei") String imei);
+
+
+        //修改套餐
+        @FormUrlEncoded
+        @POST("/v1/plan/modifyCameraPlan/{imei}")
+        Observable<String> modifyCameraPlan(@Path("imei") String imei,@Field("planTemplateId")String planTemplateId);
+
+
+        //启用套餐
+        @FormUrlEncoded
+        @POST("/v1/plan/changePlanStatus/{imei}")
+        Observable<String> changePlanStatus(@Path("imei") String imei,@Field("email")String email);
+
+
+        //
+        @FormUrlEncoded
+        @POST("/v1/message/faqList/")
+        Observable<String> faqList(@Field("email") String email);
+
+
+
+        //账单详情
+        @FormUrlEncoded
+        @POST("/v1/bill/billLogList/{toPageNum}")
+        Observable<String> billLogList(@Path("toPageNum")int toPageNum, @Field("imei")String imei,
+                                       @Field("isAllCamera")String isAllCamera);
+
+
+        //账单详情
+        @FormUrlEncoded
+        @POST("/v1/bill/billLogChart/")
+        Observable<String> billLogChart(@Field("imei")String imei,@Field("isAllCamera")String isAllCamera
+        ,@Field("date")String date);
+
+        //账单详情
+        @FormUrlEncoded
+        @POST("/v1/user/userCenter/")
+        Observable<String> userCenter(@Field("imei")String imei);
 
     }
 

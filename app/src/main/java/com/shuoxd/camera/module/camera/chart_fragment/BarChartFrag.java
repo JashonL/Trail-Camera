@@ -83,6 +83,7 @@ public class BarChartFrag extends ChartBaseFragment implements OnChartGestureLis
             }
         });
 
+        leftAxis.setGranularity(1);
         leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
         chart.getAxisRight().setEnabled(false);
@@ -90,7 +91,7 @@ public class BarChartFrag extends ChartBaseFragment implements OnChartGestureLis
    /*     XAxis xAxis = chart.getXAxis();
         xAxis.setEnabled(false);*/
 
-        xDatas = CommentUtils.getWeeks();
+        xDatas = CommentUtils.getMonth();
         XAxis xAxis = chart.getXAxis();
         xAxis.setAxisLineWidth(1.0f);
         xAxis.setGridLineWidth(0.5f);
@@ -147,8 +148,8 @@ public class BarChartFrag extends ChartBaseFragment implements OnChartGestureLis
             }
 
             BarDataSet ds = new BarDataSet(entries, "");
-            ds.setColor(ContextCompat.getColor(context, R.color.barchart_color));
-            ds.setHighLightColor(ContextCompat.getColor(context, R.color.barchart_hight_color));
+            ds.setColor(ContextCompat.getColor(context, R.color.color_bill_chart));
+            ds.setHighLightColor(ContextCompat.getColor(context, R.color.color_navigation_press));
             sets.add(ds);
         }
 

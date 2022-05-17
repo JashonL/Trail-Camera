@@ -502,4 +502,13 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     }
 
 
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
+    }
 }

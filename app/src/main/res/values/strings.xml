@@ -4,7 +4,7 @@
     <string name="m2_parse_error_msg">Failed to parse data</string>
     <string name="m3_bad_network_msg">Internet problem</string>
     <string name="m4_connect_error_msg">Connection error</string>
-    <string name="m5_connect_timeout_msg">Connection timed out</string>
+    <string name="m5_connect_timeout_msg">Connection time out</string>
     <string name="m6_other_msg">Unknown mistake</string>
 
 
@@ -48,16 +48,16 @@
     <string name="m34_integration">Integration</string>
     <string name="m35_coupon">Coupon</string>
     <string name="m36_service">Service</string>
-    <string name="m37_select_camera">Select a Camera to manage</string>
+    <string name="m37_select_camera">Select a camera to manage</string>
     <string name="m38_change">Change</string>
     <string name="m39_suspend">Suspend</string>
     <string name="m40_remove">Remove</string>
 
     <string name="m41_back">Back</string>
-    <string name="m42_nomessage">No messgee fo you!</string>
+    <string name="m42_nomessage">No message to you!</string>
     <string name="m43_custom_service">CUSTOMER SERVICEC</string>
     <string name="m44_ask_questions">FREQUENTLY ASKED QUESTIONS</string>
-    <string name="m45_maling_information">MALING INFORMATION</string>
+    <string name="m45_mailing_information">MAILING INFORMATION</string>
     <string name="m46_hlfha">Alfha</string>
     <string name="m47_state">State</string>
     <string name="m48_Testing">Testing</string>
@@ -65,7 +65,7 @@
     <string name="m50_address2">Address2</string>
 
     <string name="m51_Hoolywood">Hoolywood</string>
-    <string name="m52_cali">CA-Cali...</string>
+    <string name="m52_cali">CA-Cali…</string>
     <string name="m53_next">NEXT</string>
     <string name="m54_change_password">CHANGE PASSWORD</string>
     <string name="m55_determine">Determine</string>
@@ -101,7 +101,7 @@
     <string name="m81_Message">Message</string>
     <string name="m82_account">Account</string>
     <string name="m83_Support">Support</string>
-    <string name="m84_sign_out">Sign Out</string>
+    <string name="m84_sign_out">Log Out</string>
     <string name="m85_loading">Loading</string>
     <string name="m86_fail">Fail</string>
     <string name="m87_no_more_data">No more data</string>
@@ -140,7 +140,7 @@
     <string name="m114_timelapse_stop">Time Lapse Stop Time</string>
     <string name="m115_upload_frequency">Upload Frequency</string>
     <string name="m116_daily_sync_time">Daily Sync Time</string>
-    <string name="m117_transmit_type">Transmit Type</string>
+    <string name="m117_transmit_type">Upload Type</string>
     <string name="m118_loop_recording">Loop Recording</string>
     <string name="m119_info_stamp">Information Stamp</string>
     <string name="m120_time_format">Time Format</string>
@@ -150,7 +150,7 @@
     <string name="m123_lcd_during_on">LCD During ON</string>
     <string name="m124_Server_Date">Server Date</string>
     <string name="m125_Server_Time">Server Time</string>
-    <string name="m126_Format_Card">Format Card</string>
+    <string name="m126_Format_Card">Format SD Card</string>
     <string name="m127_cancel">Cancel</string>
     <string name="m128_read">Refresh</string>
 
@@ -217,24 +217,19 @@
 
     <string name="m181_city">City</string>
     <string name="m182_save">Save</string>
-    <string name="m183_mailing_information">Maling  Information</string>
+    <string name="m183_mailing_information">Mailing  Information</string>
     <string name="m184_credti_card_information">Credit Card information</string>
     <string name="m185_zip">Zip</string>
     <string name="m186_selected_country">Choose a country</string>
     <string name="m187_selected_state">select state</string>
     <string name="m188_country">Country</string>
     <string name="m189_mobile_number">Mobile Number</string>
-
-
-
     <string name="m190_same_as_mailing_address">Same as Mailing Address</string>
 
 
     <string name="m191_name_onhte_card">Name On The Card</string>
     <string name="m192_billing_address">Billing Address</string>
     <string name="m193_card_number">Card Number</string>
-
-
     <string name="m194_old_password">Old PassWord</string>
     <string name="m195_new_password">New PassWord</string>
     <string name="m196_new_password_comfir">Comfirm PassWord</string>
@@ -242,15 +237,14 @@
     <string name="m198_upgrade">Upgrade</string>
     <string name="m199_navigation">Navigation</string>
     <string name="m200_camera_map">Camera Map</string>
+
     <string name="m201_location">Need to get your location</string>
     <string name="m202_longitude">Longitude</string>
-
     <string name="m203_Latitude">Latitude</string>
     <string name="m204_detail">Detail</string>
     <string name="m205_app_not_installed">App not installed</string>
-
     <string name="m206_all_import">Please enter the content</string>
-    <string name="m207_modify_position">Modify camera position</string>
+    <string name="m207_modify_position">Modify Camera Location</string>
     <string name="m208_camera_positioning">Location Settings</string>
     <string name="m209_waiting_synchronization">Waiting synchronization,Click to cancel.</string>
     <string name="m210_hqphoto_is_not_available">HQ photo is not available</string>
@@ -260,15 +254,12 @@
     <string name="m213_download">Download</string>
     <string name="m214_deselect_all">Unselect all</string>
     <string name="m215_not_choose">Not Choose</string>
-
-
     <string name="m216_cancel_hq">HQ awaiting sync.Click to cancel</string>
     <string name="m217_video_sharing">Video Sharing</string>
     <string name="m218_save_album">Save the screenshot to the photo album</string>
     <string name="m219_video">Video</string>
-
-
     <string name="m220_save_pic">Save to album</string>
+
     <string name="m221_save_error">Save failed</string>
     <string name="m222_save_error">Your phone does not support Google maps</string>
     <string name="m223_photo_video_type">Photo/Video Type</string>
@@ -276,12 +267,64 @@
     <string name="m225_code">Get Code</string>
     <string name="m226_input_code">Enter the verification code</string>
     <string name="m227_enter_code">Enter  %s  Verification Code </string>
-
-
     <string name="m228_input_email">Please enter email address</string>
     <string name="m229_input_imei">Please enter IMEI</string>
+    <string name="m230_save_video">Whether to save the video to the phone?</string>
+
+    <string name="m231_video_saved">Video saved to album</string>
+    <string name="m232_video_downloading">Video Downloading…</string>
+    <string name="m233_pic_saved">The picture has been saved to the album</string>
+    <string name="m234_coming_soon">Cooming Soon</string>
+    <string name="m235_imei">IMEI</string>
+    <string name="m236_iccid">ICCID</string>
+    <string name="m237_high_photo">High Resolution Photo</string>
+    <string name="m238_used">Used</string>
+    <string name="m239_package">Package</string>
+    <string name="m240_status">Status</string>
+
+    <string name="m241_current_plans">Current Plan</string>
+    <string name="m242_days_remaining">Days Remaining</string>
+    <string name="m243_next_bill_date">Next Bill Date</string>
+    <string name="m244_choose_plans">Choose Plans</string>
+    <string name="m245_monthly">Monthly</string>
+    <string name="m246_annual">Annual</string>
+    <string name="m247_cost">Cost</string>
+    <string name="m248_photos">Photos</string>
+    <string name="m249_VidecPreview">VidecPreview</string>
+    <string name="m250_data">Data</string>
+    <string name="m251_choose_plans">Please Selete A Plan</string>
+    <string name="m252_plan_change">Plan Modify Success</string>
+
+    <string name="m253_plan_suspend">Are you sure want to suspend this plan? Your camera will remain inactive until data plan is resumed.</string>
+    <string name="m254_plan_ative">Are you sure want to Ative this plan? Your camera will remain inactive until data plan is resumed.</string>
+    <string name="m255_suspend_plan">Suspend Plan</string>
+    <string name="m256_ative_plan">Ative plan</string>
+    <string name="m257_question_title">Frequentiy Asked Questions</string>
+
+    <string name="m258_amount">Amount</string>
+    <string name="m259_transaction_memo">Transaction Memo</string>
+    <string name="m260_statistical_graph">Statistical Graph</string>
 
 
+    <string name="m261_number_photos">Additional $0.10 per HQ photo upload.</string>
+    <string name="m262_all_plans">All plans include one year of photo/video storage.</string>
 
+    <string name="m263_total_uploadCount">Photo Count</string>
+    <string name="m264_total_camreacount">Camera Count</string>
+    <string name="m265_total_videocount">Video Count</string>
+    <string name="m266_hq_photos">HQ Photos</string>
+    <string name="m267_cancel_upgrade">Cancel Upgrade</string>
+    <string name="m268_upgraded_next">Firmware will be upgraded in next sync</string>
+    <string name="m269_submit">Submit</string>
+    <string name="m270_Location">Location</string>
+    <string name="m271_please_enter_location">Please enter a address</string>
+    <string name="m272_plan_management">Plan Management</string>
+    <string name="m272_hq_photo">HQ Photo</string>
+    <string name="m273_version_upgrade">Version Upgrade</string>
+    <string name="m274_dear_user">Dear User</string>
+    <string name="m275_version_upgrade">It is detected that there is a new firmware version. To provide a better experience, please upgrade to the latest firmware version.</string>
+    <string name="m276_latest_version">Latest version</string>
+    <string name="m277_upgrade_log">Update log</string>
+    <string name="m278_update_now">Update now</string>
 
 </resources>

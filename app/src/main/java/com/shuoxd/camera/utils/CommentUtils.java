@@ -406,7 +406,7 @@ public class CommentUtils {
 
     public static List<String> tempF() {
         List<String> temps = new ArrayList<>();
-        for (int min = -50; min < 71; min++) {
+        for (int min = -5; min < 141; min++) {
             temps.add(String.valueOf(min));
         }
         return temps;
@@ -415,7 +415,7 @@ public class CommentUtils {
 
     public static List<String> tempC() {
         List<String> temps = new ArrayList<>();
-        for (int min = -50; min < 71; min++) {
+        for (int min = -20; min < 61; min++) {
             temps.add(String.valueOf(min));
         }
         return temps;
@@ -509,6 +509,13 @@ public class CommentUtils {
         return tz.getID();
     }
 
-
+    /**
+     * 获取手机型号
+     *
+     * @return 手机型号
+     */
+    public static String getSystemModel() {
+        return android.os.Build.MODEL;
+    }
 
 }

@@ -18,6 +18,7 @@ import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.http.API;
 import com.shuoxd.camera.http.RetrofitService;
 import com.shuoxd.camera.noleakHandler.NoLeakHandler;
+import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
 import org.json.JSONObject;
@@ -79,8 +80,10 @@ public class LoginManager {
      * 登录
      */
     public void userLogin(String username, String password) {
+        String systemModel = CommentUtils.getSystemModel();
+        String verSionName = CommentUtils.getVerSionName(context);
         //正式登录
-        addDisposable(apiServer.login(username, password), new BaseObserver<String>(baseView,true) {
+        addDisposable(apiServer.login(username, password, String.valueOf(1),systemModel,verSionName), new BaseObserver<String>(baseView,true) {
 
             @Override
             public void onSuccess(String bean) {

@@ -22,7 +22,12 @@ import com.ortiz.touchview.TouchImageView;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
+import com.shuoxd.camera.bean.PictureBean;
+import com.shuoxd.camera.download.CheckDownloadUtils;
+import com.shuoxd.camera.download.FileDownLoadManager;
+import com.shuoxd.camera.module.camera.CameraDetailActivity;
 import com.shuoxd.camera.utils.CircleDialogUtils;
+import com.shuoxd.camera.utils.FileUtils;
 import com.shuoxd.camera.utils.GlideUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.ShareUtils;
@@ -30,6 +35,7 @@ import com.shuoxd.camera.utils.ShareUtils;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -45,6 +51,7 @@ public class BigImageActivty extends BaseActivity<BigImagePresenter> implements 
 
     private Bitmap bitmap;
     private String name;
+    private String path;
 
     @Override
     protected BigImagePresenter createPresenter() {
@@ -63,12 +70,54 @@ public class BigImageActivty extends BaseActivity<BigImagePresenter> implements 
             CircleDialogUtils.showCommentDialog(BigImageActivty.this, getString(R.string.m150_tips), getString(R.string.m220_save_pic),
                     getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view1 -> {
                         try {
-                            if (bitmap!=null){
+
+
+                            ArrayList<String> urls = new ArrayList<>();
+                            urls.add(path);
+                            CheckDownloadUtils.downloadVideo(this, urls, new FileDownLoadManager.DownloadCallback() {
+                                @Override
+                                public void onStart() {
+
+                                }
+
+                                @Override
+                                public void onProgress(float progress, int total, int current) {
+
+                                }
+
+                                @Override
+                                public void setMax(long totalSize) {
+
+                                }
+
+                                @Override
+                                public void onFinish(String path) {
+
+                                    try {
+                                        ShareUtils.insertAlbum(BigImageActivty.this,name,new File(path));
+                                        CircleDialogUtils.showCommentDialog(BigImageActivty.this, "", getString(R.string.m233_pic_saved),
+                                                getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view22 -> {
+                                                    //插入到图库
+                                                }, view2 -> {
+                                                });
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+
+                                @Override
+                                public void onError(String msg) {
+                                    MyToastUtils.toast(msg);
+                                }
+                            });
+
+                        /*    if (bitmap!=null){
                                 String path = saveImage(bitmap, name);
                                 ShareUtils.insertAlbum(this,name,new File(path));
                             }else {
                                 MyToastUtils.toast(R.string.m221_save_error);
-                            }
+                            }*/
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -79,6 +128,10 @@ public class BigImageActivty extends BaseActivity<BigImagePresenter> implements 
             return false;
         });
 
+
+
+
+        ivTouch.setOnClickListener(view -> finish());
 
     }
 
@@ -98,8 +151,8 @@ public class BigImageActivty extends BaseActivity<BigImagePresenter> implements 
 
     @Override
     protected void initData() {
-        String path = getIntent().getStringExtra("path");
-         name = getIntent().getStringExtra("name");
+        path = getIntent().getStringExtra("path");
+        name = getIntent().getStringExtra("name");
         if (!TextUtils.isEmpty(name)) {
             tvTitle.setText(name);
         }
@@ -110,7 +163,7 @@ public class BigImageActivty extends BaseActivity<BigImagePresenter> implements 
             Glide.with(mContext)
                     .asBitmap()
                     .load(path)
-                    .placeholder(R.drawable.kaola).error(R.drawable.kaola).dontAnimate()
+                    .placeholder(R.drawable.default_pic).error(R.drawable.default_pic).dontAnimate()
                     .into(new CustomTarget<Bitmap>() {
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {

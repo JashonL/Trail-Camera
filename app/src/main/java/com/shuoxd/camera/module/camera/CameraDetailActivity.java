@@ -1,5 +1,7 @@
 package com.shuoxd.camera.module.camera;
 
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,14 +10,17 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +29,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.Group;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -31,15 +37,21 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.common.util.CollectionUtils;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.bean.PictureBean;
+import com.shuoxd.camera.download.CheckDownloadUtils;
+import com.shuoxd.camera.download.FileDownLoadManager;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.pictrue.BigImageActivty;
 import com.shuoxd.camera.module.video.VideoPlayActivity;
+import com.shuoxd.camera.okhttp.OkHttpUtils;
+import com.shuoxd.camera.utils.CircleDialogUtils;
 import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.DownLoadUtils;
+import com.shuoxd.camera.utils.FileUtils;
 import com.shuoxd.camera.utils.GlideUtils;
 import com.shuoxd.camera.utils.IntentUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
@@ -93,6 +105,18 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     ConstraintLayout clMenu;
     @BindView(R.id.btn_download)
     TextView btnDownLoad;
+    @BindView(R.id.cl_download)
+    ConstraintLayout clDownLoad;
+
+
+    @BindView(R.id.gp_progress)
+    Group gpRogress;
+    @BindView(R.id.bp_progress)
+    ProgressBar bpProgress;
+    @BindView(R.id.tv_progress)
+    TextView tvProgress;
+    @BindView(R.id.tv_filename)
+    TextView tvFileName;
 
 
     private ViewPagerAdapter mAdapter;
@@ -103,6 +127,8 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
     //数据源
     private List<PictureBean> picList;
+
+    private boolean isLoading = false;
 
 
     @Override
@@ -138,6 +164,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         vp.setAdapter(mAdapter);
         vp.addOnPageChangeListener(this);
 //        vp.setOffscreenPageLimit(0);
+
+
+        gpRogress.setVisibility(View.GONE);
     }
 
     @Override
@@ -182,27 +211,10 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 */
 
 
-
         String type = pictureBean.getType();
+        String fileName = pictureBean.getFileName();
         String wrongPhoto = pictureBean.getWrongPhoto();
-        if ("5".equals(type)) {
-            btnDownLoad.setText(R.string.m209_waiting_synchronization);
-            btnDownLoad.setEnabled(true);
-        } else if ("0".equals(type)) {
-            if ("1".equals(wrongPhoto)) {
-                btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
-                btnDownLoad.setEnabled(false);//不可点击
-            } else {
-                btnDownLoad.setEnabled(true);//可点击
-                btnDownLoad.setText(R.string.m24_download);
-            }
-        } else if ("1".equals(type)) {
-            btnDownLoad.setEnabled(false);//不可点击
-            btnDownLoad.setText(R.string.m24_download);
-        } else if ("2".equals(type)) {
-            btnDownLoad.setEnabled(false);//不可点击
-            btnDownLoad.setText(R.string.m24_download);
-        }
+        showDownloadBtn(type, wrongPhoto);
 
 
         Jzvd.releaseAllVideos();
@@ -212,7 +224,9 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
             jzVideo.startPreloading(); //开始预加载，加载完等待播放
             jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
             jzVideo.startVideo();
-
+            tvFileName.setText(fileName);
+        }else {
+            tvFileName.setText("");
         }
 
 
@@ -260,25 +274,10 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         }
         String type = pictureBean.getType();
         String wrongPhoto = pictureBean.getWrongPhoto();
-        if ("5".equals(type)) {
-            btnDownLoad.setText(R.string.m209_waiting_synchronization);
-            btnDownLoad.setEnabled(true);
-        } else if ("0".equals(type)) {
-            if ("1".equals(wrongPhoto)) {
-                btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
-                btnDownLoad.setEnabled(false);//不可点击
-            } else {
-                btnDownLoad.setEnabled(true);//可点击
-                btnDownLoad.setText(R.string.m24_download);
-            }
-        } else if ("1".equals(type)) {
-            btnDownLoad.setEnabled(false);//不可点击
-            btnDownLoad.setText(R.string.m24_download);
-        } else if ("2".equals(type)) {
-            btnDownLoad.setEnabled(false);//不可点击
-            btnDownLoad.setText(R.string.m24_download);
-        }
 
+        if (!isLoading) {
+            showDownloadBtn(type, wrongPhoto);
+        }
 
 //
 //
@@ -293,17 +292,40 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
             }
         }*/
 
-
+        String fileName = pictureBean.getFileName();
         if ("2".equals(type)) {//自动播放视频
             View view = mAdapter.getImageViews().get(currenPosition);
             JzvdStd jzVideo = view.findViewById(R.id.jz_video);
             jzVideo.startPreloading(); //开始预加载，加载完等待播放
             jzVideo.startVideoAfterPreloading(); //如果预加载完会开始播放，如果未加载则开始加载*/
             jzVideo.startVideo();
-
+            tvFileName.setText(fileName);
+        }else {
+            tvFileName.setText("");
         }
 
 
+    }
+
+    private void showDownloadBtn(String type, String wrongPhoto) {
+        if ("5".equals(type)) {
+            btnDownLoad.setText(R.string.m209_waiting_synchronization);
+            clDownLoad.setEnabled(true);
+        } else if ("0".equals(type)) {
+            if ("1".equals(wrongPhoto)) {
+                btnDownLoad.setText(R.string.m210_hqphoto_is_not_available);
+                clDownLoad.setEnabled(false);//不可点击
+            } else {
+                clDownLoad.setEnabled(true);//可点击
+                btnDownLoad.setText(R.string.m24_download);
+            }
+        } else if ("1".equals(type)) {
+            clDownLoad.setEnabled(false);//不可点击
+            btnDownLoad.setText(R.string.m24_download);
+        } else if ("2".equals(type)) {
+            clDownLoad.setEnabled(true);//不可点击
+            btnDownLoad.setText(R.string.m213_download);
+        }
     }
 
     @Override
@@ -333,34 +355,94 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                 presenter.operation(id, "remove", "1");
             }
             break;
-            case R.id.tv_share:{
+            case R.id.tv_share: {
                 int position1 = vp.getCurrentItem();
                 List<PictureBean> viewLists = mAdapter.getViewLists();
                 PictureBean pictureBean = viewLists.get(position1);
 
                 String type1 = pictureBean.getType();
-                if ("2".equals(type1)){
+                if ("2".equals(type1)) {
                     shareVideo(pictureBean);
-                }else {
+                } else {
                     sharePic(position1, pictureBean);
                 }
             }
-
-
-
-
-
-
             break;
 
             case R.id.cl_download: {
                 List<PictureBean> viewLists = mAdapter.getViewLists();
                 int position = vp.getCurrentItem();
                 PictureBean pictureBean = viewLists.get(position);
+                String fullPath = pictureBean.getFullPath();
                 String id = pictureBean.getId();
                 String type = pictureBean.getType();
+                String wrongPhoto = pictureBean.getWrongPhoto();
                 if ("5".equals(type)) {
                     presenter.operation(id, "resolution", "0");
+                } else if ("2".equals(type)) {
+                    CircleDialogUtils.showCommentDialog(CameraDetailActivity.this, "", getString(R.string.m230_save_video),
+                            getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view1 -> {
+                                ArrayList<String> urls = new ArrayList<>();
+                                urls.add(fullPath);
+                                CheckDownloadUtils.downloadVideo(this, urls, new FileDownLoadManager.DownloadCallback() {
+                                    @Override
+                                    public void onStart() {
+                                        isLoading = true;
+                                        //显示进度条
+                                        gpRogress.setVisibility(View.VISIBLE);
+                                        //按钮不可点击
+                                        clDownLoad.setEnabled(false);
+                                        btnDownLoad.setText(R.string.m232_video_downloading);
+                                    }
+
+                                    @Override
+                                    public void onProgress(float progress, int total, int current) {
+
+                                        int progress1 = (int) (progress * 100);
+                                        bpProgress.setProgress(progress1);
+                                        tvProgress.setText(progress1 + "%");
+                                    }
+
+                                    @Override
+                                    public void setMax(long totalSize) {
+
+                                    }
+
+                                    @Override
+                                    public void onFinish(String path) {
+                                        //1.隐藏进度条
+                                        gpRogress.setVisibility(View.GONE);
+                                        //2.保存到相册
+                                        FileUtils.saveVideoToSystemAlbum(path,CameraDetailActivity.this);
+                                        //3.提示保存成功
+                                        CircleDialogUtils.showCommentDialog(CameraDetailActivity.this, "", getString(R.string.m231_video_saved),
+                                                getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view22 -> {
+                                                    //插入到图库
+                                                }, view2 -> {
+                                                });
+                                        //3.放开下载按钮
+                                        //按钮不可点击
+                                        isLoading = false;
+                                        List<PictureBean> viewLists = mAdapter.getViewLists();
+                                        int position = vp.getCurrentItem();
+                                        PictureBean pictureBean = viewLists.get(position);
+                                        String type = pictureBean.getType();
+                                        String wrongPhoto = pictureBean.getWrongPhoto();
+                                        showDownloadBtn(type, wrongPhoto);
+
+
+                                    }
+
+                                    @Override
+                                    public void onError(String msg) {
+                                        MyToastUtils.toast(msg);
+                                    }
+                                });
+
+                            }, view12 -> {
+                            });
+
+
                 } else {
                     presenter.operation(id, "resolution", "1");
                 }
@@ -373,7 +455,10 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
 
 
-    private void shareVideo(PictureBean pictureBean){
+
+
+
+    private void shareVideo(PictureBean pictureBean) {
         String fullPath = pictureBean.getFullPath();
         String parentPath = getExternalFilesDir(null).getPath() + "/video/";
         File fileDir = new File(parentPath);
@@ -385,7 +470,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
         String name = fullPath.substring(fullPath.lastIndexOf("/") + 1);
         String filePath = parentPath + "/" + name;
         File file = new File(filePath);
-        if (file.exists()) {//已经存在 直接分享
+    /*    if (file.exists()) {//已经存在 直接分享
             //获取File的Uri
             IntentUtils.shareFile(CameraDetailActivity.this, file, IntentUtils.TYPE_VIDEO, getString(R.string.m217_video_sharing));
         } else {//不存在就下载
@@ -400,10 +485,20 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                         IntentUtils.shareVideoByUri(CameraDetailActivity.this, uri, IntentUtils.TYPE_VIDEO, getString(R.string.m217_video_sharing));
                     })
                     .download();
-        }
+        }*/
+        Uri videoContentUri = Uri.fromFile(file);
+        DownLoadUtils.builder()
+                .setContext(this)
+                .setUrl(fullPath)
+                .setFileName(name)
+                .setFileUri(videoContentUri)
+                .setFileUri(parentPath)
+                .setLister(uri -> {
+                    IntentUtils.shareVideoByUri(CameraDetailActivity.this, uri, IntentUtils.TYPE_VIDEO, getString(R.string.m217_video_sharing));
+                })
+                .download();
 
     }
-
 
 
     private void sharePic(int position1, PictureBean pictureBean) {
@@ -458,8 +553,10 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
 
             mAdapter.notifyDataSetChanged();
 
-//            mAdapter = new ViewPagerAdapter(picList);
-//            vp.setAdapter(mAdapter);
+            List<PictureBean> newList = new ArrayList<>(picList);
+
+            mAdapter = new ViewPagerAdapter(newList);
+            vp.setAdapter(mAdapter);
 
 
             int count = mAdapter.getCount();
@@ -548,7 +645,7 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
                     Glide.with(mContext)
                             .asBitmap()
                             .load(url)
-                            .placeholder(R.drawable.kaola).error(R.drawable.kaola).dontAnimate()
+                            .placeholder(R.drawable.default_pic).error(R.drawable.default_pic).dontAnimate()
                             .into(new CustomTarget<Bitmap>() {
                                 @Override
                                 public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
@@ -699,4 +796,10 @@ public class CameraDetailActivity extends BaseActivity<CameraDetailPresenter> im
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //退出的时候取消下载
+        OkHttpUtils.getInstance().cancelTag(this);
+    }
 }

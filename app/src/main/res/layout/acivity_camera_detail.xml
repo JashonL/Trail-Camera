@@ -36,7 +36,7 @@
         android:id="@+id/vp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@drawable/deer"
+        android:background="@drawable/default_pic"
         app:layout_constraintDimensionRatio="h,16:9"
         app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
 
@@ -135,7 +135,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_download"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_35"
+        android:layout_height="@dimen/dp_40"
         android:layout_marginTop="@dimen/dp_20"
         android:background="@drawable/selector_button_corner"
         android:minWidth="@dimen/dp_250"
@@ -152,28 +152,76 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/dp_5"
             android:lines="1"
-            android:paddingStart="@dimen/dp_10"
-            android:paddingEnd="@dimen/dp_10"
             android:text="@string/m24_download"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/size_content_sp_12"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/iv_down"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
 
         <ImageView
+            android:id="@+id/iv_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/download"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/btn_download"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <TextView
+        android:id="@+id/tv_filename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_50"
+        android:gravity="center"
+        android:textColor="@color/color_theme_green_light"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_download" />
+
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/gp_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="bp_progress,tv_progress" />
+
+
+    <ProgressBar
+        android:id="@+id/bp_progress"
+        style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_10"
+        android:layout_marginStart="@dimen/dp_30"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_30"
+        android:max="100"
+        android:progressDrawable="@drawable/progress_style_04"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_download" />
+
+
+    <TextView
+        android:id="@+id/tv_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_20"
+        android:gravity="center"
+        android:textColor="@color/color_app_main"
+        android:textSize="@dimen/size_content_sp_14"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bp_progress" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

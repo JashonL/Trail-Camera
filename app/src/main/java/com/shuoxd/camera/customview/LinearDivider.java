@@ -55,6 +55,10 @@ public class LinearDivider extends RecyclerView.ItemDecoration {
         mColorPaint.setColor(dividerColor);
     }
 
+
+
+
+
     public void setOrientation(int orientation) {
         if (orientation != LinearLayoutManager.HORIZONTAL && orientation != LinearLayoutManager.VERTICAL) {
             throw new IllegalArgumentException("方向参数错误！");

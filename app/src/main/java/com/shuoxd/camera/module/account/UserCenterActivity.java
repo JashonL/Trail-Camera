@@ -107,6 +107,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     private String city;
     private String zipCode;
     private String mobileNum;
+    private View tvSameas;
 
 
     @Override
@@ -185,6 +186,10 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
         cbSame = creditcardinformation.findViewById(R.id.cb_same);
         cbSame.setChecked(true);
+        tvSameas = creditcardinformation.findViewById(R.id.tv_sameas);
+        tvSameas.setOnClickListener(view -> {
+            cbSame.setChecked(!cbSame.isChecked());
+        });
         creditAddress = creditcardinformation.findViewById(R.id.et_address);
         creditAddress2 = creditcardinformation.findViewById(R.id.et_address2);
         creditCity = creditcardinformation.findViewById(R.id.et_city);
@@ -497,11 +502,16 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
             String country = tvCountry.getText().toString();
             String zip = etZip.getText().toString();
 
-            if (!TextUtils.isEmpty(address)) {
-                creditAddress.setText(address);
+            String firstName = etFirstName.getText().toString();
+            String lastName = etLastName.getText().toString();
+
+
+            if (!TextUtils.isEmpty(lastName)&&!TextUtils.isEmpty(firstName)) {
+                String name=lastName+" "+firstName;
+                creditAddress.setText(name);
             }
-            if (!TextUtils.isEmpty(address_detail)) {
-                creditAddress2.setText(address_detail);
+            if (!TextUtils.isEmpty(address)) {
+                creditAddress2.setText(address);
             }
             if (!TextUtils.isEmpty(city)) {
                 creditCity.setText(city);

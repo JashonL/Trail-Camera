@@ -177,7 +177,6 @@ public class VideoPlayActivity extends BaseActivity<ViDeoPlayPresenter> implemen
                             .setUrl(fullPath)
                             .setFileName(name)
                             .setFileUri(videoContentUri)
-                            .setFileUri(parentPath)
                             .setLister(uri -> {
                                 IntentUtils.shareVideoByUri(VideoPlayActivity.this, uri, IntentUtils.TYPE_VIDEO, getString(R.string.m217_video_sharing));
                             })

@@ -24,6 +24,7 @@ import com.shuoxd.camera.module.gallery.PhotoFragment;
 import com.shuoxd.camera.module.home.HomeFragment;
 import com.shuoxd.camera.module.map.MapFragment;
 import com.shuoxd.camera.module.me.MeFragment;
+import com.shuoxd.camera.utils.AppUtils;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 
 import java.util.List;
@@ -101,6 +102,11 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
         bottomNavigationView.selectTab(0);
 
         registerMessageReceiver();  // used for receive msg
+
+
+        //判断升级
+        AppUtils.isUpgradeApp(this);
+
     }
 
 

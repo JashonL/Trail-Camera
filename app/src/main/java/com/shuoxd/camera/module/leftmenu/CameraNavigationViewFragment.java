@@ -3,12 +3,14 @@ package com.shuoxd.camera.module.leftmenu;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,7 @@ import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.PhaseAdapter;
 import com.shuoxd.camera.bean.PhaseBean;
 import com.shuoxd.camera.customview.GridDivider;
+import com.shuoxd.camera.customview.TrailWheelView;
 import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.DateUtils;
 
@@ -80,11 +83,11 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
     TextView tvTemp;
 
     @BindView(R.id.wheel_start)
-    WheelView wheelStart;
+    TrailWheelView wheelStart;
     @BindView(R.id.tv_to)
     TextView tvTo;
     @BindView(R.id.wheel_end)
-    WheelView wheelEnd;
+    TrailWheelView wheelEnd;
     @BindView(R.id.tv_lunar_phase)
     TextView tvLunarPhase;
     @BindView(R.id.rv_phase)
@@ -103,6 +106,10 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
     CheckBox cbC;
     @BindView(R.id.gp_temp)
     Group gpTemp;
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
+
+
 
     /*设备部分*/
     private PhaseAdapter mAdapter;
@@ -141,14 +148,17 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         wheelStart.setCyclic(true);
         wheelStart.isCenterLabel(true);
         wheelStart.setAdapter(new ArrayWheelAdapter<>(tempF));
-        wheelStart.setCurrentItem(50);
+        wheelStart.setCurrentItem(5);
         wheelStart.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
         wheelStart.setItemsVisibleCount(3);
+        wheelStart.setNestedScrollingEnabled(false);
+
+
 
         wheelEnd.setCyclic(true);
         wheelEnd.isCenterLabel(true);
         wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempC));
-        wheelEnd.setCurrentItem(50);
+        wheelEnd.setCurrentItem(5);
         wheelEnd.setTextColorCenter(ContextCompat.getColor(getContext(), R.color.color_text_00));
         wheelEnd.setItemsVisibleCount(3);
 
@@ -253,8 +263,16 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                 cbF.setChecked(false);
                 cbC.setChecked(false);
 
-                wheelEnd.setCurrentItem(50);
-                wheelStart.setCurrentItem(50);
+
+                if (cbF.isChecked()){
+                    wheelEnd.setCurrentItem(5);
+                    wheelStart.setCurrentItem(5);
+                }else {
+
+                    wheelEnd.setCurrentItem(20);
+                    wheelStart.setCurrentItem(20);
+                }
+
 
                 temperatureUnit = "-1";
                 gpTemp.setVisibility(View.GONE);
@@ -318,8 +336,15 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
                     List<String> tempF = CommentUtils.tempF();
                     List<String> tempC = CommentUtils.tempC();
 
-                    startTemperature = "" +tempF.get(temp_start);
-                    endTemperature = "" +tempC.get(temp_end);
+
+                    if (cbF.isChecked()){
+                        startTemperature = "" +tempF.get(temp_start);
+                        endTemperature = "" +tempF.get(temp_end);
+                    }else {
+                        startTemperature = "" +tempC.get(temp_start);
+                        endTemperature = "" +tempC.get(temp_end);
+                    }
+
 
 
                     int nowSelectPosition = mAdapter.getNowSelectPosition();
@@ -344,26 +369,47 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
     }
 
     @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        if (compoundButton == cbHd) {
-            if (b) cbVideo.setChecked(false);
-        } else if (compoundButton == cbVideo) {
-            if (b) cbHd.setChecked(false);
-        } else if (compoundButton == cbAm) {
-            if (b) cbPm.setChecked(false);
-        } else if (compoundButton == cbPm) {
-            if (b) cbAm.setChecked(false);
-        } else if (compoundButton == cbF) {
-            if (b) cbC.setChecked(false);
-            if (compoundButton.isPressed() && b) {
-                gpTemp.setVisibility(View.VISIBLE);
-            }
-        } else if (compoundButton == cbC) {
-            if (b) cbF.setChecked(false);
-            if (compoundButton.isPressed() && b) {
-                gpTemp.setVisibility(View.VISIBLE);
-            }
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {if (compoundButton == cbHd) {
+        if (b) cbVideo.setChecked(false);
+    } else if (compoundButton == cbVideo) {
+        if (b) cbHd.setChecked(false);
+    } else if (compoundButton == cbAm) {
+        if (b) cbPm.setChecked(false);
+    } else if (compoundButton == cbPm) {
+        if (b) cbAm.setChecked(false);
+    } else if (compoundButton == cbF) {
+        if (b) cbC.setChecked(false);
+        if (compoundButton.isPressed() && b) {
+            gpTemp.setVisibility(View.VISIBLE);
+
+            List<String> tempF = CommentUtils.tempF();
+            wheelStart.setAdapter(new ArrayWheelAdapter<>(tempF));
+            wheelStart.setCurrentItem(5);
+            wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempF));
+            wheelEnd.setCurrentItem(5);
+
+
+        } else if (!b && !cbC.isChecked()) {
+            temperatureUnit = "-1";
+            gpTemp.setVisibility(View.GONE);
         }
+
+    } else if (compoundButton == cbC) {
+        if (b) cbF.setChecked(false);
+        if (compoundButton.isPressed() && b) {
+            gpTemp.setVisibility(View.VISIBLE);
+
+            List<String> tempC = CommentUtils.tempC();
+            wheelStart.setAdapter(new ArrayWheelAdapter<>(tempC));
+            wheelStart.setCurrentItem(20);
+            wheelEnd.setAdapter(new ArrayWheelAdapter<>(tempC));
+            wheelEnd.setCurrentItem(20);
+
+        } else if (!b && !cbF.isChecked()) {
+            temperatureUnit = "-1";
+            gpTemp.setVisibility(View.GONE);
+        }
+    }
     }
 
 
@@ -377,7 +423,7 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
         moonPhase = "-1";
         startTemperature = "0";
         endTemperature = "0";
-        temperatureUnit = "0";
+        temperatureUnit = "-1";
 
         cbHd.setChecked(false);
         cbVideo.setChecked(false);
@@ -395,8 +441,13 @@ public class CameraNavigationViewFragment extends ImmersionFragment implements
 
         cbFavorites.setChecked(false);
 
-        wheelEnd.setCurrentItem(50);
-        wheelStart.setCurrentItem(50);
+        if (cbF.isChecked()){
+            wheelEnd.setCurrentItem(5);
+            wheelStart.setCurrentItem(5);
+        }else {
+            wheelEnd.setCurrentItem(20);
+            wheelStart.setCurrentItem(20);
+        }
 
         List<PhaseBean> data = mAdapter.getData();
         for (int i = 0; i < data.size(); i++) {

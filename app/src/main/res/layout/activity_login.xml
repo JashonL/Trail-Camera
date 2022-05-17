@@ -116,6 +116,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/login_user"
                                 android:drawablePadding="8dp"
+                                android:singleLine="true"
                                 android:paddingBottom="@dimen/dp_15"
                                 android:textSize="@dimen/size_content_sp_14" />
 
@@ -140,6 +141,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/login_pwd"
                                 android:drawablePadding="8dp"
+                                android:singleLine="true"
                                 android:inputType="textPassword"
                                 android:paddingBottom="@dimen/dp_15"
                                 android:textSize="@dimen/size_content_sp_14" />
@@ -215,6 +217,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="8dp"
                                 android:paddingBottom="@dimen/dp_15"
+                                android:singleLine="true"
                                 android:textSize="@dimen/size_content_sp_14" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -238,6 +241,7 @@
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="8dp"
                                 android:inputType="textPassword"
+                                android:singleLine="true"
                                 android:paddingBottom="@dimen/dp_15"
                                 android:textSize="@dimen/size_content_sp_14" />
 
@@ -261,6 +265,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="8dp"
+                                android:singleLine="true"
                                 android:inputType="textPassword"
                                 android:paddingBottom="@dimen/dp_15"
                                 android:textSize="@dimen/size_content_sp_14" />

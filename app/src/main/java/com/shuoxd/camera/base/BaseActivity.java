@@ -98,12 +98,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     public void initToobar(Toolbar toolbar){
         if (toolbar!=null){
             toolbar.setNavigationIcon(R.drawable.icon_return_w);
-            toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+            toolbar.setNavigationOnClickListener(v -> finish());
         }
     }
 

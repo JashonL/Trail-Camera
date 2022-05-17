@@ -82,7 +82,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         int extDcl = Integer.parseInt(extDcLevel);
         if (extDcl == 0) {
 //            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
-            ivExt.setImageResource(R.drawable.ext1);
+            ivExt.setImageResource(R.drawable.ext0);
         } else if (extDcl <= 25) {
 //            setTextViewDrawableTop(mContext, tvExt, R.drawable.ext1);
             ivExt.setImageResource(R.drawable.ext1);
@@ -110,7 +110,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         int batteryL = Integer.parseInt(batteryLevel);
         if (batteryL == 0) {
 //            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
-            ivBattery.setImageResource(R.drawable.bat1);
+            ivBattery.setImageResource(R.drawable.bat0);
         } else if (batteryL <= 25) {
 //            setTextViewDrawableTop(mContext, tvBattery, R.drawable.bat1);
             ivBattery.setImageResource(R.drawable.bat1);
@@ -133,19 +133,21 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
         int sSpace = Integer.parseInt(cardSpace);
         if (sSpace == 0) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
-            ivsdcard.setImageResource(R.drawable.sdcard1);
-        } else if (sSpace <= 25) {
+            ivsdcard.setImageResource(R.drawable.sdcard0);
+        } else if (sSpace <= 19) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
             ivsdcard.setImageResource(R.drawable.sdcard1);
-        } else if (sSpace <= 50) {
+        } else if (sSpace <= 49) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard2);
             ivsdcard.setImageResource(R.drawable.sdcard2);
-        } else if (sSpace <= 75) {
+        } else if (sSpace <= 69) {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
             ivsdcard.setImageResource(R.drawable.sdcard3);
-        } else {
+        } else if (sSpace <= 94){
+            ivsdcard.setImageResource(R.drawable.sdcard3);
+        }else {
 //            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
-            ivsdcard.setImageResource(R.drawable.sdcard4);
+            ivsdcard.setImageResource(R.drawable.sdcard5);
         }
 
         tvSdcard.setText(sSpace + "%");
@@ -189,7 +191,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
             ivVideoPlay.setVisibility(View.GONE);
 
             if (!TextUtils.isEmpty(path)) {
-                GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
+                GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, path, ivPic);
             }
 
         } else {
@@ -197,7 +199,7 @@ public class HomeDeviceSmallAdapter extends BaseQuickAdapter<CameraBean, BaseVie
             if (TextUtils.isEmpty(fullVideoImgPath)) {
                 fullVideoImgPath=path;
             }
-            GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, fullVideoImgPath, ivPic);
+            GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, fullVideoImgPath, ivPic);
         }
 
 

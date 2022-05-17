@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 
 public class DownLoadUtils {
@@ -124,7 +125,6 @@ public class DownLoadUtils {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Mydialog.dissmiss();
             //获取下载id
             long myDwonloadID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             if (myDwonloadID == id) {
@@ -134,6 +134,102 @@ public class DownLoadUtils {
             }
         }
     }
+
+
+
+
+
+    /**
+     * 获取下载状态
+     *
+     * @param downloadId an ID for the download, unique across the system.
+     *                   This ID is used to make future calls related to this download.
+     * @return int
+     * @see DownloadManager#STATUS_PENDING  　　 下载等待开始时
+     * @see DownloadManager#STATUS_PAUSED   　　 下载暂停
+     * @see DownloadManager#STATUS_RUNNING　     正在下载中　
+     * @see DownloadManager#STATUS_SUCCESSFUL   下载成功
+     * @see DownloadManager#STATUS_FAILED       下载失败
+     */
+    public void getDownloadStatus(long downloadId) {
+        DownloadManager.Query query = new DownloadManager.Query().setFilterById(downloadId);
+        Cursor c = downloadManager.query(query);
+        if (c != null) {
+            try {
+                if (c.moveToFirst()) {
+                    int status= c.getInt(c.getColumnIndexOrThrow(DownloadManager.COLUMN_STATUS));
+                    int total = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                    switch (status) {
+                        //下载暂停
+                        case DownloadManager.STATUS_PAUSED:
+                            break;
+                        //下载延迟
+                        case DownloadManager.STATUS_PENDING:
+                            break;
+                        //正在下载
+                        case DownloadManager.STATUS_RUNNING:
+                            int current = c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                            LogUtil.i("total:"+total+"current:"+current);
+                            break;
+                        //下载完成
+                        case DownloadManager.STATUS_SUCCESSFUL:
+                            //下载完成安装APK
+                            break;
+                        //下载失败
+                        case DownloadManager.STATUS_FAILED:
+                            break;
+                    }
+
+                }
+            } finally {
+                c.close();
+            }
+        }
+    }
+
+
+
+    /**
+     * 获取当前下载进度
+     *
+     * @return
+     */
+    private int getDownloadProgress() {
+        DownloadManager.Query query = new DownloadManager.Query().setFilterById(id);
+        Cursor c = downloadManager.query(query);
+        if (c != null) {
+            try {
+                if (c.moveToFirst()) {
+                    return c.getInt(c.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                }
+            } finally {
+                c.close();
+            }
+        }
+        return -1;
+
+    }
+
+    /**
+     * 获取下载总大小
+     *
+     * @return
+     */
+    private int getDownloadTotal() {
+        DownloadManager.Query query = new DownloadManager.Query().setFilterById(id);
+        Cursor c = downloadManager.query(query);
+        if (c != null) {
+            try {
+                if (c.moveToFirst()) {
+                    return c.getInt(c.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                }
+            } finally {
+                c.close();
+            }
+        }
+        return -1;
+    }
+
 
 
 }

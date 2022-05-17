@@ -14,6 +14,7 @@
         android:background="@color/white"
         android:gravity="center"
         android:padding="@dimen/dp_10"
+        android:visibility="gone"
         android:text="@string/m54_change_password"
         android:textColor="@color/color_text_66"
         android:textSize="@dimen/size_content_sp_12"

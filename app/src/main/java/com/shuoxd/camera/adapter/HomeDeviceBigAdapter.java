@@ -69,7 +69,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         TextView tvBattery = helper.getView(R.id.tv_battery);
         int batteryL = Integer.parseInt(batteryLevel);
         if (batteryL == 0) {
-            setTextViewDrawableLeft(mContext, tvBattery, R.drawable.bat1);
+            setTextViewDrawableLeft(mContext, tvBattery, R.drawable.bat0);
         } else if (batteryL <= 25) {
             setTextViewDrawableLeft(mContext, tvBattery, R.drawable.bat1);
         } else if (batteryL <= 50) {
@@ -86,7 +86,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
         TextView tvExt = helper.getView(R.id.tv_ext);
         int extDcl = Integer.parseInt(extDcLevel);
         if (extDcl == 0) {
-            setTextViewDrawableLeft(mContext, tvExt, R.drawable.ext1);
+            setTextViewDrawableLeft(mContext, tvExt, R.drawable.ext0);
         } else if (extDcl <= 25) {
             setTextViewDrawableLeft(mContext, tvExt, R.drawable.ext1);
         } else if (extDcl <= 50) {
@@ -102,17 +102,26 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
 
         TextView tvSdcard = helper.getView(R.id.tv_sdcard);
         int sSpace = Integer.parseInt(cardSpace);
+
         if (sSpace == 0) {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
+            setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard0);
+        } else if (sSpace <= 19) {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard1);
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard1);
-        } else if (sSpace > 0 && sSpace <= 25) {
-            setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard1);
-        } else if (sSpace > 25 && sSpace <= 50) {
+        } else if (sSpace <= 49) {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard2);
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard2);
-        } else if (sSpace > 50 && sSpace <= 75) {
+        } else if (sSpace <= 69) {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard3);
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard3);
-        } else {
+        } else if (sSpace <= 94){
             setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard4);
+        }else {
+//            setTextViewDrawableTop(mContext, tvSdcard, R.drawable.sdcard4);
+            setTextViewDrawableLeft(mContext, tvSdcard, R.drawable.sdcard5);
         }
+
         tvSdcard.setText(sSpace + "%");
 
         String noReadPhotoNum = item.getNoReadPhotoNum();
@@ -153,7 +162,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
             ivVideoPlay.setVisibility(View.GONE);
 
             if (!TextUtils.isEmpty(path)) {
-                GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
+                GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, path, ivPic);
             }
 
         } else {
@@ -161,7 +170,7 @@ public class HomeDeviceBigAdapter extends BaseQuickAdapter<CameraBean, BaseViewH
             if (TextUtils.isEmpty(fullVideoImgPath)) {
                 fullVideoImgPath=path;
             }
-            GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, fullVideoImgPath, ivPic);
+            GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, fullVideoImgPath, ivPic);
         }
 
 

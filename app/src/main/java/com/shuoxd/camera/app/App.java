@@ -3,17 +3,33 @@ package com.shuoxd.camera.app;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.os.Environment;
 
 import com.danikula.videocache.HttpProxyCacheServer;
+import com.franmontiel.persistentcookiejar.ClearableCookieJar;
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.hjq.toast.ToastUtils;
 import com.mylhyl.circledialog.res.values.CircleColor;
+import com.shuoxd.camera.bean.AppSystemDto;
 import com.shuoxd.camera.module.login.User;
+import com.shuoxd.camera.okhttp.OkHttpUtils;
+import com.shuoxd.camera.okhttp.https.HttpsUtils;
+import com.shuoxd.camera.okhttp.log.LoggerInterceptor;
 import com.shuoxd.camera.utils.LogUtil;
 
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+
+import okhttp3.OkHttpClient;
 
 
 public class App extends Application {
@@ -43,10 +59,29 @@ public class App extends Application {
         return app;
     }
 
+    //视频下载保存地址
+    public static String VIDEO_DOWNLOAD_FILE_DIR;
+    //图片下载保存地址
+    public static String IMAGE_DOWNLOAD_FILE_DIR;
+
     @Override
     public void onCreate() {
         super.onCreate();
         app = this;
+
+//        VIDEO_DOWNLOAD_FILE_DIR=getFilesDir().getParent() + File.separator + "download"+ File.separator+"video"+ File.separator;
+        VIDEO_DOWNLOAD_FILE_DIR=getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getParent() + File.separator + "download"+ File.separator+"video"+ File.separator;
+        File file = new File(VIDEO_DOWNLOAD_FILE_DIR);
+        if (!file.exists()){
+            file.mkdirs();
+        }
+
+
+        IMAGE_DOWNLOAD_FILE_DIR=getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getParent() + File.separator + "download"+ File.separator+"image"+ File.separator;
+        File file1 = new File(IMAGE_DOWNLOAD_FILE_DIR);
+        if (!file1.exists()){
+            file1.mkdirs();
+        }
 
         /*吐司提示*/
         ToastUtils.init(this);
@@ -56,11 +91,33 @@ public class App extends Application {
         initCirclerDialog();
 
 
-        LogUtil.setIsLog(false);
+        LogUtil.setIsLog(true);
 
 //        initSampleAssets();
 
 //        Crasheye.init(this, "5665c120");
+
+        ClearableCookieJar cookieJar1 = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(getApplicationContext()));
+
+        HttpsUtils.SSLParams sslParams = HttpsUtils.getSslSocketFactory(null, null, null);
+
+//        CookieJarImpl cookieJar1 = new CookieJarImpl(new MemoryCookieStore());
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .connectTimeout(30000L, TimeUnit.MILLISECONDS)
+                .readTimeout(30000, TimeUnit.MILLISECONDS)
+                .addInterceptor(new LoggerInterceptor("TAG", true))
+                .cookieJar(cookieJar1)
+                .hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String hostname, SSLSession session) {
+                        return true;
+                    }
+                })
+                .sslSocketFactory(sslParams.sSLSocketFactory, sslParams.trustManager)
+                .build();
+        OkHttpUtils.initClient(okHttpClient);
+
+
     }
 
 
@@ -119,4 +176,15 @@ public class App extends Application {
     public static boolean IS_LOGIN = false;
 
 
+    //升级
+
+    public static AppSystemDto systemDto;
+
+    public static AppSystemDto getSystemDto() {
+        return systemDto;
+    }
+
+    public static void setSystemDto(AppSystemDto systemDto) {
+        App.systemDto = systemDto;
+    }
 }

@@ -84,14 +84,14 @@ public class CameraPicVedeoAdapter extends BaseMultiItemQuickAdapter<PictureBean
 
 
                     if (!TextUtils.isEmpty(path)) {
-                        GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic);
+                        GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, path, ivPic);
                     }
 
                 }else {
                     if (TextUtils.isEmpty(fullVideoImgPath)) {
                         fullVideoImgPath=path;
                     }
-                    GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, fullVideoImgPath, ivPic);
+                    GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, fullVideoImgPath, ivPic);
 
                 }
 
@@ -111,7 +111,7 @@ public class CameraPicVedeoAdapter extends BaseMultiItemQuickAdapter<PictureBean
 
                 ImageView ivPic1 = helper.getView(R.id.iv_camera);
                 if (!TextUtils.isEmpty(path)) {
-                    GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, ivPic1);
+                    GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, path, ivPic1);
                 }
                 //类型 图片类型(0:缩略图;1:高清图;2:视频)
                 if (itemType==HD_PIC_FLAG_EDIT){

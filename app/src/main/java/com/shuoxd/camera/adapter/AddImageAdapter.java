@@ -36,7 +36,7 @@ public class AddImageAdapter extends BaseMultiItemQuickAdapter<AddImageBean, Bas
         if (itemType==0){
             ImageView icPic = helper.getView(R.id.iv_pic);
             String path = item.getPath();
-            GlideUtils.getInstance().showImageContext(mContext, R.drawable.kaola, R.drawable.kaola, path, icPic);
+            GlideUtils.getInstance().showImageContext(mContext, R.drawable.default_pic, R.drawable.default_pic, path, icPic);
             helper.addOnClickListener(R.id.iv_delete);
         }else {
 

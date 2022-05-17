@@ -16,7 +16,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "2022.03.18"
+        versionName "1.1.220510.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -148,8 +148,8 @@ dependencies {
 
     /*视频播放框架*/
     implementation 'cn.jzvd:jiaozivideoplayer:7.7.0'
-
+    /*视频缓存框架*/
     implementation 'com.danikula:videocache:2.7.0'
-
-
+    /*okhttp证书*/
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 }

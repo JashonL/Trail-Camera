@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -47,6 +48,7 @@ import com.shuoxd.camera.constants.SharePreferenConstants;
 import com.shuoxd.camera.customview.CustomLoadMoreView;
 import com.shuoxd.camera.customview.GridDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
+import com.shuoxd.camera.eventbus.FreshCameraLocation;
 import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.eventbus.FreshPhoto;
 import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
@@ -59,6 +61,7 @@ import com.shuoxd.camera.utils.SharedPreferencesUnit;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +72,7 @@ import butterknife.OnClick;
 public class CameraFragment extends BaseFragment<CameraPresenter> implements CameraView, Toolbar.OnMenuItemClickListener,
         BaseQuickAdapter.OnItemChildClickListener, BaseQuickAdapter.OnItemClickListener,
         CameraNavigationViewFragment.IMenuListeners, CameraPicVedeoAdapter.SelectedListener
-,BaseQuickAdapter.OnItemLongClickListener{
+        , BaseQuickAdapter.OnItemLongClickListener {
 
 
     @BindView(R.id.status_bar_view)
@@ -105,8 +108,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     LinearLayout content;
 
 
-
-
     @BindView(R.id.iv_edit)
     ImageView ivEdit;
 
@@ -127,6 +128,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public String alias;
 
     private CameraBean.CameraInfo info;
+
+
+    private String upgrade="1";
 
 
     @Override
@@ -234,16 +238,16 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     //小图片布局
     private void setAdapter(int span) {
-        List<PictureBean> data=new ArrayList<>();
-        if (mPicVideoAdapter!=null){
-            data=mPicVideoAdapter.getData();
+        List<PictureBean> data = new ArrayList<>();
+        if (mPicVideoAdapter != null) {
+            data = mPicVideoAdapter.getData();
         }
 
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), span);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rlvDevice.setLayoutManager(layoutManager);
-        mPicVideoAdapter = new CameraPicVedeoAdapter(data,this);
+        mPicVideoAdapter = new CameraPicVedeoAdapter(data, this);
         rlvDevice.setAdapter(mPicVideoAdapter);
         rlvDevice.addItemDecoration(new GridDivider(ContextCompat.getColor(getActivity(), R.color.nocolor), 10, 10));
         View view = LayoutInflater.from(getContext()).inflate(R.layout.list_empty_view, rlvDevice, false);
@@ -331,51 +335,58 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     R.layout.pop_layout, null);
 
             List<CameraBean> cameraList = presenter.getCameraList();
-            RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
-            rvCamera.setLayoutManager(new LinearLayoutManager(getContext()));
-            CameraFiterAdapter camerAdapter = new CameraFiterAdapter(R.layout.item_camera_menu, cameraList);
-            rvCamera.setAdapter(camerAdapter);
-            camerAdapter.setOnItemClickListener((adapter, view, position) -> {
-                camerAdapter.setNowSelectPosition(position);
-                CameraBean cameraBean = cameraList.get(position);
-                cameraId = cameraBean.getCamera().getImei();
-                presenter.setImeis(cameraId);
-                presenter.setTotalPage(1);
-                presenter.setPageNow(0);
-                String accountName = App.getUserBean().getAccountName();
-                presenter.cameraInfo(cameraId, accountName);
-                presenter.getCameraPic();
-            });
 
-
-            int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
-            int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
-            int itemHight = getResources().getDimensionPixelOffset(R.dimen.dp_40);
-
-
-            if (itemHight * cameraList.size() > hight) {
-                hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+            if (cameraList == null || cameraList.size() == 0) {
+                presenter.getAlldevice();
             } else {
-                hight = LinearLayout.LayoutParams.WRAP_CONTENT;
+                RecyclerView rvCamera = contentView.findViewById(R.id.ry_camera);
+                rvCamera.setLayoutManager(new LinearLayoutManager(getContext()));
+                CameraFiterAdapter camerAdapter = new CameraFiterAdapter(R.layout.item_camera_menu, cameraList);
+                rvCamera.setAdapter(camerAdapter);
+                camerAdapter.setOnItemClickListener((adapter, view, position) -> {
+                    camerAdapter.setNowSelectPosition(position);
+                    CameraBean cameraBean = cameraList.get(position);
+                    cameraId = cameraBean.getCamera().getImei();
+                    presenter.setImeis(cameraId);
+                    presenter.setTotalPage(1);
+                    presenter.setPageNow(0);
+                    String accountName = App.getUserBean().getAccountName();
+                    presenter.cameraInfo(cameraId, accountName);
+                    presenter.getCameraPic();
+                });
+
+
+                int width = getResources().getDimensionPixelSize(R.dimen.dp_225);
+                int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+                int itemHight = getResources().getDimensionPixelOffset(R.dimen.dp_40);
+
+
+                if (itemHight * cameraList.size() > hight) {
+                    hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+                } else {
+                    hight = LinearLayout.LayoutParams.WRAP_CONTENT;
+                }
+
+
+                final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
+                popupWindow.setTouchable(true);
+
+
+                popupWindow.setTouchInterceptor((v, event) -> false);
+                WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                getActivity().getWindow().setAttributes(lp);
+                popupWindow.setOnDismissListener(() -> {
+                    WindowManager.LayoutParams lp1 = getActivity().getWindow().getAttributes();
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                    getActivity().getWindow().setAttributes(lp1);
+                });
+                popupWindow.setBackgroundDrawable(new ColorDrawable(0));
+                popupWindow.setAnimationStyle(R.style.Popup_Anim);
+                popupWindow.showAsDropDown(vPop);
             }
 
 
-            final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
-            popupWindow.setTouchable(true);
-
-
-            popupWindow.setTouchInterceptor((v, event) -> false);
-            WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-            getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-            getActivity().getWindow().setAttributes(lp);
-            popupWindow.setOnDismissListener(() -> {
-                WindowManager.LayoutParams lp1 = getActivity().getWindow().getAttributes();
-                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
-                getActivity().getWindow().setAttributes(lp1);
-            });
-            popupWindow.setBackgroundDrawable(new ColorDrawable(0));
-            popupWindow.setAnimationStyle(R.style.Popup_Anim);
-            popupWindow.showAsDropDown(vPop);
         }
         return true;
     }
@@ -400,7 +411,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     TextView tvModem = dialog_view.findViewById(R.id.tv_modem_value);
                     TextView tvFireware = dialog_view.findViewById(R.id.tv_fireware_value);
                     TextView tvFireModemPoint = dialog_view.findViewById(R.id.tv_fireware_point);
-
+                    TextView tvUpnext=dialog_view.findViewById(R.id.tv_upgraded_next);
 
                     TextView tvLastUpdate = dialog_view.findViewById(R.id.tv_lastupdate_value);
 
@@ -418,66 +429,69 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     String modemModel = info.getModemModel();
                     String modemFwVersion = info.getModemFwVersion();
                     String lastUpdateTime = info.getLastUpdateTime();
-                    if (!TextUtils.isEmpty(alias)){
+                    if (!TextUtils.isEmpty(alias)) {
                         tvName.setText(alias);
                     }
-                    if (!TextUtils.isEmpty(imei)){
+                    if (!TextUtils.isEmpty(imei)) {
                         tvImei.setText(imei);
                     }
-                    if (!TextUtils.isEmpty(iccid)){
+                    if (!TextUtils.isEmpty(iccid)) {
                         tvIccid.setText(iccid);
                     }
-                    if (!TextUtils.isEmpty(deviceModel)){
+                    if (!TextUtils.isEmpty(deviceModel)) {
                         tvModel.setText(deviceModel);
                     }
-                    if (!TextUtils.isEmpty(fwVersion)){
+                    if (!TextUtils.isEmpty(fwVersion)) {
                         tvVersion.setText(fwVersion);
                     }
-                    if (!TextUtils.isEmpty(modemModel)){
+                    if (!TextUtils.isEmpty(modemModel)) {
                         tvModem.setText(modemModel);
                     }
-                    if (!TextUtils.isEmpty(modemFwVersion)){
+                    if (!TextUtils.isEmpty(modemFwVersion)) {
                         tvFireware.setText(modemFwVersion);
                     }
-                    if (!TextUtils.isEmpty(lastUpdateTime)){
+                    if (!TextUtils.isEmpty(lastUpdateTime)) {
                         tvLastUpdate.setText(lastUpdateTime);
                     }
 
 
                     //判断是否有新版本
                     String newFwVersion = info.getNewFwVersion();
+                    String fota = info.getCameraParamter().getFota();
+
                     String newModemFwVersion = info.getNewModemFwVersion();
 
 
-                    if ("1".equals(newFwVersion)){
+                    if ("1".equals(newFwVersion)) {
                         tvFirewarePoint.setVisibility(View.VISIBLE);
-                    }else {
-                        tvFirewarePoint.setVisibility(View.GONE);
-                    }
-
-
-
-                    if ("1".equals(newFwVersion)){
                         tvUpdate.setVisibility(View.VISIBLE);
-                    }else {
+                        if ("0".equals(fota)){
+                            tvUpdate.setText(R.string.m198_upgrade);
+                            tvUpnext.setVisibility(View.GONE);
+                            upgrade="1";//升级
+                        }else {
+                            tvUpdate.setText(R.string.m267_cancel_upgrade);
+                            tvUpnext.setVisibility(View.VISIBLE);
+                            upgrade="0";//取消升级
+                        }
+
+                    } else {
+                        tvFirewarePoint.setVisibility(View.GONE);
                         tvUpdate.setVisibility(View.GONE);
+                        tvUpnext.setVisibility(View.GONE);
                     }
 
 
-                    if ("1".equals(newModemFwVersion)){
+
+
+                    if ("1".equals(newModemFwVersion)) {
                         tvLatest.setVisibility(View.VISIBLE);
-                    }else {
-                        tvLatest.setVisibility(View.GONE);
-                    }
-
-
-                    if ("1".equals(newModemFwVersion)){
                         tvFireModemPoint.setVisibility(View.VISIBLE);
-                    }else {
+
+                    } else {
+                        tvLatest.setVisibility(View.GONE);
                         tvFireModemPoint.setVisibility(View.GONE);
                     }
-
-
 
 
                     BaseCircleDialog show = new CircleDialog.Builder().setBodyView(dialog_view, view1 -> {
@@ -489,7 +503,12 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
                     tvUpdate.setOnClickListener(view12 -> {
-                        presenter.cameraOperation(imei, "upgradeFwVersion", "1");
+                        if ("0".equals(upgrade)){
+                            info.getCameraParamter().setFota("0");
+                        }else {
+                            info.getCameraParamter().setFota("1");
+                        }
+                        presenter.cameraOperation(imei, "upgradeFwVersion", upgrade);
                         show.dialogDismiss();
                     });
 
@@ -633,7 +652,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     int batteryL = Integer.parseInt(batteryLevel);
 
                     if (batteryL == 0) {
-                        bean.setIconRes(R.drawable.bat1);
+                        bean.setIconRes(R.drawable.bat0);
                     } else if (batteryL <= 25) {
                         bean.setIconRes(R.drawable.bat1);
                     } else if (batteryL <= 50) {
@@ -652,13 +671,13 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     String extDcLevel = cameraBean.getExtDcLevel();
                     int extDcl = Integer.parseInt(extDcLevel);
                     if (extDcl == 0) {
-                        bean.setIconRes(R.drawable.ext1);
+                        bean.setIconRes(R.drawable.ext0);
                     } else if (extDcl <= 25) {
-                        bean.setIconRes(R.drawable.ext2);
+                        bean.setIconRes(R.drawable.ext1);
                     } else if (extDcl <= 50) {
-                        bean.setIconRes(R.drawable.ext3);
+                        bean.setIconRes(R.drawable.ext2);
                     } else if (extDcl <= 75) {
-                        bean.setIconRes(R.drawable.ext4);
+                        bean.setIconRes(R.drawable.ext3);
                     } else {
                         bean.setIconRes(R.drawable.ext4);
                     }
@@ -670,15 +689,17 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     String cardSpace = cameraBean.getCardSpace();
                     int sSpace = Integer.parseInt(cardSpace);
                     if (sSpace == 0) {
+                        bean.setIconRes(R.drawable.sdcard0);
+                    } else if (sSpace <= 19) {
                         bean.setIconRes(R.drawable.sdcard1);
-                    } else if (sSpace <= 25) {
-                        bean.setIconRes(R.drawable.sdcard1);
-                    } else if (sSpace <= 50) {
+                    } else if (sSpace <= 49) {
                         bean.setIconRes(R.drawable.sdcard2);
-                    } else if (sSpace <= 75) {
+                    } else if (sSpace <= 69) {
                         bean.setIconRes(R.drawable.sdcard3);
-                    } else {
+                    } else if (sSpace <= 95) {
                         bean.setIconRes(R.drawable.sdcard4);
+                    } else {
+                        bean.setIconRes(R.drawable.sdcard5);
                     }
                     bean.setTitle(cardSpace + "%");
 
@@ -719,7 +740,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             mPicVideoAdapter.loadMoreComplete();
         }
         picList.addAll(beans);
-
 
 
         int size = mPicVideoAdapter.getData().size();
@@ -886,7 +906,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     }
 
 
-
     @OnClick(R.id.iv_edit)
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -971,7 +990,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         tv_download.setOnClickListener(view -> {
             //批量下载
             List<String> selectedImeis = mPicVideoAdapter.getSelectedImeis();
-            if (selectedImeis.size()==0){
+            if (selectedImeis.size() == 0) {
                 MyToastUtils.toast(R.string.m215_not_choose);
                 return;
             }
@@ -985,15 +1004,14 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             if (ids.toString().endsWith("_")) {
                 ids = new StringBuilder(ids.substring(0, ids.length() - 1));
             }
-            presenter.operation(ids.toString(),"resolution","1");
+            presenter.operation(ids.toString(), "resolution", "1");
         });
-
 
 
         tv_collection.setOnClickListener(view -> {//批量收藏
 
             List<String> selectedImeis = mPicVideoAdapter.getSelectedImeis();
-            if (selectedImeis.size()==0){
+            if (selectedImeis.size() == 0) {
                 MyToastUtils.toast(R.string.m215_not_choose);
                 return;
             }
@@ -1006,14 +1024,14 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             if (ids.toString().endsWith("_")) {
                 ids = new StringBuilder(ids.substring(0, ids.length() - 1));
             }
-            presenter.operation(ids.toString(),"favorites","1");
+            presenter.operation(ids.toString(), "favorites", "1");
         });
 
 
         //批量删除
         tv_selected_delete.setOnClickListener(view -> {
             List<String> selectedImeis = mPicVideoAdapter.getSelectedImeis();
-            if (selectedImeis.size()==0){
+            if (selectedImeis.size() == 0) {
                 MyToastUtils.toast(R.string.m215_not_choose);
                 return;
             }
@@ -1026,12 +1044,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             if (ids.toString().endsWith("_")) {
                 ids = new StringBuilder(ids.substring(0, ids.length() - 1));
             }
-            presenter.operation(ids.toString(),"remove","1");
+            presenter.operation(ids.toString(), "remove", "1");
         });
-
-
-
-
 
 
         iv_camera.setOnClickListener(view -> {
@@ -1162,9 +1176,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     }
 
 
-
-
-
     @Override
     public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
 
@@ -1191,7 +1202,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
     public void hideEdit() {
-        if (presenter!=null){
+        if (presenter != null) {
             presenter.setEditMode(false);
         }
         List<PictureBean> data = mPicVideoAdapter.getData();
@@ -1217,17 +1228,35 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     }
 
 
-
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
 
 
-        if (hidden){
+        if (hidden) {
             hideEdit();
         }
 
     }
 
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+
+
+
+
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventUpdata(FreshCameraLocation bean) {
+        String accountName = App.getUserBean().getAccountName();
+        presenter.cameraInfo(cameraId, accountName);
+    }
 
 }
