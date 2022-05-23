@@ -1,6 +1,9 @@
 package com.shuoxd.camera;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -21,6 +24,7 @@ import com.shuoxd.camera.module.gallery.PhotoFragment;
 import com.shuoxd.camera.module.home.HomeFragment;
 import com.shuoxd.camera.module.map.MapFragment;
 import com.shuoxd.camera.module.me.MeFragment;
+import com.shuoxd.camera.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,10 +63,17 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
 
     private ArrayList<Fragment> mFragments;
 
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+
 
     @Override
     public void onTabSelected(int position) {
-
+        vp.setCurrentItem(position);
     }
 
     @Override
@@ -139,7 +150,7 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
 
 
         vp.setAdapter(new MyAdapter(getSupportFragmentManager()));
-//        vp.setOffscreenPageLimit(4);
+        vp.setOffscreenPageLimit(4);
         vp.addOnPageChangeListener(this);
 
 
@@ -170,9 +181,45 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
         bottomNavigationView.setTabSelectedListener(this);
         bottomNavigationView.selectTab(0);
 
+
+        registerMessageReceiver();  // used for receive msg
+
+        //判断升级
+        AppUtils.isUpgradeApp(this);
+
     }
 
 
+    public void registerMessageReceiver() {
+        mMessageReceiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(MESSAGE_RECEIVED_ACTION);
+
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                    String messge = intent.getStringExtra(KEY_MESSAGE);
+                    String extras = intent.getStringExtra(KEY_EXTRAS);
+                    StringBuilder showMsg = new StringBuilder();
+                    showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+
+                    setCostomMsg(showMsg.toString());
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+
+    private void setCostomMsg(String msg) {
+
+    }
 
 
     @Override
@@ -217,23 +264,22 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
 
     @Override
     public void onPageSelected(int position) {
+        bottomNavigationView.selectTab(position);
+
         switch (position) {
             case 0:
-                //设置共同沉浸式样式
-                ImmersionBar.with(this)
-                        .statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                        .fitsSystemWindows(true)
-                        .statusBarColor(R.color.white)//这里的颜色，你可以自定义。
+                ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).
+                        statusBarColor(R.color.white).fitsSystemWindows(true).navigationBarColor(R.color.white)
                         .init();
                 break;
             case 1:
-                ImmersionBar.with(this).keyboardEnable(false).statusBarDarkFont(true, 0.2f).navigationBarColor(R.color.colorPrimary).init();
+                ImmersionBar.with(this).statusBarColor(R.color.color_app_main).navigationBarColor(R.color.white).statusBarDarkFont(false, 0.2f).keyboardEnable(false).fitsSystemWindows(true).init();
                 break;
             case 2:
-                ImmersionBar.with(this).keyboardEnable(false).statusBarDarkFont(false).navigationBarColor(R.color.colorPrimary).init();
+                ImmersionBar.with(this).reset().keyboardEnable(true).navigationBarColor(R.color.white).statusBarDarkFont(true, 0.2f).init();
                 break;
             case 3:
-                ImmersionBar.with(this).keyboardEnable(true).statusBarDarkFont(true).navigationBarColor(R.color.colorPrimary).init();
+                ImmersionBar.with(this).reset().statusBarDarkFont(false).navigationBarColor(R.color.white).init();
                 break;
             default:
                 break;

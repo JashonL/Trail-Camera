@@ -79,11 +79,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
      * Init immersion bar.
      */
     protected void initImmersionBar() {
-        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
-                .fitsSystemWindows(true)
-                .navigationBarColor(R.color.color_app_main)
-                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
-                .init();
+        //设置共同沉浸式样式
+        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).
+                statusBarColor(R.color.white).fitsSystemWindows(true).
+                navigationBarColor(R.color.white).init();
     }
 
 
