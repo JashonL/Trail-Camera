@@ -353,7 +353,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
             tabTitle.addTab(tab);
         }
 
-        presenter.getUserInfo();
+//        presenter.getUserInfo();
 
     }
 
