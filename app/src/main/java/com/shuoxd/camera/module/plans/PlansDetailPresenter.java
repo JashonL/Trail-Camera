@@ -91,7 +91,7 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
                             bean1.setPackagePhoto(cameraBean.getPackagePhoto());
                             bean1.setPackageHDPhoto(cameraBean.getPackageHDPhoto());
                             bean1.setPackageVideo(cameraBean.getPackageVideo());
-                            if (i==1){
+                            if (i==1||i==4||i==5){
                                 bean1.setStatus(status);
                             }else {
                                 bean1.setStatus("1");

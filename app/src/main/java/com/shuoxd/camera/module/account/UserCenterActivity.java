@@ -160,7 +160,6 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
     @Override
     protected void initData() {
-
         userBean = App.getUserBean();
 
         firstName=userBean.getFirstName();
@@ -173,10 +172,10 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         zipCode = userBean.getZipCode();
         mobileNum = userBean.getMobileNum();
 
-         cardNum = userBean.getCardNum();
-         cardYear = userBean.getCardYear();
-         cardMonth = userBean.getCardMonth();
-         cardAddr = userBean.getCardAddr();
+        cardNum = userBean.getCardNum();
+        cardYear = userBean.getCardYear();
+        cardMonth = userBean.getCardMonth();
+        cardAddr = userBean.getCardAddr();
 
 
         for (int i = 0; i < 12; i++) {
@@ -310,8 +309,8 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         });
 
 
-         monthDrop = creditcardinformation.findViewById(R.id.iv_month_drop);
-         yearDrop = creditcardinformation.findViewById(R.id.iv_year_drop);
+        monthDrop = creditcardinformation.findViewById(R.id.iv_month_drop);
+        yearDrop = creditcardinformation.findViewById(R.id.iv_year_drop);
 
         v_monthDrop=creditcardinformation.findViewById(R.id.v_monthdrop);
         v_yearDrop=creditcardinformation.findViewById(R.id.v_yeardrop);
@@ -354,6 +353,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
             tabTitle.addTab(tab);
         }
 
+        presenter.getUserInfo();
 
     }
 
@@ -612,7 +612,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
         int width = dropView.getWidth();
-        int hight = getResources().getDimensionPixelSize(R.dimen.dp_248);
+        int hight = getResources().getDimensionPixelSize(R.dimen.dp_220);
 
 
         final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
@@ -621,7 +621,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
         rvCamera.setAdapter(camerAdapter);
         camerAdapter.setOnItemClickListener((adapter, view, position) -> {
-            if (creditMonthValue == dropView) {
+            if (v_monthDrop == dropView) {
                 creditMonthValue.setText(list.get(position));
             } else {
                 creditYearValue.setText(list.get(position));
@@ -662,6 +662,84 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         App.getUserBean().setCardYear(cardYear);
         App.getUserBean().setCardNum(cardNum);
 
+
+    }
+
+    @Override
+    public void updataUser() {
+
+        userBean = App.getUserBean();
+
+        firstName=userBean.getFirstName();
+        lastName=userBean.getLastName();
+        address = userBean.getAddress();
+        addressDetail = userBean.getAddressDetail();
+        country = userBean.getCountry();
+        state = userBean.getState();
+        city = userBean.getCity();
+        zipCode = userBean.getZipCode();
+        mobileNum = userBean.getMobileNum();
+
+        cardNum = userBean.getCardNum();
+        cardYear = userBean.getCardYear();
+        cardMonth = userBean.getCardMonth();
+        cardAddr = userBean.getCardAddr();
+
+
+
+        if (!TextUtils.isEmpty(cardAddr)){
+            creditAddress2.setText(cardAddr);
+        }
+
+
+        if (!TextUtils.isEmpty(cardNum)){
+            creditMobileNumber.setText(cardNum);
+        }
+
+
+        if (!TextUtils.isEmpty(cardMonth)){
+            creditMonthValue.setText(cardMonth);
+        }
+
+        if (!TextUtils.isEmpty(cardYear)){
+            creditYearValue.setText(cardYear);
+        }
+
+
+        if (!TextUtils.isEmpty(address)) {
+            etAddress.setText(address);
+        }
+
+        if (!TextUtils.isEmpty(firstName)){
+            etFirstName.setText(firstName);
+        }
+
+        if (!TextUtils.isEmpty(lastName)){
+            etLastName.setText(lastName);
+        }
+
+
+        if (!TextUtils.isEmpty(addressDetail)) {
+            etAddress2.setText(addressDetail);
+        }
+
+        if (!TextUtils.isEmpty(country)) {
+            tvCountry.setText(country);
+        }
+        if (!TextUtils.isEmpty(state)) {
+            tvStateValue.setText(state);
+        }
+        if (!TextUtils.isEmpty(city)) {
+            etCity.setText(city);
+        }
+
+        if (!TextUtils.isEmpty(zipCode)) {
+            etZip.setText(zipCode);
+        }
+
+        if (!TextUtils.isEmpty(mobileNum)) {
+            etMobileNumber.setText(mobileNum);
+        }
 
     }
 }

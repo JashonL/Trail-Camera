@@ -44,7 +44,7 @@ public class PlansInfoAdapter extends BaseMultiItemQuickAdapter<PlansInfoBean, B
             if ("suspend".equalsIgnoreCase(status)) {
                 tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.red));
             } else if ("active".equalsIgnoreCase(status)) {
-                tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.yellow));
+                tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.orangle));
             } else {
                 tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.color_text_33));
             }
