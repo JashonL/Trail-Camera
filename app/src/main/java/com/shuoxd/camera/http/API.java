@@ -298,6 +298,15 @@ public class API {
         @POST("/v1/user/userCenter/")
         Observable<String> userCenter(@Field("imei")String imei);
 
+
+
+        //账单详情
+        @FormUrlEncoded
+        @POST("/v1/user/getSystemConfig/")
+        Observable<String> getSystemConfig(@Field("phoneOs")String phoneOs,@Field("appVersion")String appVersion);
+
+
+
     }
 
 }

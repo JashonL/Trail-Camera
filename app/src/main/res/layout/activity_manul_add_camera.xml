@@ -41,6 +41,7 @@
         android:layout_height="@dimen/dp_46"
         android:background="@drawable/shape_green_stroke"
         android:gravity="center"
+        android:singleLine="true"
         android:layout_marginStart="@dimen/dp_46"
         android:layout_marginEnd="@dimen/dp_46"
         android:hint="@string/m9_imei_num" />
@@ -52,6 +53,7 @@
         android:layout_height="@dimen/dp_46"
         android:background="@drawable/shape_green_stroke"
         android:gravity="center"
+        android:singleLine="true"
         android:layout_marginTop="@dimen/dp_40"
         android:layout_marginStart="@dimen/dp_46"
         android:layout_marginEnd="@dimen/dp_46"

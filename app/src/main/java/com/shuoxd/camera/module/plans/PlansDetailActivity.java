@@ -204,10 +204,10 @@ public class PlansDetailActivity extends BaseActivity<PlansDetailPresenter>
         }
 
         if ("suspend".equalsIgnoreCase(status)) {
-            suspend.setText("Ative");
+            suspend.setText("Active");
             ivStatus.setImageResource(R.drawable.plan_active);
         } else {
-            suspend.setText("suspend");
+            suspend.setText("Suspend");
             ivStatus.setImageResource(R.drawable.plan_suspend);
         }
     }

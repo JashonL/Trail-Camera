@@ -48,7 +48,7 @@
             android:layout_marginEnd="@dimen/dp_5"
             android:background="@drawable/shape_hd"
             android:gravity="center"
-            android:text="HD"
+            android:text="@string/m279_HQ"
             android:textColor="@color/color_text_33"
             android:textSize="@dimen/sp_8"
             app:layout_constraintRight_toRightOf="@+id/iv_camera"

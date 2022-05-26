@@ -105,7 +105,7 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
 
 
         //判断升级
-        AppUtils.isUpgradeApp(this);
+        AppUtils.isUpgradeApp(this,false);
 
     }
 

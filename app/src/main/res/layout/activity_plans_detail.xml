@@ -24,7 +24,7 @@
         android:padding="@dimen/dp_10"
         android:text="@string/m272_plan_management"
         android:textColor="@color/color_text_33"
-        android:textSize="@dimen/size_content_sp_12" />
+        android:textSize="@dimen/size_content_sp_14" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -67,7 +67,7 @@
                 android:id="@+id/change"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_5"
                 android:gravity="center"
                 android:text="@string/m38_change" />
 
@@ -100,7 +100,7 @@
                 android:id="@+id/suspend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_5"
                 android:gravity="center"
                 android:text="@string/m39_suspend" />
 
@@ -168,7 +168,7 @@
                 android:id="@+id/back"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_5"
                 android:gravity="center"
                 android:padding="@dimen/dp_5"
                 android:text="@string/m41_back" />

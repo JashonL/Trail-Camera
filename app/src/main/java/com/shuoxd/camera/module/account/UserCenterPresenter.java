@@ -37,7 +37,8 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
 //                        EventBus.getDefault().post(new FreshCameraList());
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
-                        baseView.modifyUserInfoSuccess(firstName, lastName, address, addressDetail, country, state, city, zipCode, mobileNum);
+                        baseView.modifyUserInfoSuccess(firstName, lastName, address, addressDetail,
+                                country, state, city, zipCode, mobileNum);
                     } else if ("10000".equals(result)) {
                         userReLogin(context, () -> {
                             modifyUserInfo(firstName, lastName,
@@ -79,7 +80,8 @@ public class UserCenterPresenter extends BasePresenter<UserCenterView> {
 //                        EventBus.getDefault().post(new FreshCameraList());
                         String msg = jsonObject.getString("msg");
                         ToastUtils.show(msg);
-                        baseView.modifyCardSuccess(cardName, cardAddr, cardCity, cardCountry, cardState, cardZip, cardNum, cardYear, cardMonth);
+                        baseView.modifyCardSuccess(cardName, cardAddr, cardCity, cardCountry, cardState,
+                                cardZip, cardNum, cardYear, cardMonth);
                     } else if ("10000".equals(result)) {
                         userReLogin(context, () -> {
                             modifyCreditCard(cardName, cardAddr,

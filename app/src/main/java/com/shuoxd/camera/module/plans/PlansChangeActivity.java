@@ -107,6 +107,8 @@ public class PlansChangeActivity extends BaseActivity<PlansChangePresenter>
             if (!TextUtils.isEmpty(introduce)){
                 introduce = introduce.replace("\\n", "\n");
                 tvAnnualTips1.setText(introduce);
+            }else {
+                tvAnnualTips1.setText("");
             }
 
         } else {
@@ -117,6 +119,8 @@ public class PlansChangeActivity extends BaseActivity<PlansChangePresenter>
             if (!TextUtils.isEmpty(introduce)){
                 introduce = introduce.replace("\\n", "\n");
                 tvMonthlyTips1.setText(introduce);
+            }else {
+                tvMonthlyTips1.setText("");
             }
         }
     }

@@ -250,6 +250,15 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     }
 
 
+
+    private void moveCenter2(LatLng location) {
+        if (location != null) {
+            mCenterLatlng = location;
+            googleMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 5f));
+        }
+    }
+
+
     /**
      * Enables the My Location layer if the fine location permission has been granted.
      */
@@ -365,12 +374,18 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     public void showCameraList(List<CameraBean> cameraList) {
         this.cameraList = cameraList;
 
+
+        double lat = 0;
+        double lng = 0;
         //解析经纬度
         for (int i = 0; i < cameraList.size(); i++) {
             CameraBean cameraBean = cameraList.get(i);
             String latitude = cameraBean.getCamera().getLatitude();
             String longitude = cameraBean.getCamera().getLongitude();
-
+            latitude = latitude.substring(0, latitude.length() - 1);
+            longitude = longitude.substring(0, longitude.length() - 1);
+            lat=Double.parseDouble(latitude);
+            lng=Double.parseDouble(longitude);
             //封装marker
             Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(
@@ -378,13 +393,19 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
                             Double.parseDouble(longitude)))
                     .title("Marker " + i).
                             icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                                    .decodeResource(getResources(), R.drawable.camera_marker))).title("我的相机"));
+                                    .decodeResource(getResources(), R.drawable.camera_marker))).title(""));
             mMarkerRainbow.add(marker);
 
         }
 
+        moveCenter2(new LatLng(lat,lng));
+
 
     }
+
+
+
+
 
     @Override
     public void showLocationSuccess(String lat,String lng) {

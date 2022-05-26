@@ -27,6 +27,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.tabs.TabLayout;
+import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.CameraFiterAdapter;
 import com.shuoxd.camera.adapter.PopAdapter;
@@ -89,6 +90,11 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     private EditText creditMobileNumber;
     private TextView creditMonthValue;
     private TextView creditYearValue;
+    private View vExpires;
+
+    private TextView tvMonth;
+    private TextView tvYear;
+
 
 
     private List<String> months = new ArrayList<>();
@@ -107,7 +113,20 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     private String city;
     private String zipCode;
     private String mobileNum;
+
+
+
     private View tvSameas;
+    private String cardNum;
+    private String cardYear;
+    private String cardMonth;
+    private View monthDrop;
+    private View yearDrop;
+
+    private View v_monthDrop;
+    private View v_yearDrop;
+
+    private String cardAddr;
 
 
     @Override
@@ -122,12 +141,22 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
     @Override
     protected void initViews() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         //头部toolBar
         initToobar(toolbar);
         tvTitle.setText(R.string.m82_account);
 
     }
 
+
+    @Override
+    protected void initImmersionBar() {
+        ImmersionBar.with(this)
+        .statusBarDarkFont(true, 0.2f)//设置状态栏图片为深色，(如果android 6.0以下就是半透明)
+                .fitsSystemWindows(true)
+                .statusBarColor(R.color.color_app_main)//这里的颜色，你可以自定义。
+                .init();
+    }
 
     @Override
     protected void initData() {
@@ -143,6 +172,11 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         city = userBean.getCity();
         zipCode = userBean.getZipCode();
         mobileNum = userBean.getMobileNum();
+
+         cardNum = userBean.getCardNum();
+         cardYear = userBean.getCardYear();
+         cardMonth = userBean.getCardMonth();
+         cardAddr = userBean.getCardAddr();
 
 
         for (int i = 0; i < 12; i++) {
@@ -199,7 +233,29 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         creditMobileNumber = creditcardinformation.findViewById(R.id.et_mobile_number);
         creditMonthValue = creditcardinformation.findViewById(R.id.tv_month_value);
         creditYearValue = creditcardinformation.findViewById(R.id.tv_year_value);
+        vExpires=creditcardinformation.findViewById(R.id.v_expires);
+        tvMonth=creditcardinformation.findViewById(R.id.tv_month);
+        tvYear=creditcardinformation.findViewById(R.id.tv_year);
         ImageView creditIvconutryDrop = creditcardinformation.findViewById(R.id.iv_country_drop);
+
+
+        if (!TextUtils.isEmpty(cardAddr)){
+            creditAddress2.setText(cardAddr);
+        }
+
+
+        if (!TextUtils.isEmpty(cardNum)){
+            creditMobileNumber.setText(cardNum);
+        }
+
+
+        if (!TextUtils.isEmpty(cardMonth)){
+            creditMonthValue.setText(cardMonth);
+        }
+
+        if (!TextUtils.isEmpty(cardYear)){
+            creditYearValue.setText(cardYear);
+        }
 
 
         if (!TextUtils.isEmpty(address)) {
@@ -254,24 +310,27 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         });
 
 
-        View monthDrop = creditcardinformation.findViewById(R.id.iv_month_drop);
-        View yearDrop = creditcardinformation.findViewById(R.id.iv_year_drop);
+         monthDrop = creditcardinformation.findViewById(R.id.iv_month_drop);
+         yearDrop = creditcardinformation.findViewById(R.id.iv_year_drop);
+
+        v_monthDrop=creditcardinformation.findViewById(R.id.v_monthdrop);
+        v_yearDrop=creditcardinformation.findViewById(R.id.v_yeardrop);
 
 
         monthDrop.setOnClickListener(view -> {
-            showSelect(creditMonthValue, months);
+            showSelect(v_monthDrop, months);
         });
         creditMonthValue.setOnClickListener(view -> {
-            showSelect(creditMonthValue, months);
+            showSelect(v_monthDrop, months);
         });
 
 
 
         yearDrop.setOnClickListener(view -> {
-            showSelect(creditYearValue, years);
+            showSelect(v_yearDrop, years);
         });
         creditYearValue.setOnClickListener(view -> {
-            showSelect(creditYearValue, years);
+            showSelect(v_yearDrop, years);
         });
 
 
@@ -594,7 +653,15 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
     }
 
     @Override
-    public void modifyCardSuccess(String firstName, String lastName, String address, String addressDetail, String country, String state, String city, String zipCode, String mobileNum) {
+    public void modifyCardSuccess(String cardName, String cardAddr, String cardCity,
+                                  String cardCountry, String cardState, String cardZip, String cardNum,
+                                  String cardYear, String cardMonth) {
+
+
+        App.getUserBean().setCardMonth(cardMonth);
+        App.getUserBean().setCardYear(cardYear);
+        App.getUserBean().setCardNum(cardNum);
+
 
     }
 }

@@ -78,7 +78,7 @@ public class ChangePassWordActivity extends BaseActivity<ChangePassWordPresenter
             String s = CommentUtils.hideString(email);
             String enterCode = getString(R.string.m227_enter_code);
             String format = String.format(enterCode, s);
-            etOlbPassword.setHint(format);
+            etOlbPassword.setHint(s);
         }
 
 

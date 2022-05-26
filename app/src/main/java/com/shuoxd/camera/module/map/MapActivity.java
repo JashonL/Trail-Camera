@@ -213,7 +213,7 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     private void moveCenter(LatLng location) {
         if (location != null) {
             mCenterLatlng = location;
-            mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 16f));
+            mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 14f));
         }
     }
 

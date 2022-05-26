@@ -16,7 +16,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.1.220510.0"
+        versionName "1.1.220526.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -144,6 +144,7 @@ dependencies {
     /*谷歌服务*/
     implementation 'com.google.android.gms:play-services-maps:17.0.1'
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
+    implementation 'com.google.android.gms:play-services-location:19.0.1'
 
 
     /*视频播放框架*/
@@ -152,4 +153,7 @@ dependencies {
     implementation 'com.danikula:videocache:2.7.0'
     /*okhttp证书*/
     implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+
+
+
 }

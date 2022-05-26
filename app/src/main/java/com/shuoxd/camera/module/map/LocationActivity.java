@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -54,11 +61,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static com.shuoxd.camera.constants.PermissionConstant.RC_LOCATION;
 
 public class LocationActivity
-       extends BaseActivity<MapPresenter> implements IMapView,
+        extends BaseActivity<MapPresenter> implements IMapView,
         OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener, GoogleMap.OnMyLocationButtonClickListener,
-        GoogleMap.OnMyLocationClickListener,GoogleMap.OnCameraIdleListener ,Toolbar.OnMenuItemClickListener, GoogleMap.OnMyLocationChangeListener{
-
+        GoogleMap.OnMyLocationClickListener, GoogleMap.OnCameraIdleListener, Toolbar.OnMenuItemClickListener, GoogleMap.OnMyLocationChangeListener {
 
 
     @BindView(R.id.etContent)
@@ -73,8 +79,6 @@ public class LocationActivity
     Toolbar toolbar;
     @BindView(R.id.status_bar_view)
     View statusBarView;
-
-
 
 
     private GoogleMap mMap;
@@ -96,20 +100,17 @@ public class LocationActivity
     private String mLat = "40.68399";
 
 
-
-
-
     @OnClick({R.id.flSearch})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.flSearch:
                 try {
                     String search2 = mEtContent.getText().toString().trim();
-                    if (geocoder == null){
+                    if (geocoder == null) {
                         geocoder = new Geocoder(this, Locale.getDefault());
                     }
                     List<Address> list = geocoder.getFromLocationName(search2, 10);
-                    if (list != null && list.size() > 0){
+                    if (list != null && list.size() > 0) {
                         List<MapSearchBean> newList = new ArrayList<>();
                         for (Address info : list) {
                             MapSearchBean bean = new MapSearchBean();
@@ -119,7 +120,7 @@ public class LocationActivity
                             bean.setCity(city);
                             bean.setCountry(info.getCountryName());
                             bean.setDistrict(info.getAdminArea());
-                            bean.setPt(new com.amap.api.maps.model.LatLng(info.getLatitude(),info.getLongitude()));
+                            bean.setPt(new com.amap.api.maps.model.LatLng(info.getLatitude(), info.getLongitude()));
                             newList.add(bean);
                         }
                         mAdapter.replaceData(newList);
@@ -133,7 +134,6 @@ public class LocationActivity
                 break;
         }
     }
-
 
 
     @Override
@@ -180,16 +180,74 @@ public class LocationActivity
                     .decodeResource(getResources(), R.drawable.camera_marker))).title("");
             mMap.addMarker(markerOption);
             moveCenter(plantLg);
-            getMyLocation();
+//            getMyLocation();
+
+            getDeviceLocation();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
+
     }
+
+
+
+    @SuppressLint("MissingPermission")
+    private void getDeviceLocation() {
+        try {
+            LocationRequest request = new LocationRequest();
+            request.setInterval(5000);
+            request.setFastestInterval(5000);
+            request.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+            LocationCallback locationCallback = new LocationCallback() {
+                @Override
+                public void onLocationResult(@NonNull LocationResult locationResult) {
+                    super.onLocationResult(locationResult);
+                    Location lastLocation = locationResult.getLastLocation();
+                    if (mMap != null) {
+                        //获取到当前位置，将地图移至定位处并将地图放大14倍
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 16f));
+                        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+                        //移除callBack,不然还会继续获取定位
+                        fusedLocationProviderClient.removeLocationUpdates(this);
+                        //清空之前添加的标记
+                        mMap.clear();
+                        //添加当前位置的标记
+                        MarkerOptions markerOption = new MarkerOptions();
+                        markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
+                                .decodeResource(getResources(), R.drawable.camera_marker))).title("");
+                        LatLng plantLg = new LatLng(Double.parseDouble(mLat), Double.parseDouble(mLng));
+                        markerOption.position(plantLg);
+                        mMap.addMarker(markerOption);
+                    }
+                }
+
+                @Override
+                public void onLocationAvailability(@NonNull LocationAvailability locationAvailability) {
+                    super.onLocationAvailability(locationAvailability);
+
+                    //当前定位不可用
+                    if (mMap.isMyLocationEnabled() != true){
+
+                    }
+                    fusedLocationProviderClient.removeLocationUpdates(this);
+                }
+            };
+
+            fusedLocationProviderClient.requestLocationUpdates(request,locationCallback, Looper.myLooper());
+
+        } catch (Exception e) {
+
+        }
+    }
+
 
     @Override
     protected MapPresenter createPresenter() {
-        return new MapPresenter(this,this);
+        return new MapPresenter(this, this);
     }
 
     @Override
@@ -205,8 +263,8 @@ public class LocationActivity
         mLng = getIntent().getStringExtra("lng");
 
 
-        mLat = mLat.substring(0, mLat.length()-1);
-        mLng = mLng.substring(0, mLng.length()-1);
+        mLat = mLat.substring(0, mLat.length() - 1);
+        mLng = mLng.substring(0, mLng.length() - 1);
 
         Locale locale = getResources().getConfiguration().locale;
         Locale.setDefault(locale);
@@ -231,7 +289,7 @@ public class LocationActivity
             mAdapter.replaceData(new ArrayList<>());
             //移动到中心位置
             com.amap.api.maps.model.LatLng pt = item.getPt();
-            moveCenter(new LatLng(pt.latitude,pt.longitude));
+            moveCenter(new LatLng(pt.latitude, pt.longitude));
             //设置数据
             mEtContent.setText(item.getAddress());
             String text = String.format("%s\n\n%s%s | %s:%f %s:%f", item.getAddress(), item.getCountry(), item.getCity()
@@ -251,8 +309,6 @@ public class LocationActivity
     }
 
 
-
-
     private void getMyLocation() {
         if (EasyPermissions.hasPermissions(this, AllPermissionRequestCode.PERMISSION_LOCATION)) {
             initNewLocation();
@@ -263,15 +319,18 @@ public class LocationActivity
         }
     }
 
+    FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
     protected void initData() {
         imei = getIntent().getStringExtra("imei");
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
         //显示经纬度信息
-        if (!TextUtils.isEmpty(mLat)&&!TextUtils.isEmpty(mLng)){
+        if (!TextUtils.isEmpty(mLat) && !TextUtils.isEmpty(mLng)) {
             double vLat = Double.parseDouble(mLat);
             double vLng = Double.parseDouble(mLng);
-            LatLng location=new LatLng(vLat,vLng);
+            LatLng location = new LatLng(vLat, vLng);
             getAddress(location);
         }
     }
@@ -282,7 +341,7 @@ public class LocationActivity
     }
 
     @Override
-    public void showLocationSuccess(String lat,String lng) {
+    public void showLocationSuccess(String lat, String lng) {
 
     }
 
@@ -328,9 +387,9 @@ public class LocationActivity
     }
 
 
-
     /**
      * 移动到我的位置
+     *
      * @param location
      */
     public void moveMyLocation(Location location) {
@@ -340,7 +399,7 @@ public class LocationActivity
             LatLng latLng = new LatLng(doubles[0], doubles[1]);
             moveCenter(latLng);
             placeMarkerOnMap(latLng);
-        }else {
+        } else {
             moveCenter(location);
         }
     }
@@ -374,7 +433,7 @@ public class LocationActivity
     private void getAddress(LatLng location) {
         try {
             List<Address> addresses;
-            if (geocoder == null){
+            if (geocoder == null) {
                 geocoder = new Geocoder(this, Locale.getDefault());
             }
             String addStr = null; //结果
@@ -382,7 +441,7 @@ public class LocationActivity
             Address adds = addresses.get(0);
             String address = addresses.get(0).getAddressLine(0);
 
-            if (centerBean == null){
+            if (centerBean == null) {
                 centerBean = new MapLoctionBean();
             }
             String city = adds.getLocality();
@@ -411,17 +470,17 @@ public class LocationActivity
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        if (centerBean == null){
+        if (centerBean == null) {
             centerBean = new MapLoctionBean();
         }
-        if (mCenterLatlng ==null) {
-           return true;
+        if (mCenterLatlng == null) {
+            return true;
         }
 
 
         centerBean.setLatitude(mCenterLatlng.latitude);
         centerBean.setLongitude(mCenterLatlng.longitude);
-        String operationValue=mCenterLatlng.longitude+"_"+mCenterLatlng.latitude;
+        String operationValue = mCenterLatlng.longitude + "_" + mCenterLatlng.latitude;
         presenter.control(imei, "longitude_latitude", operationValue);
 
         return true;

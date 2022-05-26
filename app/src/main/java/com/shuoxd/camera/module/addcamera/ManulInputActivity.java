@@ -25,8 +25,15 @@ import androidx.core.content.ContextCompat;
 
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
+import com.shuoxd.camera.eventbus.GetAddressMsg;
 import com.shuoxd.camera.module.login.User;
+import com.shuoxd.camera.utils.LocationUtils;
+import com.shuoxd.camera.utils.LogUtil;
 import com.shuoxd.camera.utils.MyToastUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -56,11 +63,9 @@ public class ManulInputActivity extends BaseActivity<Addpresenter> implements Ad
     Button btnRegister;
     @BindView(R.id.et_name)
     EditText etName;
-    private LocationManager locationManager;
-    private Location location;
-    private String provider;
-    private double lat;
-    private double lng;
+
+    private String lat="000.00000";
+    private String lng="000.00000";
 
     @Override
     protected Addpresenter createPresenter() {
@@ -74,9 +79,22 @@ public class ManulInputActivity extends BaseActivity<Addpresenter> implements Ad
 
     @Override
     protected void initViews() {
+        EventBus.getDefault().register(this);
         initToobar(toolbar);
         tvTitle.setText(R.string.m7_add_camera);
     }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getLocalCity(GetAddressMsg msg) {
+       lat=msg.getLat();
+       lng=msg.getLng();
+
+        LogUtil.i("经纬度："+lat+"经纬度:"+lng);
+
+    }
+
 
     @Override
     protected void initData() {
@@ -84,29 +102,14 @@ public class ManulInputActivity extends BaseActivity<Addpresenter> implements Ad
         // 获取位置服务
 
 
-// 调用getSystemService()方法来获取LocationManager对象
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (locationManager==null)return;
-
-// 指定LocationManager的定位方法
-
-        provider = LocationManager.GPS_PROVIDER;
-
-// 调用getLastKnownLocation()方法获取当前的位置信息
 
 
 
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
+            LocationUtils.getAddress(this);
 
-            location = locationManager.getLastKnownLocation(provider);
-
-            //获取纬度
-             lat = location.getLatitude();
-
-            //获取经度
-             lng = location.getLongitude();
         } else {
             // Do not have permissions, request them now
             String[] perms = {Manifest.permission.ACCESS_FINE_LOCATION};
@@ -138,12 +141,7 @@ public class ManulInputActivity extends BaseActivity<Addpresenter> implements Ad
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        location = locationManager.getLastKnownLocation(provider);
-        //获取纬度
-         lat = location.getLatitude();
-
-        //获取经度
-         lng = location.getLongitude();
+        LocationUtils.getAddress(this);
     }
 
     @Override
@@ -166,5 +164,9 @@ public class ManulInputActivity extends BaseActivity<Addpresenter> implements Ad
     }
 
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

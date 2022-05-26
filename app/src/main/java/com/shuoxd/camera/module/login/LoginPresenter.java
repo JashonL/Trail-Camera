@@ -13,7 +13,9 @@ import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseObserver;
 import com.shuoxd.camera.base.BasePresenter;
 import com.shuoxd.camera.bean.AppSystemDto;
+import com.shuoxd.camera.constants.GlobalConstant;
 import com.shuoxd.camera.constants.SharePreferenConstants;
+import com.shuoxd.camera.module.webview.WebViewActivity;
 import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
@@ -156,9 +158,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     private void loginSuccess() {
         Intent intent = new Intent(context, MainActivity.class);
-        context.startActivity(intent,
-                ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
-
+  /*      context.startActivity(intent,
+                ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());*/
+        context.startActivity(intent);
     }
 
     public void registerSuccess() {
@@ -169,6 +171,16 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     /*    context. startActivity(intent,
                 ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());*/
 
+    }
+
+
+
+    public void toWebView(){
+        Intent intent=new Intent(context, WebViewActivity.class);
+        intent.putExtra(GlobalConstant.WEB_URL,GlobalConstant.PRICY_URL);
+        String s="《"+context.getString(R.string.m281_privacy_policy)+"》";
+        intent.putExtra("title",s);
+        context.startActivity(intent);
     }
 
 }

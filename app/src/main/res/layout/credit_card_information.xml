@@ -38,6 +38,7 @@
         android:layout_marginEnd="@dimen/dp_10"
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
+        android:singleLine="true"
         android:hint="@string/m191_name_onhte_card"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
@@ -59,6 +60,7 @@
         android:gravity="center_vertical"
         android:hint="@string/m192_billing_address"
         android:paddingStart="@dimen/dp_10"
+        android:singleLine="true"
         android:textColor="@color/color_text_66"
         android:textSize="@dimen/size_content_sp_14"
         app:layout_constraintTop_toBottomOf="@+id/et_address" />
@@ -74,6 +76,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m181_city"
+        android:singleLine="true"
         android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
@@ -191,6 +194,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m185_zip"
+        android:singleLine="true"
         android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
@@ -212,6 +216,7 @@
         android:background="@drawable/shape_white_rect"
         android:gravity="center_vertical"
         android:hint="@string/m193_card_number"
+        android:singleLine="true"
         android:textColor="@color/color_text_66"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_14"
@@ -266,6 +271,18 @@
         app:layout_constraintTop_toTopOf="@+id/v_expires" />
 
 
+    <View
+        android:id="@+id/v_monthdrop"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_month"
+        app:layout_constraintRight_toRightOf="@+id/iv_month_drop"
+        app:layout_constraintTop_toBottomOf="@+id/v_expires"
+        />
+
+
+
+
     <ImageView
         android:id="@+id/iv_month_drop"
         android:layout_width="wrap_content"
@@ -313,7 +330,14 @@
         app:layout_constraintRight_toRightOf="@+id/v_expires"
         app:layout_constraintTop_toTopOf="@+id/tv_month" />
 
-
+    <View
+        android:id="@+id/v_yeardrop"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        app:layout_constraintLeft_toLeftOf="@+id/tv_year"
+        app:layout_constraintRight_toRightOf="@+id/iv_year_drop"
+        app:layout_constraintTop_toBottomOf="@+id/v_expires"
+        />
     <!--
         <Button
             android:id="@+id/btn_register"

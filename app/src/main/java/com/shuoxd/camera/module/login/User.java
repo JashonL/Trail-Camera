@@ -27,6 +27,35 @@ public class User {
     private String firstName;
 
 
+    private String cardYear;
+    private String cardMonth;
+    private String cardNum;
+    private String cardAddr;
+
+    public String getCardYear() {
+        return cardYear;
+    }
+
+    public void setCardYear(String cardYear) {
+        this.cardYear = cardYear;
+    }
+
+    public String getCardMonth() {
+        return cardMonth;
+    }
+
+    public void setCardMonth(String cardMonth) {
+        this.cardMonth = cardMonth;
+    }
+
+    public String getCardNum() {
+        return cardNum;
+    }
+
+    public void setCardNum(String cardNum) {
+        this.cardNum = cardNum;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -185,5 +214,13 @@ public class User {
 
     public void setUnReadMsgCount(String unReadMsgCount) {
         this.unReadMsgCount = unReadMsgCount;
+    }
+
+    public String getCardAddr() {
+        return cardAddr;
+    }
+
+    public void setCardAddr(String cardAddr) {
+        this.cardAddr = cardAddr;
     }
 }

@@ -39,6 +39,7 @@
             android:layout_height="@dimen/dp_45"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
+            android:singleLine="true"
             android:background="@null"
             android:paddingStart="@dimen/dp_10"
             android:gravity="center_vertical"
@@ -78,6 +79,7 @@
         android:inputType="textPassword"
         android:paddingStart="@dimen/dp_10"
         android:textSize="@dimen/size_content_sp_12"
+        android:singleLine="true"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ll_code" />
@@ -93,6 +95,7 @@
         android:hint="@string/m196_new_password_comfir"
         android:inputType="textPassword"
         android:paddingStart="@dimen/dp_10"
+        android:singleLine="true"
         android:textSize="@dimen/size_content_sp_12"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
