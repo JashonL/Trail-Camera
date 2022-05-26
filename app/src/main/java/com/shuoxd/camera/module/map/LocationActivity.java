@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -37,6 +38,8 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.gyf.immersionbar.ImmersionBar;
 import com.mylhyl.circledialog.CircleDialog;
 import com.shuoxd.camera.R;
@@ -180,9 +183,9 @@ public class LocationActivity
                     .decodeResource(getResources(), R.drawable.camera_marker))).title("");
             mMap.addMarker(markerOption);
             moveCenter(plantLg);
-//            getMyLocation();
+            getMyLocation();
 
-            getDeviceLocation();
+//            getDeviceLocation();
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -363,12 +366,33 @@ public class LocationActivity
     }
 
 
+
     @SuppressLint("MissingPermission")
     public void initNewLocation() {
         mMap.setMyLocationEnabled(true);
         mMap.getUiSettings().setMyLocationButtonEnabled(false);
         mMap.setOnMyLocationChangeListener(this);
 //        mMap.setOnMyLocationButtonClickListener(this);
+
+        try {
+            Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
+            locationResult.addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    if (task.isSuccessful()) {
+                        Location location = task.getResult();
+                        //获取到当前的经纬度传入movecamera中就ok了
+                        if (location!=null){
+                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13.0f));
+                        }
+                    }
+                }
+            });
+        } catch (SecurityException e) {
+            Log.e("Exception: %s", e.getMessage());
+        }
+
+
     }
 
     @Override
