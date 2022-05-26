@@ -212,7 +212,7 @@ public class LocationActivity
                     Location lastLocation = locationResult.getLastLocation();
                     if (mMap != null) {
                         //获取到当前位置，将地图移至定位处并将地图放大14倍
-                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 16f));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude()), 13f));
                         mMap.getUiSettings().setMyLocationButtonEnabled(false);
                         //移除callBack,不然还会继续获取定位
                         fusedLocationProviderClient.removeLocationUpdates(this);
@@ -382,9 +382,9 @@ public class LocationActivity
                     if (task.isSuccessful()) {
                         Location location = task.getResult();
                         //获取到当前的经纬度传入movecamera中就ok了
-                        if (location!=null){
+                     /*   if (location!=null){
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(location.getLatitude(), location.getLongitude()), 13.0f));
-                        }
+                        }*/
                     }
                 }
             });
@@ -438,7 +438,7 @@ public class LocationActivity
     private void moveCenter(LatLng location) {
         if (location != null) {
             mCenterLatlng = location;
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 16f));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 13f));
         }
     }
 

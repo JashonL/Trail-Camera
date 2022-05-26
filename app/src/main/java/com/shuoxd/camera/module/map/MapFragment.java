@@ -254,7 +254,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     private void moveCenter2(LatLng location) {
         if (location != null) {
             mCenterLatlng = location;
-            googleMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 5f));
+            googleMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 1f));
         }
     }
 

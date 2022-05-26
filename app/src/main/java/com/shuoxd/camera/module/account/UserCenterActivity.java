@@ -128,6 +128,15 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
     private String cardAddr;
 
+    private String cardName;
+    private String cardCity;
+    private String cardCountry;
+    private String cardState;
+    private String cardZip;
+
+
+
+
 
     @Override
     protected UserCenterPresenter createPresenter() {
@@ -178,6 +187,18 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         cardAddr = userBean.getCardAddr();
 
 
+        cardName = userBean.getCardName();
+        cardCity = userBean.getCardCity();
+        cardCountry = userBean.getCardCountry();
+        cardState = userBean.getCardState();
+        cardZip = userBean.getCardZip();
+
+
+
+
+
+
+
         for (int i = 0; i < 12; i++) {
             months.add(i + 1 + "");
         }
@@ -218,7 +239,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
         cbSame = creditcardinformation.findViewById(R.id.cb_same);
-        cbSame.setChecked(true);
+//        cbSame.setChecked(true);
         tvSameas = creditcardinformation.findViewById(R.id.tv_sameas);
         tvSameas.setOnClickListener(view -> {
             cbSame.setChecked(!cbSame.isChecked());
@@ -291,6 +312,32 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         if (!TextUtils.isEmpty(mobileNum)) {
             etMobileNumber.setText(mobileNum);
         }
+
+
+
+/////////////////////
+
+
+        if (!TextUtils.isEmpty(cardName)) {
+            creditAddress.setText(cardName);
+        }
+        if (!TextUtils.isEmpty(cardCity)) {
+            creditCity.setText(cardCity);
+        }
+        if (!TextUtils.isEmpty(cardCountry)) {
+            creditCountryValue.setText(cardCountry);
+        }
+
+        if (!TextUtils.isEmpty(cardState)) {
+            creditStateValue.setText(cardState);
+        }
+
+        if (!TextUtils.isEmpty(cardZip)) {
+            creditZip.setText(cardZip);
+        }
+
+
+
 
 
         ImageView creditIvDrop = creditcardinformation.findViewById(R.id.iv_drop);
@@ -400,6 +447,7 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
         if (position == 1) {
             boolean checked = cbSame.isChecked();
             if (checked) {
+
                 String address = etAddress.getText().toString();
                 String address_detail = etAddress2.getText().toString();
                 String city = etCity.getText().toString();
@@ -407,24 +455,34 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
                 String country = tvCountry.getText().toString();
                 String zip = etZip.getText().toString();
 
-                if (!TextUtils.isEmpty(address)) {
-                    creditAddress.setText(address);
+                String firstName = etFirstName.getText().toString();
+                String lastName = etLastName.getText().toString();
+
+
+                if (!TextUtils.isEmpty(lastName)&&!TextUtils.isEmpty(firstName)) {
+                    String name=lastName+" "+firstName;
+                    creditAddress.setText(name);
                 }
-                if (!TextUtils.isEmpty(address_detail)) {
-                    creditAddress2.setText(address_detail);
+                if (!TextUtils.isEmpty(address)) {
+                    creditAddress2.setText(address);
                 }
                 if (!TextUtils.isEmpty(city)) {
                     creditCity.setText(city);
                 }
+
                 if (!TextUtils.isEmpty(value)) {
                     creditStateValue.setText(city);
                 }
+
                 if (!TextUtils.isEmpty(country)) {
                     creditCountryValue.setText(country);
                 }
+
+
                 if (!TextUtils.isEmpty(zip)) {
                     creditZip.setText(zip);
                 }
+
 
             }
 
@@ -658,10 +716,15 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
                                   String cardYear, String cardMonth) {
 
 
-        App.getUserBean().setCardMonth(cardMonth);
-        App.getUserBean().setCardYear(cardYear);
+        App.getUserBean().setCardName(cardName);
+        App.getUserBean().setCardAddr(cardAddr);
+        App.getUserBean().setCardCity(cardCity);
+        App.getUserBean().setCardCountry(cardCountry);
+        App.getUserBean().setCardState(cardState);
+        App.getUserBean().setCardZip(cardZip);
         App.getUserBean().setCardNum(cardNum);
-
+        App.getUserBean().setCardYear(cardYear);
+        App.getUserBean().setCardNum(cardMonth);
 
     }
 

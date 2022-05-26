@@ -31,6 +31,12 @@ public class User {
     private String cardMonth;
     private String cardNum;
     private String cardAddr;
+    private String cardName;
+    private String cardCity;
+    private String cardCountry;
+    private String cardState;
+    private String cardZip;
+
 
     public String getCardYear() {
         return cardYear;
@@ -222,5 +228,46 @@ public class User {
 
     public void setCardAddr(String cardAddr) {
         this.cardAddr = cardAddr;
+    }
+
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+    public String getCardCity() {
+        return cardCity;
+    }
+
+    public void setCardCity(String cardCity) {
+        this.cardCity = cardCity;
+    }
+
+    public String getCardCountry() {
+        return cardCountry;
+    }
+
+    public void setCardCountry(String cardCountry) {
+        this.cardCountry = cardCountry;
+    }
+
+    public String getCardState() {
+        return cardState;
+    }
+
+    public void setCardState(String cardState) {
+        this.cardState = cardState;
+    }
+
+    public String getCardZip() {
+        return cardZip;
+    }
+
+    public void setCardZip(String cardZip) {
+        this.cardZip = cardZip;
     }
 }
