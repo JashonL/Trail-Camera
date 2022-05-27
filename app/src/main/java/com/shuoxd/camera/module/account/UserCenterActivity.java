@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -200,7 +201,14 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
         for (int i = 0; i < 12; i++) {
-            months.add(i + 1 + "");
+            int month = i + 1;
+
+            if (month<10){
+                months.add("0"+ month);
+
+            }else {
+                months.add(month+ "");
+            }
         }
 
         for (int i = 2022; i < 2050; i++) {
@@ -270,7 +278,15 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
         if (!TextUtils.isEmpty(cardMonth)){
-            creditMonthValue.setText(cardMonth);
+            int value = Integer.parseInt(cardMonth);
+            String v;
+            if (value<10){
+                v="0"+value;
+            }else {
+                v= String.valueOf(value);
+            }
+
+            creditMonthValue.setText(v);
         }
 
         if (!TextUtils.isEmpty(cardYear)){
@@ -668,9 +684,14 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
 
-
+        int height = getWindow().getDecorView().getHeight();
+        int[] location = new int[2];
+        dropView.getLocationInWindow(location);
+        int y = location[1]; // view距离window 顶边的距离（即y轴方向）
         int width = dropView.getWidth();
-        int hight = getResources().getDimensionPixelSize(R.dimen.dp_220);
+        int hight = height - y - dropView.getHeight()-100;
+
+
 
 
         final PopupWindow popupWindow = new PopupWindow(contentView, width, hight, true);
@@ -761,8 +782,18 @@ public class UserCenterActivity extends BaseActivity<UserCenterPresenter> implem
 
 
         if (!TextUtils.isEmpty(cardMonth)){
-            creditMonthValue.setText(cardMonth);
+            int value = Integer.parseInt(cardMonth);
+            String v;
+            if (value<10){
+                v="0"+value;
+            }else {
+                v= String.valueOf(value);
+            }
+            creditMonthValue.setText(v);
         }
+
+
+
 
         if (!TextUtils.isEmpty(cardYear)){
             creditYearValue.setText(cardYear);

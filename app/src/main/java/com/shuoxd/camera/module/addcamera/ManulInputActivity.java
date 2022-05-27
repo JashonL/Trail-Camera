@@ -101,11 +101,6 @@ public class ManulInputActivity extends BaseActivity<Addpresenter> implements Ad
         presenter.initData();
         // 获取位置服务
 
-
-
-
-
-
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             LocationUtils.getAddress(this);

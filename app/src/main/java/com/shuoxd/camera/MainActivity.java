@@ -230,6 +230,38 @@ public class MainActivity extends BaseActivity<HomePresenter> implements IMainAc
     }
 
 
+
+
+    public void showCameraInfo2() {
+
+        bottomNavigationView.selectTab(0);
+
+        mTransaction = mManager.beginTransaction();
+        boolean isRefresh = false;
+        if (mCameraFragment == null) {
+            mCameraFragment = new CameraFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("cameraId", cameraId);//电站id传值
+            bundle.putString("alias", cameraAlias);//电站id传值
+            mCameraFragment.setArguments(bundle);
+            mTransaction.add(R.id.fl_content, mCameraFragment);
+        } else {
+            //刷新界面
+            mCameraFragment.cameraId = this.cameraId;
+            mCameraFragment.alias = this.cameraAlias;
+            isRefresh = true;
+        }
+        mTransaction.commit();
+        hideFragment(mTransaction);
+        mTransaction.show(mCameraFragment);
+        if (isRefresh) {
+            mCameraFragment.refresh();
+        }
+    }
+
+
+
+
     public void showHome() {
         mTransaction = mManager.beginTransaction();
         if (homeFragment == null) {

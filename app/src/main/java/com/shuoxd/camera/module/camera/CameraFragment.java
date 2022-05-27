@@ -533,6 +533,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     intent1.putExtra("imei", cameraId);
                     intent1.putExtra("lat", info.getLatitude());
                     intent1.putExtra("lng", info.getLongitude());
+                    intent1.putExtra("alias", this.alias);
                     startActivity(intent1);
                     break;
 

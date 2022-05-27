@@ -94,7 +94,7 @@ public class LocationUtils {
     /**
      * 获取最好的定位方式
      */
-    private static Location getBestLocation(Context context, Criteria criteria) {
+    private static Location getBestLocation(Context context, Criteria criteria) throws Exception {
         Location location;
         LocationManager manager = getLocationManager(context);
         if (criteria == null) {
@@ -190,7 +190,11 @@ public class LocationUtils {
             public void run() {
                 Location location = null;
                 while (location == null) {
-                    location = LocationUtils.getBestLocation(context, c);
+                    try {
+                        location = LocationUtils.getBestLocation(context, c);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 //                    location = LocationUtils.getGPSLocation(context);
                 }
                 try {

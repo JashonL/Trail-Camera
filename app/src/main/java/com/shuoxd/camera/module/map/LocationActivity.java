@@ -402,7 +402,7 @@ public class LocationActivity
             if (isFirst) {
                 isFirst = false;
                 //移动屏幕到中心点
-                moveMyLocation(location);
+//                moveMyLocation(location);
                 //添加标记到指定经纬度
 //                mMap.addMarker(new MarkerOptions().position(new LatLng(doubles[0], doubles[1])).title("Marker")
 //                        .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher)));

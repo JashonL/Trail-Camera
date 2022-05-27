@@ -70,12 +70,22 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     TextView tvName;
     @BindView(R.id.tv_wifi)
     TextView tvWifi;
+
+    @BindView(R.id.tv_battery)
+    TextView tvBattery;
+
+    @BindView(R.id.tv_ext)
+    TextView tvExt;
+
+    @BindView(R.id.tv_sdcard)
+    TextView tvSdcard;
+
+
     @BindView(R.id.tv_address)
     TextView tvAddress;
 
     @BindView(R.id.tv_nogoogle_service)
     TextView tvNoGoogle;
-
 
 
     private MapView mMap;
@@ -91,11 +101,11 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     private MapLoctionBean centerBean;
 
 
-   private CameraBean cameraBean;
+    private CameraBean cameraBean;
 
     private final String GOOGLE_MAP_APP = "com.google.android.apps.maps";
 
-    private  LatLng markerLatLng;
+    private LatLng markerLatLng;
     private final String GOOGLE_MAP_NAVI_URI = "google.navigation:q=";
 
 
@@ -142,14 +152,12 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
 
 
         boolean googleService = CommentUtils.isGoogleService(getContext());
-        if (!googleService){
+        if (!googleService) {
             tvNoGoogle.setVisibility(View.VISIBLE);
             mMap.setVisibility(View.GONE);
-        }else {
+        } else {
             mMap.getMapAsync(this);
         }
-
-
 
 
         return view;
@@ -237,7 +245,10 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
 
         googleMap.setOnMyLocationButtonClickListener(this);
         googleMap.setOnMyLocationClickListener(this);
-
+        googleMap.setOnMarkerClickListener(this);
+        googleMap.setOnMapClickListener(latLng -> {
+            cameraNavigation.setVisibility(View.GONE);
+        });
         //获取相机列表
         presenter.getAlldevice();
     }
@@ -250,11 +261,10 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     }
 
 
-
     private void moveCenter2(LatLng location) {
         if (location != null) {
             mCenterLatlng = location;
-            googleMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 1f));
+            googleMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 0f));
         }
     }
 
@@ -304,44 +314,100 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
 
         //如果已经显示的就隐藏
         boolean infoWindowShown = marker.isInfoWindowShown();
-        if (infoWindowShown){
+        if (infoWindowShown) {
             cameraNavigation.setVisibility(View.GONE);
-        }else {
+        } else {
             cameraNavigation.setVisibility(View.VISIBLE);
         }
         //获取相机信息
         cameraBean = cameraList.get(index);
         CameraBean.CameraInfo camera = cameraBean.getCamera();
         String alias = camera.getAlias();
-        if (TextUtils.isEmpty(alias)){
-            alias=camera.getImei();
+        if (TextUtils.isEmpty(alias)) {
+            alias = camera.getImei();
         }
         tvName.setText(alias);
 
         String signalStrength = camera.getSignalStrength();
         int wifiStrength = Integer.parseInt(signalStrength);
         if (wifiStrength == 0) {
-            setTextViewDrawableTop( tvWifi, R.drawable.signal1);
+            setTextViewDrawableTop(tvWifi, R.drawable.signal1);
         } else if (wifiStrength <= 25) {
-            setTextViewDrawableTop( tvWifi, R.drawable.signal2);
+            setTextViewDrawableTop(tvWifi, R.drawable.signal2);
         } else if (wifiStrength <= 50) {
-            setTextViewDrawableTop( tvWifi, R.drawable.signal3);
+            setTextViewDrawableTop(tvWifi, R.drawable.signal3);
         } else if (wifiStrength <= 75) {
-            setTextViewDrawableTop( tvWifi, R.drawable.signal3);
+            setTextViewDrawableTop(tvWifi, R.drawable.signal3);
         } else {
-            setTextViewDrawableTop( tvWifi, R.drawable.signal4);
+            setTextViewDrawableTop(tvWifi, R.drawable.signal4);
         }
 
+        String batteryLevel = camera.getBatteryLevel();
+        String cardSpace = camera.getCardSpace();
 
-        LatLng position = marker.getPosition();
-        getAddress(position);
+
+        String extDcLevel = camera.getExtDcLevel();
+        int batteryL = Integer.parseInt(batteryLevel);
+        if (batteryL == 0) {
+            setTextViewDrawableTop(tvBattery, R.drawable.bat0);
+        } else if (batteryL <= 25) {
+            setTextViewDrawableTop(tvBattery, R.drawable.bat1);
+        } else if (batteryL <= 50) {
+            setTextViewDrawableTop(tvBattery, R.drawable.bat2);
+        } else if (batteryL <= 75) {
+            setTextViewDrawableTop(tvBattery, R.drawable.bat3);
+        } else {
+            setTextViewDrawableTop(tvBattery, R.drawable.bat4);
+        }
+
+        tvBattery.setText(batteryL + "%");
+
+
+
+
+        int extDcl = Integer.parseInt(extDcLevel);
+        if (extDcl == 0) {
+            setTextViewDrawableTop( tvExt, R.drawable.ext0);
+        } else if (extDcl <= 25) {
+            setTextViewDrawableTop( tvExt, R.drawable.ext1);
+        } else if (extDcl <= 50) {
+            setTextViewDrawableTop( tvExt, R.drawable.ext2);
+        } else if (extDcl <= 75) {
+            setTextViewDrawableTop( tvExt, R.drawable.ext3);
+        } else {
+            setTextViewDrawableTop( tvExt, R.drawable.ext4);
+        }
+
+        tvExt.setText(extDcl + "%");
+
+
+
+
+        int sSpace = Integer.parseInt(cardSpace);
+
+        if (sSpace == 0) {
+            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard0);
+        } else if (sSpace <= 19) {
+            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard1);
+        } else if (sSpace <= 49) {
+            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard2);
+        } else if (sSpace <= 69) {
+            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard3);
+        } else if (sSpace <= 94){
+            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard4);
+        }else {
+            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard5);
+        }
+
+        tvSdcard.setText(sSpace + "%");
+
+
+        markerLatLng = marker.getPosition();
+        getAddress(markerLatLng);
 
 
         return false;
     }
-
-
-
 
 
     public void setTextViewDrawableTop(TextView textView, int drawId) {
@@ -356,8 +422,6 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
             textView.setCompoundDrawables(drawable, null, null, null);
         }
     }
-
-
 
 
     @Override
@@ -384,8 +448,9 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
             String longitude = cameraBean.getCamera().getLongitude();
             latitude = latitude.substring(0, latitude.length() - 1);
             longitude = longitude.substring(0, longitude.length() - 1);
-            lat=Double.parseDouble(latitude);
-            lng=Double.parseDouble(longitude);
+            lat = Double.parseDouble(latitude);
+            lng = Double.parseDouble(longitude);
+            String alias = cameraBean.getCamera().getAlias();
             //封装marker
             Marker marker = googleMap.addMarker(new MarkerOptions()
                     .position(new LatLng(
@@ -393,35 +458,37 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
                             Double.parseDouble(longitude)))
                     .title("Marker " + i).
                             icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                                    .decodeResource(getResources(), R.drawable.camera_marker))).title(""));
+                                    .decodeResource(getResources(), R.drawable.camera_marker))).title(alias));
             mMarkerRainbow.add(marker);
-
         }
 
-        moveCenter2(new LatLng(lat,lng));
+        moveCenter2(new LatLng(lat, lng));
 
 
     }
-
-
-
 
 
     @Override
-    public void showLocationSuccess(String lat,String lng) {
+    public void showLocationSuccess(String lat, String lng) {
 
     }
 
 
-    @OnClick({R.id.tv_details,R.id.tv_address})
+    @OnClick({R.id.tv_details, R.id.tv_address,R.id.iv_navigation})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_details:
+
+                cameraNavigation.setVisibility(View.GONE);
+
                 CameraBean.CameraInfo camera = cameraBean.getCamera();
                 String alias = camera.getAlias();
                 String imei = camera.getImei();
-                showCameraInfo(imei,alias);
+                showCameraInfo(imei, alias);
+
+
                 break;
+            case R.id.iv_navigation:
             case R.id.tv_address:
                 try {
                     jumpLocation();
@@ -433,7 +500,6 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     }
 
 
-
     /**
      * 跳转到导航
      */
@@ -443,46 +509,39 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
 
 //        navigateForDestination();
         if (isApplicationInstall(GOOGLE_MAP_APP)) {
-            goNaviByGoogleMap(String.valueOf(lat),String.valueOf(lng));
+            goNaviByGoogleMap(String.valueOf(lat), String.valueOf(lng));
         } else {
             MyToastUtils.toast(R.string.m205_app_not_installed);
         }
     }
 
 
-
-
-
-
-
     /**
      * by moos on 2017/09/18
      * func:调起谷歌导航
+     *
      * @param lat
      * @param lon
      */
-    private void goNaviByGoogleMap(String lat,String lon){
+    private void goNaviByGoogleMap(String lat, String lon) {
 
-        Uri uri = Uri.parse(GOOGLE_MAP_NAVI_URI+lat+","+lon);
+        Uri uri = Uri.parse(GOOGLE_MAP_NAVI_URI + lat + "," + lon);
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, uri);
         mapIntent.setPackage("com.google.android.apps.maps");
         startActivity(mapIntent);
     }
 
 
-
-
-
     /**
      * by moos on 2017/09/18
      * func:判断手机是否安装了该应用
+     *
      * @param packageName
      * @return
      */
-    private boolean isApplicationInstall(String packageName){
+    private boolean isApplicationInstall(String packageName) {
         return new File("/data/data/" + packageName).exists();
     }
-
 
 
     //点击item跳转到Fragment1V2
@@ -491,8 +550,13 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
         MainActivity main = (MainActivity) getActivity();
         main.cameraId = id;
         main.cameraAlias = alias;
-        main.showCameraInfo();
+        main.showCameraInfo2();
     }
+
+
+
+
+
 
 
 
@@ -504,14 +568,14 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     private void getAddress(LatLng location) {
         try {
             List<Address> addresses;
-            if (geocoder == null){
+            if (geocoder == null) {
                 geocoder = new Geocoder(getContext(), Locale.getDefault());
             }
             String addStr = null; //结果
             addresses = geocoder.getFromLocation(location.latitude, location.longitude, 1);
             Address adds = addresses.get(0);
             String address = addresses.get(0).getAddressLine(0);
-            if (centerBean == null){
+            if (centerBean == null) {
                 centerBean = new MapLoctionBean();
             }
             String city = adds.getLocality();
@@ -519,7 +583,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
             centerBean.setCity(city);
             centerBean.setCountry(adds.getCountryName());
             centerBean.setDetail(address);
-            String text = String.format("%s\n\n%s%s | %s:%f %s:%f", address, adds.getCountryName(), city
+            String text = String.format("%s\n%s%s|%s:%f %s:%f", address, adds.getCountryName(), city
                     , getString(R.string.m202_longitude), location.longitude, getString(R.string.m203_Latitude), location.latitude);
             tvAddress.setText(text);
         } catch (Exception e) {

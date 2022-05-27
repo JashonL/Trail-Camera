@@ -329,6 +329,6 @@
     <string name="m279_HQ">HQ</string>
     <string name="m280_no_newversion">None Latest Version</string>
     <string name="m281_privacy_policy">User Terms and Privacy Policy</string>
-    <string name="m282_please_choose">请勾选用户协议</string>
+    <string name="m282_please_choose">Please Select User Protocol</string>
 
 </resources>

@@ -24,58 +24,71 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/tv_imei_num"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_30"
-        android:padding="@dimen/dp_10"
-        android:text="@string/m8_find_imei"
-        android:textColor="@color/color_text_66"
-        android:textSize="@dimen/size_content_sp_14" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_imei_num"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_20"
+                android:padding="@dimen/dp_10"
+                android:text="@string/m8_find_imei"
+                android:textColor="@color/color_text_66"
+                android:textSize="@dimen/size_content_sp_14" />
 
 
-    <EditText
-        android:id="@+id/et_imei"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_46"
-        android:background="@drawable/shape_green_stroke"
-        android:gravity="center"
-        android:singleLine="true"
-        android:layout_marginStart="@dimen/dp_46"
-        android:layout_marginEnd="@dimen/dp_46"
-        android:hint="@string/m9_imei_num" />
+            <EditText
+                android:id="@+id/et_imei"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_46"
+                android:layout_marginStart="@dimen/dp_46"
+                android:layout_marginEnd="@dimen/dp_46"
+                android:background="@drawable/shape_green_stroke"
+                android:gravity="center"
+                android:hint="@string/m9_imei_num"
+                android:singleLine="true" />
 
 
-    <EditText
-        android:id="@+id/et_name"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_46"
-        android:background="@drawable/shape_green_stroke"
-        android:gravity="center"
-        android:singleLine="true"
-        android:layout_marginTop="@dimen/dp_40"
-        android:layout_marginStart="@dimen/dp_46"
-        android:layout_marginEnd="@dimen/dp_46"
-        android:hint="@string/m161_camera_name" />
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_46"
+                android:layout_marginStart="@dimen/dp_46"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginEnd="@dimen/dp_46"
+                android:background="@drawable/shape_green_stroke"
+                android:gravity="center"
+                android:hint="@string/m161_camera_name"
+                android:singleLine="true" />
 
 
-    <Button
-        android:id="@+id/btn_register"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="start"
-        android:layout_marginStart="@dimen/dp_46"
-        android:layout_marginTop="@dimen/dp_50"
-        android:layout_marginEnd="@dimen/dp_46"
-        android:layout_marginBottom="@dimen/dp_64"
-        android:background="@drawable/selector_button_corner"
-        android:minWidth="@dimen/dp_250"
-        android:padding="@dimen/dp_5"
-        android:text="@string/m10_complete"
-        android:textColor="@color/white"
-        android:textSize="@dimen/size_title_sp_14" />
+            <Button
+                android:id="@+id/btn_register"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_gravity="start"
+                android:layout_marginStart="@dimen/dp_46"
+                android:layout_marginTop="@dimen/dp_30"
+                android:layout_marginEnd="@dimen/dp_46"
+                android:layout_marginBottom="@dimen/dp_64"
+                android:background="@drawable/selector_button_corner"
+                android:minWidth="@dimen/dp_250"
+                android:padding="@dimen/dp_5"
+                android:text="@string/m10_complete"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_title_sp_14" />
 
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>
