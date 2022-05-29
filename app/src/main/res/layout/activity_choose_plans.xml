@@ -18,7 +18,7 @@
         android:padding="@dimen/dp_10"
         android:text="@string/m244_choose_plans"
         android:textColor="@color/color_text_33"
-        android:textSize="@dimen/size_content_sp_12" />
+        android:textSize="@dimen/size_content_sp_14" />
 
 
     <com.google.android.material.tabs.TabLayout

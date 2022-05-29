@@ -9,7 +9,7 @@
     <View
         android:id="@+id/v_background"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_150"
+        android:layout_height="@dimen/dp_140"
         android:background="@drawable/shape_me_background"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,13 +30,21 @@
         app:layout_constraintGuide_end="@dimen/dp_16" />
 
 
+    <View
+
+        android:id="@+id/status_bar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/iv_avatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_16"
+        android:layout_marginTop="@dimen/dp_20"
         android:src="@drawable/default_header"
-        app:layout_constraintBottom_toBottomOf="@+id/v_background"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,6 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_20"
         android:gravity="center_vertical"
+        android:text="jehone@qq.com"
         android:textColor="@color/white"
         android:textSize="@dimen/size_title_sp_20"
         app:layout_constraintBottom_toTopOf="@+id/tv_certified"
@@ -63,9 +72,9 @@
         android:paddingStart="@dimen/dp_10"
         android:paddingEnd="@dimen/dp_10"
         android:text="@string/m32_certified"
-        android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="@dimen/size_content_sp_12"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
         app:layout_constraintLeft_toLeftOf="@+id/tv_username"
         app:layout_constraintTop_toBottomOf="@+id/tv_username" />
@@ -78,9 +87,9 @@
         android:layout_marginStart="@dimen/dp_10"
         android:gravity="center_vertical"
         android:text="721695214@qq.com"
-        android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="@dimen/size_content_sp_16"
+        android:visibility="gone"
         app:autoSizeMaxTextSize="@dimen/size_content_sp_16"
         app:autoSizeMinTextSize="@dimen/size_content_sp_8"
         app:autoSizeTextType="uniform"
@@ -126,27 +135,27 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="0"
-            app:layout_constraintVertical_chainStyle="packed"
             android:textColor="@color/color_text_33"
             android:textSize="@dimen/size_content_sp_20"
             app:layout_constraintBottom_toTopOf="@+id/tv_camera_count_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/v_line1"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_camera_count_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_2"
             android:gravity="center_vertical"
             android:text="@string/m264_total_camreacount"
+            android:textColor="@color/color_text_66"
+            android:textSize="@dimen/size_content_sp_14"
             app:autoSizeMaxTextSize="@dimen/size_content_sp_16"
             app:autoSizeMinTextSize="@dimen/size_content_sp_8"
             app:autoSizeTextType="uniform"
-            android:layout_marginTop="@dimen/dp_2"
-            android:textColor="@color/color_text_66"
-            android:textSize="@dimen/size_content_sp_14"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toLeftOf="@+id/v_line1"
@@ -172,27 +181,27 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="0"
-            app:layout_constraintVertical_chainStyle="packed"
             android:textColor="@color/color_text_33"
             android:textSize="@dimen/size_content_sp_20"
             app:layout_constraintBottom_toTopOf="@+id/tv_photo_count_title"
             app:layout_constraintLeft_toLeftOf="@+id/v_line1"
             app:layout_constraintRight_toLeftOf="@+id/v_line2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_photo_count_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            app:autoSizeMaxTextSize="@dimen/size_content_sp_16"
-            app:autoSizeMinTextSize="@dimen/size_content_sp_8"
-            app:autoSizeTextType="uniform"
             android:layout_marginTop="@dimen/dp_2"
+            android:gravity="center_vertical"
             android:text="@string/m263_total_uploadCount"
             android:textColor="@color/color_text_66"
             android:textSize="@dimen/size_content_sp_14"
+            app:autoSizeMaxTextSize="@dimen/size_content_sp_16"
+            app:autoSizeMinTextSize="@dimen/size_content_sp_8"
+            app:autoSizeTextType="uniform"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="@+id/v_line1"
             app:layout_constraintRight_toLeftOf="@+id/v_line2"
@@ -218,21 +227,21 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="0"
-            app:layout_constraintVertical_chainStyle="packed"
             android:textColor="@color/color_text_33"
             android:textSize="@dimen/size_content_sp_20"
             app:layout_constraintBottom_toTopOf="@+id/tv_video_title"
             app:layout_constraintLeft_toRightOf="@+id/v_line2"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed" />
 
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_video_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
             android:layout_marginTop="@dimen/dp_2"
+            android:gravity="center_vertical"
             android:text="@string/m265_total_videocount"
             android:textColor="@color/color_text_66"
             android:textSize="@dimen/size_content_sp_14"
@@ -302,7 +311,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_date"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="@dimen/dp_10"

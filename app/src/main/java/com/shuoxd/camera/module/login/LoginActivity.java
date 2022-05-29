@@ -1,12 +1,14 @@
 package com.shuoxd.camera.module.login;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -25,7 +27,9 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.hjq.toast.ToastUtils;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
+import com.shuoxd.camera.constants.GlobalConstant;
 import com.shuoxd.camera.module.account.ForgetPassWordActivity;
+import com.shuoxd.camera.module.webview.WebViewActivity;
 import com.shuoxd.camera.utils.CommentUtils;
 
 import java.util.List;
@@ -98,6 +102,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     ScrollView scrollView;
     @BindView(R.id.gp_register_step)
     Group gpRestep;
+    @BindView(R.id.tv_agreement)
+    TextView tvAgreement;
+    @BindView(R.id.cb_agreement)
+    CheckBox cbAgreement;
+
 
     @Override
     protected LoginPresenter createPresenter() {
@@ -142,7 +151,8 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         etRegisterPassword.setHint(R.string.m61_password);
         etConfirmPassword.setHint(R.string.m62_confirm_password);
 
-
+        String s="《 "+getString(R.string.m281_privacy_policy)+" 》";
+        tvAgreement.setText(s);
     }
 
     @Override
@@ -177,7 +187,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
 
-    @OnClick({R.id.btn_login, R.id.btn_register, R.id.tv_forgot_pwd})
+    @OnClick({R.id.btn_login, R.id.btn_register, R.id.tv_forgot_pwd,R.id.tv_agreement})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -195,14 +205,24 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 presenter.userLogin(username, password);
                 break;
             case R.id.btn_register:
-                String reUserName = etRegisterUsername.getText().toString();
-                String rePassword = etRegisterPassword.getText().toString();
 
-                String timeZone = CommentUtils.getTimeZone();
-                presenter.register(timeZone,reUserName, rePassword);
+                if (cbAgreement.isChecked()){
+                    String reUserName = etRegisterUsername.getText().toString();
+                    String rePassword = etRegisterPassword.getText().toString();
+
+                    String timeZone = CommentUtils.getTimeZone();
+                    presenter.register(timeZone,reUserName, rePassword);
+                }else {
+                    ToastUtils.show(R.string.m282_please_choose);
+                }
+
+
                 break;
             case R.id.tv_forgot_pwd:
                 startActivity(new Intent(this, ForgetPassWordActivity.class));
+                break;
+            case R.id.tv_agreement:
+                presenter.toWebView();
                 break;
         }
     }

@@ -15,16 +15,18 @@ import android.widget.TextView;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.hjq.toast.ToastUtils;
 import com.mylhyl.circledialog.BaseCircleDialog;
 import com.mylhyl.circledialog.CircleDialog;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.bean.AppSystemDto;
+import com.shuoxd.camera.module.plans.PlansDetailActivity;
 
 public class AppUtils {
 
 
-    public static void isUpgradeApp(Context context){
+    public static void isUpgradeApp(Context context,boolean manual){
         AppSystemDto systemDto = App.getSystemDto();
         if (systemDto!=null){
             //是否有新版本
@@ -52,15 +54,14 @@ public class AppUtils {
                 TextView tvLogReal = view.findViewById(R.id.tv_log_real);
                 ivClose.setVisibility(isForce ? View.GONE : View.VISIBLE);
 
-
-
                 //最新版本
                 if (!TextUtils.isEmpty(lastVersion)) {
                     tvNewVersion.setText(lastVersion);
                 }
 
                 if (!TextUtils.isEmpty(lastVersionUpgradeDescription)) {
-                    tvLogReal.setText(lastVersionUpgradeDescription);
+                    String replace = lastVersionUpgradeDescription.replace("\\n", "\n");
+                    tvLogReal.setText(replace);
                 }
 
                 //显示弹框
@@ -111,6 +112,11 @@ public class AppUtils {
                         }
                     }
                 });
+            }else {
+                if (manual){
+                    ToastUtils.show(R.string.m280_no_newversion);
+                }
+
             }
 
 

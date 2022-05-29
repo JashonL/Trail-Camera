@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/m16_hd"
+            android:text="@string/m279_HQ"
             app:layout_constraintLeft_toLeftOf="@+id/iv_icon"
             app:layout_constraintRight_toRightOf="@+id/iv_icon"
             app:layout_constraintTop_toBottomOf="@+id/iv_icon" />

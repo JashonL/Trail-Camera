@@ -13,4 +13,6 @@ public interface UserCenterView extends BaseView {
                            String address, String addressDetail,
                            String country, String state,
                            String city, String zipCode, String mobileNum);
+
+    void updataUser();
 }

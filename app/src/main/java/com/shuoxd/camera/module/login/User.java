@@ -27,6 +27,41 @@ public class User {
     private String firstName;
 
 
+    private String cardYear;
+    private String cardMonth;
+    private String cardNum;
+    private String cardAddr;
+    private String cardName;
+    private String cardCity;
+    private String cardCountry;
+    private String cardState;
+    private String cardZip;
+
+
+    public String getCardYear() {
+        return cardYear;
+    }
+
+    public void setCardYear(String cardYear) {
+        this.cardYear = cardYear;
+    }
+
+    public String getCardMonth() {
+        return cardMonth;
+    }
+
+    public void setCardMonth(String cardMonth) {
+        this.cardMonth = cardMonth;
+    }
+
+    public String getCardNum() {
+        return cardNum;
+    }
+
+    public void setCardNum(String cardNum) {
+        this.cardNum = cardNum;
+    }
+
     public String getLastName() {
         return lastName;
     }
@@ -185,5 +220,54 @@ public class User {
 
     public void setUnReadMsgCount(String unReadMsgCount) {
         this.unReadMsgCount = unReadMsgCount;
+    }
+
+    public String getCardAddr() {
+        return cardAddr;
+    }
+
+    public void setCardAddr(String cardAddr) {
+        this.cardAddr = cardAddr;
+    }
+
+
+    public String getCardName() {
+        return cardName;
+    }
+
+    public void setCardName(String cardName) {
+        this.cardName = cardName;
+    }
+
+    public String getCardCity() {
+        return cardCity;
+    }
+
+    public void setCardCity(String cardCity) {
+        this.cardCity = cardCity;
+    }
+
+    public String getCardCountry() {
+        return cardCountry;
+    }
+
+    public void setCardCountry(String cardCountry) {
+        this.cardCountry = cardCountry;
+    }
+
+    public String getCardState() {
+        return cardState;
+    }
+
+    public void setCardState(String cardState) {
+        this.cardState = cardState;
+    }
+
+    public String getCardZip() {
+        return cardZip;
+    }
+
+    public void setCardZip(String cardZip) {
+        this.cardZip = cardZip;
     }
 }

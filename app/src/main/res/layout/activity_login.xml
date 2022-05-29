@@ -95,6 +95,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_20"
+
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tab_title">
@@ -116,8 +117,8 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/login_user"
                                 android:drawablePadding="8dp"
-                                android:singleLine="true"
                                 android:paddingBottom="@dimen/dp_15"
+                                android:singleLine="true"
                                 android:textSize="@dimen/size_content_sp_14" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -141,9 +142,9 @@
                                 android:layout_height="wrap_content"
                                 android:drawableStart="@drawable/login_pwd"
                                 android:drawablePadding="8dp"
-                                android:singleLine="true"
                                 android:inputType="textPassword"
                                 android:paddingBottom="@dimen/dp_15"
+                                android:singleLine="true"
                                 android:textSize="@dimen/size_content_sp_14" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -241,8 +242,8 @@
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="8dp"
                                 android:inputType="textPassword"
-                                android:singleLine="true"
                                 android:paddingBottom="@dimen/dp_15"
+                                android:singleLine="true"
                                 android:textSize="@dimen/size_content_sp_14" />
 
                         </com.google.android.material.textfield.TextInputLayout>
@@ -265,12 +266,44 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawablePadding="8dp"
-                                android:singleLine="true"
                                 android:inputType="textPassword"
                                 android:paddingBottom="@dimen/dp_15"
+                                android:singleLine="true"
                                 android:textSize="@dimen/size_content_sp_14" />
 
                         </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <RelativeLayout
+                            android:id="@+id/rl_term"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_40"
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:gravity="center"
+                            app:layout_constraintTop_toBottomOf="@+id/til_re_comfir_password">
+
+                            <TextView
+                                android:id="@+id/tv_agreement"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:maxWidth="@dimen/dp_250"
+                                android:text="@string/m281_privacy_policy"
+                                android:textColor="@color/color_app_main"
+                                android:textSize="@dimen/size_content_sp_14" />
+
+                            <CheckBox
+                                android:id="@+id/cb_agreement"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_toStartOf="@+id/tv_agreement"
+                                android:checked="false"
+                                android:textColor="@color/color_app_main" />
+
+
+                        </RelativeLayout>
 
 
                         <Button
@@ -289,12 +322,12 @@
                             android:textColor="@color/white"
                             android:textSize="@dimen/size_title_sp_14"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/til_re_comfir_password"
+                            app:layout_constraintTop_toBottomOf="@+id/rl_term"
                             app:layout_constraintVertical_bias="0.2" />
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/dp_50"
+                            android:layout_height="@dimen/dp_30"
                             app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

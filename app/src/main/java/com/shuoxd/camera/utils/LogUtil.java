@@ -4,7 +4,7 @@ import android.util.Log;
 
 public class LogUtil {
     private static String TAG = "GroHome";
-    private static boolean IS_LOG = false;
+    private static boolean IS_LOG = true;
     private static int MAX_LENGTH = 4000;
 
     public LogUtil() {

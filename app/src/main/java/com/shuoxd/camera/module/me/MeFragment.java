@@ -2,6 +2,7 @@ package com.shuoxd.camera.module.me;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +36,7 @@ import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.module.message.MessageListActivity;
 import com.shuoxd.camera.module.plans.PlansActivity;
 import com.shuoxd.camera.module.support.SupportActivity;
+import com.shuoxd.camera.utils.AppUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
 
 import java.util.ArrayList;
@@ -109,6 +111,9 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
         tvTitle.setText("");*/
 
         //初始化RecyclerView
+
+        tvDate.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+
         setAdapter();
 
 
@@ -177,11 +182,15 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     }
 
 
-    @OnClick({R.id.iv_edit})
+    @OnClick({R.id.iv_edit,R.id.tv_date})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_edit:
                 startActivity(new Intent(getContext(), ChangePassWordActivity.class));
+                break;
+            case R.id.tv_date:
+                presenter.getSystemConfig();
+                AppUtils.isUpgradeApp(getContext(),true);
                 break;
         }
     }

@@ -88,6 +88,8 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
 
     private boolean permissionDenied = false;
 
+    private String alias;
+
 
     @Override
     protected MapPresenter createPresenter() {
@@ -120,6 +122,8 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
         mLat = mLat.substring(0, mLat.length()-1);
         mLng = getIntent().getStringExtra("lng");
         mLng = mLng.substring(0, mLng.length()-1);
+
+        alias=getIntent().getStringExtra("alias");
         //加载地图
         Locale locale = getResources().getConfiguration().locale;
         Locale.setDefault(locale);
@@ -189,7 +193,7 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
             LatLng plantLg = new LatLng(Double.parseDouble(mLat), Double.parseDouble(mLng));
             markerOption.position(plantLg);
             markerOption.icon(BitmapDescriptorFactory.fromBitmap(BitmapFactory
-                    .decodeResource(getResources(), R.drawable.camera_marker))).title("我的相机");
+                    .decodeResource(getResources(), R.drawable.camera_marker))).title(alias);
             mMap.addMarker(markerOption);
             moveCenter(plantLg);
 
@@ -208,7 +212,7 @@ public class MapActivity extends BaseActivity<MapPresenter> implements IMapView,
     private void moveCenter(LatLng location) {
         if (location != null) {
             mCenterLatlng = location;
-            mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 16f));
+            mMap.moveCamera(com.google.android.gms.maps.CameraUpdateFactory.newLatLngZoom(mCenterLatlng, 10f));
         }
     }
 

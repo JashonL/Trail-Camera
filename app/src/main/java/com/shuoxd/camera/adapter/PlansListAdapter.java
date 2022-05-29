@@ -35,7 +35,10 @@ public class PlansListAdapter extends BaseQuickAdapter<CameraBean, BaseViewHolde
 
         String iccid = camera.getIccid();
         String s = mContext.getString(R.string.m235_imei)+":"+imei;
-        s += "\n"+mContext.getString(R.string.m236_iccid)+":"+iccid;
+        s += "\n"+mContext.getString(R.string.m236_iccid)+":";
+        if (!TextUtils.isEmpty(iccid)){
+            s+=iccid;
+        }
         helper.setText(R.id.tv_content,s);
 
     }

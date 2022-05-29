@@ -15,7 +15,7 @@
         android:padding="@dimen/dp_10"
         android:text="@string/m37_select_camera"
         android:textColor="@color/color_text_66"
-        android:textSize="@dimen/size_content_sp_12" />
+        android:textSize="@dimen/size_content_sp_14" />
 
 
     <androidx.recyclerview.widget.RecyclerView

@@ -23,7 +23,7 @@
         android:padding="@dimen/dp_10"
         android:text="@string/m257_question_title"
         android:textColor="@color/color_text_33"
-        android:textSize="@dimen/size_content_sp_12" />
+        android:textSize="@dimen/size_content_sp_14" />
 
 
     <androidx.recyclerview.widget.RecyclerView

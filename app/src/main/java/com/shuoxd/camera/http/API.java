@@ -293,10 +293,23 @@ public class API {
         Observable<String> billLogChart(@Field("imei")String imei,@Field("isAllCamera")String isAllCamera
         ,@Field("date")String date);
 
-        //账单详情
+        //用户中心
         @FormUrlEncoded
         @POST("/v1/user/userCenter/")
         Observable<String> userCenter(@Field("imei")String imei);
+
+
+
+        //获取系统版本
+        @FormUrlEncoded
+        @POST("/v1/user/getSystemConfig/")
+        Observable<String> getSystemConfig(@Field("phoneOs")String phoneOs,@Field("appVersion")String appVersion);
+
+        //获取用户详情
+        @FormUrlEncoded
+        @POST("/v1/user/getUserInfo/")
+        Observable<String> getUserInfo(@Field("email")String email);
+
 
     }
 
