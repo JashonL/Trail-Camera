@@ -159,8 +159,9 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     private void loginSuccess() {
         Intent intent = new Intent(context, MainActivity2.class);
-        context.startActivity(intent,
-                ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
+     /*   context.startActivity(intent,
+                ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());*/
+        context.startActivity(intent);
 
     }
 

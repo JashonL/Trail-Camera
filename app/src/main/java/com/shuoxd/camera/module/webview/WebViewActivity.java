@@ -20,6 +20,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.utils.Mydialog;
@@ -42,8 +43,7 @@ public class WebViewActivity extends BaseActivity<WebViewPresenter> implements I
 
     @Override
     protected void initImmersionBar() {
-        super.initImmersionBar();
-        mImmersionBar.reset().statusBarDarkFont(true, 0.2f).
+        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).
                 statusBarView(statusBarView).statusBarColor(R.color.color_app_main).init();
     }
 

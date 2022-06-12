@@ -20,6 +20,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.mylhyl.circledialog.CircleDialog;
 import com.shuoxd.camera.HomePresenter;
 import com.shuoxd.camera.MainActivity;
+import com.shuoxd.camera.MainActivity2;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.HomeDeviceBigAdapter;
 import com.shuoxd.camera.adapter.HomeDeviceSmallAdapter;
@@ -32,6 +33,7 @@ import com.shuoxd.camera.customview.LinearDivider;
 import com.shuoxd.camera.customview.MySwipeRefreshLayout;
 import com.shuoxd.camera.eventbus.FreshCameraList;
 import com.shuoxd.camera.eventbus.FreshCameraLocation;
+import com.shuoxd.camera.utils.LogUtil;
 import com.shuoxd.camera.utils.SharedPreferencesUnit;
 import com.shuoxd.camera.zxing.ScanActivity;
 
@@ -90,6 +92,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     protected void initView() {
+        LogUtil.d("运行homefragment的创建方法");
         //注册接收器
         EventBus.getDefault().register(this);
 
@@ -316,10 +319,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     //点击item跳转到Fragment1V2
 
     private void showCameraInfo(String id, String alias) {
-        MainActivity main = (MainActivity) getActivity();
+        MainActivity2 main = (MainActivity2) getActivity();
         main.cameraId = id;
         main.cameraAlias = alias;
-        main.showCameraInfo();
+//        main.showCameraInfo();
     }
 
 

@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -21,7 +22,7 @@ import com.gyf.immersionbar.ImmersionBar;
 import com.shuoxd.camera.base.BaseActivity;
 import com.shuoxd.camera.module.camera.CameraFragment;
 import com.shuoxd.camera.module.gallery.PhotoFragment;
-import com.shuoxd.camera.module.home.HomeFragment;
+import com.shuoxd.camera.module.home.HomeComFragment;
 import com.shuoxd.camera.module.map.MapFragment;
 import com.shuoxd.camera.module.me.MeFragment;
 import com.shuoxd.camera.utils.AppUtils;
@@ -44,7 +45,7 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
     /**
      * 包括五个fragment
      */
-    private HomeFragment homeFragment;
+    private HomeComFragment homeFragment;
     private PhotoFragment mPhotoFragment;
     private MapFragment mMapFragment;
     private MeFragment mMeFragment;
@@ -57,8 +58,7 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
     public String cameraAlias;
 
 
-    private FragmentTransaction mTransaction;
-    private FragmentManager mManager;
+    private boolean fragmentsUpdateFlag[] = {false, false, false, false};
 
 
     private ArrayList<Fragment> mFragments;
@@ -69,6 +69,7 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
     public static final String KEY_TITLE = "title";
     public static final String KEY_MESSAGE = "message";
     public static final String KEY_EXTRAS = "extras";
+    private MyAdapter myAdapter;
 
 
     @Override
@@ -135,7 +136,7 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
     protected void initViews() {
 
         mFragments = new ArrayList<>();
-        homeFragment = new HomeFragment();
+        homeFragment = new HomeComFragment();
         mPhotoFragment = new PhotoFragment();
         mMapFragment = new MapFragment();
         mMeFragment = new MeFragment();
@@ -149,7 +150,9 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
         mFragments.add(mMeFragment);
 
 
-        vp.setAdapter(new MyAdapter(getSupportFragmentManager()));
+        myAdapter = new MyAdapter(getSupportFragmentManager(),mFragments);
+
+        vp.setAdapter(myAdapter);
         vp.setOffscreenPageLimit(4);
         vp.addOnPageChangeListener(this);
 
@@ -185,7 +188,7 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
         registerMessageReceiver();  // used for receive msg
 
         //判断升级
-        AppUtils.isUpgradeApp(this);
+        AppUtils.isUpgradeApp(this,false);
 
     }
 
@@ -241,18 +244,23 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
 
 
     private class MyAdapter extends FragmentPagerAdapter {
-        public MyAdapter(@NonNull FragmentManager fm) {
+
+        private List<Fragment> fragments;
+
+
+        public MyAdapter(@NonNull FragmentManager fm,List<Fragment>fragments) {
             super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+            this.fragments=fragments;
         }
 
         @Override
         public Fragment getItem(int position) {
-            return mFragments.get(position);
+            return fragments.get(position);
         }
 
         @Override
         public int getCount() {
-            return mFragments.size();
+            return fragments.size();
         }
     }
 
@@ -285,6 +293,26 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
                 break;
         }
     }
+
+
+
+
+    public void showCameraInfo() {
+
+
+        mFragments.remove(0);
+
+        myAdapter.notifyDataSetChanged();
+        List<Fragment> newList = new ArrayList<>(mFragments);
+        newList.add(0,mCameraFragment);
+        myAdapter = new MyAdapter(getSupportFragmentManager(),newList);
+        vp.setAdapter(myAdapter);
+
+
+
+    }
+
+
 
     @Override
     public void onPageScrollStateChanged(int state) {

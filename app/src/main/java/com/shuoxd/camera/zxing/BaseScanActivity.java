@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.king.zxing.CameraScan;
 import com.shuoxd.camera.R;
 
@@ -39,7 +40,10 @@ public abstract class BaseScanActivity extends AppCompatActivity implements Came
      * Init immersion bar.
      */
     protected void initImmersionBar() {
-
+        //设置共同沉浸式样式
+        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).
+                statusBarColor(R.color.color_app_main).fitsSystemWindows(true).
+                navigationBarColor(R.color.white).init();
     }
 
 
