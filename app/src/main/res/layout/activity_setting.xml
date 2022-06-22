@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <include layout="@layout/toobar_title" />
+
+    <RelativeLayout
+        android:id="@+id/ll_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_180"
+        app:layout_constraintTop_toBottomOf="@+id/app_toolbar">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="@dimen/dp_80"
+            android:layout_height="@dimen/dp_80"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="@dimen/dp_16"
+            android:background="@drawable/ic_logo" />
+
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textSize="@dimen/size_content_sp_14" />
+
+    </RelativeLayout>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_header">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/gray_eeeeeee" />
+
+            <LinearLayout
+                android:id="@+id/ll_agreement"
+                style="@style/user_linearlayout_item_style">
+
+
+                <TextView
+                    style="@style/user_tittle_item_style"
+                    android:text="@string/m289_user_agreement" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_agreement"
+                    style="@style/user_text_item_style"
+                    app:autoSizeMaxTextSize="@dimen/size_content_sp_14"
+                    app:autoSizeMinTextSize="@dimen/sp_8"
+                    app:autoSizeTextType="uniform" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_8"
+                    android:layout_height="@dimen/dp_14"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/next" />
+            </LinearLayout>
+
+
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:background="@color/gray_eeeeeee" />
+
+            <LinearLayout
+                android:id="@+id/ll_check"
+                style="@style/user_linearlayout_item_style">
+
+
+                <TextView
+                    style="@style/user_tittle_item_style"
+                    android:text="@string/m290_check_the_update" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_privacy"
+                    style="@style/user_text_item_style"
+                    app:autoSizeMaxTextSize="@dimen/size_content_sp_14"
+                    app:autoSizeMinTextSize="@dimen/sp_8"
+                    app:autoSizeTextType="uniform" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_8"
+                    android:layout_height="@dimen/dp_14"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/next" />
+            </LinearLayout>
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:layout_height="@dimen/dp_1"
+                android:background="@color/gray_eeeeeee" />
+
+            <LinearLayout
+                android:id="@+id/ll_delete_account"
+                style="@style/user_linearlayout_item_style">
+
+
+                <TextView
+                    style="@style/user_tittle_item_style"
+                    android:text="@string/m291_delete_account" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_check"
+                    style="@style/user_text_item_style"
+                    app:autoSizeMaxTextSize="@dimen/size_content_sp_14"
+                    app:autoSizeMinTextSize="@dimen/sp_8"
+                    app:autoSizeTextType="uniform" />
+
+                <ImageView
+                    android:id="@+id/ivMore1"
+                    android:layout_width="@dimen/dp_8"
+                    android:layout_height="@dimen/dp_14"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/next" />
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginEnd="@dimen/dp_10"
+                android:background="@color/gray_eeeeeee" />
+
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

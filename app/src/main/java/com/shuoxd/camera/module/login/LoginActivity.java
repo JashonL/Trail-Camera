@@ -187,7 +187,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
 
-    @OnClick({R.id.btn_login, R.id.btn_register, R.id.tv_forgot_pwd,R.id.tv_agreement})
+    @OnClick({R.id.btn_login, R.id.btn_register, R.id.tv_forgot_pwd,R.id.tv_agreement,R.id.btn_demo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
@@ -223,6 +223,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 break;
             case R.id.tv_agreement:
                 presenter.toWebView();
+                break;
+            case R.id.btn_demo:
+                presenter.loginGuest();
                 break;
         }
     }

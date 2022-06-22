@@ -336,6 +336,12 @@
     <string name="m285_electrify_instructions">1.Please electrify the camera according to the instructions</string>
     <string name="m286_manual_uploading">2.Manual uploading of camera parameters or images is possible</string>
     <string name="m287_last_sync">Last Sync</string>
+    <string name="m288_setting">Setting</string>
+    <string name="m289_user_agreement">User Agreement</string>
+    <string name="m290_check_the_update">Check the update</string>
 
-
+    <string name="m291_delete_account">Delete Account</string>
+    <string name="m292_destroy_tips">Your account will be deleted within one week. Your account data includes user information, credit card information, location information, camera upload data and all other user-related data. Please confirm whether to submit?</string>
+    <string name="m293_recover_account">Recover Account</string>
+    <string name="m294_recover_tips">You have submitted the deletion of user data. The deletion will be completed within one week at the latest. Do you want to cancel the deletion?</string>
 </resources>

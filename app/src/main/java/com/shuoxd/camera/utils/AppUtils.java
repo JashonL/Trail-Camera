@@ -2,6 +2,7 @@ package com.shuoxd.camera.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -127,6 +128,15 @@ public class AppUtils {
 
 
 
+    public static String getVersionName(Context context) {
+        try {
+            return context.getPackageManager().getPackageInfo(
+                    context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "1.0";
+    }
 
 
 

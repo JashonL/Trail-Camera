@@ -84,5 +84,6 @@
     <color name="camera_info_color1">#EAFCF2</color>
     <color name="camera_info_color2">#FCF6E8</color>
 
+    <color name="gray_background_click">#d4d4d4</color><!--主体背景颜色3:点击后颜色-->
 
 </resources>

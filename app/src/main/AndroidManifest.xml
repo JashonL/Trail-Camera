@@ -244,6 +244,16 @@
             android:screenOrientation="portrait"/>
 
 
+        <activity android:name=".module.me.SettingActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".module.me.DestroyActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
+            />
+
+
 
 
     </application>

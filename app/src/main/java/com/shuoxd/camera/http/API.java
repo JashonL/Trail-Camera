@@ -51,6 +51,24 @@ public class API {
                                  @Field("appVersion") String appVersion
         );
 
+
+
+        //登录
+        @FormUrlEncoded
+        @POST("v1/user/loginGuest")
+        Observable<String> loginGuest(@Field("phoneOs") String phoneOs, @Field("appVersion") String appVersion
+        );
+
+
+
+        //注销
+        @FormUrlEncoded
+        @POST("v1/user/deleteUser")
+        Observable<String> deleteUser(@Field("operationType") String operationType
+        );
+
+
+
         //登出
         @FormUrlEncoded
         @POST("v1/user/logOut")

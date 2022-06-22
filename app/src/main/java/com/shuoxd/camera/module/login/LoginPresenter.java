@@ -157,6 +157,65 @@ public class LoginPresenter extends BasePresenter<LoginView> {
     }
 
 
+
+
+
+
+
+    /**
+     * 登录
+     */
+    public void loginGuest() {
+
+        String systemModel = CommentUtils.getSystemModel();
+        String verSionName = CommentUtils.getVerSionName(context);
+        //正式登录
+        addDisposable(apiServer.loginGuest( String.valueOf(1),  verSionName), new BaseObserver<String>(baseView, true) {
+
+            @Override
+            public void onSuccess(String bean) {
+                try {
+                    JSONObject jsonObject = new JSONObject(bean);
+                    String result = jsonObject.optString("result");
+                    if ("0".equals(result)) {//请求成功
+                        JSONObject obj = jsonObject.optJSONObject("obj");
+                        if (obj == null) return;
+                        JSONObject appSystemDto = obj.optJSONObject("appSystemDto");
+                        if (appSystemDto != null) {
+                            AppSystemDto appSystemDto1 = new Gson().fromJson(appSystemDto.toString(), AppSystemDto.class);
+                            App.setSystemDto(appSystemDto1);
+                        }
+                        JSONObject user1 = obj.optJSONObject("user");
+                        if (user1 != null) {
+                            //用户解析
+                            User userInfo = new Gson().fromJson(user1.toString(), User.class);
+//                            userInfo.setAccountName(username);
+//                            userInfo.setPassword(password);
+                            App.IS_LOGIN = true;
+//                            savaUserInfo(username, password, userInfo);
+                        }
+                        loginSuccess();
+                    } else {
+                        String msg = jsonObject.optString("msg");
+                        baseView.showLoginError(msg);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(String msg) {
+                baseView.showLoginError(msg);
+            }
+        });
+
+    }
+
+
+
+
+
     private void loginSuccess() {
         Intent intent = new Intent(context, MainActivity2.class);
      /*   context.startActivity(intent,

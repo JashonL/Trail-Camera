@@ -101,5 +101,34 @@
 
 
 
+    <style name="user_linearlayout_item_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_45</item>
+        <item name="android:background">@drawable/selector_item_click</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingLeft">@dimen/dp_10</item>
+        <item name="android:paddingRight">@dimen/dp_10</item>
+    </style>
+
+    <style name="user_tittle_item_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/size_content_sp_14</item>
+        <item name="android:textColor">@color/black_333333</item>
+    </style>
+
+
+
+    <style name="user_text_item_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/size_content_sp_14</item>
+        <item name="android:textColor">@color/black_333333</item>
+    </style>
+
 
 </resources>

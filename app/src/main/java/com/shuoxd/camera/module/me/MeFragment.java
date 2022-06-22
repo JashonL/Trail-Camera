@@ -140,7 +140,7 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
         tvUsername.setText(accountName);
         tvEmail.setText(accountName);
 
-
+/*
         String[] titles = {getString(R.string.m79_plans), getString(R.string.m80_billing_history), getString(R.string.m81_Message),
                 getString(R.string.m82_account), getString(R.string.m83_Support), getString(R.string.m84_sign_out)
         };
@@ -148,7 +148,28 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
 
         int[] res = {R.drawable.plans, R.drawable.billing_hisory, R.drawable.messages,
                 R.drawable.account, R.drawable.support, R.drawable.sign_out
+        };*/
+
+
+        String[] titles = {
+                getString(R.string.m79_plans),
+                getString(R.string.m80_billing_history),
+                getString(R.string.m83_Support),
+                getString(R.string.m82_account),
+                getString(R.string.m288_setting),
+                getString(R.string.m84_sign_out)
         };
+
+
+        int[] res = {
+                R.drawable.plans,
+                R.drawable.billing_hisory,
+                R.drawable.support,
+                R.drawable.account,
+                R.drawable.setting_icon,
+                R.drawable.sign_out
+        };
+
 
 
         List<SetBean> list = new ArrayList<>();
@@ -199,23 +220,24 @@ public class MeFragment extends BaseFragment<MePresenter> implements MeView, Bas
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         switch (position) {
-            case 0:
+            case 0://plans
                 startActivity(new Intent(getContext(), PlansActivity.class));
                 break;
-            case 1:
+            case 1://billing
                 startActivity(new Intent(getContext(), BillingHistoryActivity.class));
                 break;
-            case 4:
+
+            case 2://support
                 startActivity(new Intent(getContext(), SupportActivity.class));
                 break;
-            case 2:
-                startActivity(new Intent(getContext(), MessageListActivity.class));
-                break;
-            case 3:
+            case 3://account
                 startActivity(new Intent(getContext(), UserCenterActivity.class));
                 break;
+            case 4://setting
+                startActivity(new Intent(getContext(), SettingActivity.class));
+                break;
             case 5:
-                //
+                //log out
                 String accountName = App.getUserBean().accountName;
                 presenter.userLogout(accountName);
                 break;
