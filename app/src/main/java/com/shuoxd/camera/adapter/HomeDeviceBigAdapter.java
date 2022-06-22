@@ -60,8 +60,6 @@ public class HomeDeviceBigAdapter extends BaseMultiItemQuickAdapter<CameraBean, 
         tvName.setText(alias);
 
         if (itemType == 0) {
-
-
             TextView tvWifi = helper.getView(R.id.tv_wifi);
             int wifiStrength = Integer.parseInt(signalStrength);
             String sWiff = mContext.getString(R.string.m70_Signal);

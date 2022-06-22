@@ -108,10 +108,6 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
 
     @Override
     protected void initViews() {
-        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).
-                statusBarColor(R.color.white).fitsSystemWindows(true).navigationBarColor(R.color.white)
-                .init();
-
         EventBus.getDefault().register(this);
         //初始化toolbar
         initToobar(toolbar);

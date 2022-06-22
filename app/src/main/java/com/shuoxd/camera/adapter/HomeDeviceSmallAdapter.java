@@ -58,17 +58,19 @@ public class HomeDeviceSmallAdapter extends BaseMultiItemQuickAdapter<CameraBean
         String cardSpace = camera.getCardSpace();
         String extDcLevel = camera.getExtDcLevel();
 
+
+
+        TextView tvName = helper.getView(R.id.tv_name);
+        if (TextUtils.isEmpty(alias)) {
+            alias = imei;
+        }
+        if (TextUtils.isEmpty(alias)) {
+            alias = "";
+        }
+        tvName.setText(alias);
+
+
         if (itemType==0){
-            TextView tvName = helper.getView(R.id.tv_name);
-            if (TextUtils.isEmpty(alias)) {
-                alias = imei;
-            }
-            if (TextUtils.isEmpty(alias)) {
-                alias = "";
-            }
-            tvName.setText(alias);
-
-
             TextView tvWifi = helper.getView(R.id.tv_wifi);
             int wifiStrength = Integer.parseInt(signalStrength);
             String sWiff = mContext.getString(R.string.m70_Signal);

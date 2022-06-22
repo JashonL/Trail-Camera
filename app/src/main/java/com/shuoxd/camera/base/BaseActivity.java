@@ -81,7 +81,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends AppCompatAct
     protected void initImmersionBar() {
         //设置共同沉浸式样式
         ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).
-                statusBarColor(R.color.white).fitsSystemWindows(true).
+                statusBarColor(R.color.color_app_main).fitsSystemWindows(true).
                 navigationBarColor(R.color.white).init();
     }
 

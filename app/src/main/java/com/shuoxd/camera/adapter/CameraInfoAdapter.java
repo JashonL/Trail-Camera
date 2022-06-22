@@ -53,7 +53,7 @@ public class CameraInfoAdapter extends BaseMultiItemQuickAdapter<InfoHeadBean, B
             }
 
         } else {
-            String sync=mContext.getString(R.string.m287_last_sync)+":"+item.getTitle();
+            String sync=item.getTitle();
             helper.setText(R.id.tv_last_sync,sync);
         }
 
