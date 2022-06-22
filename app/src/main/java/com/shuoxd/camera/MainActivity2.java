@@ -74,7 +74,7 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
 
     @Override
     public void onTabSelected(int position) {
-        vp.setCurrentItem(position);
+        vp.setCurrentItem(position,false);
     }
 
     @Override
@@ -281,7 +281,9 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
                         .init();
                 break;
             case 1:
-                ImmersionBar.with(this).statusBarColor(R.color.color_app_main).navigationBarColor(R.color.white).statusBarDarkFont(false, 0.2f).keyboardEnable(false).fitsSystemWindows(true).init();
+                ImmersionBar.with(this).statusBarColor(R.color.color_app_main).navigationBarColor(R.color.white)
+                        .statusBarDarkFont(false, 0.2f).keyboardEnable(false).
+                        fitsSystemWindows(true).init();
                 break;
             case 2:
                 ImmersionBar.with(this).reset().keyboardEnable(true).navigationBarColor(R.color.white).statusBarDarkFont(true, 0.2f).init();

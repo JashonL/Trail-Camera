@@ -5,6 +5,9 @@
 
     <include layout="@layout/toobar_title"/>
 
+    <include layout="@layout/setting_tips"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rl_setting"
         android:layout_width="match_parent"

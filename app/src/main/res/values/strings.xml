@@ -308,7 +308,6 @@
 
     <string name="m261_number_photos">Additional $0.10 per HQ photo upload.</string>
     <string name="m262_all_plans">All plans include one year of photo/video storage.</string>
-
     <string name="m263_total_uploadCount">Photo Count</string>
     <string name="m264_total_camreacount">Camera Count</string>
     <string name="m265_total_videocount">Video Count</string>
@@ -317,6 +316,7 @@
     <string name="m268_upgraded_next">Firmware will be upgraded in next sync</string>
     <string name="m269_submit">Submit</string>
     <string name="m270_Location">Location</string>
+
     <string name="m271_please_enter_location">Please enter a address</string>
     <string name="m272_plan_management">Plan Management</string>
     <string name="m272_hq_photo">HQ Photo</string>
@@ -328,7 +328,13 @@
     <string name="m278_update_now">Update now</string>
     <string name="m279_HQ">HQ</string>
     <string name="m280_no_newversion">None Latest Version</string>
+
     <string name="m281_privacy_policy">User Terms and Privacy Policy</string>
     <string name="m282_please_choose">Please Select User Protocol</string>
+    <string name="m283_setting_tips">Settings will be sync to camera at next trigger or scheduled upload</string>
+    <string name="m284_last_sync">Last Sync(Camera Local Time)</string>
+    <string name="m285_electrify_instructions">1.Please electrify the camera according to the instructions</string>
+    <string name="m286_manual_uploading">2.Manual uploading of camera parameters or images is possible</string>
+
 
 </resources>

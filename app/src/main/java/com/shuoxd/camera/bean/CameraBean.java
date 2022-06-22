@@ -1,6 +1,8 @@
 package com.shuoxd.camera.bean;
 
-public class CameraBean {
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+public class CameraBean implements MultiItemEntity {
 
     public CameraInfo camera;
 
@@ -53,6 +55,11 @@ public class CameraBean {
         this.lastPhoto = lastPhoto;
     }
 
+    @Override
+    public int getItemType() {
+        return Integer.parseInt(camera.getIsNew());
+    }
+
     public static class CameraInfo {
 
         private String id;
@@ -73,11 +80,22 @@ public class CameraBean {
         private String longitude;
         private String latitude;
         private String newFwVersion;
+        private String lastUpdateTimeText;
 
         private String newModemFwVersion;
 
+        private String isNew;
+
         private CameraParamter cameraParamter;
 
+
+        public String getIsNew() {
+            return isNew;
+        }
+
+        public void setIsNew(String isNew) {
+            this.isNew = isNew;
+        }
 
         public String getNewModemFwVersion() {
             return newModemFwVersion;
@@ -213,6 +231,14 @@ public class CameraBean {
 
         public void setLastUpdateTime(String lastUpdateTime) {
             this.lastUpdateTime = lastUpdateTime;
+        }
+
+        public String getLastUpdateTimeText() {
+            return lastUpdateTimeText;
+        }
+
+        public void setLastUpdateTimeText(String lastUpdateTimeText) {
+            this.lastUpdateTimeText = lastUpdateTimeText;
         }
 
         public String getLongitude() {

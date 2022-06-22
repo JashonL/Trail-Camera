@@ -24,6 +24,7 @@
     <color name="gray_fb">#bfbfbf</color>
     <color name="color_theme_green_light">#708c73</color>
     <color name="mask_view_color">#40000000</color>
+    <color name="mask_color2">#60000000</color>
     <color name="gray_f7">#f7f8f9</color>
     <color name="forgot_color">#F38700</color>
     <color name="gray_f6">#fff6f7f8</color>

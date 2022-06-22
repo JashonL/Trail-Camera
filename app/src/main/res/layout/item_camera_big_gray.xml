@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="@drawable/card_foreground"
+    android:orientation="vertical"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/dp_10"
+    app:cardElevation="@dimen/dp_1">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="Camera Of Roof Top.."
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_title_sp_18"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_camera"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/nav_tv_dot"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_20"
+            android:layout_gravity="top|end"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:background="@drawable/shape_circle_red"
+            android:gravity="center"
+            android:lines="1"
+            android:minWidth="@dimen/dp_20"
+            android:padding="@dimen/dp_2"
+            android:text="8"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_content_sp_14"
+            app:autoSizeMaxTextSize="@dimen/size_content_sp_14"
+            app:autoSizeMinTextSize="@dimen/sp_6"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+
+        <ImageView
+            android:id="@+id/iv_camera"
+            android:layout_width="@dimen/dp_330"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_pic"
+            app:layout_constraintDimensionRatio="h,16:9"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name" />
+
+
+
+
+        <TextView
+            android:id="@+id/tv_mask"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:padding="@dimen/dp_5"
+            android:textSize="@dimen/size_content_sp_14"
+            android:text="@string/m285_electrify_instructions"
+            android:background="@color/mask_color2"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_camera"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_camera"
+            app:layout_constraintRight_toRightOf="@+id/iv_camera"
+            app:layout_constraintTop_toTopOf="@+id/iv_camera" />
+
+
+
+
+        <ImageView
+            android:id="@+id/iv_video_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_camera"
+            app:layout_constraintRight_toRightOf="@+id/iv_camera"
+            app:layout_constraintTop_toTopOf="@+id/iv_camera"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_camera"
+            />
+
+
+        <TextView
+            android:id="@+id/tv_hd"
+            android:layout_width="@dimen/dp_17"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:gravity="center"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/sp_8"
+            app:layout_constraintRight_toRightOf="@+id/iv_camera"
+            app:layout_constraintTop_toTopOf="@+id/iv_camera" />
+
+
+        <View
+            android:id="@+id/v_mask"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_20"
+            android:background="@drawable/shape_trans"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_camera"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_camera"
+            app:layout_constraintRight_toRightOf="@+id/iv_camera" />
+
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:text="04:00:36AM"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_8"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/v_mask"
+            app:layout_constraintLeft_toLeftOf="@+id/v_mask"
+            app:layout_constraintTop_toTopOf="@+id/v_mask" />
+
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_10"
+            android:text="07/24/2021"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_8"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/v_mask"
+            app:layout_constraintLeft_toRightOf="@+id/tv_time"
+            app:layout_constraintTop_toTopOf="@+id/v_mask" />
+
+        <TextView
+            android:id="@+id/tv_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:text="85℃"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_8"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/v_mask"
+            app:layout_constraintRight_toRightOf="@+id/iv_camera"
+            app:layout_constraintTop_toTopOf="@+id/v_mask" />
+
+
+        <TextView
+            android:id="@+id/tv_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:drawableStart="@drawable/signal_gray"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="center"
+            android:lines="1"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:text="***"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_camera"
+            app:layout_constraintRight_toLeftOf="@+id/tv_battery"
+            app:layout_constraintTop_toBottomOf="@+id/iv_camera" />
+
+
+        <TextView
+            android:id="@+id/tv_battery"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/bat_gray"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="center"
+            android:lines="1"
+            android:padding="@dimen/dp_5"
+            android:text="***"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_wifi"
+            app:layout_constraintLeft_toRightOf="@+id/tv_wifi"
+            app:layout_constraintRight_toLeftOf="@+id/tv_ext"
+            app:layout_constraintTop_toTopOf="@+id/tv_wifi" />
+
+
+        <TextView
+            android:id="@+id/tv_ext"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/ext_gray"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="center"
+            android:lines="1"
+            android:padding="@dimen/dp_5"
+            android:text="***"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_wifi"
+            app:layout_constraintLeft_toRightOf="@+id/tv_battery"
+            app:layout_constraintRight_toLeftOf="@+id/tv_sdcard"
+            app:layout_constraintTop_toTopOf="@+id/tv_wifi" />
+
+
+        <TextView
+            android:id="@+id/tv_sdcard"
+            android:layout_width="@dimen/dp_70"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/sdcard_gray"
+            android:drawablePadding="@dimen/dp_5"
+            android:gravity="center"
+            android:lines="1"
+            android:text="***"
+            android:textColor="@color/color_text_33"
+            android:textSize="@dimen/size_content_sp_14"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_wifi"
+            app:layout_constraintLeft_toRightOf="@+id/tv_ext"
+            app:layout_constraintRight_toRightOf="@+id/iv_camera"
+            app:layout_constraintTop_toTopOf="@+id/tv_wifi" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

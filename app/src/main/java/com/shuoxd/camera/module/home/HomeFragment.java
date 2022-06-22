@@ -12,11 +12,13 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gyf.immersionbar.ImmersionBar;
 import com.mylhyl.circledialog.CircleDialog;
 import com.shuoxd.camera.HomePresenter;
 import com.shuoxd.camera.MainActivity;
@@ -92,6 +94,9 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     @Override
     protected void initView() {
+        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).
+                statusBarColor(R.color.white).fitsSystemWindows(true).navigationBarColor(R.color.white)
+                .init();
         LogUtil.d("运行homefragment的创建方法");
         //注册接收器
         EventBus.getDefault().register(this);
@@ -149,7 +154,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         }
 
 
-        mSmallAdapter = new HomeDeviceSmallAdapter(R.layout.item_camera, data);
+        mSmallAdapter = new HomeDeviceSmallAdapter(data);
         mSmallAdapter.setLoadMoreView(new CustomLoadMoreView());
         mSmallAdapter.setOnItemLongClickListener(this);
         rlvDevice.setAdapter(mSmallAdapter);
@@ -210,7 +215,7 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         if (mSmallAdapter!=null){
             data=mSmallAdapter.getData();
         }
-        mBigAdapter = new HomeDeviceBigAdapter(R.layout.item_camera_big, data);
+        mBigAdapter = new HomeDeviceBigAdapter(data);
         mBigAdapter.setLoadMoreView(new CustomLoadMoreView());
         rlvDevice.setAdapter(mBigAdapter);
         rlvDevice.addItemDecoration(new LinearDivider(getActivity(), LinearLayoutManager.VERTICAL, 32, ContextCompat.getColor(getActivity(), R.color.nocolor)));
@@ -319,10 +324,16 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
     //点击item跳转到Fragment1V2
 
     private void showCameraInfo(String id, String alias) {
-        MainActivity2 main = (MainActivity2) getActivity();
+   /*     MainActivity2 main = (MainActivity2) getActivity();
         main.cameraId = id;
-        main.cameraAlias = alias;
+        main.cameraAlias = alias;*/
 //        main.showCameraInfo();
+
+        HomeComFragment parentFragment = (HomeComFragment)getParentFragment();
+        assert parentFragment != null;
+        parentFragment.cameraId = id;
+        parentFragment.cameraAlias = alias;
+        parentFragment.showCamera();
     }
 
 

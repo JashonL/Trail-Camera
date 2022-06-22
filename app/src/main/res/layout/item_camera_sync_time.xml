@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:padding="@dimen/dp_10"
+    android:gravity="center"
+    android:layout_gravity="center_horizontal"
+    android:text="@string/m285_electrify_instructions"
+    android:drawableEnd="@drawable/sync"
+    android:drawablePadding="@dimen/dp_10"
+    android:textColor="@color/color_app_main"
+    android:layout_height="wrap_content"/>
+

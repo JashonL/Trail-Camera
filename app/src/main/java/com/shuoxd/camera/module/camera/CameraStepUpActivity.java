@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gyf.immersionbar.ImmersionBar;
 import com.mylhyl.circledialog.CircleDialog;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.adapter.CameraPicAdapter;
@@ -100,8 +101,17 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
         return R.layout.activity_camera_steup;
     }
 
+
+
+
+
+
     @Override
     protected void initViews() {
+        ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).
+                statusBarColor(R.color.white).fitsSystemWindows(true).navigationBarColor(R.color.white)
+                .init();
+
         EventBus.getDefault().register(this);
         //初始化toolbar
         initToobar(toolbar);
@@ -529,6 +539,10 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                         break;
                                     }
                                 }
+                                if ("-1".equals(valueS)&&"timeZone".equals(key1)){
+                                    valueS="user.timezone";
+                                }
+
                                 settingBean.setValueStr(valueS);
                             }
 

@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.material.navigation.NavigationView;
+import com.gyf.immersionbar.ImmersionBar;
 import com.mylhyl.circledialog.BaseCircleDialog;
 import com.mylhyl.circledialog.CircleDialog;
 import com.mylhyl.circledialog.view.listener.OnCreateBodyViewListener;
@@ -51,6 +52,7 @@ import com.shuoxd.camera.customview.MySwipeRefreshLayout;
 import com.shuoxd.camera.eventbus.FreshCameraLocation;
 import com.shuoxd.camera.eventbus.FreshCameraName;
 import com.shuoxd.camera.eventbus.FreshPhoto;
+import com.shuoxd.camera.module.home.HomeComFragment;
 import com.shuoxd.camera.module.leftmenu.CameraNavigationViewFragment;
 import com.shuoxd.camera.module.leftmenu.HomeNavigationViewFragment;
 import com.shuoxd.camera.module.map.MapActivity;
@@ -145,6 +147,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     @Override
     protected void initView() {
+        ImmersionBar.with(this).statusBarColor(R.color.color_app_main).navigationBarColor(R.color.white)
+                .statusBarDarkFont(false, 0.2f).keyboardEnable(false).
+                fitsSystemWindows(true).init();
         //头部toolBar
         toolbar.inflateMenu(R.menu.menu_camera);
         toolbar.setOnMenuItemClickListener(this);
@@ -152,8 +157,11 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         toolbar.setNavigationIcon(R.drawable.icon_return_w);
         toolbar.setNavigationOnClickListener(view -> {
             //电站列表
-            MainActivity main = (MainActivity) getActivity();
-            main.showHome();
+     /*       MainActivity main = (MainActivity) getActivity();
+            main.showHome();*/
+            HomeComFragment parentFragment = (HomeComFragment)getParentFragment();
+            assert parentFragment != null;
+            parentFragment.showHome();
         });
 
 
@@ -429,6 +437,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     String modemModel = info.getModemModel();
                     String modemFwVersion = info.getModemFwVersion();
                     String lastUpdateTime = info.getLastUpdateTime();
+                    String lastUpdateTimeText = info.getLastUpdateTimeText();
                     if (!TextUtils.isEmpty(alias)) {
                         tvName.setText(alias);
                     }
@@ -453,6 +462,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     if (!TextUtils.isEmpty(lastUpdateTime)) {
                         tvLastUpdate.setText(lastUpdateTime);
                     }
+                    if (!TextUtils.isEmpty(lastUpdateTimeText)){
+                        tvLastUpdate.setText(lastUpdateTimeText);
+                    }
+
 
 
                     //判断是否有新版本
@@ -628,81 +641,111 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 getString(R.string.m166_information), getString(R.string.m73_map), getString(R.string.m74_tracker), getString(R.string.m75_steup),
         };
 
+
+        String isNew = cameraBean.getIsNew();
+
         List<InfoHeadBean> beans = new ArrayList<>();
         for (int i = 0; i < title.length; i++) {
             InfoHeadBean bean = new InfoHeadBean();
             bean.setTitle(title[i]);
             switch (i) {
                 case 0:
-                    String signalStrength = cameraBean.getSignalStrength();
-                    int wifiStrength = Integer.parseInt(signalStrength);
-                    if (wifiStrength == 0) {
-                        bean.setIconRes(R.drawable.signal1);
-                    } else if (wifiStrength <= 25) {
-                        bean.setIconRes(R.drawable.signal1);
-                    } else if (wifiStrength <= 50) {
-                        bean.setIconRes(R.drawable.signal2);
-                    } else if (wifiStrength <= 75) {
-                        bean.setIconRes(R.drawable.signal3);
-                    } else {
-                        bean.setIconRes(R.drawable.signal4);
+                    if ("1".equals(isNew)){
+                        bean.setIconRes(R.drawable.signal_gray);
+                        bean.setTitle("***");
+                    }else {
+                        String signalStrength = cameraBean.getSignalStrength();
+                        int wifiStrength = Integer.parseInt(signalStrength);
+                        if (wifiStrength == 0) {
+                            bean.setIconRes(R.drawable.signal1);
+                        } else if (wifiStrength <= 25) {
+                            bean.setIconRes(R.drawable.signal1);
+                        } else if (wifiStrength <= 50) {
+                            bean.setIconRes(R.drawable.signal2);
+                        } else if (wifiStrength <= 75) {
+                            bean.setIconRes(R.drawable.signal3);
+                        } else {
+                            bean.setIconRes(R.drawable.signal4);
+                        }
                     }
+
                     break;
                 case 1:
-                    String batteryLevel = cameraBean.getBatteryLevel();
-                    int batteryL = Integer.parseInt(batteryLevel);
+                    if ("1".equals(isNew)){
+                        bean.setIconRes(R.drawable.bat_gray);
+                        bean.setTitle("***");
+                    }else {
+                        String batteryLevel = cameraBean.getBatteryLevel();
+                        int batteryL = Integer.parseInt(batteryLevel);
 
-                    if (batteryL == 0) {
-                        bean.setIconRes(R.drawable.bat0);
-                    } else if (batteryL <= 25) {
-                        bean.setIconRes(R.drawable.bat1);
-                    } else if (batteryL <= 50) {
-                        bean.setIconRes(R.drawable.bat2);
-                    } else if (batteryL <= 75) {
-                        bean.setIconRes(R.drawable.bat3);
-                    } else {
-                        bean.setIconRes(R.drawable.bat4);
+                        if (batteryL == 0) {
+                            bean.setIconRes(R.drawable.bat0);
+                        } else if (batteryL <= 25) {
+                            bean.setIconRes(R.drawable.bat1);
+                        } else if (batteryL <= 50) {
+                            bean.setIconRes(R.drawable.bat2);
+                        } else if (batteryL <= 75) {
+                            bean.setIconRes(R.drawable.bat3);
+                        } else {
+                            bean.setIconRes(R.drawable.bat4);
+                        }
+                        bean.setTitle(batteryLevel + "%");
                     }
-                    bean.setTitle(batteryLevel + "%");
+
+
 
 
                     break;
 
                 case 2:
-                    String extDcLevel = cameraBean.getExtDcLevel();
-                    int extDcl = Integer.parseInt(extDcLevel);
-                    if (extDcl == 0) {
-                        bean.setIconRes(R.drawable.ext0);
-                    } else if (extDcl <= 25) {
-                        bean.setIconRes(R.drawable.ext1);
-                    } else if (extDcl <= 50) {
-                        bean.setIconRes(R.drawable.ext2);
-                    } else if (extDcl <= 75) {
-                        bean.setIconRes(R.drawable.ext3);
-                    } else {
-                        bean.setIconRes(R.drawable.ext4);
+
+                    if ("1".equals(isNew)){
+                        bean.setIconRes(R.drawable.ext_gray);
+                        bean.setTitle("***");
+                    }else {
+                        String extDcLevel = cameraBean.getExtDcLevel();
+                        int extDcl = Integer.parseInt(extDcLevel);
+                        if (extDcl == 0) {
+                            bean.setIconRes(R.drawable.ext0);
+                        } else if (extDcl <= 25) {
+                            bean.setIconRes(R.drawable.ext1);
+                        } else if (extDcl <= 50) {
+                            bean.setIconRes(R.drawable.ext2);
+                        } else if (extDcl <= 75) {
+                            bean.setIconRes(R.drawable.ext3);
+                        } else {
+                            bean.setIconRes(R.drawable.ext4);
+                        }
+                        bean.setTitle(extDcLevel + "%");
+
                     }
-                    bean.setTitle(extDcLevel + "%");
+
 
                     break;
 
                 case 3:
-                    String cardSpace = cameraBean.getCardSpace();
-                    int sSpace = Integer.parseInt(cardSpace);
-                    if (sSpace == 0) {
-                        bean.setIconRes(R.drawable.sdcard0);
-                    } else if (sSpace <= 19) {
-                        bean.setIconRes(R.drawable.sdcard1);
-                    } else if (sSpace <= 49) {
-                        bean.setIconRes(R.drawable.sdcard2);
-                    } else if (sSpace <= 69) {
-                        bean.setIconRes(R.drawable.sdcard3);
-                    } else if (sSpace <= 95) {
-                        bean.setIconRes(R.drawable.sdcard4);
-                    } else {
-                        bean.setIconRes(R.drawable.sdcard5);
+                    if ("1".equals(isNew)){
+                        bean.setIconRes(R.drawable.sdcard_gray);
+                        bean.setTitle("***");
+                    }else {
+                        String cardSpace = cameraBean.getCardSpace();
+                        int sSpace = Integer.parseInt(cardSpace);
+                        if (sSpace == 0) {
+                            bean.setIconRes(R.drawable.sdcard0);
+                        } else if (sSpace <= 19) {
+                            bean.setIconRes(R.drawable.sdcard1);
+                        } else if (sSpace <= 49) {
+                            bean.setIconRes(R.drawable.sdcard2);
+                        } else if (sSpace <= 69) {
+                            bean.setIconRes(R.drawable.sdcard3);
+                        } else if (sSpace <= 95) {
+                            bean.setIconRes(R.drawable.sdcard4);
+                        } else {
+                            bean.setIconRes(R.drawable.sdcard5);
+                        }
+                        bean.setTitle(cardSpace + "%");
                     }
-                    bean.setTitle(cardSpace + "%");
+
 
                     break;
 

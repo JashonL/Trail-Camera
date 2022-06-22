@@ -1,5 +1,7 @@
 package com.shuoxd.camera.module.home;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,7 +25,8 @@ public class HomeComFragment extends BaseFragment<HomePresenter> implements Home
 
     public FragmentTransaction mTransaction;
     public FragmentManager mManager;
-
+    public String cameraId;
+    public String cameraAlias;
 
     @Override
     protected HomePresenter createPresenter() {
@@ -41,24 +44,34 @@ public class HomeComFragment extends BaseFragment<HomePresenter> implements Home
         showHome();
     }
 
-    private void showHome() {
+    public void showHome() {
         mTransaction = mManager.beginTransaction();
-        if (mHomefragment == null) {
+   /*     if (mHomefragment == null) {
             mHomefragment = new HomeFragment();
             mTransaction.add(R.id.fl_content, mHomefragment);
         }else {
             mTransaction.show(mHomefragment);
 
+        }*/
+
+        if (mHomefragment == null) {
+            mHomefragment = new HomeFragment();
         }
+        mTransaction.replace(R.id.fl_content, mHomefragment);
         mTransaction.commit();
     }
 
-    private void showCamera(){
+    public void showCamera(){
         mTransaction = mManager.beginTransaction();
         if (mCameraFragment == null) {
             mCameraFragment = new CameraFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("cameraId", cameraId);//电站id传值
+            bundle.putString("alias", cameraAlias);//电站id传值
+            mCameraFragment.setArguments(bundle);
         }
         mTransaction.replace(R.id.fl_content, mCameraFragment);
+        mTransaction.commit();
     }
 
 

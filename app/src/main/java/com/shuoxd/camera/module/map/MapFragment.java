@@ -147,18 +147,29 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
             mMap.getMapAsync(this);
         }*/
 
-
+/*
         boolean googleService = CommentUtils.isGoogleService(getContext());
         if (!googleService) {
             tvNoGoogle.setVisibility(View.VISIBLE);
             mMap.setVisibility(View.GONE);
         } else {
             mMap.getMapAsync(this);
-        }
-
+        }*/
 
         return view;
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     protected void initData() {
@@ -169,6 +180,15 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     public void onResume() {
         super.onResume();
         mMap.onResume();
+
+        boolean googleService = CommentUtils.isGoogleService(getContext());
+        if (!googleService) {
+            tvNoGoogle.setVisibility(View.VISIBLE);
+            mMap.setVisibility(View.GONE);
+        } else {
+            mMap.getMapAsync(this);
+        }
+
     }
 
     /**
