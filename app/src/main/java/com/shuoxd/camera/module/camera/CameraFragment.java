@@ -184,8 +184,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         //设备相片列表
 
         ivStyle.setImageResource(R.drawable.list_pic_row);
-        rvMenu.setLayoutManager(new GridLayoutManager(getContext(), 4));
-        mCameraInfoAdapter = new CameraInfoAdapter(R.layout.item_camera_info, new ArrayList<>());
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
+        setGridManager(gridLayoutManager);
+        rvMenu.setLayoutManager(gridLayoutManager);
+        mCameraInfoAdapter = new CameraInfoAdapter(new ArrayList<>());
         rvMenu.setAdapter(mCameraInfoAdapter);
         mCameraInfoAdapter.setOnItemClickListener(this);
 
@@ -242,6 +244,25 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.navigationview1, new CameraNavigationViewFragment(this)).commit();
 
     }
+
+
+
+
+
+    private void setGridManager(GridLayoutManager gridManager){
+        gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (position==4){
+                    return gridManager.getSpanCount();
+                }
+                return 1;
+            }
+        });
+    }
+
+
+
 
 
     //小图片布局
@@ -408,7 +429,16 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         if (adapter == mCameraInfoAdapter) {
             switch (position) {
+
                 case 4:
+                    String accountName = App.getUserBean().getAccountName();
+                    presenter.cameraInfo(cameraId, accountName);
+                    presenter.setImeis(cameraId);
+                    presenter.setIsAllCamera("-1");
+                    presenter.getCameraPic();
+                    break;
+
+                case 5:
                     View dialog_view = LayoutInflater.from(getContext()).inflate(R.layout.camera_info, content, false);
                     TextView tvName = dialog_view.findViewById(R.id.tv_name_value);
                     TextView tvImei = dialog_view.findViewById(R.id.tv_imei_value);
@@ -540,7 +570,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     break;
 
 
-                case 5:
+                case 6:
                     Intent intent1 = new Intent(getContext(), MapActivity.class);
                     intent1.putExtra("imei", cameraId);
                     intent1.putExtra("lat", info.getLatitude());
@@ -549,12 +579,12 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     startActivity(intent1);
                     break;
 
-                case 6:
+                case 7:
                     Intent intent = new Intent(getContext(), ChartActivity.class);
                     intent.putExtra("imei", cameraId);
                     startActivity(intent);
                     break;
-                case 7:
+                case 8:
                     Intent intent5 = new Intent(getContext(), CameraStepUpActivity.class);
                     intent5.putExtra("imei", cameraId);
                     startActivity(intent5);
@@ -648,6 +678,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         for (int i = 0; i < title.length; i++) {
             InfoHeadBean bean = new InfoHeadBean();
             bean.setTitle(title[i]);
+            bean.setIndex(i);
+            bean.setItemType(0);
             switch (i) {
                 case 0:
                     if ("1".equals(isNew)){
@@ -766,6 +798,13 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             }
             beans.add(bean);
         }
+
+        InfoHeadBean bean = new InfoHeadBean();
+        String sysTime = getString(R.string.m287_last_sync) + ":" + cameraBean.getLastUpdateTime();
+        bean.setTitle(sysTime);
+        bean.setIndex(4);
+        bean.setItemType(1);
+        beans.add(4,bean);
         mCameraInfoAdapter.replaceData(beans);
 
     }

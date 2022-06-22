@@ -335,6 +335,7 @@
     <string name="m284_last_sync">Last Sync(Camera Local Time)</string>
     <string name="m285_electrify_instructions">1.Please electrify the camera according to the instructions</string>
     <string name="m286_manual_uploading">2.Manual uploading of camera parameters or images is possible</string>
+    <string name="m287_last_sync">Last Sync</string>
 
 
 </resources>
