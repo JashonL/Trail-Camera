@@ -45,16 +45,19 @@ public class PlansInfoAdapter extends BaseMultiItemQuickAdapter<PlansInfoBean, B
                 tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.red));
             } else if ("active".equalsIgnoreCase(status)) {
                 tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.orangle));
-            } else {
+            }else if ("fixed".equalsIgnoreCase(status)){
+                tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.color_app_main));
+            }
+            else {
                 tvValue.setTextColor(ContextCompat.getColor(mContext,R.color.color_text_33));
             }
         } else {
-            helper.setText(R.id.tv_used_photo, item.getUsedPhoto());
-            helper.setText(R.id.tv_used_hd, item.getUsedHDPhoto());
-            helper.setText(R.id.tv_used_video, item.getUsedVideo());
-            helper.setText(R.id.tv_package_photo, item.getPackagePhoto());
-            helper.setText(R.id.tv_package_hd, item.getPackageHDPhoto());
-            helper.setText(R.id.tv_package_video, item.getPackageVideo());
+            String photo=item.getUsedPhoto()+"/"+item.getPackagePhoto();
+            String hqPhoto=item.getUsedHDPhoto()+"/"+item.getPackageHDPhoto();
+            String video=item.getUsedVideo()+"/"+item.getPackageVideo();
+            helper.setText(R.id.photo, photo);
+            helper.setText(R.id.hq_photo, hqPhoto);
+            helper.setText(R.id.tv_video, video);
         }
     }
 }

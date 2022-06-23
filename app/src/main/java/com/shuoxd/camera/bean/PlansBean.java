@@ -15,6 +15,7 @@ public class PlansBean {
     private String packagePhoto;
     private String packageHDPhoto;
     private String packageVideo;
+    private String nextPlanDescription;
 
     public String getCameraName() {
         return cameraName;
@@ -118,5 +119,13 @@ public class PlansBean {
 
     public void setPackageVideo(String packageVideo) {
         this.packageVideo = packageVideo;
+    }
+
+    public String getNextPlanDescription() {
+        return nextPlanDescription;
+    }
+
+    public void setNextPlanDescription(String nextPlanDescription) {
+        this.nextPlanDescription = nextPlanDescription;
     }
 }

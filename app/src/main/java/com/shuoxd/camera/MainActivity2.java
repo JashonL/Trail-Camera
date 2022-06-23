@@ -276,8 +276,16 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
 
         switch (position) {
             case 0:
+                int pager = homeFragment.pager;
+                int color;
+                if (pager==1){
+                    color= R.color.white;
+                }else {
+                    color= R.color.color_app_main;
+                }
+
                 ImmersionBar.with(this).statusBarDarkFont(true, 0.2f).
-                        statusBarColor(R.color.white).fitsSystemWindows(true).navigationBarColor(R.color.white)
+                        statusBarColor(color).fitsSystemWindows(true).navigationBarColor(R.color.white)
                         .init();
                 break;
             case 1:
@@ -289,7 +297,8 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
                 ImmersionBar.with(this).reset().keyboardEnable(true).navigationBarColor(R.color.white).statusBarDarkFont(true, 0.2f).init();
                 break;
             case 3:
-                ImmersionBar.with(this).reset().statusBarDarkFont(false).navigationBarColor(R.color.white).init();
+                ImmersionBar.with(this).reset().statusBarColor(R.color.color_app_main).
+                        fitsSystemWindows(true).statusBarDarkFont(false).navigationBarColor(R.color.white).init();
                 break;
             default:
                 break;
@@ -324,6 +333,19 @@ public class MainActivity2 extends BaseActivity<HomePresenter> implements IMainA
 
     @Override
     public void onBackPressed() {
+        if (vp.getCurrentItem()==0){
+            int pager = homeFragment.pager;
+            if (pager==1){
+                hindAPP();
+            }else {
+                homeFragment.showHome();
+            }
+        }else {
+            hindAPP();
+        }
+    }
+
+    private void hindAPP() {
         //实现Home键效果
         //super.onBackPressed();这句话一定要注掉,不然又去调用默认的back处理方式了
         Intent i = new Intent(Intent.ACTION_MAIN);

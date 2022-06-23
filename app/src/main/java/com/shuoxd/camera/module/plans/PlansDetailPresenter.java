@@ -31,8 +31,6 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
     }
 
 
-
-
     public void getPlansInfo(String imei) {
         Mydialog.show(context);
         //获取设备
@@ -48,7 +46,7 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
                         JSONObject obj = jsonObject.getJSONObject("obj");
                         //解析相机数据
                         PlansBean cameraBean = new Gson().fromJson(obj.toString(), PlansBean.class);
-                        String[]titles={
+                        String[] titles = {
                                 context.getString(R.string.m161_camera_name),
                                 context.getString(R.string.m240_status),
                                 context.getString(R.string.m236_iccid),
@@ -56,33 +54,35 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
                                 context.getString(R.string.m241_current_plans),
                                 context.getString(R.string.m242_days_remaining),
                                 context.getString(R.string.m243_next_bill_date),
+                                context.getString(R.string.m295_plan_description),
                                 ""
                         };
 
 
-                        String[]values={
-                          cameraBean.getCameraName(),
-                          cameraBean.getStatus(),
-                          cameraBean.getIccid(),
-                          cameraBean.getImei(),
-                          cameraBean.getPlanDescription(),
-                          cameraBean.getDayRemain(),
-                          cameraBean.getBillDate(),
+                        String[] values = {
+                                cameraBean.getCameraName(),
+                                cameraBean.getStatus(),
+                                cameraBean.getIccid(),
+                                cameraBean.getImei(),
+                                cameraBean.getPlanDescription(),
+                                cameraBean.getDayRemain(),
+                                cameraBean.getBillDate(),
+                                cameraBean.getNextPlanDescription(),
                                 ""
                         };
 
                         String status = cameraBean.getStatus();
                         baseView.status(status);
 
-                        List<PlansInfoBean>list=new ArrayList<>();
+                        List<PlansInfoBean> list = new ArrayList<>();
 
                         for (int i = 0; i < titles.length; i++) {
-                            PlansInfoBean bean1=new PlansInfoBean();
+                            PlansInfoBean bean1 = new PlansInfoBean();
                             bean1.setTitle(titles[i]);
                             bean1.setValue(values[i]);
-                            if (i<titles.length-1){
+                            if (i < titles.length - 1) {
                                 bean1.setItemType(0);
-                            }else {
+                            } else {
                                 bean1.setItemType(1);
                             }
                             bean1.setUsedPhoto(cameraBean.getUsedPhoto());
@@ -91,9 +91,12 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
                             bean1.setPackagePhoto(cameraBean.getPackagePhoto());
                             bean1.setPackageHDPhoto(cameraBean.getPackageHDPhoto());
                             bean1.setPackageVideo(cameraBean.getPackageVideo());
-                            if (i==1||i==4||i==5){
+                            if (i == 1 ) {
                                 bean1.setStatus(status);
-                            }else {
+                            }else if( i == 5 || i == 6){
+                                bean1.setStatus("fixed");
+                            }
+                            else {
                                 bean1.setStatus("1");
                             }
                             list.add(bean1);
@@ -102,7 +105,7 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
                         baseView.showPlansInfo(list);
 
 
-                    }else if ("10000".equals(result)) {
+                    } else if ("10000".equals(result)) {
                         userReLogin(context, () -> {
                             getPlansInfo(imei);
                         });
@@ -155,8 +158,7 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
                         cameraBean.setSelected(true);
                         cameraList.add(0,cameraBean);*/
 
-                    }
-                    else if ("10000".equals(result)){
+                    } else if ("10000".equals(result)) {
                         userReLogin(context, () -> {
                             getAlldevice();
                         });
@@ -179,13 +181,10 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
     }
 
 
-
-
-
     public void changePlanStatus(String imei) {
         String accountName = App.getUserBean().getAccountName();
         //获取设备
-        addDisposable(apiServer.changePlanStatus(imei,accountName), new BaseObserver<String>(baseView, true) {
+        addDisposable(apiServer.changePlanStatus(imei, accountName), new BaseObserver<String>(baseView, true) {
 
             @Override
             public void onSuccess(String bean) {
@@ -197,8 +196,7 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
                         JSONObject obj = jsonObject.getJSONObject("obj");
                         String status = obj.optString("status");
                         baseView.status(status);
-                    }
-                    else if ("10000".equals(result)){
+                    } else if ("10000".equals(result)) {
                         userReLogin(context, () -> {
                             changePlanStatus(imei);
                         });
@@ -219,10 +217,6 @@ public class PlansDetailPresenter extends BasePresenter<PlansDetailView> {
 
 
     }
-
-
-
-
 
 
     private void refreshErrPage() {

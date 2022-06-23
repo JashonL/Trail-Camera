@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dp_10"
-    android:background="@drawable/shape_gray_stroke"
     android:orientation="vertical">
 
 
@@ -12,186 +11,117 @@
         android:layout_height="@dimen/dp_50"
         android:orientation="horizontal">
 
+
         <TextView
             android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
-
-
-        <TextView
-            android:id="@+id/tv_photo"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
+            android:paddingStart="@dimen/dp_5"
+            android:gravity="center_vertical"
             android:text="@string/m14_photo"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
+            android:textColor="@color/orangle"
+            android:textSize="@dimen/size_content_sp_14" />
 
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
 
         <TextView
             android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center"
+            android:text="@string/m296_used_package"
+            android:textColor="@color/color_text_99"
+            android:textSize="@dimen/size_content_note" />
+
+
+
+        <TextView
+            android:id="@+id/photo"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/orangle"
+            android:textSize="@dimen/size_content_note" />
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="@dimen/dp_5"
+            android:gravity="center_vertical"
             android:text="@string/m272_hq_photo"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
+            android:textColor="@color/orangle"
+            android:textSize="@dimen/size_content_sp_14" />
 
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
 
         <TextView
             android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
+            android:text="@string/m296_used_package"
+            android:textColor="@color/color_text_99"
+            android:textSize="@dimen/size_content_note" />
+
+        <TextView
+            android:id="@+id/hq_photo"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textColor="@color/orangle"
+            android:textSize="@dimen/size_content_note" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:paddingStart="@dimen/dp_5"
+            android:gravity="center_vertical"
             android:text="@string/m219_video"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
+            android:textColor="@color/orangle"
+            android:textSize="@dimen/size_content_sp_14" />
 
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/color_text_99" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:orientation="horizontal">
 
         <TextView
             android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="@string/m238_used"
+            android:text="@string/m296_used_package"
             android:textColor="@color/color_text_99"
             android:textSize="@dimen/size_content_note" />
 
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
+
 
         <TextView
-            android:id="@+id/tv_used_photo"
+            android:id="@+id/tv_video"
             android:layout_width="@dimen/dp_0"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
-
-        <TextView
-            android:id="@+id/tv_used_hd"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
-
-        <TextView
-            android:id="@+id/tv_used_video"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/color_text_99" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_50"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/m239_package"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
-
-
-        <TextView
-            android:id="@+id/tv_package_photo"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
-
-        <TextView
-            android:id="@+id/tv_package_hd"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center"
-            android:textColor="@color/color_text_99"
-            android:textSize="@dimen/size_content_note" />
-
-        <View
-            android:layout_width="@dimen/dp_1"
-            android:layout_height="match_parent"
-            android:background="@color/color_text_99" />
-
-
-        <TextView
-            android:id="@+id/tv_package_video"
-            android:layout_width="@dimen/dp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textColor="@color/color_text_99"
+            android:textColor="@color/orangle"
             android:textSize="@dimen/size_content_note" />
 
     </LinearLayout>

@@ -246,8 +246,13 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     }
 
 
-
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        /*ImmersionBar.with(this).statusBarColor(R.color.color_app_main).navigationBarColor(R.color.white)
+                .statusBarDarkFont(false, 0.2f).keyboardEnable(false).
+                fitsSystemWindows(true).init();*/
+    }
 
     private void setGridManager(GridLayoutManager gridManager){
         gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -1341,5 +1346,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         String accountName = App.getUserBean().getAccountName();
         presenter.cameraInfo(cameraId, accountName);
     }
+
+
+
 
 }

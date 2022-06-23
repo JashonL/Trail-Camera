@@ -536,7 +536,7 @@ public class CameraStepUpActivity extends BaseActivity<CameraStepPresenter> impl
                                     }
                                 }
                                 if ("-1".equals(valueS)&&"timeZone".equals(key1)){
-                                    valueS="user.timezone";
+                                    valueS=App.getUserBean().getTimeZone();
                                 }
 
                                 settingBean.setValueStr(valueS);

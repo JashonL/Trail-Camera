@@ -25,6 +25,7 @@ public class User {
     private String mobileNum;
     private String lastName;
     private String firstName;
+    private String timeZone;
 
 
     private String cardYear;
@@ -269,5 +270,13 @@ public class User {
 
     public void setCardZip(String cardZip) {
         this.cardZip = cardZip;
+    }
+
+    public String getTimeZone() {
+        return timeZone;
+    }
+
+    public void setTimeZone(String timeZone) {
+        this.timeZone = timeZone;
     }
 }

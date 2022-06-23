@@ -45,23 +45,43 @@ public class PlansChangePresenter extends BasePresenter<PlansChangeView> {
                         JSONArray obj = jsonObject.getJSONArray("obj");
                         List<ProgramBean> monthlylist=new ArrayList<>();
                         List<ProgramBean> annualist=new ArrayList<>();
+
+                        //当前选中项
+                        int cur_month=-1;
+                        int cur_annua=-1;
+
+                        int monthly=0;
+                        int annua=0;
+
                         for (int i = 0; i < obj.length(); i++) {
                             JSONObject jsonObject1 = obj.getJSONObject(i);
                             //解析相机数据
                             ProgramBean programBean = new Gson().fromJson(jsonObject1.toString(), ProgramBean.class);
                             programBean.setItemType(1);
+                            String selected = programBean.getSelected();
                             String planType = programBean.getPlanType();
                             if ("monthly".equals(planType)){
                                 monthlylist.add(programBean);
+                                monthly++;
+                                if ("1".equals(selected)){
+                                    cur_month=monthly;
+                                }
                             }else {
                                 annualist.add(programBean);
+                                annua++;
+                                if ("1".equals(selected)){
+                                    cur_annua=annua;
+                                }
                             }
                         }
+
+
+
 
                         String[]titles={
                                 context.getString(R.string.m247_cost),
                                 context.getString(R.string.m248_photos),
-                                context.getString(R.string.m219_video),
+                                context.getString(R.string.m297_videos),
                                 context.getString(R.string.m266_hq_photos)
                         };
 
@@ -77,6 +97,9 @@ public class PlansChangePresenter extends BasePresenter<PlansChangeView> {
 
                         baseView.showAnnual(annualist);
                         baseView.showMonthly(monthlylist);
+
+                        baseView.monthlySelected(cur_month);
+                        baseView.annualSelected(cur_annua);
 
                     }else if ("10000".equals(result)) {
                         userReLogin(context, () -> {

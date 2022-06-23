@@ -44,6 +44,7 @@ import com.shuoxd.camera.R;
 import com.shuoxd.camera.base.BaseFragment;
 import com.shuoxd.camera.bean.CameraBean;
 import com.shuoxd.camera.bean.MapLoctionBean;
+import com.shuoxd.camera.constants.GlobalConstant;
 import com.shuoxd.camera.utils.CommentUtils;
 import com.shuoxd.camera.utils.MyToastUtils;
 
@@ -104,6 +105,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
 
     private LatLng markerLatLng;
     private final String GOOGLE_MAP_NAVI_URI = "google.navigation:q=";
+    private boolean googleService;
 
 
     @Override
@@ -156,19 +158,9 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
             mMap.getMapAsync(this);
         }*/
 
+
         return view;
     }
-
-
-
-
-
-
-
-
-
-
-
 
 
     @Override
@@ -181,14 +173,17 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
         super.onResume();
         mMap.onResume();
 
-        boolean googleService = CommentUtils.isGoogleService(getContext());
+        if (GlobalConstant.isMapFirst) {
+            googleService = CommentUtils.isGoogleService(getContext());
+            GlobalConstant.isMapFirst = false;
+        }
+
         if (!googleService) {
             tvNoGoogle.setVisibility(View.VISIBLE);
             mMap.setVisibility(View.GONE);
         } else {
             mMap.getMapAsync(this);
         }
-
     }
 
     /**
@@ -378,40 +373,36 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
         tvBattery.setText(batteryL + "%");
 
 
-
-
         int extDcl = Integer.parseInt(extDcLevel);
         if (extDcl == 0) {
-            setTextViewDrawableTop( tvExt, R.drawable.ext0);
+            setTextViewDrawableTop(tvExt, R.drawable.ext0);
         } else if (extDcl <= 25) {
-            setTextViewDrawableTop( tvExt, R.drawable.ext1);
+            setTextViewDrawableTop(tvExt, R.drawable.ext1);
         } else if (extDcl <= 50) {
-            setTextViewDrawableTop( tvExt, R.drawable.ext2);
+            setTextViewDrawableTop(tvExt, R.drawable.ext2);
         } else if (extDcl <= 75) {
-            setTextViewDrawableTop( tvExt, R.drawable.ext3);
+            setTextViewDrawableTop(tvExt, R.drawable.ext3);
         } else {
-            setTextViewDrawableTop( tvExt, R.drawable.ext4);
+            setTextViewDrawableTop(tvExt, R.drawable.ext4);
         }
 
         tvExt.setText(extDcl + "%");
 
 
-
-
         int sSpace = Integer.parseInt(cardSpace);
 
         if (sSpace == 0) {
-            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard0);
+            setTextViewDrawableTop(tvSdcard, R.drawable.sdcard0);
         } else if (sSpace <= 19) {
-            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard1);
+            setTextViewDrawableTop(tvSdcard, R.drawable.sdcard1);
         } else if (sSpace <= 49) {
-            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard2);
+            setTextViewDrawableTop(tvSdcard, R.drawable.sdcard2);
         } else if (sSpace <= 69) {
-            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard3);
-        } else if (sSpace <= 94){
-            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard4);
-        }else {
-            setTextViewDrawableTop( tvSdcard, R.drawable.sdcard5);
+            setTextViewDrawableTop(tvSdcard, R.drawable.sdcard3);
+        } else if (sSpace <= 94) {
+            setTextViewDrawableTop(tvSdcard, R.drawable.sdcard4);
+        } else {
+            setTextViewDrawableTop(tvSdcard, R.drawable.sdcard5);
         }
 
         tvSdcard.setText(sSpace + "%");
@@ -489,7 +480,7 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
     }
 
 
-    @OnClick({R.id.tv_details, R.id.tv_address,R.id.iv_navigation})
+    @OnClick({R.id.tv_details, R.id.tv_address, R.id.iv_navigation})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_details:
@@ -567,12 +558,6 @@ public class MapFragment extends BaseFragment<MapPresenter> implements IMapView,
         main.cameraAlias = alias;
         main.showCameraInfo2();
     }
-
-
-
-
-
-
 
 
     /**

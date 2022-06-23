@@ -220,7 +220,7 @@
     <string name="m183_mailing_information">Mailing  Information</string>
     <string name="m184_credti_card_information">Credit Card Information</string>
     <string name="m185_zip">Zip</string>
-    <string name="m186_selected_country">Choose a country</string>
+    <string name="m186_selected_country">Choose A country</string>
     <string name="m187_selected_state">select state</string>
     <string name="m188_country">Country</string>
     <string name="m189_mobile_number">Mobile Number</string>
@@ -299,7 +299,7 @@
     <string name="m254_plan_ative">Are you sure want to Active this plan? Your camera will remain inactive until data plan is resumed.</string>
     <string name="m255_suspend_plan">Suspend Plan</string>
     <string name="m256_ative_plan">Active plan</string>
-    <string name="m257_question_title">Frequentiy Asked Questions</string>
+    <string name="m257_question_title">Frequently Asked Questions</string>
 
     <string name="m258_amount">Amount</string>
     <string name="m259_transaction_memo">Transaction Memo</string>
@@ -344,4 +344,10 @@
     <string name="m292_destroy_tips">Your account will be deleted within one week. Your account data includes user information, credit card information, location information, camera upload data and all other user-related data. Please confirm whether to submit?</string>
     <string name="m293_recover_account">Recover Account</string>
     <string name="m294_recover_tips">You have submitted the deletion of user data. The deletion will be completed within one week at the latest. Do you want to cancel the deletion?</string>
+    <string name="m295_plan_description">Plan Description</string>
+    <string name="m296_used_package">(Used/Package)</string>
+    <string name="m297_videos">Videos</string>
+    <string name="m298_please_activate">Please activate the camera by:</string>
+
+
 </resources>

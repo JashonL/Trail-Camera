@@ -17,8 +17,6 @@ import java.util.List;
 public class HomeComFragment extends BaseFragment<HomePresenter> implements HomeView {
 
 
-
-
     private HomeFragment mHomefragment;
     private CameraFragment mCameraFragment;
 
@@ -27,6 +25,10 @@ public class HomeComFragment extends BaseFragment<HomePresenter> implements Home
     public FragmentManager mManager;
     public String cameraId;
     public String cameraAlias;
+
+    //当前显示的页面
+    public int pager = 1;
+
 
     @Override
     protected HomePresenter createPresenter() {
@@ -44,6 +46,11 @@ public class HomeComFragment extends BaseFragment<HomePresenter> implements Home
         showHome();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     public void showHome() {
         mTransaction = mManager.beginTransaction();
    /*     if (mHomefragment == null) {
@@ -57,19 +64,21 @@ public class HomeComFragment extends BaseFragment<HomePresenter> implements Home
         if (mHomefragment == null) {
             mHomefragment = new HomeFragment();
         }
+        pager = 1;
         mTransaction.replace(R.id.fl_content, mHomefragment);
         mTransaction.commit();
     }
 
-    public void showCamera(){
+    public void showCamera() {
         mTransaction = mManager.beginTransaction();
         if (mCameraFragment == null) {
             mCameraFragment = new CameraFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("cameraId", cameraId);//电站id传值
-            bundle.putString("alias", cameraAlias);//电站id传值
-            mCameraFragment.setArguments(bundle);
         }
+        Bundle bundle = new Bundle();
+        bundle.putString("cameraId", cameraId);//电站id传值
+        bundle.putString("alias", cameraAlias);//电站id传值
+        mCameraFragment.setArguments(bundle);
+        pager = 2;
         mTransaction.replace(R.id.fl_content, mCameraFragment);
         mTransaction.commit();
     }

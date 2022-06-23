@@ -203,7 +203,8 @@ public class HomeDeviceBigAdapter extends BaseMultiItemQuickAdapter<CameraBean, 
             tvDate.setText(uploadDate);
 
         } else {
-            String s = mContext.getString(R.string.m285_electrify_instructions) + "\n\n" +
+            String s=mContext.getString(R.string.m298_please_activate)+"\n"+
+                    mContext.getString(R.string.m285_electrify_instructions)+"\n"+
                     mContext.getString(R.string.m286_manual_uploading);
             helper.setText(R.id.tv_mask, s);
         }

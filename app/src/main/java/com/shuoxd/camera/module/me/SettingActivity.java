@@ -1,5 +1,6 @@
 package com.shuoxd.camera.module.me;
 
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -85,6 +86,8 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                 CircleDialogUtils.showCommentDialog(this, "", getString(R.string.m292_destroy_tips),
                         getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view22 -> {
                             //插入到图库
+                            startActivity(new Intent(this,DestroyActivity.class));
+
                         }, view2 -> {
                         });
 

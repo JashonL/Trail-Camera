@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:padding="@dimen/dp_10"
+    android:padding="@dimen/dp_5"
     android:gravity="center"
     android:id="@+id/tv_last_sync"
     android:layout_gravity="center_horizontal"
     android:text="@string/m287_last_sync"
     android:drawableEnd="@drawable/sync"
+    android:textSize="@dimen/size_content_sp_12"
     android:drawablePadding="@dimen/dp_10"
     android:textColor="@color/color_app_main"
     android:layout_height="wrap_content"/>

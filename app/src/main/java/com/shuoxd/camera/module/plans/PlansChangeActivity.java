@@ -255,12 +255,12 @@ public class PlansChangeActivity extends BaseActivity<PlansChangePresenter>
 
     @Override
     public void onPageSelected(int position) {
-        if (position==0){
+  /*      if (position==0){
             //清空
             mAnnualAdapter.clearSelected();
         }else {
             mMonthlyAdapter.clearSelected();
-        }
+        }*/
     }
 
     @Override
@@ -278,5 +278,29 @@ public class PlansChangeActivity extends BaseActivity<PlansChangePresenter>
     public void showMonthly(List<ProgramBean> lists) {
         srlPull.setRefreshing(false);
         mMonthlyAdapter.replaceData(lists);
+    }
+
+    @Override
+    public void annualSelected(int selected) {
+        ProgramBean programBean = mAnnualAdapter.getData().get(selected);
+        String introduce = programBean.getIntroduce();
+        if (!TextUtils.isEmpty(introduce)){
+            introduce = introduce.replace("\\n", "\n");
+            tvAnnualTips1.setText(introduce);
+        }else {
+            tvAnnualTips1.setText("");
+        }
+    }
+
+    @Override
+    public void monthlySelected(int selected) {
+        ProgramBean programBean = mMonthlyAdapter.getData().get(selected);
+        String introduce = programBean.getIntroduce();
+        if (!TextUtils.isEmpty(introduce)){
+            introduce = introduce.replace("\\n", "\n");
+            tvMonthlyTips1.setText(introduce);
+        }else {
+            tvMonthlyTips1.setText("");
+        }
     }
 }

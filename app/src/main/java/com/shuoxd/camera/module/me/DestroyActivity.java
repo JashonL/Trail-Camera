@@ -1,5 +1,6 @@
 package com.shuoxd.camera.module.me;
 
+import android.content.Intent;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,11 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 
+import com.hjq.toast.ToastUtils;
 import com.shuoxd.camera.R;
 import com.shuoxd.camera.app.App;
 import com.shuoxd.camera.base.BaseActivity;
+import com.shuoxd.camera.module.login.LoginActivity;
 import com.shuoxd.camera.utils.AppUtils;
 import com.shuoxd.camera.utils.CircleDialogUtils;
+import com.shuoxd.camera.utils.LogUtil;
 
 import java.util.List;
 
@@ -56,6 +60,10 @@ public class DestroyActivity extends BaseActivity<DestroyPresenter> implements D
         tvTitle.setText(R.string.m291_delete_account);
 
 
+        upButton();
+    }
+
+    private void upButton() {
         int userType = App.getUserBean().getUserType();
         if (userType >= 200 && userType < 300) {
             isDelete = true;
@@ -106,7 +114,30 @@ public class DestroyActivity extends BaseActivity<DestroyPresenter> implements D
     }
 
     @Override
-    public void destroysuccess() {
+    public void destroysuccess(String msg) {
+        CircleDialogUtils.showCommentDialog(this, "", msg,
+                getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view22 -> {
+                    presenter.getUserInfo();
+                }, view2 -> {
+                });
+    }
+
+    @Override
+    public void showLoginError(String errorMsg) {
+        ToastUtils.show(errorMsg);
+    }
+
+    @Override
+    public void updataUser() {
+        upButton();
+    }
+
+    @Override
+    public void logout() {
+        //跳转到登录界面
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         finish();
     }
 }

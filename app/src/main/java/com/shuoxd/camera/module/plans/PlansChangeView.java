@@ -10,4 +10,10 @@ public interface PlansChangeView extends BaseView {
     void showAnnual(List<ProgramBean> lists);
 
     void showMonthly(List<ProgramBean> lists);
+
+
+
+    void annualSelected(int selected);
+
+    void monthlySelected(int selected);
 }

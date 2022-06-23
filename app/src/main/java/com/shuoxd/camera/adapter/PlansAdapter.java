@@ -40,7 +40,7 @@ public class PlansAdapter extends BaseMultiItemQuickAdapter<ProgramBean, BaseVie
 
             String photoCount = item.getPhotoCount();
             String videoCount = item.getVideoCount();
-            String hdCount = item.getHdCount();
+            String hdCount = item.getHqCount();
 
             if ("-1".equals(photoCount)){
                 photoCount="unlimit";
