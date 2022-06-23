@@ -91,7 +91,13 @@ public class DestroyPresenter extends BasePresenter<DestroyView> {
 
 
     public void getUserInfo() {
-        String accountName = App.getUserBean().getAccountName();
+
+        userReLogin(context, () -> {
+            baseView.updataUser();
+        });
+
+
+    /*    String accountName = App.getUserBean().getAccountName();
         addDisposable(apiServer.getUserInfo(accountName), new BaseObserver<String>(baseView,
                 true) {
             @Override
@@ -124,7 +130,7 @@ public class DestroyPresenter extends BasePresenter<DestroyView> {
             public void onError(String msg) {
 
             }
-        });
+        });*/
     }
 
 

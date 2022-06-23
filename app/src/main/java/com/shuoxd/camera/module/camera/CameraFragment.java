@@ -132,7 +132,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     private CameraBean.CameraInfo info;
 
 
-    private String upgrade="1";
+    private String upgrade = "1";
 
 
     @Override
@@ -159,7 +159,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             //电站列表
      /*       MainActivity main = (MainActivity) getActivity();
             main.showHome();*/
-            HomeComFragment parentFragment = (HomeComFragment)getParentFragment();
+            HomeComFragment parentFragment = (HomeComFragment) getParentFragment();
             assert parentFragment != null;
             parentFragment.showHome();
         });
@@ -187,7 +187,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         setGridManager(gridLayoutManager);
         rvMenu.setLayoutManager(gridLayoutManager);
-        mCameraInfoAdapter = new CameraInfoAdapter(new ArrayList<>());
+        List<InfoHeadBean> initinfo = initinfo();
+        mCameraInfoAdapter = new CameraInfoAdapter(initinfo);
         rvMenu.setAdapter(mCameraInfoAdapter);
         mCameraInfoAdapter.setOnItemClickListener(this);
 
@@ -254,20 +255,17 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                 fitsSystemWindows(true).init();*/
     }
 
-    private void setGridManager(GridLayoutManager gridManager){
+    private void setGridManager(GridLayoutManager gridManager) {
         gridManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position==4){
+                if (position == 4) {
                     return gridManager.getSpanCount();
                 }
                 return 1;
             }
         });
     }
-
-
-
 
 
     //小图片布局
@@ -454,7 +452,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     TextView tvModem = dialog_view.findViewById(R.id.tv_modem_value);
                     TextView tvFireware = dialog_view.findViewById(R.id.tv_fireware_value);
                     TextView tvFireModemPoint = dialog_view.findViewById(R.id.tv_fireware_point);
-                    TextView tvUpnext=dialog_view.findViewById(R.id.tv_upgraded_next);
+                    TextView tvUpnext = dialog_view.findViewById(R.id.tv_upgraded_next);
 
                     TextView tvLastUpdate = dialog_view.findViewById(R.id.tv_lastupdate_value);
 
@@ -497,10 +495,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     if (!TextUtils.isEmpty(lastUpdateTime)) {
                         tvLastUpdate.setText(lastUpdateTime);
                     }
-                    if (!TextUtils.isEmpty(lastUpdateTimeText)){
+                    if (!TextUtils.isEmpty(lastUpdateTimeText)) {
                         tvLastUpdate.setText(lastUpdateTimeText);
                     }
-
 
 
                     //判断是否有新版本
@@ -513,14 +510,14 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     if ("1".equals(newFwVersion)) {
                         tvFirewarePoint.setVisibility(View.VISIBLE);
                         tvUpdate.setVisibility(View.VISIBLE);
-                        if ("0".equals(fota)){
+                        if ("0".equals(fota)) {
                             tvUpdate.setText(R.string.m198_upgrade);
                             tvUpnext.setVisibility(View.GONE);
-                            upgrade="1";//升级
-                        }else {
+                            upgrade = "1";//升级
+                        } else {
                             tvUpdate.setText(R.string.m267_cancel_upgrade);
                             tvUpnext.setVisibility(View.VISIBLE);
-                            upgrade="0";//取消升级
+                            upgrade = "0";//取消升级
                         }
 
                     } else {
@@ -528,8 +525,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                         tvUpdate.setVisibility(View.GONE);
                         tvUpnext.setVisibility(View.GONE);
                     }
-
-
 
 
                     if ("1".equals(newModemFwVersion)) {
@@ -551,9 +546,9 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
 
                     tvUpdate.setOnClickListener(view12 -> {
-                        if ("0".equals(upgrade)){
+                        if ("0".equals(upgrade)) {
                             info.getCameraParamter().setFota("0");
-                        }else {
+                        } else {
                             info.getCameraParamter().setFota("1");
                         }
                         presenter.cameraOperation(imei, "upgradeFwVersion", upgrade);
@@ -665,6 +660,72 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     }
 
 
+    private List<InfoHeadBean> initinfo() {
+
+        String[] title = {
+                getString(R.string.m70_Signal), getString(R.string.m75_steup), getString(R.string.m75_steup), getString(R.string.m72_sd),
+                getString(R.string.m166_information), getString(R.string.m73_map), getString(R.string.m74_tracker), getString(R.string.m75_steup),
+        };
+        List<InfoHeadBean> beans = new ArrayList<>();
+        for (int i = 0; i < title.length; i++) {
+            InfoHeadBean bean = new InfoHeadBean();
+            bean.setTitle(title[i]);
+            bean.setIndex(i);
+            bean.setItemType(0);
+            switch (i) {
+                case 0:
+                    bean.setIconRes(R.drawable.signal_gray);
+                    bean.setTitle("***");
+
+                    break;
+                case 1:
+                    bean.setIconRes(R.drawable.bat_gray);
+                    bean.setTitle("***");
+
+
+                    break;
+
+                case 2:
+                    bean.setIconRes(R.drawable.ext_gray);
+                    bean.setTitle("***");
+
+
+                    break;
+
+                case 3:
+                    bean.setIconRes(R.drawable.sdcard_gray);
+                    bean.setTitle("***");
+
+
+                    break;
+
+                case 4:
+                    bean.setIconRes(R.drawable.info);
+                    break;
+
+
+                case 5:
+                    bean.setIconRes(R.drawable.map);
+                    break;
+                case 6:
+                    bean.setIconRes(R.drawable.chart);
+                    break;
+                case 7:
+                    bean.setIconRes(R.drawable.setting);
+                    break;
+            }
+            beans.add(bean);
+        }
+        InfoHeadBean bean = new InfoHeadBean();
+        String sysTime = getString(R.string.m287_last_sync) + ":";
+        bean.setTitle(sysTime);
+        bean.setIndex(4);
+        bean.setItemType(1);
+        beans.add(4, bean);
+        return beans;
+    }
+
+
     @Override
     public void showCameraInfo(CameraBean.CameraInfo cameraBean) {
 
@@ -687,10 +748,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             bean.setItemType(0);
             switch (i) {
                 case 0:
-                    if ("1".equals(isNew)){
+                    if ("1".equals(isNew)) {
                         bean.setIconRes(R.drawable.signal_gray);
                         bean.setTitle("***");
-                    }else {
+                    } else {
                         String signalStrength = cameraBean.getSignalStrength();
                         int wifiStrength = Integer.parseInt(signalStrength);
                         if (wifiStrength == 0) {
@@ -708,10 +769,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
                     break;
                 case 1:
-                    if ("1".equals(isNew)){
+                    if ("1".equals(isNew)) {
                         bean.setIconRes(R.drawable.bat_gray);
                         bean.setTitle("***");
-                    }else {
+                    } else {
                         String batteryLevel = cameraBean.getBatteryLevel();
                         int batteryL = Integer.parseInt(batteryLevel);
 
@@ -730,16 +791,14 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     }
 
 
-
-
                     break;
 
                 case 2:
 
-                    if ("1".equals(isNew)){
+                    if ("1".equals(isNew)) {
                         bean.setIconRes(R.drawable.ext_gray);
                         bean.setTitle("***");
-                    }else {
+                    } else {
                         String extDcLevel = cameraBean.getExtDcLevel();
                         int extDcl = Integer.parseInt(extDcLevel);
                         if (extDcl == 0) {
@@ -761,10 +820,10 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
                     break;
 
                 case 3:
-                    if ("1".equals(isNew)){
+                    if ("1".equals(isNew)) {
                         bean.setIconRes(R.drawable.sdcard_gray);
                         bean.setTitle("***");
-                    }else {
+                    } else {
                         String cardSpace = cameraBean.getCardSpace();
                         int sSpace = Integer.parseInt(cardSpace);
                         if (sSpace == 0) {
@@ -809,7 +868,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         bean.setTitle(sysTime);
         bean.setIndex(4);
         bean.setItemType(1);
-        beans.add(4,bean);
+        beans.add(4, bean);
         mCameraInfoAdapter.replaceData(beans);
 
     }
@@ -1337,8 +1396,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
 
 
-
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -1346,8 +1403,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         String accountName = App.getUserBean().getAccountName();
         presenter.cameraInfo(cameraId, accountName);
     }
-
-
 
 
 }

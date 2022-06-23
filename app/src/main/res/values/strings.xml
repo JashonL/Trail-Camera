@@ -9,8 +9,8 @@
 
 
     <!--排序开始-->
-    <string name="m1_login">LOG IN</string>
-    <string name="m2_register">REGISTER</string>
+    <string name="m1_login">Log In</string>
+    <string name="m2_register">Register</string>
     <string name="m3_forget_password">Forget password</string>
     <string name="m4_demo">Demo</string>
     <string name="m5_submmit">SUBMIT</string>
@@ -67,7 +67,7 @@
     <string name="m51_Hoolywood">Hoolywood</string>
     <string name="m52_cali">CA-Cali…</string>
     <string name="m53_next">NEXT</string>
-    <string name="m54_change_password">CHANGE PASSWORD</string>
+    <string name="m54_change_password">Change Password</string>
     <string name="m55_determine">Determine</string>
     <string name="m56_home">Home</string>
     <string name="m57_nearby">Nearby</string>
@@ -93,7 +93,7 @@
     <string name="m74_tracker">Tracker</string>
     <string name="m75_steup">Setup</string>
     <string name="m76_photos">Photos/Videos</string>
-    <string name="m77_all_camera">All CAMERA</string>
+    <string name="m77_all_camera">All Camera</string>
     <string name="m78_my">My</string>
     <string name="m79_plans">Plans</string>
     <string name="m80_billing_history">Billing History</string>

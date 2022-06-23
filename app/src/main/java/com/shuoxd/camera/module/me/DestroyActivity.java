@@ -119,6 +119,7 @@ public class DestroyActivity extends BaseActivity<DestroyPresenter> implements D
                 getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view22 -> {
                     presenter.getUserInfo();
                 }, view2 -> {
+                    presenter.getUserInfo();
                 });
     }
 

@@ -133,6 +133,7 @@ public class BasePresenter<V extends BaseView> implements Handler.Callback {
                         User userInfo = new Gson().fromJson(user1.toString(), User.class);
                         userInfo.setAccountName(username);
                         userInfo.setPassword(password);
+                        App.setUserBean(userInfo);
                         App.IS_LOGIN=true;
                         logListener.relogSuccess();
                     }else {

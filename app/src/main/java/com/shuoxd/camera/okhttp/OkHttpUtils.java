@@ -165,6 +165,7 @@ public class OkHttpUtils
 
     public void sendFailResultCallback(final Call call, final Exception e, final Callback callback, final int id)
     {
+
         if (callback == null) return;
 
         mPlatform.execute(new Runnable()

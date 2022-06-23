@@ -33,7 +33,6 @@ public class CameraSetUtils {
                 context.getString(R.string.m156_operation_stop_time),//
 
 
-
                 context.getString(R.string.m113_timelapse_start),//内部时间
                 context.getString(R.string.m114_timelapse_stop),//内部时间
 
@@ -54,10 +53,9 @@ public class CameraSetUtils {
                 context.getString(R.string.m208_camera_positioning),//内部时间
 
 
-
         };
         String[] hints = new String[]{
-               "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "","", "", "", "", "", "", "", "", "", "", "",""
+                "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
         };
         int[] itemTypes = new int[]{
                 SettingConstants.SETTING_TYPE_INPUT,//Opration
@@ -72,7 +70,6 @@ public class CameraSetUtils {
                 SettingConstants.SETTING_TYPE_SELECT,//拍照灵敏度
 
 
-
                 SettingConstants.SETTING_TYPE_NEXT,//Opration
                 SettingConstants.SETTING_TYPE_SWITCH,//拍照起始时间
 
@@ -83,7 +80,6 @@ public class CameraSetUtils {
                 SettingConstants.SETTING_TYPE_NEXT,//拍照起始时间
                 SettingConstants.SETTING_TYPE_NEXT,//拍照结束时间
                 SettingConstants.SETTING_TYPE_NEXT,//拍照时间间隔
-
 
 
                 SettingConstants.SETTING_TYPE_SELECT,//上传频率
@@ -101,7 +97,7 @@ public class CameraSetUtils {
         };
 
         float[] multiples = new float[]{
-                1,1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,1,1
+                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
         };
         String[] units = new String[]{
                 "",
@@ -170,14 +166,15 @@ public class CameraSetUtils {
                 {""},
                 {""},
                 {""},
-                {"After Trigger", "Hourly","Twice a Day", "Once a Day"},
+                {"After Trigger", "Hourly", "Twice a Day", "Once a Day"},
                 {""},
                 {"Photo/HQ/Video", "Photo/HQ", "Sync Only"},
                 {"OFF", "ON"},
                 {"OFF", "ON"},
                 {"12-hour", "24-hour"},
-                {"Hawaii Time", "Alaska Time", "Pacific Time", "Mountain Time", "Central Time", "Eastern Time",
-                        "Western Europe time(WET)", "Central Europe time(CET)", "Eastern Europe time(CET)"
+                {"Hawaii Time(HT)",
+                        "Alaska Time(AKT)", "Pacific Time(PT)", "Mountain Time(MT)", "Central Time(CT)", "Eastern Time(ET)",
+                        "Western Europe time(WET)", "Central Europe time(CET)", "Eastern Europe time(EET)"
 
                 },
                 {"Fahrenheit ⁰F", "Celsius ⁰C"},
@@ -251,7 +248,6 @@ public class CameraSetUtils {
                 "operationStop",
 
 
-
                 "timelapseStart",
                 "timelapseStop",
                 "timelapseInterval",
@@ -270,7 +266,6 @@ public class CameraSetUtils {
                 "longitude_latitude"
 
         };
-
 
 
         String[] setkey = new String[]{
@@ -292,7 +287,6 @@ public class CameraSetUtils {
                 "operationStop",
 
 
-
                 "timelapseStart",
                 "timelapseStop",
                 "timelapseInterval",
@@ -311,7 +305,6 @@ public class CameraSetUtils {
                 "longitude_latitude"
 
         };
-
 
 
         for (int i = 0; i < titls.length; i++) {
