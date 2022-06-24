@@ -821,7 +821,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             beans.add(bean);
         }
         InfoHeadBean bean = new InfoHeadBean();
-        String sysTime = getString(R.string.m287_last_sync) + ":";
+        String sysTime = getString(R.string.m287_last_sync) + ":"+time;
         bean.setTitle(sysTime);
         bean.setIndex(4);
         bean.setItemType(1);
