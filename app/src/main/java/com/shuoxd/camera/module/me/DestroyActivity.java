@@ -86,7 +86,13 @@ public class DestroyActivity extends BaseActivity<DestroyPresenter> implements D
                             }, view2 -> {
                             });
                 } else {
-                    presenter.deleteUser("remove");
+
+                    CircleDialogUtils.showCommentDialog(this, "", getString(R.string.m292_destroy_tips),
+                            getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view22 -> {
+                                presenter.deleteUser("remove");
+                            }, view2 -> {
+                            });
+
                 }
                 break;
         }
@@ -115,11 +121,10 @@ public class DestroyActivity extends BaseActivity<DestroyPresenter> implements D
 
     @Override
     public void destroysuccess(String msg) {
+        presenter.getUserInfo();
         CircleDialogUtils.showCommentDialog(this, "", msg,
                 getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view22 -> {
-                    presenter.getUserInfo();
                 }, view2 -> {
-                    presenter.getUserInfo();
                 });
     }
 

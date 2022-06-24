@@ -78,7 +78,7 @@ public class SettingPresenter extends BasePresenter<SettingView> {
     public void toWebView(){
         Intent intent=new Intent(context, WebViewActivity.class);
         intent.putExtra(GlobalConstant.WEB_URL,GlobalConstant.PRICY_URL);
-        String s="《"+context.getString(R.string.m281_privacy_policy)+"》";
+        String s=context.getString(R.string.m281_privacy_policy);
         intent.putExtra("title",s);
         context.startActivity(intent);
     }

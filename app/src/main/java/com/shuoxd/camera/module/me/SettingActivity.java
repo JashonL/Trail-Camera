@@ -82,15 +82,15 @@ public class SettingActivity extends BaseActivity<SettingPresenter> implements S
                 break;
 
             case R.id.ll_delete_account:
-                //判断升级
+       /*         //判断升级
                 CircleDialogUtils.showCommentDialog(this, "", getString(R.string.m292_destroy_tips),
                         getString(R.string.m152_ok), getString(R.string.m127_cancel), Gravity.CENTER, view22 -> {
                             //插入到图库
                             startActivity(new Intent(this,DestroyActivity.class));
 
                         }, view2 -> {
-                        });
-
+                        });*/
+                startActivity(new Intent(this,DestroyActivity.class));
                 break;
         }
     }

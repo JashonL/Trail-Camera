@@ -126,8 +126,15 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
 
     private int spanCount = 1;
     public String cameraId;
-
     public String alias;
+    public String signalStrength;
+    public String batteryLevel;
+    public String cardSpace;
+    public String isNew;
+    public String extDcLevel;
+
+
+
 
     private CameraBean.CameraInfo info;
 
@@ -187,7 +194,15 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 4);
         setGridManager(gridLayoutManager);
         rvMenu.setLayoutManager(gridLayoutManager);
-        List<InfoHeadBean> initinfo = initinfo();
+
+        initArgument();
+
+        List<InfoHeadBean> initinfo = new ArrayList<>();
+        try {
+            initinfo = initinfo(isNew,signalStrength,batteryLevel,extDcLevel,cardSpace,"");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         mCameraInfoAdapter = new CameraInfoAdapter(initinfo);
         rvMenu.setAdapter(mCameraInfoAdapter);
         mCameraInfoAdapter.setOnItemClickListener(this);
@@ -304,9 +319,6 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     protected void initData() {
         EventBus.getDefault().register(this);
 
-        cameraId = getArguments().getString("cameraId");
-        alias = getArguments().getString("alias");
-
         if (TextUtils.isEmpty(alias)) {
             alias = cameraId;
         }
@@ -336,6 +348,17 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         }
 
 
+    }
+
+    private void initArgument() {
+        cameraId = getArguments().getString("cameraId");
+        alias = getArguments().getString("alias");
+
+        signalStrength = getArguments().getString("signalStrength");
+        batteryLevel = getArguments().getString("batteryLevel");
+        cardSpace = getArguments().getString("cardSpace");
+        isNew = getArguments().getString("isNew");
+        extDcLevel=getArguments().getString("extDcLevel");
     }
 
 
@@ -660,7 +683,8 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
     }
 
 
-    private List<InfoHeadBean> initinfo() {
+    private List<InfoHeadBean> initinfo(String isNew,String signalStrength,String batteryLevel,
+                                        String extDcLevel,String cardSpace,String time) throws Exception {
 
         String[] title = {
                 getString(R.string.m70_Signal), getString(R.string.m75_steup), getString(R.string.m75_steup), getString(R.string.m72_sd),
@@ -674,27 +698,107 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
             bean.setItemType(0);
             switch (i) {
                 case 0:
-                    bean.setIconRes(R.drawable.signal_gray);
-                    bean.setTitle("***");
+                    if ("1".equals(isNew)) {
+                        bean.setIconRes(R.drawable.signal_gray);
+                        bean.setTitle("***");
+                    } else {
+                        if (TextUtils.isEmpty(signalStrength)){
+                            signalStrength="0";
+                        }
+                        int wifiStrength = Integer.parseInt(signalStrength);
+                        if (wifiStrength == 0) {
+                            bean.setIconRes(R.drawable.signal1);
+                        } else if (wifiStrength <= 25) {
+                            bean.setIconRes(R.drawable.signal1);
+                        } else if (wifiStrength <= 50) {
+                            bean.setIconRes(R.drawable.signal2);
+                        } else if (wifiStrength <= 75) {
+                            bean.setIconRes(R.drawable.signal3);
+                        } else {
+                            bean.setIconRes(R.drawable.signal4);
+                        }
+                    }
 
                     break;
                 case 1:
-                    bean.setIconRes(R.drawable.bat_gray);
-                    bean.setTitle("***");
+                    if ("1".equals(isNew)) {
+                        bean.setIconRes(R.drawable.bat_gray);
+                        bean.setTitle("***");
+                    } else {
+                        if (TextUtils.isEmpty(batteryLevel)){
+                            batteryLevel="0";
+                        }
+                        int batteryL = Integer.parseInt(batteryLevel);
+
+                        if (batteryL == 0) {
+                            bean.setIconRes(R.drawable.bat0);
+                        } else if (batteryL <= 25) {
+                            bean.setIconRes(R.drawable.bat1);
+                        } else if (batteryL <= 50) {
+                            bean.setIconRes(R.drawable.bat2);
+                        } else if (batteryL <= 75) {
+                            bean.setIconRes(R.drawable.bat3);
+                        } else {
+                            bean.setIconRes(R.drawable.bat4);
+                        }
+                        bean.setTitle(batteryLevel + "%");
+                    }
 
 
                     break;
 
                 case 2:
-                    bean.setIconRes(R.drawable.ext_gray);
-                    bean.setTitle("***");
+
+                    if ("1".equals(isNew)) {
+                        bean.setIconRes(R.drawable.ext_gray);
+                        bean.setTitle("***");
+                    } else {
+                        if (TextUtils.isEmpty(extDcLevel)){
+                            extDcLevel="0";
+                        }
+                        int extDcl = Integer.parseInt(extDcLevel);
+                        if (extDcl == 0) {
+                            bean.setIconRes(R.drawable.ext0);
+                        } else if (extDcl <= 25) {
+                            bean.setIconRes(R.drawable.ext1);
+                        } else if (extDcl <= 50) {
+                            bean.setIconRes(R.drawable.ext2);
+                        } else if (extDcl <= 75) {
+                            bean.setIconRes(R.drawable.ext3);
+                        } else {
+                            bean.setIconRes(R.drawable.ext4);
+                        }
+                        bean.setTitle(extDcLevel + "%");
+
+                    }
 
 
                     break;
 
                 case 3:
-                    bean.setIconRes(R.drawable.sdcard_gray);
-                    bean.setTitle("***");
+                    if ("1".equals(isNew)) {
+                        bean.setIconRes(R.drawable.sdcard_gray);
+                        bean.setTitle("***");
+                    } else {
+                        if (TextUtils.isEmpty(cardSpace)){
+                            cardSpace="0";
+                        }
+                        int sSpace = Integer.parseInt(cardSpace);
+                        if (sSpace == 0) {
+                            bean.setIconRes(R.drawable.sdcard0);
+                        } else if (sSpace <= 19) {
+                            bean.setIconRes(R.drawable.sdcard1);
+                        } else if (sSpace <= 49) {
+                            bean.setIconRes(R.drawable.sdcard2);
+                        } else if (sSpace <= 69) {
+                            bean.setIconRes(R.drawable.sdcard3);
+                        } else if (sSpace <= 95) {
+                            bean.setIconRes(R.drawable.sdcard4);
+                        } else {
+                            bean.setIconRes(R.drawable.sdcard5);
+                        }
+                        bean.setTitle(cardSpace + "%");
+                    }
 
 
                     break;
@@ -732,15 +836,27 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         this.info = cameraBean;
 
 
-        String[] title = {
+    /*    String[] title = {
                 getString(R.string.m70_Signal), getString(R.string.m75_steup), getString(R.string.m75_steup), getString(R.string.m72_sd),
                 getString(R.string.m166_information), getString(R.string.m73_map), getString(R.string.m74_tracker), getString(R.string.m75_steup),
-        };
+        };*/
 
 
         String isNew = cameraBean.getIsNew();
+        String signalStrength = cameraBean.getSignalStrength();
+        String batteryLevel = cameraBean.getBatteryLevel();
+        String extDcLevel = cameraBean.getExtDcLevel();
+        String cardSpace = cameraBean.getCardSpace();
+        String lastUpdateTime = cameraBean.getLastUpdateTime();
 
         List<InfoHeadBean> beans = new ArrayList<>();
+        try {
+            beans = initinfo(isNew,signalStrength,batteryLevel,extDcLevel,cardSpace,lastUpdateTime);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+      /*  List<InfoHeadBean> beans = new ArrayList<>();
         for (int i = 0; i < title.length; i++) {
             InfoHeadBean bean = new InfoHeadBean();
             bean.setTitle(title[i]);
@@ -868,7 +984,7 @@ public class CameraFragment extends BaseFragment<CameraPresenter> implements Cam
         bean.setTitle(sysTime);
         bean.setIndex(4);
         bean.setItemType(1);
-        beans.add(4, bean);
+        beans.add(4, bean);*/
         mCameraInfoAdapter.replaceData(beans);
 
     }

@@ -26,6 +26,15 @@ public class HomeComFragment extends BaseFragment<HomePresenter> implements Home
     public String cameraId;
     public String cameraAlias;
 
+
+
+    public String signalStrength;
+    public String batteryLevel;
+    public String cardSpace;
+    public String extDcLevel;
+    public String isNew;
+
+
     //当前显示的页面
     public int pager = 1;
 
@@ -77,6 +86,13 @@ public class HomeComFragment extends BaseFragment<HomePresenter> implements Home
         Bundle bundle = new Bundle();
         bundle.putString("cameraId", cameraId);//电站id传值
         bundle.putString("alias", cameraAlias);//电站id传值
+
+        bundle.putString("signalStrength", signalStrength);//电站id传值
+        bundle.putString("batteryLevel", batteryLevel);//电站id传值
+        bundle.putString("cardSpace", cardSpace);//电站id传值
+        bundle.putString("isNew",isNew);
+        bundle.putString("extDcLevel",extDcLevel);
+
         mCameraFragment.setArguments(bundle);
         pager = 2;
         mTransaction.replace(R.id.fl_content, mCameraFragment);

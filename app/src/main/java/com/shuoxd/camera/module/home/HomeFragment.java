@@ -313,9 +313,21 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         } else {
             cameraBean = mBigAdapter.getData().get(position);
         }
-        String id = cameraBean.getCamera().getImei();
-        String alias = cameraBean.getCamera().getAlias();
-        showCameraInfo(id,alias);
+
+        CameraBean.CameraInfo camera = cameraBean.getCamera();
+
+        String id = camera.getImei();
+        String alias = camera.getAlias();
+
+        //别名
+        String signalStrength = camera.getSignalStrength();
+        String batteryLevel = camera.getBatteryLevel();
+        String cardSpace = camera.getCardSpace();
+        String isNew = camera.getIsNew();
+        String extDcLevel = camera.getExtDcLevel();
+
+
+        showCameraInfo(id,alias,signalStrength,batteryLevel,cardSpace,isNew,extDcLevel);
 
     }
 
@@ -323,7 +335,10 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
 
     //点击item跳转到Fragment1V2
 
-    private void showCameraInfo(String id, String alias) {
+    private void showCameraInfo(String id, String alias,
+                                String signalStrength,
+                                String batteryLevel,
+                                String cardSpace,String extDcLevel,String isNew) {
    /*     MainActivity2 main = (MainActivity2) getActivity();
         main.cameraId = id;
         main.cameraAlias = alias;*/
@@ -333,6 +348,13 @@ public class HomeFragment extends BaseFragment<HomePresenter> implements HomeVie
         assert parentFragment != null;
         parentFragment.cameraId = id;
         parentFragment.cameraAlias = alias;
+
+        parentFragment.signalStrength = signalStrength;
+        parentFragment.batteryLevel = batteryLevel;
+        parentFragment.cardSpace = cardSpace;
+        parentFragment.extDcLevel=extDcLevel;
+        parentFragment.isNew = isNew;
+
         parentFragment.showCamera();
     }
 

@@ -121,8 +121,8 @@
     <string name="m99_apply">Apply</string>
     <string name="m100_total">Total</string>
 
-    <string name="m101_photo_tracker">PHOTO TRACKER</string>
-    <string name="m102_camera_stepup">CAMERA SETUP</string>
+    <string name="m101_photo_tracker">Photo Tracker</string>
+    <string name="m102_camera_stepup">Camera Setup</string>
 
 
     <string name="m103_capture_mode">Capture Mode</string>
@@ -162,7 +162,7 @@
     <string name="m134_send">Send</string>
     <string name="m135_input_message">Enter Reply Content</string>
     <string name="m136_input_title">Enter Title</string>
-    <string name="m137_choose_camera">Select a Camera</string>
+    <string name="m137_choose_camera">Select A Camera</string>
     <string name="m138_input_conten">Please Enter Detail Description</string>
     <string name="m139_question">Question</string>
     <string name="m140_selection">Selection</string>
@@ -285,7 +285,7 @@
     <string name="m241_current_plans">Current Plan</string>
     <string name="m242_days_remaining">Days Remaining</string>
     <string name="m243_next_bill_date">Next Bill Date</string>
-    <string name="m244_choose_plans">Choose A Plan</string>
+    <string name="m244_choose_plans">Choose a Plan</string>
     <string name="m245_monthly">Monthly</string>
     <string name="m246_annual">Annual</string>
     <string name="m247_cost">Cost</string>
